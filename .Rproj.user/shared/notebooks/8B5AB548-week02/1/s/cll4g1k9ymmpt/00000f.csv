@@ -1,8 +1,0 @@
-"0","from collections import defaultdict"
-"0","hello = ""Hello world!"""
-"0","counter = defaultdict(int)"
-"0","for char in hello:"
-"0","    counter[char] += 1"
-"0","print(counter)"
-"1","defaultdict(<class 'int'>, {'H': 1, 'e': 1, 'l': 3, 'o': 2, ' ': 1, 'w': 1, 'r': 1, 'd': 1, '!': 1})
-"

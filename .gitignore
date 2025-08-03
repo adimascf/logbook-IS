@@ -9,6 +9,7 @@ _site/
 .Rhistory
 .RData
 .Ruserdata
+.Rproj.user/
 
 # RStudio Connect deployment metadata
 **/rsconnect/
