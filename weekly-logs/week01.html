@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Week 01: literature review, exploring relevant databases, and evaluating IS detection tools – IS Project Logbook</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-a14e3238c51140e99ccc48519b6ed9ce.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">IS Project Logbook</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../home.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-weekly-logs" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Weekly Logs</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-weekly-logs">    
+        <li>
+    <a class="dropdown-item" href="../weekly-logs/week01.html">
+ <span class="dropdown-text">Week 1</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../weekly-logs/week02.html">
+ <span class="dropdown-text">Week 2</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a>
+  <ul>
+  <li><a href="#daily-log" id="toc-daily-log" class="nav-link" data-scroll-target="#daily-log">Daily Log</a>
+  <ul>
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section">28-07-2025</a></li>
+  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1">29-07-2025</a></li>
+  <li><a href="#section-2" id="toc-section-2" class="nav-link" data-scroll-target="#section-2">30-07-2025</a></li>
+  <li><a href="#section-3" id="toc-section-3" class="nav-link" data-scroll-target="#section-3">31-07-2025</a></li>
+  <li><a href="#section-4" id="toc-section-4" class="nav-link" data-scroll-target="#section-4">01-08-2025</a></li>
+  </ul></li>
+  <li><a href="#glossary" id="toc-glossary" class="nav-link" data-scroll-target="#glossary">Glossary</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Week 01: literature review, exploring relevant databases, and evaluating IS detection tools</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="overview" class="level1">
+<h1>Overview</h1>
+<p>Setup Bunya HPC account and access, read IS related papers from Leah and Tom, compared the existing tools and publicly available database.</p>
+<hr>
+<section id="daily-log" class="level2">
+<h2 class="anchored" data-anchor-id="daily-log">Daily Log</h2>
+<section id="section" class="level3">
+<h3 class="anchored" data-anchor-id="section">28-07-2025</h3>
+<ul>
+<li><p>Weekly project meeting</p>
+<ul>
+<li>Tom introduced <a href="https://github.com/tomdstanton/eris">eris</a>, and explained how the tool works.</li>
+<li>leah made google docs to list the things that I need to do</li>
+<li>Leah and Tom send IS related papers for me to study</li>
+</ul></li>
+<li><p>Submitted the <strong>Bunya application form</strong>.</p>
+<p>Need to wait 48 hours to get respond from RCC.</p></li>
+<li><p>Started reading the following papers:</p>
+<ol type="1">
+<li><a href="https://www.biorxiv.org/content/10.1101/2025.07.24.666535v1">IS-capades of Klebsiella pneumoniae: Insertion sequences drive metabolic loss in obscure sub-lineages</a></li>
+</ol>
+<ul>
+<li>These four sub lineages SL91 and SL10031 (also referred to as subspecies 19 ozaenae), SL10032 (subspecies rhinoscleromatis) and SL82 have relatively high number of IS, each with differenT profile. These high number of IS are linked to the loss of the ability to use many nutrients for metabolic process.</li>
+<li>IS may affect metabolism by directly disrupting nearby genes or indirectly through genome rearrangements over time. Despite these loses, the sub lineages still keep a core of metabolic traits that likely help the survive.</li>
+</ul>
+<ol start="2" type="1">
+<li><a href="https://www.cell.com/cell-host-microbe/fulltext/S1931-3128(24)00085-4?dgcid=raven_jbs_aip_email#sec-4-1">A metagenomics pipeline reveals insertion sequence-driven evolution of the microbiota</a></li>
+</ol>
+<ul>
+<li>Developed new IS database ISOSDB, expanding IS diversity of ISfinder, it is built from single and metagenome data.</li>
+<li>Built the <a href="https://github.com/joshuakirsch/pseudoR">pseudoR</a> to wok with the new database, can use metagenomic data for the input.</li>
+<li>IS in gut bacteria is diverse regardless of the lifestyle and geopgraphy. These inertions usually target accessory genes (not cor genes for survival?)</li>
+<li>iORF evenets is usually unique to individual microbiome</li>
+<li>IS insertions are temporary stable and maintained, and others only detected at specific timepoint. Microbiota actively forming new insertions.</li>
+<li>Antibiotic pressure cause significant loss of IS diversity, and usually unrecovered afftar the expossure.</li>
+<li>Diet intervensions affect the IS insertions, in respond to metabolic process adaptation</li>
+</ul></li>
+</ul>
+</section>
+<section id="section-1" class="level3">
+<h3 class="anchored" data-anchor-id="section-1">29-07-2025</h3>
+<ul>
+<li><p>Started reading the following papers:</p>
+<ol type="1">
+<li><a href="https://doi.org/10.1128/cmr.00088-17">Mobile Genetic Elements Associated with Antimicrobial Resistance</a></li>
+</ol>
+<ul>
+<li>Review specieally highlights ESKAPEE pathogens (<em>E. coli</em>, <em>K. pneumoniae</em>, <em>A. baumannii</em>, <em>S. aureus</em>) in the resistance dissemination.</li>
+<li>MGE including IS, transposon, integron, gene cassette, plasmid are driver horizontal gene transfer of resistance genes among pathogenes. They play significant role in the acquisition, accumulation, and dissemination of antimicrobial resistence (AMR) genes.</li>
+<li>Classification of IS by:
+<ul>
+<li>Amino acids transpoase motifs, DDE (Asp-Asp-Glu) is the most common.</li>
+<li>Transposition mechanisms, cut or copy paste</li>
+</ul></li>
+<li>Terminal inverted repeats typically found at both end of IS</li>
+<li>ISfinder is manually curated database for IS elements.</li>
+<li>Naming shceme: it comnbines species origin and an ID number (e.g., ISAba1 from <em>Acinetobacter baumannii</em>).</li>
+<li>IS can activate resistance genes by inserting upstream, distruping genes nearby, or facilitating cimposite transposon</li>
+<li>IS can flank resistence gene(s) to form composite transposon</li>
+<li>IS integrate into plasmid, driving HGT</li>
+<li>Multiple identical MGE collapse during WGS assembly, resistance islands become fragmented across contigs</li>
+</ul></li>
+</ul>
+</section>
+<section id="section-2" class="level3">
+<h3 class="anchored" data-anchor-id="section-2">30-07-2025</h3>
+<ul>
+<li><p>My access request to Bunya HPC has been approved.</p>
+<p>Logged into HPC, set up keygen ssh</p></li>
+<li><p>Started reading the following papers:</p>
+<ol type="1">
+<li><a href="https://doi.org/10.1128/microbiolspec.mdna3-0030-2014">Everyman’s Guide to Bacterial Insertion Sequences</a></li>
+</ol>
+<ul>
+<li>IS play big roles in the genomic evolutions, including gene rearrangement, gene modulation, and HGT.</li>
+<li>THey have high diversity &gt; 4000 identified IS, it will increase along with sequencing project, and make it the boundaries with other MGE less clear</li>
+<li>Family definitions are qualitative/descriptive.</li>
+<li>IS is defined a short (0.7 and 2.5 kb) DNA elements encoding only enzymes requires for its mobility. Their genetic compotition are compact with mosly two open reading frames (orfs) which occupy the entire length of the IS and terminate in flanking imperfect terminal repeat sequences (IR).</li>
+<li>ISfinder is curated IS database as well as it provides a framework for nomenclature and IS classification into related groups or families.</li>
+<li>Major IS groups is characterised by the chemestry they use to breaking and rejoining: motif DDE (and DEDD) and HUH enzymes.</li>
+<li>DDE transposases IS are distinguished by the second (“nontransferred”) strand is processed:
+<ul>
+<li>Coointegrate (copy and paste): IS6</li>
+<li>Cut and paste in, with 2 bp footprint in donor site: IS630</li>
+<li>Cut and paste in, with haipin formation: IS4</li>
+<li>Replicate circle formed, with donor retained (copy and paste): IS3, IS2, IS911</li>
+</ul></li>
+<li>IS is ismple TE with only transpoase, composite transposon is two IS elements flanking genes, unit tranposon is ingle unit Tpase with cargo, ICE is integrated + conjugative transfer</li>
+<li>Transporter IS carry passager genes that are not related to mobility, antibiotic resistance genes (ISCgl1, IS481 family)</li>
+<li>IS91/ISCR group is associated with diverse antibiotic resistance genes</li>
+<li>IS can rapidly invrease copy number (expansion), remove unnecessary genes (in nuitrient rich environtment).</li>
+<li>IS can modulate gene expression (resistance gene) in two main ways:
+<ul>
+<li>insert in coding sequence and distrupt the expression</li>
+<li>bring the promoter, induce gene activation.</li>
+</ul></li>
+<li>IS insertion is not entirely random:
+<ul>
+<li>Some IS prefer specific motifs, IS630 prefer TA in the target</li>
+<li>Some IS prefer AT-rich or GC-rich regions</li>
+</ul></li>
+<li>ISfinder groups IS into families based on structural and functional characteristics (Transpoase motifs, IR, TSD, orf, target preference, etc)</li>
+<li>29 IS families identified in ISfinder</li>
+<li>IS doesn’t include every IS that exists, the sequence come from reseachers who studied and submited it. New database expansion or exploration will likely lead to new families or groups.</li>
+<li>IS1 (DDE transpoase) plays a role in spreading antibiotic resistence by flanking that genes on transposon or plasmid.</li>
+<li>IS3 (DDE transpoase) is the biggest IS family with &gt;550 members found in &gt; 270 species</li>
+</ul>
+<ol start="2" type="1">
+<li><a href="https://doi.org/10.1093/nar/gkj014">ISfinder: the reference centre for bacterial insertion sequences</a></li>
+</ol>
+<ul>
+<li>ISfinder defines ISD as short genetically compact DNA segments (between 0.7 and 2.5 kb) encoding no functions other than those involved in their mobility.</li>
+<li>ISfinder is manual curation (need to fill out the submission form) exclusively for IS database. It also play role as Inaming convention/nomenclature).</li>
+<li>Follow naming system from restriction enzyme. example: ISKpn1 (found in <em>Klebsiella pneumoniae</em>, and unique identifier 1). Drawback: some IS elements are found in multiple taxa. Hystorical number blocks are preserved in the database.</li>
+<li>ISfinder utilises MySQL structure</li>
+<li>It provides: DNA sequence, orf/poteintal coding sequence, TIR and TSD, Taxonomic origin, IS family, reference, NCBI taxonomy, also tools like BLAST.</li>
+</ul></li>
+</ul>
+</section>
+<section id="section-3" class="level3">
+<h3 class="anchored" data-anchor-id="section-3">31-07-2025</h3>
+<ul>
+<li><p>Completed the Health Safety and Wellness Induction training on Blackboard</p></li>
+<li><p>Complerted the Annual Fire Safety training on Blackboard</p></li>
+<li><p>Started reading the following papers:</p>
+<ol type="1">
+<li><a href="https://doi.org/10.1099/mgen.0.000062">Quantitative assessment of insertion sequence impact on bacterial genome architecture</a></li>
+</ol>
+<ul>
+<li>They introduced ISseeker to anotate IS element in the draft genome assembly</li>
+<li>Using genome assembly draft as an input, less computational cost.</li>
+<li>It identifies IS by blasting their flanking sequences (500 bp) to a reference genome. Both full long contigs includes IS and flanks and and truncated IS (but flanks remain)</li>
+<li>These flank can tell us where the IS location in the host genome.</li>
+<li>If match is found, IS is annotated as mapped. The location relative to adjacent genes in the reference genome (user specified) is reported.</li>
+<li>It doesn’t use ISfinder</li>
+<li>It does not give us the full inserted sequence, it doesn’t classifiy IS, it doesn’t give functional effect</li>
+<li>Phylogenetically they suggested that many IS insertion in A. baumannii and K. pneumoniae are conserved.</li>
+<li>IS elements can insert intragenically (within genes) or intergenically (between genes)</li>
+<li>Multiple IS insertion in same region (<em>A. baumannii</em>)</li>
+<li>Although the genome size is about 30 % smaller than K. pneumoniae genomes (~5.6 Mbp), IS element density from <em>A. baumannii</em> is greater.</li>
+</ul>
+<ol start="2" type="1">
+<li><a href="https://doi.org/10.1371/journal.pgen.1008931">Impact of insertion sequences on convergent evolution of Shigella species</a></li>
+</ol>
+<ul>
+<li>IS in <em>Shigella</em> genomes account 5-8% of bases, much higher than <em>E.coli</em> with &lt;1%.</li>
+<li>They used ISMapper to identify insertion sites in chromosomes.</li>
+<li>Within each Shigella species (<em>S. dysenteriae</em>, <em>S. flexneri</em>, <em>S. sonnei</em>), there are variation in both the number and the location of IS insertion. These IS insertion patterns could be use to differentiate phylogenetic lineages.</li>
+<li>IS transposition has been ongoing since each species split</li>
+<li><em>S. sonnei</em>, <em>S. dysenteriae</em>, and <em>S. flexneri</em> share 53%, 82%, ~33% sites between lineages, respectively. IS Insertion can reflect recent and previous evolution history.</li>
+<li>Five common IS (IS1, IS2, IS4, IS600, IS911) made upp most insertion in Shigella reference genomes, with IS1 contributed the most. These insertion contributing in convergent evolution of the genus.</li>
+<li>They measured recent IS activity by counted strain specific insertions divided by strain specific SNVs. <em>S. sonnei</em> shows significantly higher recent activity for all five IS</li>
+<li>Proportion of pseudogenes associated with IS insertion is 50% in <em>S. sonnei</em>, 22% in <em>S. flexneri</em> and 35% in <em>S. dysenteriae</em>. Significant number of convserved pseudogenes were interupted by IS.</li>
+<li>Insertions events are less frequent in gene regions (0.20 in S. flexneri, 0.29 in S. sonnei, 0.11 in S. dysenteriae), suggesting purifying selection against insertion in CDS.</li>
+<li>IS contributed to pathways loss in each species. Disrupting individual metabolic gene or multiple hits within the same pathway. All ancient pathway inactivation events (&gt;80% of genomes) within metabolic reactions were IS insertions in <em>S. sonnei</em> and <em>S. dysenteriae</em>, and 30% in <em>S. flexneri</em>.</li>
+<li>ISmapper detects IS by mapping paired reads to a list of query IS sequences. Then it finds pairs that only one mapped to the query (unmapped mates correspond to the flanking genomic DNA). These “flanking” reads then map to the reference genome to get insertion location.</li>
+</ul>
+<ol start="3" type="1">
+<li><a href="https://doi.org/10.1093/nar/gkq140">Transposases are the most abundant, most ubiquitous genes in nature</a></li>
+</ol>
+<ul>
+<li>Using genomes and metagenomes data, they found that transposase gene that produce eznyme that enable movement within part of genome outnumber any other type of genes, including housekeeping genes.</li>
+<li>Previously labelled as selfish genes with no other purpose than propagating themse;f, the finding that transpoase more abundance that all essential genes, support the idea that these DNA elements play role in host adaptation.</li>
+<li>This group of mobile element leads to mutation and genome rearrangements that affect diversiciation and adaptation, and drive evolution.</li>
+</ul>
+<ol start="4" type="1">
+<li><a href="https://doi.org/10.1128/mmbr.00119-22">IS26 and the IS26 family: versatile resistance gene movers and genome reorganizers</a></li>
+</ol>
+<ul>
+<li>IS26 is found in plasmid and chromosome of pathogens like <em>E. coli</em> and <em>Klebsiella</em>.</li>
+<li>It is known for good at spreading resistance gene</li>
+<li>IS26 is 820 bp long with perfectly matching 14 bp TIR. S26 includes a single open reading frame, tnp26, that encodes the 234-aa DDE transposase designated Tnp26, and Tnp26 is required for movement. Movement of IS26 to a new location generates a TSD of 8 bp.</li>
+<li>Its promoters within the TIRs allow not only expression of its own gene but can also enhance antibiotic resistance gene expression nearby.</li>
+<li>IS26 forms cointegrates rather than simply inserting a copy itself. The incoming replicon carrying IS26 becomes flanked by two IS26 copies.
+<ul>
+<li>IS26 has unquie moving mechanism, that enables them spreading resistence genes. It has two distinct cointegration, Pseudo composite transposon (PCT) formation.</li>
+</ul></li>
+<li>IS26 enables <em>A. baumannii</em> to capture and integrate resistance genes</li>
+</ul></li>
+</ul>
+</section>
+<section id="section-4" class="level3">
+<h3 class="anchored" data-anchor-id="section-4">01-08-2025</h3>
+<ul>
+<li><p>Compared ISFinder vs ISOSDB</p>
+<ul>
+<li>ISFinder is a manually curated IS database, the submission requires the researchers to fill out the form. It also provide naming convention for IS.</li>
+<li>ISOSDB include much larger collection of IS sequences than ISFinder (extended version). They author identified IS element using <a href="https://github.com/dgrtwo/OASIS">OASIS</a> from publicly available metagenome and genome. OASIS takes genbank format file (.gbk) as an input and alrady transposases annotated. It has different naming convention with ISFinder (ISOSDB prefix) The IS elements are included in the ISOSDB if meet following criteria:
+<ul>
+<li>at least two copies of the IS element in a single genome,</li>
+<li>flanked by terminal IRs</li>
+<li>it has significant nucleotide homology to an IS element in ISFinder or has a putative transposase.</li>
+</ul></li>
+</ul></li>
+<li><p>Compared the existing tools</p>
+<ul>
+<li><p><a href="https://github.com/dgrtwo/OASIS">OASIS</a></p>
+<ul>
+<li>OASIS using annotated transposase from genebank file. It then groups IS into multicopy ISs and single-copy ISs. The edges (or flanking?) of Multicopy ISs defined with homology (maximum likelihood). Edges of single and multicopy (re)define by IR. Identifies partial and missing IS using blast. Then group IS sequeces using hierechial clustering.</li>
+<li>Classifiy the detected IS sequence using ISfinder database.</li>
+<li>It doesn’t require the user to provide a reference genome or to provide query IS sequence. The input only gbk file. It relies on the gene (of Tpases) annotation form the genebank file.</li>
+</ul></li>
+<li><p><a href="https://github.com/jhawkey/IS_mapper">IS_mapper</a></p>
+<ul>
+<li>ISMapper takes as input: a set of paired end Illumina reads, an IS query sequence in fasta format, a referenc genome sequence, in GenBank or FASTA format.</li>
+<li>The paired end read then are mapped to the IS query, looking for unmapped mate reads, that is reads representing the sequences directly flanking the IS (is it always the case?). The left and right flanking sequences is then mapped to the referenc egenome to find the location of the query IS. Left and right end blocks are extracted, close indiciating (known IS position relative tto the reference), overlaped (novel IS position).</li>
+</ul></li>
+<li><p><a href="https://github.com/JCVI-VIRIFX/ISseeker">ISSeeker</a></p>
+<ul>
+<li>ISSeeker takes assembly draft/collection of contigs as an input. The program aligns (using BLAST) collection of IS elemets to the collection of cotigs (assembly draft), looking for full or partial (edges) matches, then it extraxts both flanking regions of that matches (500bp). These flanking (of insetion) region then mapped again to the reference to get the relative position in the genome, infering where the insertion events happened.</li>
+<li>It attempts to pair left and right flanks that mapped in the same location in the referecne genome to infer a single insertion event.</li>
+</ul></li>
+<li><p><a href="https://github.com/xiezhq/ISEScan">ISEScan</a></p>
+<ul>
+<li>The program only use a (draft) genome or metagenome sequence (fasta) as an input. It scan and translate to protein sequence for each enry from the file to identify the transpoase sequences.</li>
+<li>It uses profile Hidden Markov Models (pHMMs), that is built from Transposase sequence by evolutionary relationshiop, to search remote homolog of transposase sequences from the given fasta.</li>
+<li>Similiar o OASIS, it groups the IS candidate into single copy and multicopy to identify the edges (boundaries). Then reomve redundants result with hierarchical clustering. Boundaries of a single copy IS is defined by IR, multi copy ISs is determined by homology of those sequences and shared IRs.</li>
+<li>After idnetifyng transposase ORF, the porgram defines the flanking regions (regions around ORF). It then predicts IRs using local alignment (SW) algorithm to compare left side regions DNA sequences againts the reverse complement of the right side regions. It searches both nearby and farther regions.</li>
+</ul></li>
+<li><p><a href="https://github.com/joshuakirsch/pseudoR">pseudoR</a></p>
+<ul>
+<li>IS detection pipeline that uses ISOSDB</li>
+<li>It doesn’t rely on paired-end information, instead it uses split reqd approach (looking reads that partially mapped to the assembled genome?).</li>
+<li>Sequencing reads are first mapped to the assembled contigs. The program then collects all read that are unmapped. These reads the are aligned again to a ISOSDB search for IS terminal ends. If a read contains an IS terminus, that part is deleted, and the rest of the sequence is remapped to the assembled contigs.</li>
+</ul></li>
+<li><p><a href="https://github.com/janka2012/digIS">digIS</a></p>
+<ul>
+<li>The program searches for the most conserved part of Tpase (DDE motifs), the catalytic domain.</li>
+<li>It takes genome (complete?) in fasta as an input, optionally with annotation file gbk. It then translates whole DNA sequence from the input file into protein sequence. Catalyc domain the input sequence is detected using manually curated pHMMs, and the matche regions are tagged as seeds. The seeds are theen extended to get the transaposase sequence of predicted IS.</li>
+<li>pHMMs are built from MSAa of transposase catalyc domain for each IS family using sequences from ISFinder.</li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section id="glossary" class="level2">
+<h2 class="anchored" data-anchor-id="glossary">Glossary</h2>
+<ul>
+<li><strong>Lineage</strong>: A broad group of bacteria that shares a common evolutionary ancestor.</li>
+<li><strong>Sublineage</strong>: A small group within a lineage that diverge further, because accumulation of mutation, IS insertions, and other genome rearrangements.</li>
+<li><strong>Inverted repeats (IRs)</strong>: short DNA sequences at both end of a IS, where the sequence on one end is the reverse complement of the other end (boundaries of the IS). Inverted and complementary.</li>
+<li><strong>Direct Target Repeats (DTRs)</strong>: Created during integration, identical sequences (footprint of insertion)</li>
+<li><strong>iORF</strong>: Insertion event of IS in the ORF (genes) that may knock off or regulate the gene expression.</li>
+<li><strong>Composite Transposon</strong>: Two IS in the flanking segement with (resistence) gene in the middle.</li>
+<li><strong>Target Site Duplications (TSD)</strong>: short flanking direct repeats (DR, typically ∼3 to 14 bp</li>
+<li><strong>Gene cassette</strong>: Small (0.5-1kb), carry a single gene, often lack a promoter. It can exist as free circular cassette, but only functional when it is inserted into an integron.</li>
+<li><strong>Integron</strong>: It has intl (a site specific recombinase), recombination site, and a promoter for cassete gene expression. They are not mobile by themselves, but embeded in transposons.</li>
+<li><strong>Unit transposons (Tn)</strong>: Larger than IS, carry additional genes, such as antibiotic resistance genes.</li>
+<li><strong>Plasmids</strong>: Self replicating extrachromosomal DNA. They often carry multiple MGE including IS, transposon</li>
+<li><strong>Serotype</strong>: groups bacteria/viruses using antigen or toher molecule on the their surfaces</li>
+<li><strong>Convergent evolution</strong>: evolution process that is driven by environment adaptation from distantly related species.</li>
+<li><strong>Pseudogene</strong>: Region that resemble gene structure but inactive due to mutation/IS insertion</li>
+<li><strong>Pseudo-Compound Transposons</strong>: DNA sequence that is flanked by two IS26s in the same direction, carrying antibiotic resistance genes.</li>
+<li><strong>Putative transposase</strong>: Predicted to be transposase (using sequence similarity, motifs, etc), but it’s not experimentally confirmed.</li>
+<li><strong>Flanking sequence</strong>: DNA sequences that adjacent to the IS element, on the left and right ends.</li>
+</ul>
+<hr>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
