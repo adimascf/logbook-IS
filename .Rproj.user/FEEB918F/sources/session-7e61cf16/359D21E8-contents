@@ -1,0 +1,26 @@
+---
+title: "Computational Lab Logbook"
+author: "A Dimas CF"
+format: html
+project: "De novo identification of insertion sequences with De Bruijn graphs"
+editor: visual
+---
+
+## Project Overview
+
+This document records all computational work for the project: *De novo identification of insertion sequences with De Bruijn graphs*.
+
+Insertion sequences (IS) are small DNA elements that can replicate and move throughout a bacterial genome independently. This ability often results in their insertion upstream of or within genes, which consequently leads to large effects on gene expression within the bacteria. These changes in expression can affect a multitude of phenotypes, including resistance to antibiotics and virulence. As such, is it necessary that we characterise where these IS move to within the genome.
+
+Unfortunately, as IS are small and repetitive throughout the genome, they cause issues for short-read de novo assemblers, most notably collapsed repeats. Because of this, it can be difficult to determine the exact location of IS throughout the genome.
+
+The goal is to build an end-to-end pipeline that: - Detect de novo IS using de Brujin graphs - Quantify a collection of bacterial genomes for the effect of IS sequences on the phenotype.
+
+## Glossary:
+
+-   **Insertion Sequence (IS)**: Short DNA sequence that can replicate and move within genome. Their activity can modulate gene expression and cause genomic rearrangements
+-   **De Brujin–graph**: A graph representation of overlapping sequence. Nodes represent (k-1)-mers and edges represent k-mers. An edge connects two nodes if the suffix of the first (k-1)-mer overlaps with the prefix of the second (k-1)-mer.
+
+## Work Sessions
+
+-   [28-07-2025](weekly-logbooks/week01.html): Literature reading, compare databases

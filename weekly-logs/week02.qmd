@@ -1,0 +1,20 @@
+---
+title: "Week 02"
+format:
+  html: 
+    toc: true
+    toc-depth: 5
+editor: visual
+---
+
+# Overview
+
+```{python}
+from collections import defaultdict
+hello = "Hello world!"
+counter = defaultdict(int)
+for char in hello:
+    counter[char] += 1
+print(counter)
+
+```

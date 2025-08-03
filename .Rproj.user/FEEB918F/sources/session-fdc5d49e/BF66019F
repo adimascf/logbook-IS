@@ -1,0 +1,32 @@
+{
+    "id": "BF66019F",
+    "path": "~/UQ-resources/SEM2/research-project/logbook/weekly-logbooks/week01.qmd",
+    "project_path": "weekly-logbooks/week01.qmd",
+    "type": "quarto_markdown",
+    "hash": "4019978487",
+    "contents": "",
+    "dirty": true,
+    "created": 1753782455263.0,
+    "source_on_save": false,
+    "relative_order": 1,
+    "properties": {
+        "rmdVisualMode": "false",
+        "rmdVisualWrapConfigured": "true",
+        "source_window_id": "",
+        "Source": "Source",
+        "docOutlineVisible": "1",
+        "rmdVisualCollapsedChunks": "",
+        "cursorPosition": "7,10",
+        "scrollLine": "0",
+        "rmdVisualModeLocation": "1921:299.20001220703125",
+        "docOutlineSize": "44"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1754129395,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1754129395,
+    "read_only": false,
+    "read_only_alternatives": []
+}

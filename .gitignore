@@ -1,0 +1,17 @@
+# Quarto build output
+_site/
+
+# Auto-generated asset folders for individual .qmd files
+**/*_files/
+
+# RStudio-related files
+*.Rproj
+.Rhistory
+.RData
+.Ruserdata
+
+# RStudio Connect deployment metadata
+**/rsconnect/
+
+# macOS system file
+.DS_Store

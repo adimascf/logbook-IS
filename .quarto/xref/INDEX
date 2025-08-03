@@ -1,0 +1,19 @@
+{
+  "logbook.qmd": {
+    "logbook.html": "d2347a67"
+  },
+  "weekly-logbooks/week01.qmd": {
+    "week01.html": "56caeb86"
+  },
+  "weekly-logs/week01.qmd": {
+    "week01.html": "1bdc5022",
+    "week01.tex": "53ca437c"
+  },
+  "home.qmd": {
+    "home.html": "112c7756",
+    "home.tex": "a174d652"
+  },
+  "weekly-logs/week02.qmd": {
+    "week02.html": "cc761b13"
+  }
+}

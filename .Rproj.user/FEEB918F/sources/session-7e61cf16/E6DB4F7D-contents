@@ -1,0 +1,462 @@
+---
+title: "QBIO7002 – Unsupervised learning assignment"
+author: "Achmad Dimas Cahyaning Furqon"
+format:
+  html:
+    toc: true
+editor: visual
+---
+
+```{r libraries}
+#| message: false
+#| warning: false
+#| include: false
+library(tidyverse)
+library(ggrepel)
+library(glue)
+library(factoextra)
+library(cowplot)
+library(patchwork)
+library(kableExtra)
+```
+
+## Introduction
+
+A research project conducted at Heron Island will be monitoring coral colonies *Acropora millepora* via multiple dives per year, investigating growth and survival, particularly their response to bleaching events. These coral colonies have been identified based on morphological characteristics. However, morphological identification often fails to distinguish cryptic species, where organisms that are very similar in appearance, but genetically distinct with little or no interbreeding between them. To ensure accurate monitoring and interpretation of the results, it is essential to verify whether all collected samples truly represent a single species.
+
+To address this, unsupervised learning methods were applied to the basal gene expression data collected from the coral tissue samples, providing insights into potential genetic structure within the dataset. Principal component analysis (PCA) was used to understand general pattern among the samples based on gene expression levels on a low dimensional space. Subsequently, silhouette scores and k-means clustering were performed to determine the optimal number of clusters and to partition the samples accordingly.
+
+## Method
+
+### Gene expression data
+
+The basal gene expression dataset consist of 400 observations of gene expression from coral colonies, where it measures expression level across 350 genes. In addition of the gene expression data, the dataset includes information on the depth at that each colony being sampled and also the colony ID. All gene expression levels have been normalized and on the same scale, and does not contain zero or NA value.
+
+### PCA and Extracting The Most Informative Genes
+
+PCA was performed using `princomp()` function from base R based on the correlation matrix. A scree plot of eigenvalues was used to determine the number of principal components (PCs) or dimensions to retain for visualisation.
+
+A lower bound, representing the expected contribution if all variables contributed equally, was calculated. Loadings from the first two PCs were then extracted, and their absolute values were computed. Genes with first two PCs loading values below than the lower bound were filtered out. The remaining genes were sorted in descending order by their absolute loading values, and the top 10 most informative genes were selected. For better visualization in the plot, the magnitude of loading vectors of these selected genes (from the first two PCs) was adjusted by an arbitrary factor of 25.
+
+### Clustering
+
+The silhouette score was calculated for number of cluster ranging from 1 to 20 using `fviz_nbclust()`. The cluster number with the highest average silhouette width was selected as the optimal number of clusters in the dataset. This number then was used as input for k-means clustering, which was applied to the Euclidean distance matrix of the dataset using the `kmeans()` function from base R with the Hartigan-Wong algorithm and `iter.max` was set to 25.
+
+## Result
+
+```{r result_pca}
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-height: 6
+#| fig-width: 6
+
+# load the data
+acro_gene <- read_csv("Coral Expression Data.csv") %>%
+  rename(sample = ...1)
+
+# get only the count data and sample ID
+count_data <- acro_gene %>%
+  select(sample, starts_with("Gene")) # select only the sample name and gene expression
+
+# run PCA
+pca_acro <- princomp(count_data[-1], scores = TRUE, cor = T)
+
+# create scree plot
+scree_plot <- fviz_eig(pca_acro, choice = "eigenvalue", geom = "bar", 
+         barcolor = "black", barfill = "grey") +
+  theme_classic() +
+  scale_y_continuous(expand = c(0,0)) +
+  theme(plot.title = element_blank())
+
+# get percent explained for aech axes
+percent_explained <- get_eig(pca_acro)$variance.percent
+percent_explained_pc1 <- percent_explained[1] %>% 
+  round(2)
+percent_explained_pc2 <- percent_explained[2] %>%
+  round(2)
+
+# plot ordination
+pc_scores <- pca_acro$scores %>% as.tibble() %>%
+  select(Comp.1, Comp.2) %>% # select only the first two PCs
+  rename(pc1 = Comp.1, pc2 = Comp.2) %>%
+  mutate(sample_id = acro_gene$sample,
+         depth = acro_gene$depth) 
+
+depth_pca_plot <- pc_scores %>%
+  ggplot(aes(x = pc1, y = pc2, colour = depth)) +
+  geom_point() +
+  theme_classic() +
+  scale_color_gradient(low = "lightblue", high = "darkblue",
+                       guide = guide_colorbar(reverse = TRUE)) +
+  labs(x = glue("PC1 ({percent_explained_pc1}%)"), 
+       y = glue("PC2 ({percent_explained_pc2}%)"),
+       color = "Sampling \nDepth (m)") + 
+  theme(legend.title = element_text(size = 8, face = "bold"),
+        legend.text = element_text(size = 8),
+        legend.key.size = unit(0.5, "cm"))
+
+# adjust scree plot first to make it smaller
+(scree_plot + plot_spacer() + plot_layout(widths = c(7, 5))) /  
+depth_pca_plot +
+  plot_layout(heights = c(2, 5)) +    # scree plot height is smaller
+  plot_annotation(tag_levels = 'A',
+                  caption = "Figure 1. (A) Scree plot showing eigenvalues of the first ten principal components (PCs). \n(B) Principal component analysis (PCA) of coral gene expression profiles plotted \nalong PC1 and PC2, with points colored by sampling depth (m).") &                 
+  theme(plot.tag = element_text(size = 12, face = "bold"),
+        plot.caption = element_text(size = 10, hjust = 0, face = "italic"))
+
+```
+
+A scree plot (Figure 1A) shows the first ten principal components (PCs), showing that the first PC accounts for the largest proportion of variance in the dataset. There is a sharp drop in eigenvalue after the first component, followed by a relatively slow decline, indicating that the most informative variation is likely captured by the first two PCs.
+
+In Figure 1B, coral samples were projected onto a two dimensional space formed by the first two PCs with point colour representing sampling depth on a continuous scale. There is a clear separation among the samples along PC1 (`r percent_explained_pc1`%), indicating the presence of two distinct groups, and likely reflecting biological differences. While sampling depth does not seem to explain separation between the two clusters, it appears to influence gene expression within each cluster, as suggested by subtle colour gradient along PC2 (`r percent_explained_pc1`%). This suggests that environmental factors associated with depth, such as light availability and tidal fluctuation, may modulate gene expression patterns, but not strong enough to drive samples into separate clusters.
+
+```{r informative_genes}
+#| echo: false
+#| message: false
+#| warning: false
+
+# number of genes that was measured
+gene_id <- count_data %>% select(starts_with("Gene")) %>% colnames() 
+n <- gene_id %>% length()
+
+# expected value if all variables (genes) contribute equally
+p <- 1 / sqrt(n)
+
+loading_pc1 <- pca_acro$loadings[, 1] # extract the first loading
+loading_pc2 <- pca_acro$loadings[, 2] # extract the second loading
+
+twod_loadings <- tibble(gene_id, loading_pc1, loading_pc2)
+
+
+# convert to tibble and add column pc1 loading absolute value
+# filter out gene id and loadings that value less than p
+variable_improtance_loadings <- twod_loadings %>%
+  mutate(abs_loading_pc1 = abs(loading_pc1),
+         abs_loading_pc2 = abs(loading_pc2)) %>%
+  # filter out if either absolute value of two loading less than p
+  filter(abs_loading_pc1 > p | abs_loading_pc2 > p) %>%
+  mutate(total_load = abs_loading_pc1 + abs_loading_pc2) %>%
+  arrange(desc(total_load)) %>% # sort decresing order by magnittude of pc1+pc2 loading
+  select(gene_id, loading_pc1, loading_pc2) # select the original loading value 
+
+top_ten <- variable_improtance_loadings %>%
+  head(10) # get only the top then, for ploting purpose
+
+ggplot() +
+  geom_point(data = pc_scores, aes(x = pc1, y = pc2, color = depth)) +
+  geom_segment(data = top_ten,
+               aes(x = 0, y = 0, xend = loading_pc1 * 20, yend = loading_pc2 * 20), 
+               arrow = arrow(length = unit(0.2, "cm")), color = "darkred") +
+  geom_text_repel(data = top_ten, max.overlaps = 20,
+            aes(x = loading_pc1 * 20, y = loading_pc2 * 20, label = gene_id), 
+            color = "darkred", vjust = 1.2, size = 3) +
+  labs(x = glue("PC1 ({percent_explained_pc1}%)"), 
+       y = glue("PC2 {percent_explained_pc2}%)"),
+       caption = "Figure 2. PCA biplot of coral gene expression. Arrows indicate the top 10 genes contributing to variance") +
+  theme_classic() +
+  scale_color_gradient(low = "lightblue", high = "darkblue",
+                       guide = guide_colorbar(reverse = TRUE)) +
+  theme(plot.caption = element_text(size = 10, hjust = 0, face = "italic"))
+```
+
+A total of 217 genes had loading values above the defined lower bound (not shown in this report), indicating that these genes contribute significantly to the variance observed among the samples. Among the top ten most informative variables, two genes which are `Gene37` and `Gene234` contribute the most to the distribution of samples along the positive x-axis in the PCA biplot (Figure 2), which drive the separation of samples into two distinct clusters. Additionally, `Gene100`, `Gene141` point toward the positive y axes, indicating their contribution to variance along that dimension, which may be influenced by the depth at which the sampled coral colonies were living.
+
+```{r result_clustering}
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-height: 6
+#| fig-width: 6
+
+count_data <- acro_gene %>%
+  select(sample, starts_with("gene")) %>% # select only the sample name and gene expression
+  column_to_rownames(var = "sample")
+
+# question: do we calculate optimal k from original data or ordinated data?
+
+# Extract top PCs (e.g., top 5)
+# pca_acro_data <- pca_acro$scores[, 1:5]
+
+# perform silhouette and plotting
+sil_plot <- fviz_nbclust(count_data, kmeans, 
+             method = "silhouette",
+             linecolor = "black",
+             k.max = 20) +
+  theme(
+    plot.title = element_blank(),
+    axis.text = element_text(size = 8),
+    axis.text.y.left = element_text(size = 8),
+    axis.title = element_text(size = 8))
+
+# get optimal k
+optimal_k <- sil_plot$data %>%
+  filter(y == max(y)) %>%
+  select(clusters) %>%
+  mutate(clusters = as.numeric(clusters)) %>%
+  pull()
+
+acro_euc_dist <- dist(count_data, method="euc")
+# rownames(pca_acro_data) <- rownames(count_data)
+
+# perform k means
+set.seed(2109)  # for reproducibility
+k_means_clust <- kmeans(acro_euc_dist, centers = optimal_k, 
+                        iter.max = 100, nstart = 25) 
+
+# extract the cluster value and join to the sample
+sample_group <- k_means_clust$cluster %>%
+  enframe(name = "sample_id", value = "cluster")
+
+# join sample id, pca scores, and cluster
+pc_scores <- pca_acro$scores %>% as.tibble() %>%
+  select(Comp.1, Comp.2) %>% # select only the first two PCs
+  rename(pc1 = Comp.1, pc2 = Comp.2) %>%
+  mutate(sample_id = acro_gene$sample,
+         depth = acro_gene$depth) %>%
+  inner_join(sample_group, by = "sample_id") %>%
+  mutate(cluster = as.factor(cluster))
+
+# find the outplaced cluster samples
+outcluster <- pc_scores %>% 
+  filter(pc1 < 0 & pc2 < 0 & cluster == 1)
+
+# plot ordination
+cluster_pca_plot <- pc_scores %>%
+  ggplot(aes(x = pc1, y = pc2, colour = cluster)) +
+  geom_point() +
+  geom_text_repel(data = outcluster, max.overlaps = 20,
+            aes(x = pc1, y = pc2, label = sample_id), 
+            color = "black", vjust = 1.2, size = 3) +
+  stat_ellipse(show.legend = FALSE) + # to create elipse in the clusters
+  theme_classic() +
+  labs(x = glue("PC1 ({percent_explained_pc1}%)"), 
+       y = glue("PC2 ({percent_explained_pc2}%)"),
+       color = "cluster") + 
+  theme(legend.title = element_text(size = 8, face = "bold"),
+        legend.text = element_text(size = 8))
+
+# adjust the two plots
+(sil_plot + plot_spacer() + plot_layout(widths = c(7, 5))) /  
+cluster_pca_plot +
+  plot_layout(heights = c(4, 10)) +   # the silhouette plot height is smaller
+  plot_annotation(tag_levels = 'A',
+                  caption = "Figure 3. (A) Average silhouette width for k-means clustering across different numbers of \nclusters, with the highest score at k = 2. \n(B) PCA plot of coral samples colored by k-means clustering results (k = 2)") &                 
+  theme(plot.tag = element_text(size = 12, face = "bold"),
+        plot.caption = element_text(size = 10, hjust = 0, face = "italic"))
+
+```
+
+The average silhouette scores are relatively low across all tested cluster numbers (Figure 3A), suggesting a complex structure within the dataset. Nevertheless, the highest silhouette score is observed when the data are partitioned into two clusters. The k-means clustering results with two clusters align well with the sample distribution in the PCA ordination (Figure 3B), where a general separation of two groups is visible along the first PC. Three samples from cluster 1, which are `Object55`, `Object307`, and `Object332`, appear closer to cluster 2 in the ordination, likely due to variance captured by PCs beyond the first two. Despite this, the overall pattern supports the division of samples into two distinct groups, suggesting underlying differences in basal gene expression among the sampled *Acropora millepora* colonies.
+
+## Conclusion
+
+Unsupervised analyses of basal gene expression in *Acropora millepora* reveal a clear separation of the samples into two distinct groups, indicating potential differences in gene expression profiles that may reflect underlying population structure and the presence of cryptic species. These two groups may respond differently to environmental stress, such as bleaching events.
+
+However, since gene expression can be affected by external conditions, developments stage, and the time each sample was taken, it may not always reflect true genetic differences. To strengthen these findings, further validation with additional data, particularly mitochondrial DNA sequence data, would be beneficial.
+
+## Appendix
+
+### AI Use Reporting Table
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+ai_report <- readxl::read_excel("ai_use_reporting.xlsx")
+kable(ai_report)
+```
+
+### R code
+
+```{r appendix_r_code}
+#| eval: false
+#| include: true
+
+# Load the libraries ----
+library(tidyverse)
+library(ggrepel)
+library(glue)
+library(factoextra)
+library(cowplot)
+library(patchwork)
+
+
+# Calculate PCA and plot the result ----
+
+## load the data
+acro_gene <- read_csv("Coral Expression Data.csv") %>%
+  rename(sample = ...1)
+
+## get only the count data and sample ID
+count_data <- acro_gene %>%
+  select(sample, starts_with("Gene")) # select only the sample name and gene expression
+
+## run PCA
+pca_acro <- princomp(count_data[-1], scores = TRUE, cor = T)
+
+## create scree plot
+scree_plot <- fviz_eig(pca_acro, choice = "eigenvalue", geom = "bar", 
+         barcolor = "black", barfill = "grey") +
+  theme_classic() +
+  scale_y_continuous(expand = c(0,0)) +
+  theme(plot.title = element_blank())
+
+## get percent explained for aech axes
+percent_explained <- get_eig(pca_acro)$variance.percent
+percent_explained_pc1 <- percent_explained[1] %>% 
+  round(2)
+percent_explained_pc2 <- percent_explained[2] %>%
+  round(2)
+
+## plot ordination
+pc_scores <- pca_acro$scores %>% as.tibble() %>%
+  select(Comp.1, Comp.2) %>% # select only the first two PCs
+  rename(pc1 = Comp.1, pc2 = Comp.2) %>%
+  mutate(sample_id = acro_gene$sample,
+         depth = acro_gene$depth) 
+
+depth_pca_plot <- pc_scores %>%
+  ggplot(aes(x = pc1, y = pc2, colour = depth)) +
+  geom_point() +
+  theme_classic() +
+  scale_color_gradient(low = "lightblue", high = "darkblue",
+                       guide = guide_colorbar(reverse = TRUE)) +
+  labs(x = glue("PC1 ({percent_explained_pc1}%)"), 
+       y = glue("PC2 ({percent_explained_pc2}%)"),
+       color = "Sampling \nDepth (m)") + 
+  theme(legend.title = element_text(size = 8, face = "bold"),
+        legend.text = element_text(size = 8),
+        legend.key.size = unit(0.5, "cm"))
+
+## adjust scree plot first to make it smaller
+(scree_plot + plot_spacer() + plot_layout(widths = c(7, 5))) /  
+depth_pca_plot +
+  plot_layout(heights = c(2, 5)) +    # scree plot height is smaller
+  plot_annotation(tag_levels = 'A',
+                  caption = "Figure 1. (A) Scree plot showing eigenvalues of the first ten principal components (PCs). \n(B) Principal component analysis (PCA) of coral gene expression profiles plotted \nalong PC1 and PC2, with points colored by sampling depth (m).") &                 
+  theme(plot.tag = element_text(size = 12, face = "bold"),
+        plot.caption = element_text(size = 10, hjust = 0, face = "italic"))
+
+
+
+# Calculate most informative variables and plot the PCA biplot -----
+
+## number of genes that was measured
+gene_id <- count_data %>% select(starts_with("Gene")) %>% colnames() 
+n <- gene_id %>% length()
+
+## expected value if all variables (genes) contribute equally
+p <- 1 / sqrt(n)
+
+loading_pc1 <- pca_acro$loadings[, 1] # extract the first loading
+loading_pc2 <- pca_acro$loadings[, 2] # extract the second loading
+
+twod_loadings <- tibble(gene_id, loading_pc1, loading_pc2)
+
+## filter out gene id and loadings that value less than p
+variable_improtance_loadings <- twod_loadings %>%
+  ## convert to tibble and add column pc1 loading absolute value
+  mutate(abs_loading_pc1 = abs(loading_pc1),
+         abs_loading_pc2 = abs(loading_pc2)) %>%
+  # filter out if either absolute value of two loading less than p
+  filter(abs_loading_pc1 > p | abs_loading_pc2 > p) %>%
+  mutate(total_load = abs_loading_pc1 + abs_loading_pc2) %>%
+  arrange(desc(total_load)) %>% # sort decresing order by magnittude of pc1+pc2 loading
+  select(gene_id, loading_pc1, loading_pc2) # select the original loading value 
+
+top_ten <- variable_improtance_loadings %>%
+  head(10) # get only the top then, for ploting purpose
+
+ggplot() +
+  geom_point(data = pc_scores, aes(x = pc1, y = pc2, color = depth)) +
+  geom_segment(data = top_ten,
+               aes(x = 0, y = 0, xend = loading_pc1 * 20, yend = loading_pc2 * 20), 
+               arrow = arrow(length = unit(0.2, "cm")), color = "darkred") +
+  geom_text_repel(data = top_ten, max.overlaps = 20,
+            aes(x = loading_pc1 * 20, y = loading_pc2 * 20, label = gene_id), 
+            color = "darkred", vjust = 1.2, size = 3) +
+  labs(x = glue("PC1 ({percent_explained_pc1}%)"), 
+       y = glue("PC2 {percent_explained_pc2}%)"),
+       caption = "Figure 2. PCA biplot of coral gene expression. Arrows indicate the top 10 genes contributing to variance") +
+  theme_classic() +
+  scale_color_gradient(low = "lightblue", high = "darkblue",
+                       guide = guide_colorbar(reverse = TRUE)) +
+  theme(plot.caption = element_text(size = 10, hjust = 0, face = "italic"))
+
+
+# Calculate optimal k and then perform k means clustering ----
+count_data <- acro_gene %>%
+  select(sample, starts_with("gene")) %>% # select only the sample name and gene expression
+  column_to_rownames(var = "sample")
+
+
+## perform silhouette and plotting
+sil_plot <- fviz_nbclust(count_data, kmeans, 
+             method = "silhouette",
+             linecolor = "black",
+             k.max = 20) +
+  theme(
+    plot.title = element_blank(),
+    axis.text = element_text(size = 8),
+    axis.text.y.left = element_text(size = 8),
+    axis.title = element_text(size = 8))
+
+## get the optimal k
+optimal_k <- sil_plot$data %>%
+  filter(y == max(y)) %>%
+  select(clusters) %>%
+  mutate(clusters = as.numeric(clusters)) %>%
+  pull()
+
+## calculate eucidean distance
+acro_euc_dist <- dist(count_data, method="euc")
+
+## perform k means
+set.seed(2109)  # for reproducibility
+k_means_clust <- kmeans(acro_euc_dist, centers = optimal_k, 
+                        iter.max = 100, nstart = 25) 
+
+## extract the cluster value and join to the sample
+sample_group <- k_means_clust$cluster %>%
+  enframe(name = "sample_id", value = "cluster")
+
+## join sample id, pca scores, and cluster
+pc_scores <- pca_acro$scores %>% as.tibble() %>%
+  select(Comp.1, Comp.2) %>% # select only the first two PCs
+  rename(pc1 = Comp.1, pc2 = Comp.2) %>%
+  mutate(sample_id = acro_gene$sample,
+         depth = acro_gene$depth) %>%
+  inner_join(sample_group, by = "sample_id") %>%
+  mutate(cluster = as.factor(cluster))
+
+## find the outplaced cluster samples
+## see from the plot they are cluster one that have negative x value
+outcluster <- pc_scores %>% 
+  filter(pc1 < 0 & pc2 < 0 & cluster == 1)
+
+## plot ordination
+cluster_pca_plot <- pc_scores %>%
+  ggplot(aes(x = pc1, y = pc2, colour = cluster)) +
+  geom_point() +
+  geom_text_repel(data = outcluster, max.overlaps = 20,
+            aes(x = pc1, y = pc2, label = sample_id), 
+            color = "black", vjust = 1.2, size = 3) +
+  stat_ellipse(show.legend = FALSE) + # to create elipse in the clusters
+  theme_classic() +
+  labs(x = glue("PC1 ({percent_explained_pc1}%)"), 
+       y = glue("PC2 ({percent_explained_pc2}%)"),
+       color = "cluster") + 
+  theme(legend.title = element_text(size = 8, face = "bold"),
+        legend.text = element_text(size = 8))
+
+## adjust the two plots
+(sil_plot + plot_spacer() + plot_layout(widths = c(7, 5))) /  
+cluster_pca_plot +
+  plot_layout(heights = c(4, 10)) +   # the silhouette plot height is smaller
+  plot_annotation(tag_levels = 'A',
+                  caption = "Figure 3. (A) Average silhouette width for k-means clustering across different numbers of \nclusters, with the highest score at k = 2. \n(B) PCA plot of coral samples colored by k-means clustering results (k = 2)") &                 
+  theme(plot.tag = element_text(size = 12, face = "bold"),
+        plot.caption = element_text(size = 10, hjust = 0, face = "italic"))
+
+```

@@ -1,0 +1,12 @@
+{
+  "hash": "a65cc4c9aa8068e0db4bf0831ed9d76c",
+  "result": {
+    "engine": "jupyter",
+    "markdown": "---\ntitle: \"Week 02\"\nformat:\n  html: \n    toc: true\n    toc-depth: 5\neditor: visual\n---\n\n# Overview\n\n::: {#33782156 .cell execution_count=1}\n``` {.python .cell-code}\nfrom collections import defaultdict\nhello = \"Hello world!\"\ncounter = defaultdict(int)\nfor char in hello:\n    counter[char] += 1\nprint(counter)\n```\n\n::: {.cell-output .cell-output-stdout}\n```\ndefaultdict(<class 'int'>, {'H': 1, 'e': 1, 'l': 3, 'o': 2, ' ': 1, 'w': 1, 'r': 1, 'd': 1, '!': 1})\n```\n:::\n:::\n\n\n",
+    "supporting": [
+      "week02_files"
+    ],
+    "filters": [],
+    "includes": {}
+  }
+}
