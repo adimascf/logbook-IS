@@ -269,7 +269,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul></li>
 <li>Data structure:
 <ul>
-<li>Erius does not use de Brujin graphs for representing overlaps</li>
+<li>Eris does not use de Brujin graphs for representing overlaps</li>
 </ul></li>
 </ul></li>
 </ul></li>
@@ -277,74 +277,103 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="section-3" class="level3">
 <h3 class="anchored" data-anchor-id="section-3">08-08-2025</h3>
-<pre><code>-   Started exploring Eris CLI and API reference
-    -   Using input data from Klebsiella pneumoniae WGS data ([SRR20082569](https://www.ebi.ac.uk/ena/browser/view/SRR20082569))</code></pre>
-<div id="fbac0943" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> eris.scan <span class="im">import</span> Scanner</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> Path(<span class="st">'/Users/adimascf/UQ-resources/SEM2/project-scratch/outputs/genomes'</span>)</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> Scanner() <span class="im">as</span> scanner:</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    results <span class="op">=</span> <span class="bu">list</span>(scanner.scan(<span class="op">*</span>p.iterdir()))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="2f09c903" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> result <span class="kw">in</span> results:</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> feature <span class="kw">in</span> result.features[:<span class="dv">10</span>]:</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(feature)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li><p>Downloaded the <em>Klebsiella pneumoniae</em> WGS data (<a href="https://www.ebi.ac.uk/ena/browser/view/SRR20082569">SRR20082569</a>)</p></li>
+<li><p>Perfomed genome assembly from the raw paired end reads:</p>
+<div id="a95e2312" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>spades.py <span class="op">-</span><span class="dv">1</span> $PWD<span class="op">/</span>data<span class="op">/</span>SRR20082569_1.fastq.gz <span class="op">-</span><span class="dv">2</span> $PWD<span class="op">/</span>data<span class="op">/</span>SRR20082569_1.fastq.gz <span class="op">-</span>o $PWD<span class="op">/</span>outputs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></li>
+<li><p>Started exploring Eris CLI and API reference</p>
+<ul>
+<li><p>Using input data from Klebsiella pneumoniae WGS data (<a href="https://www.ebi.ac.uk/ena/browser/view/SRR20082569">SRR20082569</a>)</p></li>
+<li><p>Run Eris using CLI interface:</p></li>
+</ul>
+<div id="6712f6e0" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>eris scan <span class="op">/</span>Users<span class="op">/</span>adimascf<span class="op">/</span>UQ<span class="op">-</span>resources<span class="op">/</span>SEM2<span class="op">/</span>research<span class="op">-</span>project<span class="op">/</span>project<span class="op">-</span>scratch<span class="op">/</span>outputs<span class="op">/</span>genomes<span class="op">/*</span> <span class="op">&gt;</span> contigs_results.tsv</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>head <span class="op">-</span>n <span class="dv">10</span> contigs_results.tsv <span class="op">|</span> column <span class="op">-</span>t</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>a090bac5-5102-46fb-be53-874f25472472
+<pre><code>Genome                               Feature                               Type            Contig  Start  End   Strand  Partial  Element                               Element_distance  Element_location  Element_strand  Element_effect  Percent_identity   Percent_coverage    Name      Family  Group  Synonyms    Origin            IR           DR
+assembly_graph_after_simplification  102509_05442                          CDS             102509  161    683   1       True     2675e9ed-959b-4159-b86e-6cc41b599b5e  -                 flanking          same            strand          -                  -                   -         None    -      -           -                 -            -      -
+assembly_graph_after_simplification  787ff0d9-3999-4131-aecb-6ca769dc1d59  mobile_element  10801   0      358   1       True     787ff0d9-3999-4131-aecb-6ca769dc1d59  -                 -                 -               -               97.76536312849163  14.588427057864712  ISKpn24   IS66    None   Klebsiella  pneumoniae        15/22        NA
+assembly_graph_after_simplification  10801_00246                           CDS             10801   0      321   1       True     787ff0d9-3999-4131-aecb-6ca769dc1d59  -                 inside            same            strand          -                  -                   -         None    -      -           -                 -            -      -
+assembly_graph_after_simplification  10801_00247                           CDS             10801   911    1346  -1      False    787ff0d9-3999-4131-aecb-6ca769dc1d59  553bp             downstream        opposite        strand          -                  -                   -         None    -      -           -                 -            -      -
+assembly_graph_after_simplification  11283_00327                           CDS             11283   1251   1713  1       False    50c365b3-7c44-4d0d-9588-c8ccbda74242  351bp             downstream        opposite        strand          -                  -                   -         None    -      -           -                 -            -      -
+assembly_graph_after_simplification  11283_00328                           CDS             11283   1764   3459  1       False    50c365b3-7c44-4d0d-9588-c8ccbda74242  -                 inside            opposite        strand          -                  -                   -         None    -      -           -                 -            -      -
+assembly_graph_after_simplification  50c365b3-7c44-4d0d-9588-c8ccbda74242  mobile_element  11283   2064   3457  -1      True     50c365b3-7c44-4d0d-9588-c8ccbda74242  -                 -                 -               -               81.22332859174965  30.426314650508544  ISStma11  ISL3    NA     None        Stenotrophomonas  maltophilia  20/23  8
+assembly_graph_after_simplification  11283_00329                           CDS             11283   3476   3839  1       False    50c365b3-7c44-4d0d-9588-c8ccbda74242  19bp              upstream          opposite        strand          disrupted          -                   -         None    -      -           -                 -            -      -
+assembly_graph_after_simplification  b2b83020-2e6e-4f9c-8083-b2ee0454a503  mobile_element  11341   0      77    1       True     b2b83020-2e6e-4f9c-8083-b2ee0454a503  -                 -                 -               -               100.0              7.28476821192053    IS903     IS5     IS903  None        Escherichia       coli         18     9</code></pre>
+</div>
+</div>
+<ul>
+<li>Run Eris using API interface:</li>
+</ul>
+<div id="fa23fc08" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> eris.scan <span class="im">import</span> Scanner</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> Path(<span class="st">'/Users/adimascf/UQ-resources/SEM2/research-project/project-scratch/outputs/genomes/'</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> Scanner() <span class="im">as</span> scanner:</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    results <span class="op">=</span> <span class="bu">list</span>(scanner.scan(<span class="op">*</span>p.iterdir()))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="76cdc11b" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> result <span class="kw">in</span> results:</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> feature <span class="kw">in</span> result.features[:<span class="dv">10</span>]:</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(feature)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>0b8c132b-6a0c-4c5f-90f4-7d257710169f
 NODE_102_length_1318_cov_147.219984_05575
-72cf08fb-89bd-49d7-949a-9b8df813a935
+a44f44a9-0baf-499a-a678-69d8a1a17a90
 NODE_103_length_1307_cov_70.734959_05576
-7324b6e0-c737-4f82-b947-69c44633850b
+0e4a318d-b0bc-4d30-aac0-45e880acbbb5
 NODE_104_length_1257_cov_61.244068_05577
-7324b6e0-c737-4f82-b947-69c44633850b_promoter_1
-151410b4-0918-49a7-9f71-97399ec1b297
+0e4a318d-b0bc-4d30-aac0-45e880acbbb5_promoter_1
+7fc308bf-fec1-443b-8ec6-ceab6b27c341
 NODE_106_length_1196_cov_842.339589_05579
-49fa205a-9d16-408d-8cd7-d519db5b9c4d
+2272ce9a-18ca-4069-b32f-a420ed8ba7c9
 102509_05441
-3a150018-e9f8-4480-9e0f-af43f5c867da
+8444ec2f-fb75-4341-a68c-219fb23082c2
 10801_00246
 10801_00247
 11283_00327
 11283_00328
-54feb32c-e7e7-4477-887d-2bb5011bbcf6
+bb731175-59be-4cb9-bdf5-49095c60a9f2
 11283_00329
-cbcca791-23c1-4e0d-9d53-63cb774ea95a
+a5c36b83-e105-46cd-b5b3-75cb8b860587
 119227_05442</code></pre>
 </div>
 </div>
-<div id="25fdfb55" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> result <span class="kw">in</span> results:</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> edge <span class="kw">in</span> result.edges[:<span class="dv">10</span>]:</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(edge)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Edge(a090bac5-5102-46fb-be53-874f25472472 -&gt; NODE_102_length_1318_cov_147.219984_05575 (w=-1249))
-Edge(72cf08fb-89bd-49d7-949a-9b8df813a935 -&gt; NODE_103_length_1307_cov_70.734959_05576 (w=-1211))
-Edge(7324b6e0-c737-4f82-b947-69c44633850b -&gt; NODE_104_length_1257_cov_61.244068_05577 (w=-1114))
-Edge(151410b4-0918-49a7-9f71-97399ec1b297 -&gt; NODE_106_length_1196_cov_842.339589_05579 (w=-1128))
-Edge(49fa205a-9d16-408d-8cd7-d519db5b9c4d -&gt; NODE_115_length_768_cov_268.685962_05590 (w=-753))
-Edge(NODE_115_length_768_cov_268.685962_05590 -&gt; NODE_115_length_768_cov_268.685962_05591 (w=44))
-Edge(5184c3a5-9516-4ebc-82b3-e63a3530ddb2 -&gt; NODE_117_length_762_cov_724.351825_05594 (w=-760))
-Edge(4c186814-c71e-48d2-bd0a-7edbfa6c6d0b -&gt; NODE_118_length_693_cov_160.336039_05595 (w=-691))
-Edge(dcddfbd9-9fbc-4611-b6fb-b447d30d22a5 -&gt; NODE_11_length_190608_cov_106.908792_02416 (w=399))
-Edge(25ed806a-5fff-40c0-af38-21e5eab9249e -&gt; NODE_120_length_647_cov_131.673684_05597 (w=-323))
-Edge(3a150018-e9f8-4480-9e0f-af43f5c867da -&gt; 174609_05469 (w=2))
-Edge(3a150018-e9f8-4480-9e0f-af43f5c867da -&gt; 178236_05487 (w=2))
-Edge(3a150018-e9f8-4480-9e0f-af43f5c867da -&gt; 10801_00246 (w=-358))
-Edge(10801_00246 -&gt; 10801_00247 (w=590))
-Edge(54feb32c-e7e7-4477-887d-2bb5011bbcf6 -&gt; 11283_00329 (w=19))
-Edge(54feb32c-e7e7-4477-887d-2bb5011bbcf6 -&gt; 11283_00328 (w=-1395))
-Edge(11283_00328 -&gt; 11283_00327 (w=51))
-Edge(cbcca791-23c1-4e0d-9d53-63cb774ea95a -&gt; 19649_01378 (w=274))
-Edge(cbcca791-23c1-4e0d-9d53-63cb774ea95a -&gt; 156459_05451 (w=209))
-Edge(813958ac-ba60-4ca2-a142-ea7e37815555 -&gt; 119227_05442 (w=354))</code></pre>
-</div>
-</div>
-<div id="ec63aa80" class="cell" data-execution_count="4">
+<div id="1101ea69" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> result <span class="kw">in</span> results:</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> feature <span class="kw">in</span> result.features[:<span class="dv">10</span>]:</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(feature.qualifiers)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> edge <span class="kw">in</span> result.edges[:<span class="dv">10</span>]:</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(edge)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Edge(0b8c132b-6a0c-4c5f-90f4-7d257710169f -&gt; NODE_102_length_1318_cov_147.219984_05575 (w=-1249))
+Edge(a44f44a9-0baf-499a-a678-69d8a1a17a90 -&gt; NODE_103_length_1307_cov_70.734959_05576 (w=-1211))
+Edge(0e4a318d-b0bc-4d30-aac0-45e880acbbb5 -&gt; NODE_104_length_1257_cov_61.244068_05577 (w=-1114))
+Edge(7fc308bf-fec1-443b-8ec6-ceab6b27c341 -&gt; NODE_106_length_1196_cov_842.339589_05579 (w=-1128))
+Edge(2272ce9a-18ca-4069-b32f-a420ed8ba7c9 -&gt; NODE_115_length_768_cov_268.685962_05590 (w=-753))
+Edge(NODE_115_length_768_cov_268.685962_05590 -&gt; NODE_115_length_768_cov_268.685962_05591 (w=44))
+Edge(94e4695b-8022-419f-8a6b-2e2df63a8929 -&gt; NODE_117_length_762_cov_724.351825_05594 (w=-760))
+Edge(fe59a2ef-9cf4-4a1d-b20f-c1f6c538d2ca -&gt; NODE_118_length_693_cov_160.336039_05595 (w=-691))
+Edge(aa691ad6-1b46-411d-a5b8-0e7c7459db90 -&gt; NODE_11_length_190608_cov_106.908792_02416 (w=399))
+Edge(00859875-89a0-4eb7-817a-8a146840b7f7 -&gt; NODE_120_length_647_cov_131.673684_05597 (w=-323))
+Edge(8444ec2f-fb75-4341-a68c-219fb23082c2 -&gt; 178236_05487 (w=2))
+Edge(8444ec2f-fb75-4341-a68c-219fb23082c2 -&gt; 10801_00246 (w=-358))
+Edge(8444ec2f-fb75-4341-a68c-219fb23082c2 -&gt; 174609_05469 (w=2))
+Edge(10801_00246 -&gt; 10801_00247 (w=590))
+Edge(bb731175-59be-4cb9-bdf5-49095c60a9f2 -&gt; 11283_00329 (w=19))
+Edge(bb731175-59be-4cb9-bdf5-49095c60a9f2 -&gt; 11283_00328 (w=-1395))
+Edge(11283_00328 -&gt; 11283_00327 (w=51))
+Edge(a5c36b83-e105-46cd-b5b3-75cb8b860587 -&gt; 156459_05451 (w=209))
+Edge(a5c36b83-e105-46cd-b5b3-75cb8b860587 -&gt; 19649_01378 (w=274))
+Edge(8bf40e9c-928f-4bcc-a9a9-83850152db30 -&gt; 119227_05443 (w=-378))</code></pre>
+</div>
+</div>
+<div id="ed88ad2d" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> result <span class="kw">in</span> results:</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> feature <span class="kw">in</span> result.features[:<span class="dv">10</span>]:</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(feature.qualifiers)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[name=ISKox3_ISL3_unknown, query_start=0, query_end=1316, query_length=1316, query_coverage=100.0, target_length=1318, target_coverage=99.84825493171472, identity=100.0, length=1316, cigar=1316M, n_matches=1316, quality=60, score=2632, E=0, topology=linear, N°=107, Name=ISKox3, Family=ISL3, Group=NA, Synomyns=, Iso=, Origin=Klebsiella oxytoca, Length=1316, IR=17/22, DR=8, ORF=406 (68-1288), Accession Number=CP003684, url=https://isfinder.biotoul.fr/scripts/ficheIS.php?name=ISKox3, mobile_element_type=insertion sequence]
 [translation=MDEKSLYAHILNLSDPWQVKSLSLDENAGSVTVTIEIAENTRLACPTCGKSCSVHDHRHRKWRHLDTCQFTTIVEADVPRIMCPEHGCLTLPVPWAGPGSRYTLLFESFVLSWLKISTVDAVRKQLKLSWNAVDGIMTRAVKRGLARIKKPLSARHMNVDEVAFKKGHRYITVISDRDGRALALTDDRGTESLAGYLRTLTDGQLLAIKTLSMDMNAGYIRAARIHLPSAVEKIAFDRFHVAKQLGEVVDKTRQNEHPHLPVESRHQAKGTRFLWQYSDKWMTESRQEKLMWLRAQMKLTSQCWALKELAKDIWNRPWSEERRSDWQRWLALAANSDVPMMKNAAKTIGKRLYGILNAMRHSVSNGNAEALNSKIRLLRIKARGYRNRERFKLGVMFHYGKLNMAF*, transl_table=11, inference=ab initio prediction:Pyrodigal:3.6.3, GC=0.5249795249795249, rbs_motif=GGAG/GAGG, rbs_spacer=5-10bp]
@@ -368,10 +397,10 @@ Edge(813958ac-ba60-4ca2-a142-ea7e37815555 -&gt; 119227_05442 (w=354))</code></pr
 [translation=MRIKKPHLRPIVITLSVGGIFLTSIFMIVVIMFYQHENIEKDLLDANSSYAMKMSDVMSSYIEMAQGELAYGAKKIESTTDVEYLKNEADRLRLQSGMFNSVIVVSNGAVVLATSPESLDLVGVHLNSSVSKLAIEGKKAFISQPYKSVAGNLIVLLSHPIYDKSGNYIGYIGGSIYLKKQSLFSDVLSRHFFNGDTEITIVSDDGNVIFNKDNSVVGRPMVMPDDLKSKLASSERGDGTFFSSGHKYLLGYAHMKNTDWNVFVYSHADNVTTILINYAKNVLVLLVVIIVVFSVVSYFIASQISIPLENLAISTNAKDIESSLTYIKGINAWYAEADRLKKALLTNVKVMMKRVNTLNEVAVKDPLTGVNNRLGFSNKTKDYTQGSGASVIAIDVDFFKKINDFFGHGVGDEVLISLAHVINSCCRSEDIVCRFGGEEFVIFLPNTSVVTAERIAERIRSVIESTVFTNDLRVTISAGVATQTDPLSGIDFLLKNADDALYQAKGEGRNKVIVYSAI*, transl_table=11, inference=ab initio prediction:Pyrodigal:3.6.3, GC=0.3692999357739242, rbs_motif=GGAG/GAGG, rbs_spacer=5-10bp]</code></pre>
 </div>
 </div>
-<div id="78864177" class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> result <span class="kw">in</span> results:</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> feature <span class="kw">in</span> result.features[:<span class="dv">10</span>]:</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(feature.kind, feature.location)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="a1e9a013" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> result <span class="kw">in</span> results:</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> feature <span class="kw">in</span> result.features[:<span class="dv">10</span>]:</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(feature.kind, feature.location)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>mobile_element 0:1316(+)
 CDS 67:1288(+)
@@ -395,71 +424,70 @@ mobile_element &gt;0:77(+)
 CDS 396:1953(-)</code></pre>
 </div>
 </div>
-<div id="9aca8f03" class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>upregulated_is <span class="op">=</span> []</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> result <span class="kw">in</span> results:</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> k, v <span class="kw">in</span> result.contexts.items():</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> v.effect <span class="op">==</span> <span class="st">"upregulated"</span>:</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>            upregulated_is.append(v.<span class="bu">id</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="781ccdac" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>upregulated_is <span class="op">=</span> []</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> result <span class="kw">in</span> results:</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> k, v <span class="kw">in</span> result.contexts.items():</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> v.effect <span class="op">==</span> <span class="st">"upregulated"</span>:</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>            upregulated_is.append(v.<span class="bu">id</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="8e230221" class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get only upregulated effect scenario indeces</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>upregulated_context <span class="op">=</span> []</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> result <span class="kw">in</span> results:</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> feature, kv <span class="kw">in</span> <span class="bu">zip</span>(result.features, result.contexts.items()):</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> kv[<span class="dv">1</span>].<span class="bu">id</span> <span class="kw">in</span> upregulated_is:</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>            upregulated_context.append([feature.<span class="bu">id</span>, feature.qualifiers, kv[<span class="dv">1</span>]])</span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(upregulated_context)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="1e5ff825" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get only upregulated effect scenario indeces</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>upregulated_context <span class="op">=</span> []</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> result <span class="kw">in</span> results:</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> feature, kv <span class="kw">in</span> <span class="bu">zip</span>(result.features, result.contexts.items()):</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> kv[<span class="dv">1</span>].<span class="bu">id</span> <span class="kw">in</span> upregulated_is:</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>            upregulated_context.append([feature.<span class="bu">id</span>, feature.qualifiers, kv[<span class="dv">1</span>]])</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(upregulated_context)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[['NODE_34_length_36499_cov_63.400747_04893', [translation=MVLDGINNSGLGKVWFAGRGIAPEWPMKREMPSSAYTTRWKELPVARF*, transl_table=11, inference=ab initio prediction:Pyrodigal:3.6.3, GC=0.54421768707483, rbs_motif=GGA/GAG/AGG, rbs_spacer=5-10bp], &lt;eris.scan.Context object at 0x10ea3cad0&gt;], ['54658885-d17f-4d34-9e70-a0430794e4f0', [name=ISKox1_IS66_unknown, query_start=0, query_end=2526, query_length=2526, query_coverage=100.0, target_length=36499, target_coverage=6.920737554453546, identity=99.44576405384005, length=2526, cigar=2526M, n_matches=2512, quality=60, score=4968, E=0, topology=linear, N°=576, Name=ISKox1, Family=IS66, Group=, Synomyns=, Iso=, Origin=Klebsiella oxytoca, Length=2526, IR=17/21, DR=8, ORF=146 (86-526)116 (523-873)530 (904-2496), Accession Number=CP003684, url=https://isfinder.biotoul.fr/scripts/ficheIS.php?name=ISKox1, mobile_element_type=insertion sequence], &lt;eris.scan.Context object at 0x10ea3cc20&gt;], ['NODE_34_length_36499_cov_63.400747_04894', [translation=MENAANWRTESRTVYSSDFKLRMVELASRPDANVAQLAREHGVDNNLIFKWLRLWQREGRISRRMPATIVGPVVPQSLPASPTLLSVDVINDPLPAAENDTLCTFSSAHASATSCHVEFRHGKMTLENPSSELLTVLIRELTGRTQ*, transl_table=11, inference=ab initio prediction:Pyrodigal:3.6.3, GC=0.5487528344671202, rbs_motif=AGGAG, rbs_spacer=5-10bp], &lt;eris.scan.Context object at 0x10fa7cb30&gt;], ['NODE_34_length_36499_cov_63.400747_04895', [translation=MISLPSGTRIWLVAGATDMRKSFNGLGEQIHYVLDEDPFSGHLFIFRGRRGDTVKILWADADGLCLFIKRLEEGQFVWPAVRHGKIAITRSQLAMLLDKLDWRQPKISRLNSLTML*, transl_table=11, inference=ab initio prediction:Pyrodigal:3.6.3, GC=0.5498575498575499, rbs_motif=GGAGG, rbs_spacer=5-10bp], &lt;eris.scan.Context object at 0x10ea3cc50&gt;], ['54658885-d17f-4d34-9e70-a0430794e4f0_promoter_1', [regulatory_class=promoter], &lt;eris.scan.Context object at 0x10ea3cc80&gt;], ['NODE_34_length_36499_cov_63.400747_04896', [translation=MNHDYLARIAALEDALRKKDSQLSLVAETESFLRSALARAEEKIENEEREIEHLRAQIEKLRRMLFGTRSEKLRRQVEEAEALLKQQEQQSDRYNGREDDPQVPRQLRQSRHRRPLPAHLSREIHRLDPAETSCPECGSGMAYLSEVSVEQLELVSSALKVIRTVRVKKACTRCDCIVEAPAPSRPIDRGIAGPGLLARVLTAKYCEHLPLYRQCEIFARQGVDLSRALLSNWVDACCRLMAPLDEALYHYVMDCHKLHTDDTPVPVLAPGRKKTKTGRIWTYVRDDRSAGSSDPPAAWFAFSPDRQGKHPQQHLRHYHGVLQADAFAGYDRLFSPEREGGPLTEAACWAHARRKIHDVYISTHTATAEEALKRIGELYAIEEEIRGLTTEERLAARQSQSKPLLASLHEWLVEKNETLSKKSRLGEAFAYVLNQWDALCYYCEDGLAEPDNNAAERALRAVCLGKKNFIFFGSDHGGERGALLYGLIGTCRLNGIDPEAYLRHILSVLPEWPSNKAAELLPWNVVLTDK*, transl_table=11, inference=ab initio prediction:Pyrodigal:3.6.3, GC=0.5706214689265536, rbs_motif=None, rbs_spacer=None], &lt;eris.scan.Context object at 0x10ea3ccb0&gt;], ['NODE_34_length_36499_cov_63.400747_04897', [translation=MIKKTLCSLLLAVLCGGMVGPAVSTENDHRYISIRNTDSSWVQGVCSLVFRLDNGGDGTFNNLTVSLQLTDKSGAVLEKGTLDVQPFGDSSATRSTLSATEFSCDAVENTANIVITDVEETSSDGSVHALPLSMFDPQYYQPLKMSVQKSG*, transl_table=11, inference=ab initio prediction:Pyrodigal:3.6.3, GC=0.4605263157894737, rbs_motif=AGGA/GGAG/GAGG, rbs_spacer=11-12bp], &lt;eris.scan.Context object at 0x10ea3cce0&gt;], ['d9e2bc1d-ede2-41dc-b61d-497ff4d42dc1', [name=ISEc9_IS1380_unknown, query_start=0, query_end=1656, query_length=1656, query_coverage=100.0, target_length=4622, target_coverage=35.828645607961924, identity=100.0, length=1656, cigar=1656M, n_matches=1656, quality=60, score=3312, E=0, topology=linear, N°=538, Name=ISEc9, Family=IS1380, Group=, Synomyns=ISEcp1, Iso=, Origin=Escherichia coli, Length=1656, IR=13/22, DR=NA, ORF=420 (187-1449), Accession Number=AJ242809, url=https://isfinder.biotoul.fr/scripts/ficheIS.php?name=ISEc9, mobile_element_type=insertion sequence], &lt;eris.scan.Context object at 0x10ea3fb60&gt;], ['d9e2bc1d-ede2-41dc-b61d-497ff4d42dc1_promoter_1', [regulatory_class=promoter], &lt;eris.scan.Context object at 0x10ea3fcb0&gt;], ['NODE_69_length_4622_cov_50.334213_05484', [translation=MINKIDFKAKNLTSNAGLFLLLENAKSNGIFDFIENDLVFDNDSTNKIKMNHIKTMLCGHFIGIDKLERLKLLQNDPLVNEFDISVKEPETVSRFLGNFNFKTTQMFRDINFKVFKKLLTKSKLTSITIDIDSSVINVEGHQEGASKGYNPKKLGNRCYNIQFAFCDELKAYVTGFVRSGNTYTANGAAEMIKEIVANIKSDDLEILFRMDSGYFDEKIIETIESLGCKYLIKAKSYSTLTSQATNSSIVFVKGEEGRETTELYTKLVKWEKDRRFVVSRVLKPEKERAQLSLLEGSEYDYFFFVTNTTLLSEKVVIYYEKRGNAENYIKEAKYDMAVGHLLLKSFWANEAVFQMMMLSYNLFLLFKFDSLDSSEYRQQIKTFRLKYVFLAAKIIKTARYVIMKLSENYPYKGVYEKCLV*, transl_table=11, inference=ab initio prediction:Pyrodigal:3.6.3, GC=0.33966745843230406, rbs_motif=GGA/GAG/AGG, rbs_spacer=5-10bp], &lt;eris.scan.Context object at 0x10ea3fd70&gt;], ['d9e2bc1d-ede2-41dc-b61d-497ff4d42dc1_promoter_2', [regulatory_class=promoter], &lt;eris.scan.Context object at 0x10ea3fe30&gt;], ['d9e2bc1d-ede2-41dc-b61d-497ff4d42dc1_promoter_3', [regulatory_class=promoter], &lt;eris.scan.Context object at 0x10ea3fef0&gt;], ['d9e2bc1d-ede2-41dc-b61d-497ff4d42dc1_promoter_4', [regulatory_class=promoter], &lt;eris.scan.Context object at 0x10ea3ffb0&gt;], ['d9e2bc1d-ede2-41dc-b61d-497ff4d42dc1_promoter_5', [regulatory_class=promoter], &lt;eris.scan.Context object at 0x10ea240b0&gt;], ['d9e2bc1d-ede2-41dc-b61d-497ff4d42dc1_promoter_6', [regulatory_class=promoter], &lt;eris.scan.Context object at 0x10ea24170&gt;], ['NODE_69_length_4622_cov_50.334213_05485', [translation=MKNVWYNKNIINKIECCSVDNLQSLLSIIAAKMKSMIYQK*, transl_table=11, inference=ab initio prediction:Pyrodigal:3.6.3, GC=0.2764227642276423, rbs_motif=GGA/GAG/AGG, rbs_spacer=5-10bp], &lt;eris.scan.Context object at 0x10ea8fbc0&gt;], ['d9e2bc1d-ede2-41dc-b61d-497ff4d42dc1_promoter_7', [regulatory_class=promoter], &lt;eris.scan.Context object at 0x10ea241a0&gt;], ['NODE_69_length_4622_cov_50.334213_05486', [translation=MVKKSLRQFTLMATATVTLLLGSVPLYAQTADVQQKLAELERQSGGRLGVALINTADNSQILYRADERFAMCSTSKVMAAAAVLKKSESEPNLLNQRVEIKKSDLVNYNPIAEKHVNGTMSLAELSAAALQYSDNVAMNKLIAHVGGPASVTAFARQLGDETFRLDRTEPTLNTAIPGDPRDTTSPRAMAQTLRNLTLGKALGDSQRAQLVTWMKGNTTGAASIQAGLPASWVVGDKTGSGDYGTTNDIAVIWPKDRAPLILVTYFTQPQPKAESRRDVLASAAKIVTDGL*, transl_table=11, inference=ab initio prediction:Pyrodigal:3.6.3, GC=0.547945205479452, rbs_motif=AGGA, rbs_spacer=5-10bp], &lt;eris.scan.Context object at 0x10ea241d0&gt;], ['8970ef43-56fd-4298-b442-150ba354c561_promoter_1', [regulatory_class=promoter], &lt;eris.scan.Context object at 0x10eb7e0f0&gt;], ['199457_05557', [translation=MSKPKYPFEKRLEVVNHYFTTDDGYRIISARFGVPRTQVRTWVALYEKHGEKGLIPKPKGVSADPELRIKVVKAVTEQQMSLNQAAAHFMLAGSGSVAKWLKVYEEHGEAGLRALKIGTKRNITMSVDPEKAALALELSKDRRIEDLERQVRFLEMRLTYLKKLKALAHPAKK*, transl_table=11, inference=ab initio prediction:Pyrodigal:3.6.3, GC=0.46551724137931033, rbs_motif=GGA/GAG/AGG, rbs_spacer=11-12bp], &lt;eris.scan.Context object at 0x10eb7c9e0&gt;], ['199457_05558', [translation=MRYWLLVILMNVLFWLIVKHVAPEWYGSPGYYAGQIICTLIAAVITWRDPPDWLDGILLGVIEFGVLIAGIIFFVWGIGYKLAFWGQHDPNTIYASANDVILPNLALGTGVLIAGWVYIRYLKR*, transl_table=11, inference=ab initio prediction:Pyrodigal:3.6.3, GC=0.4746666666666667, rbs_motif=AGGA, rbs_spacer=5-10bp], &lt;eris.scan.Context object at 0x10e975d30&gt;], ['20590_05077', [translation=YNKALINRGSITFWLDDEAIQAWYESATPSSRGRPQRYSDLAITTVLVIKRVFRLTLRAAQGFIDSIFTLMNVPLRCPDYTSV, transl_table=11, inference=ab initio prediction:Pyrodigal:3.6.3, GC=0.5100401606425703, rbs_motif=None, rbs_spacer=None], &lt;eris.scan.Context object at 0x10eb7ce60&gt;], ['1440c7fe-5dd4-4d5e-bc2f-024918cf1806', [name=ISEc52_IS3_IS3, query_start=802, query_end=1250, query_length=1250, query_coverage=35.839999999999996, target_length=8660, target_coverage=5.173210161662817, identity=97.32142857142857, length=448, cigar=406M1I41M, n_matches=436, quality=60, score=822, E=0, topology=linear, N°=341, Name=ISEc52, Family=IS3, Group=IS3, Synomyns=, Iso=, Origin=Escherichia coli, Length=1250, IR=21/27, DR=3, ORF=100 (73-375)300 (318-1220)382 (73-1220), Accession Number=HG941718, url=https://isfinder.biotoul.fr/scripts/ficheIS.php?name=ISEc52, mobile_element_type=insertion sequence], &lt;eris.scan.Context object at 0x10eb7da00&gt;], ['20594_05153', [translation=DLFARKPVGWAMSFSPDSRLTMKALEMAWETRGKPVGVMFHSAQGSHYTSRQFRQLLWRYRFRQSMSRRGNCWDNSPMERFFRSLKNEWVPATGYVSFSDAAHAITDYIVGYYSAIRPHEYNGGLPPNESENRYWKNSNAVASFC*, transl_table=11, inference=ab initio prediction:Pyrodigal:3.6.3, GC=0.5296803652968036, rbs_motif=None, rbs_spacer=None], &lt;eris.scan.Context object at 0x10e976300&gt;], ['d53a8ec4-0bc3-47b0-8412-dbc50bccdd99', [name=ISKpn38_IS3_IS150, query_start=124, query_end=1598, query_length=1598, query_coverage=92.24030037546935, target_length=8660, target_coverage=17.020785219399535, identity=99.38941655359565, length=1474, cigar=1474M, n_matches=1465, quality=60, score=2894, E=0, topology=linear, N°=427, Name=ISKpn38, Family=IS3, Group=IS150, Synomyns=, Iso=, Origin=Klebsiella pneumoniae, Length=1598, IR=17/24, DR=4, ORF=510 (40-1572), Accession Number=LFAO01000049, url=https://isfinder.biotoul.fr/scripts/ficheIS.php?name=ISKpn38, mobile_element_type=insertion sequence], &lt;eris.scan.Context object at 0x10eb7ea80&gt;], ['20594_05154', [translation=MRKRKAAPQDKNQDALLGKIRCLRKQVHQLQLERDILTKANELIKKDLGVTFLKLKNREKTLIVDALKKKYPVAELLSVLQLARSCYFYHKASKRLYDKYAEIRVIMADIFEENYRCYGYRRLHAMLRSNNRVISEKVVRRLMAEEQLVVKRTRRRRYNSYCGEIGPAPENLLARDFSSCRPNEKWLTDITEFQLPAGKVYLSPVIDCFDGQVVSWSIGTRPDATLVNTMLDDALDTLSEHDKPVIHSDRGGHYRWPGWLERINTSGLIRSMSRKGCSSDNAACEGFFGRIKNEMFYGRDWAGITLEKFICFLDRYIRWYNEKRIKLSLGAMSPVKYRQHLGITT*, transl_table=11, inference=ab initio prediction:Pyrodigal:3.6.3, GC=0.49710982658959535, rbs_motif=GGA/GAG/AGG, rbs_spacer=11-12bp], &lt;eris.scan.Context object at 0x10eb7f890&gt;], ['d53a8ec4-0bc3-47b0-8412-dbc50bccdd99_promoter_1', [regulatory_class=promoter], &lt;eris.scan.Context object at 0x10eb7ccb0&gt;], ['98e4a36f-4c68-411c-81a0-f8a19d7e02bb', [name=ISKpn21_ISNCY_IS1202, query_start=6, query_end=2278, query_length=2278, query_coverage=99.73661106233538, target_length=8660, target_coverage=26.235565819861435, identity=96.61091549295774, length=2272, cigar=2272M, n_matches=2195, quality=60, score=4082, E=0, topology=linear, N°=88, Name=ISKpn21, Family=ISNCY, Group=IS1202, Synomyns=ISKpW, Iso=, Origin=Klebsiella pneumoniae, Length=2278, IR=25, DR=5, ORF=467 (98-1501)214 (2174-1530), Accession Number=AP012055, url=https://isfinder.biotoul.fr/scripts/ficheIS.php?name=ISKpn21, mobile_element_type=insertion sequence], &lt;eris.scan.Context object at 0x10eb7c6e0&gt;]]</code></pre>
+<pre><code>[['NODE_34_length_36499_cov_63.400747_04893', [translation=MVLDGINNSGLGKVWFAGRGIAPEWPMKREMPSSAYTTRWKELPVARF*, transl_table=11, inference=ab initio prediction:Pyrodigal:3.6.3, GC=0.54421768707483, rbs_motif=GGA/GAG/AGG, rbs_spacer=5-10bp], &lt;eris.scan.Context object at 0x1136b2d50&gt;], ['529cb636-6cae-43f7-87d7-8aef6a8e88a5', [name=ISKox1_IS66_unknown, query_start=0, query_end=2526, query_length=2526, query_coverage=100.0, target_length=36499, target_coverage=6.920737554453546, identity=99.44576405384005, length=2526, cigar=2526M, n_matches=2512, quality=60, score=4968, E=0, topology=linear, N°=576, Name=ISKox1, Family=IS66, Group=, Synomyns=, Iso=, Origin=Klebsiella oxytoca, Length=2526, IR=17/21, DR=8, ORF=146 (86-526)116 (523-873)530 (904-2496), Accession Number=CP003684, url=https://isfinder.biotoul.fr/scripts/ficheIS.php?name=ISKox1, mobile_element_type=insertion sequence], &lt;eris.scan.Context object at 0x1136b2ed0&gt;], ['NODE_34_length_36499_cov_63.400747_04894', [translation=MENAANWRTESRTVYSSDFKLRMVELASRPDANVAQLAREHGVDNNLIFKWLRLWQREGRISRRMPATIVGPVVPQSLPASPTLLSVDVINDPLPAAENDTLCTFSSAHASATSCHVEFRHGKMTLENPSSELLTVLIRELTGRTQ*, transl_table=11, inference=ab initio prediction:Pyrodigal:3.6.3, GC=0.5487528344671202, rbs_motif=AGGAG, rbs_spacer=5-10bp], &lt;eris.scan.Context object at 0x1136b2e10&gt;], ['NODE_34_length_36499_cov_63.400747_04895', [translation=MISLPSGTRIWLVAGATDMRKSFNGLGEQIHYVLDEDPFSGHLFIFRGRRGDTVKILWADADGLCLFIKRLEEGQFVWPAVRHGKIAITRSQLAMLLDKLDWRQPKISRLNSLTML*, transl_table=11, inference=ab initio prediction:Pyrodigal:3.6.3, GC=0.5498575498575499, rbs_motif=GGAGG, rbs_spacer=5-10bp], &lt;eris.scan.Context object at 0x1136b2f00&gt;], ['529cb636-6cae-43f7-87d7-8aef6a8e88a5_promoter_1', [regulatory_class=promoter], &lt;eris.scan.Context object at 0x1136b2f30&gt;], ['NODE_34_length_36499_cov_63.400747_04896', [translation=MNHDYLARIAALEDALRKKDSQLSLVAETESFLRSALARAEEKIENEEREIEHLRAQIEKLRRMLFGTRSEKLRRQVEEAEALLKQQEQQSDRYNGREDDPQVPRQLRQSRHRRPLPAHLSREIHRLDPAETSCPECGSGMAYLSEVSVEQLELVSSALKVIRTVRVKKACTRCDCIVEAPAPSRPIDRGIAGPGLLARVLTAKYCEHLPLYRQCEIFARQGVDLSRALLSNWVDACCRLMAPLDEALYHYVMDCHKLHTDDTPVPVLAPGRKKTKTGRIWTYVRDDRSAGSSDPPAAWFAFSPDRQGKHPQQHLRHYHGVLQADAFAGYDRLFSPEREGGPLTEAACWAHARRKIHDVYISTHTATAEEALKRIGELYAIEEEIRGLTTEERLAARQSQSKPLLASLHEWLVEKNETLSKKSRLGEAFAYVLNQWDALCYYCEDGLAEPDNNAAERALRAVCLGKKNFIFFGSDHGGERGALLYGLIGTCRLNGIDPEAYLRHILSVLPEWPSNKAAELLPWNVVLTDK*, transl_table=11, inference=ab initio prediction:Pyrodigal:3.6.3, GC=0.5706214689265536, rbs_motif=None, rbs_spacer=None], &lt;eris.scan.Context object at 0x1136b2f60&gt;], ['NODE_34_length_36499_cov_63.400747_04897', [translation=MIKKTLCSLLLAVLCGGMVGPAVSTENDHRYISIRNTDSSWVQGVCSLVFRLDNGGDGTFNNLTVSLQLTDKSGAVLEKGTLDVQPFGDSSATRSTLSATEFSCDAVENTANIVITDVEETSSDGSVHALPLSMFDPQYYQPLKMSVQKSG*, transl_table=11, inference=ab initio prediction:Pyrodigal:3.6.3, GC=0.4605263157894737, rbs_motif=AGGA/GGAG/GAGG, rbs_spacer=11-12bp], &lt;eris.scan.Context object at 0x1136b2f90&gt;], ['a03b4226-2db9-430e-8848-58a8ad98ef69', [name=ISEc9_IS1380_unknown, query_start=0, query_end=1656, query_length=1656, query_coverage=100.0, target_length=4622, target_coverage=35.828645607961924, identity=100.0, length=1656, cigar=1656M, n_matches=1656, quality=60, score=3312, E=0, topology=linear, N°=538, Name=ISEc9, Family=IS1380, Group=, Synomyns=ISEcp1, Iso=, Origin=Escherichia coli, Length=1656, IR=13/22, DR=NA, ORF=420 (187-1449), Accession Number=AJ242809, url=https://isfinder.biotoul.fr/scripts/ficheIS.php?name=ISEc9, mobile_element_type=insertion sequence], &lt;eris.scan.Context object at 0x1136c2150&gt;], ['a03b4226-2db9-430e-8848-58a8ad98ef69_promoter_1', [regulatory_class=promoter], &lt;eris.scan.Context object at 0x1136c22d0&gt;], ['NODE_69_length_4622_cov_50.334213_05484', [translation=MINKIDFKAKNLTSNAGLFLLLENAKSNGIFDFIENDLVFDNDSTNKIKMNHIKTMLCGHFIGIDKLERLKLLQNDPLVNEFDISVKEPETVSRFLGNFNFKTTQMFRDINFKVFKKLLTKSKLTSITIDIDSSVINVEGHQEGASKGYNPKKLGNRCYNIQFAFCDELKAYVTGFVRSGNTYTANGAAEMIKEIVANIKSDDLEILFRMDSGYFDEKIIETIESLGCKYLIKAKSYSTLTSQATNSSIVFVKGEEGRETTELYTKLVKWEKDRRFVVSRVLKPEKERAQLSLLEGSEYDYFFFVTNTTLLSEKVVIYYEKRGNAENYIKEAKYDMAVGHLLLKSFWANEAVFQMMMLSYNLFLLFKFDSLDSSEYRQQIKTFRLKYVFLAAKIIKTARYVIMKLSENYPYKGVYEKCLV*, transl_table=11, inference=ab initio prediction:Pyrodigal:3.6.3, GC=0.33966745843230406, rbs_motif=GGA/GAG/AGG, rbs_spacer=5-10bp], &lt;eris.scan.Context object at 0x1136c2390&gt;], ['a03b4226-2db9-430e-8848-58a8ad98ef69_promoter_2', [regulatory_class=promoter], &lt;eris.scan.Context object at 0x1136c2450&gt;], ['a03b4226-2db9-430e-8848-58a8ad98ef69_promoter_3', [regulatory_class=promoter], &lt;eris.scan.Context object at 0x1136c2510&gt;], ['a03b4226-2db9-430e-8848-58a8ad98ef69_promoter_4', [regulatory_class=promoter], &lt;eris.scan.Context object at 0x1136c25d0&gt;], ['a03b4226-2db9-430e-8848-58a8ad98ef69_promoter_5', [regulatory_class=promoter], &lt;eris.scan.Context object at 0x1136c2690&gt;], ['a03b4226-2db9-430e-8848-58a8ad98ef69_promoter_6', [regulatory_class=promoter], &lt;eris.scan.Context object at 0x1136c2750&gt;], ['NODE_69_length_4622_cov_50.334213_05485', [translation=MKNVWYNKNIINKIECCSVDNLQSLLSIIAAKMKSMIYQK*, transl_table=11, inference=ab initio prediction:Pyrodigal:3.6.3, GC=0.2764227642276423, rbs_motif=GGA/GAG/AGG, rbs_spacer=5-10bp], &lt;eris.scan.Context object at 0x1136c2210&gt;], ['a03b4226-2db9-430e-8848-58a8ad98ef69_promoter_7', [regulatory_class=promoter], &lt;eris.scan.Context object at 0x1136c2780&gt;], ['NODE_69_length_4622_cov_50.334213_05486', [translation=MVKKSLRQFTLMATATVTLLLGSVPLYAQTADVQQKLAELERQSGGRLGVALINTADNSQILYRADERFAMCSTSKVMAAAAVLKKSESEPNLLNQRVEIKKSDLVNYNPIAEKHVNGTMSLAELSAAALQYSDNVAMNKLIAHVGGPASVTAFARQLGDETFRLDRTEPTLNTAIPGDPRDTTSPRAMAQTLRNLTLGKALGDSQRAQLVTWMKGNTTGAASIQAGLPASWVVGDKTGSGDYGTTNDIAVIWPKDRAPLILVTYFTQPQPKAESRRDVLASAAKIVTDGL*, transl_table=11, inference=ab initio prediction:Pyrodigal:3.6.3, GC=0.547945205479452, rbs_motif=AGGA, rbs_spacer=5-10bp], &lt;eris.scan.Context object at 0x1136c27b0&gt;], ['2d0c1561-48ce-40ed-b0f0-b5a436413c97_promoter_1', [regulatory_class=promoter], &lt;eris.scan.Context object at 0x1137c0cb0&gt;], ['199457_05557', [translation=MSKPKYPFEKRLEVVNHYFTTDDGYRIISARFGVPRTQVRTWVALYEKHGEKGLIPKPKGVSADPELRIKVVKAVTEQQMSLNQAAAHFMLAGSGSVAKWLKVYEEHGEAGLRALKIGTKRNITMSVDPEKAALALELSKDRRIEDLERQVRFLEMRLTYLKKLKALAHPAKK*, transl_table=11, inference=ab initio prediction:Pyrodigal:3.6.3, GC=0.46551724137931033, rbs_motif=GGA/GAG/AGG, rbs_spacer=11-12bp], &lt;eris.scan.Context object at 0x1137c2d20&gt;], ['199457_05558', [translation=MRYWLLVILMNVLFWLIVKHVAPEWYGSPGYYAGQIICTLIAAVITWRDPPDWLDGILLGVIEFGVLIAGIIFFVWGIGYKLAFWGQHDPNTIYASANDVILPNLALGTGVLIAGWVYIRYLKR*, transl_table=11, inference=ab initio prediction:Pyrodigal:3.6.3, GC=0.4746666666666667, rbs_motif=AGGA, rbs_spacer=5-10bp], &lt;eris.scan.Context object at 0x1137c2c60&gt;], ['20590_05077', [translation=YNKALINRGSITFWLDDEAIQAWYESATPSSRGRPQRYSDLAITTVLVIKRVFRLTLRAAQGFIDSIFTLMNVPLRCPDYTSV, transl_table=11, inference=ab initio prediction:Pyrodigal:3.6.3, GC=0.5100401606425703, rbs_motif=None, rbs_spacer=None], &lt;eris.scan.Context object at 0x1137c0f20&gt;], ['3af7cc97-85fa-467d-9024-2e4eedd2e4f7', [name=ISEc52_IS3_IS3, query_start=802, query_end=1250, query_length=1250, query_coverage=35.839999999999996, target_length=8660, target_coverage=5.173210161662817, identity=97.32142857142857, length=448, cigar=406M1I41M, n_matches=436, quality=60, score=822, E=0, topology=linear, N°=341, Name=ISEc52, Family=IS3, Group=IS3, Synomyns=, Iso=, Origin=Escherichia coli, Length=1250, IR=21/27, DR=3, ORF=100 (73-375)300 (318-1220)382 (73-1220), Accession Number=HG941718, url=https://isfinder.biotoul.fr/scripts/ficheIS.php?name=ISEc52, mobile_element_type=insertion sequence], &lt;eris.scan.Context object at 0x1137c1010&gt;], ['20594_05153', [translation=DLFARKPVGWAMSFSPDSRLTMKALEMAWETRGKPVGVMFHSAQGSHYTSRQFRQLLWRYRFRQSMSRRGNCWDNSPMERFFRSLKNEWVPATGYVSFSDAAHAITDYIVGYYSAIRPHEYNGGLPPNESENRYWKNSNAVASFC*, transl_table=11, inference=ab initio prediction:Pyrodigal:3.6.3, GC=0.5296803652968036, rbs_motif=None, rbs_spacer=None], &lt;eris.scan.Context object at 0x1137d8ec0&gt;], ['e781b444-ad13-4df7-9435-ad696dc61df5', [name=ISKpn38_IS3_IS150, query_start=124, query_end=1598, query_length=1598, query_coverage=92.24030037546935, target_length=8660, target_coverage=17.020785219399535, identity=99.38941655359565, length=1474, cigar=1474M, n_matches=1465, quality=60, score=2894, E=0, topology=linear, N°=427, Name=ISKpn38, Family=IS3, Group=IS150, Synomyns=, Iso=, Origin=Klebsiella pneumoniae, Length=1598, IR=17/24, DR=4, ORF=510 (40-1572), Accession Number=LFAO01000049, url=https://isfinder.biotoul.fr/scripts/ficheIS.php?name=ISKpn38, mobile_element_type=insertion sequence], &lt;eris.scan.Context object at 0x1137c0fe0&gt;], ['20594_05154', [translation=MRKRKAAPQDKNQDALLGKIRCLRKQVHQLQLERDILTKANELIKKDLGVTFLKLKNREKTLIVDALKKKYPVAELLSVLQLARSCYFYHKASKRLYDKYAEIRVIMADIFEENYRCYGYRRLHAMLRSNNRVISEKVVRRLMAEEQLVVKRTRRRRYNSYCGEIGPAPENLLARDFSSCRPNEKWLTDITEFQLPAGKVYLSPVIDCFDGQVVSWSIGTRPDATLVNTMLDDALDTLSEHDKPVIHSDRGGHYRWPGWLERINTSGLIRSMSRKGCSSDNAACEGFFGRIKNEMFYGRDWAGITLEKFICFLDRYIRWYNEKRIKLSLGAMSPVKYRQHLGITT*, transl_table=11, inference=ab initio prediction:Pyrodigal:3.6.3, GC=0.49710982658959535, rbs_motif=GGA/GAG/AGG, rbs_spacer=11-12bp], &lt;eris.scan.Context object at 0x1137c10d0&gt;], ['e781b444-ad13-4df7-9435-ad696dc61df5_promoter_1', [regulatory_class=promoter], &lt;eris.scan.Context object at 0x1137c10a0&gt;], ['28d30642-80b0-4574-9982-203e7375266f', [name=ISKpn21_ISNCY_IS1202, query_start=6, query_end=2278, query_length=2278, query_coverage=99.73661106233538, target_length=8660, target_coverage=26.235565819861435, identity=96.61091549295774, length=2272, cigar=2272M, n_matches=2195, quality=60, score=4082, E=0, topology=linear, N°=88, Name=ISKpn21, Family=ISNCY, Group=IS1202, Synomyns=ISKpW, Iso=, Origin=Klebsiella pneumoniae, Length=2278, IR=25, DR=5, ORF=467 (98-1501)214 (2174-1530), Accession Number=AP012055, url=https://isfinder.biotoul.fr/scripts/ficheIS.php?name=ISKpn21, mobile_element_type=insertion sequence], &lt;eris.scan.Context object at 0x1137c1070&gt;]]</code></pre>
 </div>
 </div>
-<div id="93680efe" class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get only the IS name, and counter</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collections <span class="im">import</span> defaultdict</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>is_found <span class="op">=</span> defaultdict(<span class="bu">int</span>)</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> result <span class="kw">in</span> results:</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> feature <span class="kw">in</span> result.features:</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> feature.kind <span class="op">==</span> <span class="st">"mobile_element"</span>:</span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>            is_name  <span class="op">=</span> <span class="bu">str</span>(feature.qualifiers[<span class="dv">0</span>]).replace(<span class="st">"name:Z:"</span>, <span class="st">""</span>)</span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>            is_found[is_name] <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="bu">len</span>(is_found)<span class="sc">}</span><span class="ss"> IS are found"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="5d0eac48" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get only the IS name, and counter</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collections <span class="im">import</span> defaultdict</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>is_found <span class="op">=</span> defaultdict(<span class="bu">int</span>)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> result <span class="kw">in</span> results:</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> feature <span class="kw">in</span> result.features:</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> feature.kind <span class="op">==</span> <span class="st">"mobile_element"</span>:</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>            is_name  <span class="op">=</span> <span class="bu">str</span>(feature.qualifiers[<span class="dv">0</span>]).replace(<span class="st">"name:Z:"</span>, <span class="st">""</span>)</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>            is_found[is_name] <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="bu">len</span>(is_found)<span class="sc">}</span><span class="ss"> IS are found"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>51 IS are found</code></pre>
 </div>
 </div>
-<div id="c469dcdf" class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> eris.io <span class="im">import</span> SeqFile</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="co"># extract IS sequence from ISfinder that are found the sample and and write into fasta file</span></span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>filename <span class="op">=</span> <span class="st">"is_found.fasta"</span></span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> os.path.exists(filename):</span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>    os.remove(filename)</span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>isf_path <span class="op">=</span> Path(<span class="st">'/Users/adimascf/UQ-resources/SEM2/research-project/eris/src/eris/data/IS.fna'</span>)</span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>isf_fasta <span class="op">=</span> SeqFile(isf_path, format_<span class="op">=</span><span class="st">"fasta"</span>)</span>
-<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> record <span class="kw">in</span> isf_fasta:</span>
-<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> record.<span class="bu">id</span> <span class="kw">in</span> is_found:</span>
-<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">with</span> <span class="bu">open</span>(<span class="st">"is_found.fasta"</span>, <span class="st">"a"</span>) <span class="im">as</span> <span class="bu">file</span>:</span>
-<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>            identifier <span class="op">=</span> <span class="st">"&gt;"</span> <span class="op">+</span> record.<span class="bu">id</span> <span class="op">+</span> <span class="st">"</span><span class="ch">\n</span><span class="st">"</span></span>
-<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>            <span class="bu">file</span>.write(identifier)</span>
-<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>            data <span class="op">=</span> <span class="bu">str</span>(record.seq)</span>
-<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>            length <span class="op">=</span> <span class="bu">len</span>(data)</span>
-<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>            nlines <span class="op">=</span> (length <span class="op">+</span> <span class="dv">59</span>) <span class="op">//</span> <span class="dv">60</span></span>
-<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> line <span class="kw">in</span> <span class="bu">range</span>(nlines):</span>
-<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>                lineofseq <span class="op">=</span> data[line<span class="op">*</span><span class="dv">60</span>:(line<span class="op">+</span><span class="dv">1</span>)<span class="op">*</span><span class="dv">60</span>] <span class="op">+</span> <span class="st">"</span><span class="ch">\n</span><span class="st">"</span></span>
-<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>                <span class="bu">file</span>.write(lineofseq)</span>
-<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a>        n <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(n)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="53256f23" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> eris.io <span class="im">import</span> SeqFile</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co"># extract IS sequence from ISfinder that are found the sample and and write into fasta file</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>filename <span class="op">=</span> <span class="st">"is_found.fasta"</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> os.path.exists(filename):</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    os.remove(filename)</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>isf_path <span class="op">=</span> Path(<span class="st">'/Users/adimascf/UQ-resources/SEM2/research-project/eris/src/eris/data/IS.fna'</span>)</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>isf_fasta <span class="op">=</span> SeqFile(isf_path, format_<span class="op">=</span><span class="st">"fasta"</span>)</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> record <span class="kw">in</span> isf_fasta:</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> record.<span class="bu">id</span> <span class="kw">in</span> is_found:</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">with</span> <span class="bu">open</span>(<span class="st">"is_found.fasta"</span>, <span class="st">"a"</span>) <span class="im">as</span> <span class="bu">file</span>:</span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>            identifier <span class="op">=</span> <span class="st">"&gt;"</span> <span class="op">+</span> record.<span class="bu">id</span> <span class="op">+</span> <span class="st">"</span><span class="ch">\n</span><span class="st">"</span></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>            <span class="bu">file</span>.write(identifier)</span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>            data <span class="op">=</span> <span class="bu">str</span>(record.seq)</span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>            length <span class="op">=</span> <span class="bu">len</span>(data)</span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>            nlines <span class="op">=</span> (length <span class="op">+</span> <span class="dv">59</span>) <span class="op">//</span> <span class="dv">60</span></span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> line <span class="kw">in</span> <span class="bu">range</span>(nlines):</span>
+<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>                lineofseq <span class="op">=</span> data[line<span class="op">*</span><span class="dv">60</span>:(line<span class="op">+</span><span class="dv">1</span>)<span class="op">*</span><span class="dv">60</span>] <span class="op">+</span> <span class="st">"</span><span class="ch">\n</span><span class="st">"</span></span>
+<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>                <span class="bu">file</span>.write(lineofseq)</span>
+<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a>        n <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(n)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>51</code></pre>
 </div>
-</div>
-<ul>
-<li>Started exploring <a href="https://github.com/xiezhq/ISEScan">isescan</a>
+</div></li>
+<li><p>Started exploring <a href="https://github.com/xiezhq/ISEScan">isescan</a></p>
 <ul>
 <li>Using input data from <em>Klebsiella pneumoniae</em> WGS data (<a href="https://www.ebi.ac.uk/ena/browser/view/SRR20082569">SRR20082569</a>)</li>
 </ul></li>
