@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Week 03: Started drafting the project plan – IS Project Logbook</title>
+<title>Week 04: Started explore Bunya and improve the project plan draft – IS Project Logbook</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -135,10 +135,10 @@ ul.task-list li input[type="checkbox"] {
   <ul>
   <li><a href="#daily-log" id="toc-daily-log" class="nav-link" data-scroll-target="#daily-log">Daily Log</a>
   <ul>
-  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section">11-08-2025</a></li>
-  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1">12-08-2025</a></li>
-  <li><a href="#section-2" id="toc-section-2" class="nav-link" data-scroll-target="#section-2">14-08-2025</a></li>
-  <li><a href="#section-3" id="toc-section-3" class="nav-link" data-scroll-target="#section-3">15-08-2025</a></li>
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section">18-08-2025</a></li>
+  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1">19-08-2025</a></li>
+  <li><a href="#section-2" id="toc-section-2" class="nav-link" data-scroll-target="#section-2">21-08-2025</a></li>
+  <li><a href="#section-3" id="toc-section-3" class="nav-link" data-scroll-target="#section-3">22-08-2025</a></li>
   </ul></li>
   </ul></li>
   </ul>
@@ -149,7 +149,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Week 03: Started drafting the project plan</h1>
+<h1 class="title">Week 04: Started explore Bunya and improve the project plan draft</h1>
 </div>
 
 
@@ -171,74 +171,45 @@ ul.task-list li input[type="checkbox"] {
 <section id="daily-log" class="level2">
 <h2 class="anchored" data-anchor-id="daily-log">Daily Log</h2>
 <section id="section" class="level3">
-<h3 class="anchored" data-anchor-id="section">11-08-2025</h3>
+<h3 class="anchored" data-anchor-id="section">18-08-2025</h3>
 <ul>
 <li>Weekly project meeting
 <ul>
-<li>Put all the commands Dimas has run to the logbook, will be helpful later</li>
-<li>Visualise the result to bandage later</li>
-<li>Walked through the code that I explored with Tom adding some insight on Features, Id generations, graph weight</li>
-<li>How much is the cut off value form predicting IS insertion and also the effect? hits cutoff and min proximity.</li>
-<li>Promoter sequence bacteria is usually can be searched using regular expression with the balence of modularity of the tool and also it has good accuracy</li>
-<li>Discuss about the discrepancies of the result between tools (will be disscused more later)</li>
-<li>Ask clarification on the project plan assesment
-<ul>
-<li>The course coordinator already said that it is okay for supervisors to see the draft before submission</li>
-</ul></li>
-<li>Dimas needs to start drafting the project plan</li>
+<li>Dimas has shared the project plan. Leah and Tom will give the feedback this week, so that Dimas has time to fix.</li>
+<li>Bunya crash course with Leah on tomorrow</li>
+<li><em>E. coli</em> truth dataset will be stasrted to uuse for further exploration as well benchmarking. It will start from reads fastq data (illumina) the, we generate GFA, etc. We have data from other sequencers ONT, Pacbio</li>
+<li>Tom will share the reference for <em>Kleibsella pneumonia</em> data</li>
+<li>We will try using overleaf to drafting manuscript</li>
 </ul></li>
 </ul>
 </section>
 <section id="section-1" class="level3">
-<h3 class="anchored" data-anchor-id="section-1">12-08-2025</h3>
+<h3 class="anchored" data-anchor-id="section-1">19-08-2025</h3>
 <ul>
-<li>Started writing the introduction of the project plan
+<li>Carsh course on Bunya with Leah
 <ul>
-<li>I used all of the summary from paper that Tom and Leah gave me in the week 1</li>
+<li>Gone thorugh aliases and three different drives; home drive, scratch (fast acess), and RDM for slow access (long term storage)</li>
+<li>Login node and compute node (as well as with interative node) for any computational tasks</li>
+<li>Conda use in Bunya</li>
+<li>account string, <code>uqccr_a</code> -&gt; I have been joined to the group. i can use the string</li>
 </ul></li>
 </ul>
 </section>
 <section id="section-2" class="level3">
-<h3 class="anchored" data-anchor-id="section-2">14-08-2025</h3>
+<h3 class="anchored" data-anchor-id="section-2">21-08-2025</h3>
 <ul>
-<li>Started writing the plan and startegy paragraphs
+<li>Course course on ssubmit with Michael, a SLRUM wrapper</li>
+<li>Made an improvement on the project plan draft from the feedback leah has given
 <ul>
-<li>Used Leah and Tom google docs as a guidance</li>
+<li>Add a typical IS figure</li>
+<li>Add additional examples on how IS can affect gene expression or phenotype of the host</li>
 </ul></li>
 </ul>
 </section>
 <section id="section-3" class="level3">
-<h3 class="anchored" data-anchor-id="section-3">15-08-2025</h3>
+<h3 class="anchored" data-anchor-id="section-3">22-08-2025</h3>
 <ul>
-<li><p>Tried to install ISseeker and digIS</p>
-<ul>
-<li>digIS command</li>
-</ul>
-<pre class="{bash}"><code>python3 digIS/digIS_search.py -i ../project-scratch/outputs/genomes/contigs.fasta -g ../project-scratch/data/GCF_000016305.1_ASM1630v1_genomic.gbff -o digis_outputs/</code></pre>
-<p>encountered an error that seems to be some index slicing issue:</p>
-<pre class="{bash}"><code>Parsing Hmmer outputs...
-Traceback (most recent call last):
-File "/Users/adimascf/UQ-resources/SEM2/research-project/existing_tools/digIS/digIS_search.py", line 26, in &lt;module&gt;
-    digIS.run()
-File "/Users/adimascf/UQ-resources/SEM2/research-project/existing_tools/digIS/src/search_tool/digISMultifasta.py", line 23, in run
-    digIS_rec.run(search=search)
-File "/Users/adimascf/UQ-resources/SEM2/research-project/existing_tools/digIS/src/search_tool/digIS.py", line 313, in run
-    self.parse()
-File "/Users/adimascf/UQ-resources/SEM2/research-project/existing_tools/digIS/src/search_tool/digIS.py", line 57, in parse
-    self.parse_hmmer_output('model', self.hmmsearch_output)
-File "/Users/adimascf/UQ-resources/SEM2/research-project/existing_tools/digIS/src/search_tool/digIS.py", line 70, in parse_hmmer_output
-    self.recs.append(RecordDigIS.from_hmmer(hsp, sid, dna_range[0], dna_range[1], strand, self.genome.name,
-File "/Users/adimascf/UQ-resources/SEM2/research-project/existing_tools/digIS/src/search_tool/RecordDigIS.py", line 31, in from_hmmer
-    return cls(genome_name, chrom, genome_seq, seq_len, hsp.qid, sid, hsp.qstart, hsp.qend, start, end, strand, float(hsp.acc), float(hsp.dom_bitscore), float(hsp.dom_evalue))
-File "/Users/adimascf/UQ-resources/SEM2/research-project/existing_tools/digIS/src/search_tool/RecordDigIS.py", line 13, in __init__
-    super().__init__(genome_name, chrom, start, end, strand, genome_seq, genome_len)
-File "/Users/adimascf/UQ-resources/SEM2/research-project/existing_tools/digIS/src/common/grange.py", line 17, in __init__
-    raise ValueError("GRange: start or end position is out of the range.")
-ValueError: GRange: start or end position is out of the range.</code></pre>
-<ul>
-<li>ISseeker installation is not succeeded yet</li>
-</ul></li>
-<li><p>Finalised the project plan draft</p></li>
+<li>Made an improvement on the project pland draft from Tom’s feedback</li>
 </ul>
 
 
