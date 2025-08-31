@@ -181,8 +181,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1">26-08-2025</a></li>
   <li><a href="#section-2" id="toc-section-2" class="nav-link" data-scroll-target="#section-2">28-08-2025</a>
   <ul class="collapse">
-  <li><a href="#identify-is-in-from-short-read-genome-assembly-result" id="toc-identify-is-in-from-short-read-genome-assembly-result" class="nav-link" data-scroll-target="#identify-is-in-from-short-read-genome-assembly-result">identify IS in from short read genome assembly result</a></li>
-  <li><a href="#identify-is-in-complete-chromosome" id="toc-identify-is-in-complete-chromosome" class="nav-link" data-scroll-target="#identify-is-in-complete-chromosome">identify IS in complete chromosome</a></li>
+  <li><a href="#identify-is-in-from-short-read-genome-assembly-result" id="toc-identify-is-in-from-short-read-genome-assembly-result" class="nav-link" data-scroll-target="#identify-is-in-from-short-read-genome-assembly-result">identify IS in from short read genome assembly result</a>
+  <ul class="collapse">
+  <li><a href="#run-eris-in-both-assembly-results-with-gfa-and-fasta-file-separately" id="toc-run-eris-in-both-assembly-results-with-gfa-and-fasta-file-separately" class="nav-link" data-scroll-target="#run-eris-in-both-assembly-results-with-gfa-and-fasta-file-separately">Run Eris in both assembly results, with gfa and fasta file separately</a></li>
+  <li><a href="#run-isecan-on-both-assembly-results" id="toc-run-isecan-on-both-assembly-results" class="nav-link" data-scroll-target="#run-isecan-on-both-assembly-results">Run ISEcan on both assembly results</a></li>
+  </ul></li>
+  <li><a href="#identify-is-in-complete-chromosome" id="toc-identify-is-in-complete-chromosome" class="nav-link" data-scroll-target="#identify-is-in-complete-chromosome">identify IS in complete chromosome</a>
+  <ul class="collapse">
+  <li><a href="#eris" id="toc-eris" class="nav-link" data-scroll-target="#eris">Eris</a></li>
+  <li><a href="#isescan" id="toc-isescan" class="nav-link" data-scroll-target="#isescan">Isescan</a></li>
+  </ul></li>
   <li><a href="#inspect-the-is-elements-in-the-e-coli-958-genome" id="toc-inspect-the-is-elements-in-the-e-coli-958-genome" class="nav-link" data-scroll-target="#inspect-the-is-elements-in-the-e-coli-958-genome">Inspect the IS elements in the E coli 958 genome</a></li>
   </ul></li>
   </ul></li>
@@ -249,27 +257,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Downloaded the <a href="https://www.ncbi.nlm.nih.gov/nuccore/HG941718.1/">genbank file</a>, and visualise it on the artemis</li>
 <li>Downloaded the illumina paired end reads, from ENA <a href="https://www.ebi.ac.uk/ena/browser/view/SRR5194982">SRR5194982</a></li>
 </ul>
-<div id="ec36dc5f" class="cell" data-execution_count="1">
+<div id="462086c9" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>wget <span class="op">-</span>nc ftp:<span class="op">//</span>ftp.sra.ebi.ac.uk<span class="op">/</span>vol1<span class="op">/</span>fastq<span class="op">/</span>SRR519<span class="op">/</span><span class="dv">00</span><span class="er">2</span><span class="op">/</span>SRR5194982<span class="op">/</span>SRR5194982_1.fastq.gz</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>wget <span class="op">-</span>nc ftp:<span class="op">//</span>ftp.sra.ebi.ac.uk<span class="op">/</span>vol1<span class="op">/</span>fastq<span class="op">/</span>SRR519<span class="op">/</span><span class="dv">00</span><span class="er">2</span><span class="op">/</span>SRR5194982<span class="op">/</span>SRR5194982_2.fastq.gz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></li>
 <li><p>Assemblied the Illumina reads using spades</p></li>
 </ul>
-<div id="e7d9119b" class="cell" data-execution_count="2">
+<div id="54e920c3" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="op">~/</span><span class="bu">bin</span><span class="op">/</span>SPAdes<span class="op">-</span><span class="fl">4.2.0</span><span class="op">-</span>Linux<span class="op">/</span><span class="bu">bin</span><span class="op">/</span>spades.py <span class="op">-</span><span class="dv">1</span> data<span class="op">/</span>ecoli958<span class="op">/</span>fastqs<span class="op">/</span>SRR5194982_1.fastq.gz <span class="op">-</span><span class="dv">2</span> data<span class="op">/</span>ecoli958<span class="op">/</span>fastqs<span class="op">/</span>SRR5194982_2.fastq.gz <span class="op">--</span>threads <span class="dv">8</span> <span class="op">--</span>memory <span class="dv">32</span> <span class="op">-</span>o outputs<span class="op">/</span>spades<span class="op">/</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li>Assemblied the Illumina reads using spades (with <code>--isolate</code>)</li>
 </ul>
-<div id="dfeed448" class="cell" data-execution_count="3">
+<div id="973c7e06" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="op">~/</span><span class="bu">bin</span><span class="op">/</span>SPAdes<span class="op">-</span><span class="fl">4.2.0</span><span class="op">-</span>Linux<span class="op">/</span><span class="bu">bin</span><span class="op">/</span>spades.py <span class="op">--</span>isolate <span class="op">-</span><span class="dv">1</span> data<span class="op">/</span>ecoli958<span class="op">/</span>fastqs<span class="op">/</span>SRR5194982_1.fastq.gz <span class="op">-</span><span class="dv">2</span> data<span class="op">/</span>ecoli958<span class="op">/</span>fastqs<span class="op">/</span>SRR5194982_2.fastq.gz <span class="op">--</span>threads <span class="dv">8</span> <span class="op">--</span>memory <span class="dv">32</span> <span class="op">-</span>o outputs<span class="op">/</span>spades<span class="op">-</span>isolates</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="identify-is-in-from-short-read-genome-assembly-result" class="level4">
 <h4 class="anchored" data-anchor-id="identify-is-in-from-short-read-genome-assembly-result">identify IS in from short read genome assembly result</h4>
-<ul>
-<li>Run Eris in both assembly results, with gfa and fasta file separately</li>
-</ul>
-<div id="17dd061f" class="cell" data-execution_count="4">
+<section id="run-eris-in-both-assembly-results-with-gfa-and-fasta-file-separately" class="level5">
+<h5 class="anchored" data-anchor-id="run-eris-in-both-assembly-results-with-gfa-and-fasta-file-separately">Run Eris in both assembly results, with gfa and fasta file separately</h5>
+<div id="19fbeef4" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>mkdir <span class="op">-</span>p eris<span class="op">-</span>outputs</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>eris scan ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>spades<span class="op">-</span>isolates<span class="op">/</span>assembly_graph_after_simplification.gfa <span class="op">&gt;</span> eris<span class="op">-</span>outputs<span class="op">/</span>result_gfa_isolate.tsv</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>eris scan ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>spades<span class="op">-</span>isolates<span class="op">/</span>contigs.fasta <span class="op">&gt;</span> eris<span class="op">-</span>outputs<span class="op">/</span>result_fasta_isolate.tsv</span>
@@ -277,7 +284,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>eris scan ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>spades<span class="op">-</span>outputs<span class="op">/</span>contigs.fasta <span class="op">&gt;</span> eris<span class="op">-</span>outputs<span class="op">/</span>result_fasta.tsv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>how many IS detected by Eris?</p>
-<div id="ee3b9af6" class="cell" data-execution_count="5">
+<div id="43a03d0b" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>grep <span class="st">"mobile_element"</span> eris<span class="op">-</span>outputs<span class="op">/</span>result_gfa_isolate.tsv <span class="op">|</span> wc <span class="op">-</span>l</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>grep <span class="st">"mobile_element"</span> eris<span class="op">-</span>outputs<span class="op">/</span>result_fasta_isolate.tsv <span class="op">|</span> wc <span class="op">-</span>l</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>grep <span class="st">"mobile_element"</span> eris<span class="op">-</span>outputs<span class="op">/</span>result_gfa.tsv <span class="op">|</span> wc <span class="op">-</span>l</span>
@@ -290,15 +297,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Eris results seems to be influenced by what input file type (gfa or fasta) and how assembly genome is genereated (with or without –isolate flag).</p>
-<ul>
-<li>Run <a href="https://github.com/xiezhq/ISEScan?tab=readme-ov-file#Usage">ISEcan</a> on both assembly results</li>
-</ul>
-<div id="cfd3ece9" class="cell" data-execution_count="6">
+</section>
+<section id="run-isecan-on-both-assembly-results" class="level5">
+<h5 class="anchored" data-anchor-id="run-isecan-on-both-assembly-results">Run <a href="https://github.com/xiezhq/ISEScan?tab=readme-ov-file#Usage">ISEcan</a> on both assembly results</h5>
+<div id="6248319b" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>isescan.py <span class="op">--</span>seqfile outputs<span class="op">/</span>spades<span class="op">-</span>isolate<span class="op">/</span>contigs.fasta <span class="op">--</span>output outputs<span class="op">/</span>isescan<span class="op">/</span> <span class="op">--</span>nthread <span class="dv">2</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>isescan.py <span class="op">--</span>seqfile outputs<span class="op">/</span>spades<span class="op">/</span>contigs.fasta <span class="op">--</span>output outputs<span class="op">/</span>isescan<span class="op">/</span> <span class="op">--</span>nthread <span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>how many IS detected by Isescan?</p>
-<div id="7ac97572" class="cell" data-execution_count="7">
+<div id="ec04adb0" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>tail <span class="op">+</span><span class="dv">2</span> ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>isescan<span class="op">-</span>outputs<span class="op">/</span>spades<span class="op">/</span>contigs.fasta.tsv <span class="op">|</span> wc <span class="op">-</span>l</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>tail <span class="op">+</span><span class="dv">2</span> ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>isescan<span class="op">-</span>outputs<span class="op">/</span>spades<span class="op">-</span>isolates<span class="op">/</span>contigs.fasta.tsv <span class="op">|</span> wc <span class="op">-</span>l</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -306,7 +313,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       77</code></pre>
 </div>
 </div>
-<div id="39a6bbbb" class="cell" data-execution_count="8">
+<div id="bc5ff5ee" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>eris_fasta <span class="op">=</span> pd.read_csv(<span class="st">"eris-outputs/result_fasta.tsv"</span>, sep<span class="op">=</span><span class="st">"</span><span class="ch">\t</span><span class="st">"</span>)</span>
@@ -347,14 +354,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0</td>
 <td>contig</td>
-<td>ab9afb43-55c5-4e72-9751-e654b79e60e6</td>
+<td>f5a5adfd-7c1b-4efc-9ed8-f98da53999a9</td>
 <td>mobile_element</td>
 <td>NODE_100_length_1368_cov_118.453161</td>
 <td>55</td>
 <td>162</td>
 <td>1</td>
 <td>True</td>
-<td>ab9afb43-55c5-4e72-9751-e654b79e60e6</td>
+<td>f5a5adfd-7c1b-4efc-9ed8-f98da53999a9</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -371,14 +378,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td data-quarto-table-cell-role="th">2</td>
 <td>contig</td>
-<td>ab52d76b-f0b6-436d-a6d5-609d643cef18</td>
+<td>debb5d1d-48ee-4f36-9e4c-ebdeca6fb823</td>
 <td>mobile_element</td>
 <td>NODE_102_length_1330_cov_112.021961</td>
 <td>47</td>
 <td>1268</td>
 <td>1</td>
 <td>False</td>
-<td>ab52d76b-f0b6-436d-a6d5-609d643cef18</td>
+<td>debb5d1d-48ee-4f36-9e4c-ebdeca6fb823</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -395,14 +402,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">5</td>
 <td>contig</td>
-<td>7e127edc-ea46-441f-ba00-4183533cb2a7</td>
+<td>ad84e1d8-2a8a-45e3-80e6-88ee3d55a52f</td>
 <td>mobile_element</td>
 <td>NODE_116_length_894_cov_238.991657</td>
 <td>0</td>
 <td>894</td>
 <td>-1</td>
 <td>True</td>
-<td>7e127edc-ea46-441f-ba00-4183533cb2a7</td>
+<td>ad84e1d8-2a8a-45e3-80e6-88ee3d55a52f</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -419,14 +426,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td data-quarto-table-cell-role="th">8</td>
 <td>contig</td>
-<td>5fc3957b-4d47-4923-a778-75266cc057c7</td>
+<td>1f0331d2-6f60-4e71-ba2b-ad268b05cf72</td>
 <td>mobile_element</td>
 <td>NODE_11_length_158869_cov_118.708621</td>
 <td>158756</td>
 <td>158869</td>
 <td>-1</td>
 <td>True</td>
-<td>5fc3957b-4d47-4923-a778-75266cc057c7</td>
+<td>1f0331d2-6f60-4e71-ba2b-ad268b05cf72</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -443,14 +450,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">9</td>
 <td>contig</td>
-<td>f533093f-710d-414a-b1ee-38718ffa528c</td>
+<td>ad65f5bf-d05f-4163-b81d-e8bcd58fb104</td>
 <td>mobile_element</td>
 <td>NODE_120_length_777_cov_1709.146814</td>
 <td>0</td>
 <td>777</td>
 <td>-1</td>
 <td>True</td>
-<td>f533093f-710d-414a-b1ee-38718ffa528c</td>
+<td>ad65f5bf-d05f-4163-b81d-e8bcd58fb104</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -471,7 +478,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="ae73df02" class="cell" data-execution_count="9">
+<div id="22d385cf" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>isescan_fasta <span class="op">=</span> pd.read_csv(<span class="st">"../../data/ecoli/isescan-outputs/spades/contigs.fasta.tsv"</span>, sep<span class="op">=</span><span class="st">"</span><span class="ch">\t</span><span class="st">"</span>)</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>isescan_fasta.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
@@ -634,7 +641,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p><code>isescan</code> output seems only reporting IS family, not IS Name. <code>Contig</code> column in eris, and <code>seqID</code> have the same value with id contig from fasta</p>
-<div id="5c988fd8" class="cell" data-execution_count="10">
+<div id="737ca4f4" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>pd.set_option(<span class="st">'display.max_rows'</span>, <span class="va">None</span>)</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co"># select less columns</span></span>
@@ -3319,7 +3326,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>How many contigs contain insertions of IS elements identified by Eris and ISEScan?</p>
-<div id="5e46973b" class="cell" data-execution_count="11">
+<div id="3b6189ae" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib_venn <span class="im">import</span> venn2</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -3338,23 +3345,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
+</section>
 <section id="identify-is-in-complete-chromosome" class="level4">
 <h4 class="anchored" data-anchor-id="identify-is-in-complete-chromosome">identify IS in complete chromosome</h4>
-<pre><code>-   Eris</code></pre>
-<div id="66197b23" class="cell" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>eris scan ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>EC958.fasta <span class="op">&gt;</span> eris<span class="op">-</span>outputs<span class="op">/</span>chromosome_fasta.tsv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="eris" class="level5">
+<h5 class="anchored" data-anchor-id="eris">Eris</h5>
+<div id="fd75a137" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>eris scan ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>EC958.fasta <span class="op">&gt;</span> eris<span class="op">-</span>outputs<span class="op">/</span>chromosome_fasta.tsv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="88bc36d0" class="cell" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>grep <span class="st">"mobile_element"</span> eris<span class="op">-</span>outputs<span class="op">/</span>chromosome_fasta.tsv <span class="op">|</span> wc <span class="op">-</span>l</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="5e8f710c" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>grep <span class="st">"mobile_element"</span> eris<span class="op">-</span>outputs<span class="op">/</span>chromosome_fasta.tsv <span class="op">|</span> wc <span class="op">-</span>l</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      58</code></pre>
 </div>
 </div>
 <p><strong>Eris identified 58 IS in full genome</strong></p>
-<div id="2b42cdad" class="cell" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>pd.set_option(<span class="st">'display.max_rows'</span>, <span class="va">None</span>)</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>eris_chr <span class="op">=</span> pd.read_csv(<span class="st">"eris-outputs/chromosome_fasta.tsv"</span>, sep<span class="op">=</span><span class="st">"</span><span class="ch">\t</span><span class="st">"</span>)</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>eris_chr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="df0beae1" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>pd.set_option(<span class="st">'display.max_rows'</span>, <span class="va">None</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>eris_chr <span class="op">=</span> pd.read_csv(<span class="st">"eris-outputs/chromosome_fasta.tsv"</span>, sep<span class="op">=</span><span class="st">"</span><span class="ch">\t</span><span class="st">"</span>)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>eris_chr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="10">
 <div>
 
@@ -3397,7 +3406,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>233759</td>
 <td>-1</td>
 <td>False</td>
-<td>0936650a-6807-4986-ade4-9f568e798f4e</td>
+<td>7114d338-d0d0-4762-a6b4-d75be7793230</td>
 <td>-32bp</td>
 <td>...</td>
 <td>disrupted</td>
@@ -3414,14 +3423,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td data-quarto-table-cell-role="th">1</td>
 <td>EC958</td>
-<td>0936650a-6807-4986-ade4-9f568e798f4e</td>
+<td>7114d338-d0d0-4762-a6b4-d75be7793230</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>233727</td>
 <td>236259</td>
 <td>1</td>
 <td>False</td>
-<td>0936650a-6807-4986-ade4-9f568e798f4e</td>
+<td>7114d338-d0d0-4762-a6b4-d75be7793230</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -3445,7 +3454,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>234238</td>
 <td>1</td>
 <td>False</td>
-<td>0936650a-6807-4986-ade4-9f568e798f4e</td>
+<td>7114d338-d0d0-4762-a6b4-d75be7793230</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -3469,7 +3478,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>234585</td>
 <td>1</td>
 <td>False</td>
-<td>0936650a-6807-4986-ade4-9f568e798f4e</td>
+<td>7114d338-d0d0-4762-a6b4-d75be7793230</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -3486,14 +3495,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">4</td>
 <td>EC958</td>
-<td>0936650a-6807-4986-ade4-9f568e798f4e_promoter_1</td>
+<td>7114d338-d0d0-4762-a6b4-d75be7793230_promoter_1</td>
 <td>regulatory</td>
 <td>HG941718.1</td>
 <td>234579</td>
 <td>234610</td>
 <td>1</td>
 <td>False</td>
-<td>0936650a-6807-4986-ade4-9f568e798f4e</td>
+<td>7114d338-d0d0-4762-a6b4-d75be7793230</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -3517,7 +3526,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>236229</td>
 <td>1</td>
 <td>False</td>
-<td>0936650a-6807-4986-ade4-9f568e798f4e</td>
+<td>7114d338-d0d0-4762-a6b4-d75be7793230</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -3541,7 +3550,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>236728</td>
 <td>-1</td>
 <td>False</td>
-<td>0936650a-6807-4986-ade4-9f568e798f4e</td>
+<td>7114d338-d0d0-4762-a6b4-d75be7793230</td>
 <td>-44bp</td>
 <td>...</td>
 <td>disrupted</td>
@@ -3565,7 +3574,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>814899</td>
 <td>1</td>
 <td>False</td>
-<td>8723d50d-7f5d-45fd-9f08-62357b29f44e</td>
+<td>23687175-5501-4830-95ad-e33eb4e2909e</td>
 <td>3bp</td>
 <td>...</td>
 <td>disrupted</td>
@@ -3582,14 +3591,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">8</td>
 <td>EC958</td>
-<td>8723d50d-7f5d-45fd-9f08-62357b29f44e</td>
+<td>23687175-5501-4830-95ad-e33eb4e2909e</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>814902</td>
 <td>815025</td>
 <td>-1</td>
 <td>False</td>
-<td>8723d50d-7f5d-45fd-9f08-62357b29f44e</td>
+<td>23687175-5501-4830-95ad-e33eb4e2909e</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -3613,7 +3622,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>817343</td>
 <td>1</td>
 <td>False</td>
-<td>8723d50d-7f5d-45fd-9f08-62357b29f44e</td>
+<td>23687175-5501-4830-95ad-e33eb4e2909e</td>
 <td>56bp</td>
 <td>...</td>
 <td>disrupted</td>
@@ -3637,7 +3646,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>1365521</td>
 <td>1</td>
 <td>False</td>
-<td>6e3ad553-44d1-4280-bce2-1a16d86e2490</td>
+<td>f2c42db2-30b2-494d-a2f1-e42f05d51b39</td>
 <td>109bp</td>
 <td>...</td>
 <td>disrupted</td>
@@ -3654,14 +3663,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td data-quarto-table-cell-role="th">11</td>
 <td>EC958</td>
-<td>6e3ad553-44d1-4280-bce2-1a16d86e2490</td>
+<td>f2c42db2-30b2-494d-a2f1-e42f05d51b39</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>1365630</td>
 <td>1366324</td>
 <td>1</td>
 <td>True</td>
-<td>6e3ad553-44d1-4280-bce2-1a16d86e2490</td>
+<td>f2c42db2-30b2-494d-a2f1-e42f05d51b39</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -3678,14 +3687,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">12</td>
 <td>EC958</td>
-<td>6e3ad553-44d1-4280-bce2-1a16d86e2490_promoter_1</td>
+<td>f2c42db2-30b2-494d-a2f1-e42f05d51b39_promoter_1</td>
 <td>regulatory</td>
 <td>HG941718.1</td>
 <td>1365693</td>
 <td>1365721</td>
 <td>1</td>
 <td>False</td>
-<td>6e3ad553-44d1-4280-bce2-1a16d86e2490</td>
+<td>f2c42db2-30b2-494d-a2f1-e42f05d51b39</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -3709,7 +3718,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>1366380</td>
 <td>1</td>
 <td>False</td>
-<td>6e3ad553-44d1-4280-bce2-1a16d86e2490</td>
+<td>f2c42db2-30b2-494d-a2f1-e42f05d51b39</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -3733,7 +3742,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>1369175</td>
 <td>1</td>
 <td>False</td>
-<td>6e3ad553-44d1-4280-bce2-1a16d86e2490</td>
+<td>f2c42db2-30b2-494d-a2f1-e42f05d51b39</td>
 <td>193bp</td>
 <td>...</td>
 <td>-</td>
@@ -3757,7 +3766,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>1371247</td>
 <td>1</td>
 <td>False</td>
-<td>45cc0edd-1ac8-42ea-8a9b-90bc3f80af59</td>
+<td>16f760d8-c647-4bc2-ba6b-2568936481fd</td>
 <td>79bp</td>
 <td>...</td>
 <td>disrupted</td>
@@ -3774,14 +3783,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">16</td>
 <td>EC958</td>
-<td>45cc0edd-1ac8-42ea-8a9b-90bc3f80af59</td>
+<td>16f760d8-c647-4bc2-ba6b-2568936481fd</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>1371326</td>
 <td>1371811</td>
 <td>-1</td>
 <td>True</td>
-<td>45cc0edd-1ac8-42ea-8a9b-90bc3f80af59</td>
+<td>16f760d8-c647-4bc2-ba6b-2568936481fd</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -3805,7 +3814,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>1371700</td>
 <td>1</td>
 <td>False</td>
-<td>45cc0edd-1ac8-42ea-8a9b-90bc3f80af59</td>
+<td>16f760d8-c647-4bc2-ba6b-2568936481fd</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -3829,7 +3838,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>1372005</td>
 <td>1</td>
 <td>False</td>
-<td>45cc0edd-1ac8-42ea-8a9b-90bc3f80af59</td>
+<td>16f760d8-c647-4bc2-ba6b-2568936481fd</td>
 <td>23bp</td>
 <td>...</td>
 <td>disrupted</td>
@@ -3846,14 +3855,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td data-quarto-table-cell-role="th">19</td>
 <td>EC958</td>
-<td>51a40042-5e9c-4192-ab79-8a852280f041</td>
+<td>f4567c0a-f3f7-49c8-9796-200ea6d4703e</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>1372287</td>
 <td>1373517</td>
 <td>-1</td>
 <td>False</td>
-<td>51a40042-5e9c-4192-ab79-8a852280f041</td>
+<td>f4567c0a-f3f7-49c8-9796-200ea6d4703e</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -3877,7 +3886,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>1372814</td>
 <td>-1</td>
 <td>False</td>
-<td>51a40042-5e9c-4192-ab79-8a852280f041</td>
+<td>f4567c0a-f3f7-49c8-9796-200ea6d4703e</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -3901,7 +3910,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>1373458</td>
 <td>-1</td>
 <td>False</td>
-<td>51a40042-5e9c-4192-ab79-8a852280f041</td>
+<td>f4567c0a-f3f7-49c8-9796-200ea6d4703e</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -3925,7 +3934,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>1374744</td>
 <td>-1</td>
 <td>False</td>
-<td>51a40042-5e9c-4192-ab79-8a852280f041</td>
+<td>f4567c0a-f3f7-49c8-9796-200ea6d4703e</td>
 <td>51bp</td>
 <td>...</td>
 <td>disrupted</td>
@@ -3949,7 +3958,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>1418537</td>
 <td>-1</td>
 <td>False</td>
-<td>6ecb32d1-2842-4202-8c6e-1dd7104e71f3</td>
+<td>3327cc92-622d-4e33-89d8-5a000b7cd8f3</td>
 <td>-899bp</td>
 <td>...</td>
 <td>disrupted</td>
@@ -3966,14 +3975,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">24</td>
 <td>EC958</td>
-<td>6ecb32d1-2842-4202-8c6e-1dd7104e71f3</td>
+<td>3327cc92-622d-4e33-89d8-5a000b7cd8f3</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>1417638</td>
 <td>1418621</td>
 <td>-1</td>
 <td>True</td>
-<td>6ecb32d1-2842-4202-8c6e-1dd7104e71f3</td>
+<td>3327cc92-622d-4e33-89d8-5a000b7cd8f3</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -3997,7 +4006,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>1421337</td>
 <td>-1</td>
 <td>False</td>
-<td>6ecb32d1-2842-4202-8c6e-1dd7104e71f3</td>
+<td>3327cc92-622d-4e33-89d8-5a000b7cd8f3</td>
 <td>40bp</td>
 <td>...</td>
 <td>disrupted</td>
@@ -4021,7 +4030,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>1480038</td>
 <td>1</td>
 <td>False</td>
-<td>8cb162e3-89a4-4c84-8a30-548131365687</td>
+<td>f10fdbed-eb33-4943-834f-fd1a1d5fa80b</td>
 <td>-79bp</td>
 <td>...</td>
 <td>disrupted</td>
@@ -4038,14 +4047,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td data-quarto-table-cell-role="th">27</td>
 <td>EC958</td>
-<td>8cb162e3-89a4-4c84-8a30-548131365687</td>
+<td>f10fdbed-eb33-4943-834f-fd1a1d5fa80b</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>1479959</td>
 <td>1482540</td>
 <td>1</td>
 <td>False</td>
-<td>8cb162e3-89a4-4c84-8a30-548131365687</td>
+<td>f10fdbed-eb33-4943-834f-fd1a1d5fa80b</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -4069,7 +4078,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>1481694</td>
 <td>1</td>
 <td>False</td>
-<td>8cb162e3-89a4-4c84-8a30-548131365687</td>
+<td>f10fdbed-eb33-4943-834f-fd1a1d5fa80b</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -4093,7 +4102,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>1482455</td>
 <td>1</td>
 <td>False</td>
-<td>8cb162e3-89a4-4c84-8a30-548131365687</td>
+<td>f10fdbed-eb33-4943-834f-fd1a1d5fa80b</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -4117,7 +4126,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>1484151</td>
 <td>-1</td>
 <td>False</td>
-<td>8cb162e3-89a4-4c84-8a30-548131365687</td>
+<td>f10fdbed-eb33-4943-834f-fd1a1d5fa80b</td>
 <td>873bp</td>
 <td>...</td>
 <td>-</td>
@@ -4141,7 +4150,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>1646861</td>
 <td>-1</td>
 <td>False</td>
-<td>01d9d8cb-a98b-44f5-bcb2-46cb4802b5ec</td>
+<td>c95ae7fd-d14c-47e1-a5cc-8bdfc83a3ebd</td>
 <td>667bp</td>
 <td>...</td>
 <td>-</td>
@@ -4158,14 +4167,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">32</td>
 <td>EC958</td>
-<td>01d9d8cb-a98b-44f5-bcb2-46cb4802b5ec</td>
+<td>c95ae7fd-d14c-47e1-a5cc-8bdfc83a3ebd</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>1647528</td>
 <td>1648819</td>
 <td>1</td>
 <td>False</td>
-<td>01d9d8cb-a98b-44f5-bcb2-46cb4802b5ec</td>
+<td>c95ae7fd-d14c-47e1-a5cc-8bdfc83a3ebd</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -4189,7 +4198,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>1648809</td>
 <td>1</td>
 <td>False</td>
-<td>01d9d8cb-a98b-44f5-bcb2-46cb4802b5ec</td>
+<td>c95ae7fd-d14c-47e1-a5cc-8bdfc83a3ebd</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -4206,14 +4215,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">34</td>
 <td>EC958</td>
-<td>01d9d8cb-a98b-44f5-bcb2-46cb4802b5ec_promoter_1</td>
+<td>c95ae7fd-d14c-47e1-a5cc-8bdfc83a3ebd_promoter_1</td>
 <td>regulatory</td>
 <td>HG941718.1</td>
 <td>1647679</td>
 <td>1647710</td>
 <td>1</td>
 <td>False</td>
-<td>01d9d8cb-a98b-44f5-bcb2-46cb4802b5ec</td>
+<td>c95ae7fd-d14c-47e1-a5cc-8bdfc83a3ebd</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -4230,14 +4239,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td data-quarto-table-cell-role="th">35</td>
 <td>EC958</td>
-<td>01d9d8cb-a98b-44f5-bcb2-46cb4802b5ec_promoter_2</td>
+<td>c95ae7fd-d14c-47e1-a5cc-8bdfc83a3ebd_promoter_2</td>
 <td>regulatory</td>
 <td>HG941718.1</td>
 <td>1647862</td>
 <td>1647893</td>
 <td>1</td>
 <td>False</td>
-<td>01d9d8cb-a98b-44f5-bcb2-46cb4802b5ec</td>
+<td>c95ae7fd-d14c-47e1-a5cc-8bdfc83a3ebd</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -4254,14 +4263,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">36</td>
 <td>EC958</td>
-<td>01d9d8cb-a98b-44f5-bcb2-46cb4802b5ec_promoter_3</td>
+<td>c95ae7fd-d14c-47e1-a5cc-8bdfc83a3ebd_promoter_3</td>
 <td>regulatory</td>
 <td>HG941718.1</td>
 <td>1648196</td>
 <td>1648228</td>
 <td>1</td>
 <td>False</td>
-<td>01d9d8cb-a98b-44f5-bcb2-46cb4802b5ec</td>
+<td>c95ae7fd-d14c-47e1-a5cc-8bdfc83a3ebd</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -4285,7 +4294,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>1649449</td>
 <td>-1</td>
 <td>False</td>
-<td>01d9d8cb-a98b-44f5-bcb2-46cb4802b5ec</td>
+<td>c95ae7fd-d14c-47e1-a5cc-8bdfc83a3ebd</td>
 <td>60bp</td>
 <td>...</td>
 <td>disrupted</td>
@@ -4309,7 +4318,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>1997406</td>
 <td>1</td>
 <td>False</td>
-<td>68f8f7ed-5f92-4116-b355-42bcb2e80fff</td>
+<td>70faeb50-9ceb-40f7-950a-e72a9a701c1b</td>
 <td>39bp</td>
 <td>...</td>
 <td>disrupted</td>
@@ -4326,14 +4335,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td data-quarto-table-cell-role="th">39</td>
 <td>EC958</td>
-<td>68f8f7ed-5f92-4116-b355-42bcb2e80fff</td>
+<td>70faeb50-9ceb-40f7-950a-e72a9a701c1b</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>1997445</td>
 <td>1997536</td>
 <td>1</td>
 <td>True</td>
-<td>68f8f7ed-5f92-4116-b355-42bcb2e80fff</td>
+<td>70faeb50-9ceb-40f7-950a-e72a9a701c1b</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -4350,14 +4359,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">40</td>
 <td>EC958</td>
-<td>0395570e-f2ba-4e7a-a94c-fea204cb274e</td>
+<td>0436ebd0-5622-4a2d-a968-c667577d0712</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>1997567</td>
 <td>1998999</td>
 <td>-1</td>
 <td>False</td>
-<td>0395570e-f2ba-4e7a-a94c-fea204cb274e</td>
+<td>0436ebd0-5622-4a2d-a968-c667577d0712</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -4381,7 +4390,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>1998202</td>
 <td>-1</td>
 <td>False</td>
-<td>0395570e-f2ba-4e7a-a94c-fea204cb274e</td>
+<td>0436ebd0-5622-4a2d-a968-c667577d0712</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -4398,14 +4407,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">42</td>
 <td>EC958</td>
-<td>0395570e-f2ba-4e7a-a94c-fea204cb274e_promoter_1</td>
+<td>0436ebd0-5622-4a2d-a968-c667577d0712_promoter_1</td>
 <td>regulatory</td>
 <td>HG941718.1</td>
 <td>1997871</td>
 <td>1997902</td>
 <td>-1</td>
 <td>False</td>
-<td>0395570e-f2ba-4e7a-a94c-fea204cb274e</td>
+<td>0436ebd0-5622-4a2d-a968-c667577d0712</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -4429,7 +4438,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>1998600</td>
 <td>-1</td>
 <td>False</td>
-<td>0395570e-f2ba-4e7a-a94c-fea204cb274e</td>
+<td>0436ebd0-5622-4a2d-a968-c667577d0712</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -4453,7 +4462,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>2000068</td>
 <td>-1</td>
 <td>False</td>
-<td>0395570e-f2ba-4e7a-a94c-fea204cb274e</td>
+<td>0436ebd0-5622-4a2d-a968-c667577d0712</td>
 <td>58bp</td>
 <td>...</td>
 <td>disrupted</td>
@@ -4477,7 +4486,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>2135314</td>
 <td>1</td>
 <td>False</td>
-<td>4fc51110-6b8f-4337-86f3-ae1d989bbe17</td>
+<td>de8f0f63-2c4c-41c7-a1e1-de2376626b50</td>
 <td>51bp</td>
 <td>...</td>
 <td>disrupted</td>
@@ -4494,14 +4503,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">46</td>
 <td>EC958</td>
-<td>4fc51110-6b8f-4337-86f3-ae1d989bbe17</td>
+<td>de8f0f63-2c4c-41c7-a1e1-de2376626b50</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>2135365</td>
 <td>2136797</td>
 <td>-1</td>
 <td>False</td>
-<td>4fc51110-6b8f-4337-86f3-ae1d989bbe17</td>
+<td>de8f0f63-2c4c-41c7-a1e1-de2376626b50</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -4525,7 +4534,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>2136000</td>
 <td>-1</td>
 <td>False</td>
-<td>4fc51110-6b8f-4337-86f3-ae1d989bbe17</td>
+<td>de8f0f63-2c4c-41c7-a1e1-de2376626b50</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -4542,14 +4551,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">48</td>
 <td>EC958</td>
-<td>4fc51110-6b8f-4337-86f3-ae1d989bbe17_promoter_1</td>
+<td>de8f0f63-2c4c-41c7-a1e1-de2376626b50_promoter_1</td>
 <td>regulatory</td>
 <td>HG941718.1</td>
 <td>2135669</td>
 <td>2135700</td>
 <td>-1</td>
 <td>False</td>
-<td>4fc51110-6b8f-4337-86f3-ae1d989bbe17</td>
+<td>de8f0f63-2c4c-41c7-a1e1-de2376626b50</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -4573,7 +4582,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>2136398</td>
 <td>-1</td>
 <td>False</td>
-<td>4fc51110-6b8f-4337-86f3-ae1d989bbe17</td>
+<td>de8f0f63-2c4c-41c7-a1e1-de2376626b50</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -4597,7 +4606,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>2137657</td>
 <td>1</td>
 <td>False</td>
-<td>4fc51110-6b8f-4337-86f3-ae1d989bbe17</td>
+<td>de8f0f63-2c4c-41c7-a1e1-de2376626b50</td>
 <td>209bp</td>
 <td>...</td>
 <td>-</td>
@@ -4621,7 +4630,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>2142412</td>
 <td>-1</td>
 <td>False</td>
-<td>67ee4716-e457-428d-8215-72522b2c5a84</td>
+<td>6e1fe699-5fca-480c-beb9-677a0d2c567a</td>
 <td>11bp</td>
 <td>...</td>
 <td>disrupted</td>
@@ -4638,14 +4647,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">52</td>
 <td>EC958</td>
-<td>67ee4716-e457-428d-8215-72522b2c5a84</td>
+<td>6e1fe699-5fca-480c-beb9-677a0d2c567a</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>2142423</td>
 <td>2143132</td>
 <td>-1</td>
 <td>False</td>
-<td>67ee4716-e457-428d-8215-72522b2c5a84</td>
+<td>6e1fe699-5fca-480c-beb9-677a0d2c567a</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -4669,7 +4678,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>2142991</td>
 <td>-1</td>
 <td>False</td>
-<td>67ee4716-e457-428d-8215-72522b2c5a84</td>
+<td>6e1fe699-5fca-480c-beb9-677a0d2c567a</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -4693,7 +4702,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>2143787</td>
 <td>-1</td>
 <td>False</td>
-<td>67ee4716-e457-428d-8215-72522b2c5a84</td>
+<td>6e1fe699-5fca-480c-beb9-677a0d2c567a</td>
 <td>55bp</td>
 <td>...</td>
 <td>disrupted</td>
@@ -4717,7 +4726,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>2243683</td>
 <td>1</td>
 <td>False</td>
-<td>6c908a41-8978-4e21-91b9-db3b0c236d6b</td>
+<td>444dffd4-0341-4d86-9ff3-872b92341426</td>
 <td>383bp</td>
 <td>...</td>
 <td>-</td>
@@ -4734,14 +4743,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">56</td>
 <td>EC958</td>
-<td>6c908a41-8978-4e21-91b9-db3b0c236d6b</td>
+<td>444dffd4-0341-4d86-9ff3-872b92341426</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>2244066</td>
 <td>2245788</td>
 <td>-1</td>
 <td>False</td>
-<td>6c908a41-8978-4e21-91b9-db3b0c236d6b</td>
+<td>444dffd4-0341-4d86-9ff3-872b92341426</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -4765,7 +4774,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>2245192</td>
 <td>-1</td>
 <td>False</td>
-<td>6c908a41-8978-4e21-91b9-db3b0c236d6b</td>
+<td>444dffd4-0341-4d86-9ff3-872b92341426</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -4782,14 +4791,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">58</td>
 <td>EC958</td>
-<td>6c908a41-8978-4e21-91b9-db3b0c236d6b_promoter_1</td>
+<td>444dffd4-0341-4d86-9ff3-872b92341426_promoter_1</td>
 <td>regulatory</td>
 <td>HG941718.1</td>
 <td>2244442</td>
 <td>2244474</td>
 <td>-1</td>
 <td>False</td>
-<td>6c908a41-8978-4e21-91b9-db3b0c236d6b</td>
+<td>444dffd4-0341-4d86-9ff3-872b92341426</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -4806,14 +4815,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td data-quarto-table-cell-role="th">59</td>
 <td>EC958</td>
-<td>6c908a41-8978-4e21-91b9-db3b0c236d6b_promoter_2</td>
+<td>444dffd4-0341-4d86-9ff3-872b92341426_promoter_2</td>
 <td>regulatory</td>
 <td>HG941718.1</td>
 <td>2245202</td>
 <td>2245235</td>
 <td>-1</td>
 <td>False</td>
-<td>6c908a41-8978-4e21-91b9-db3b0c236d6b</td>
+<td>444dffd4-0341-4d86-9ff3-872b92341426</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -4837,7 +4846,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>2246408</td>
 <td>-1</td>
 <td>False</td>
-<td>6c908a41-8978-4e21-91b9-db3b0c236d6b</td>
+<td>444dffd4-0341-4d86-9ff3-872b92341426</td>
 <td>209bp</td>
 <td>...</td>
 <td>-</td>
@@ -4861,7 +4870,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>2247932</td>
 <td>1</td>
 <td>False</td>
-<td>c7856774-182a-48d0-ac50-b572a8fc8556</td>
+<td>3e5fb939-1a59-4b14-9709-121ccc8052b7</td>
 <td>948bp</td>
 <td>...</td>
 <td>-</td>
@@ -4878,14 +4887,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">62</td>
 <td>EC958</td>
-<td>c7856774-182a-48d0-ac50-b572a8fc8556</td>
+<td>3e5fb939-1a59-4b14-9709-121ccc8052b7</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>2248880</td>
 <td>2250339</td>
 <td>1</td>
 <td>False</td>
-<td>c7856774-182a-48d0-ac50-b572a8fc8556</td>
+<td>3e5fb939-1a59-4b14-9709-121ccc8052b7</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -4909,7 +4918,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>2250308</td>
 <td>1</td>
 <td>False</td>
-<td>c7856774-182a-48d0-ac50-b572a8fc8556</td>
+<td>3e5fb939-1a59-4b14-9709-121ccc8052b7</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -4933,7 +4942,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>2250710</td>
 <td>1</td>
 <td>False</td>
-<td>c7856774-182a-48d0-ac50-b572a8fc8556</td>
+<td>3e5fb939-1a59-4b14-9709-121ccc8052b7</td>
 <td>164bp</td>
 <td>...</td>
 <td>-</td>
@@ -4957,7 +4966,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>2251406</td>
 <td>1</td>
 <td>False</td>
-<td>16788aae-a795-42c6-b0df-08449865511b</td>
+<td>5b152c9c-7310-41db-bde0-bd20e70bc498</td>
 <td>959bp</td>
 <td>...</td>
 <td>-</td>
@@ -4974,14 +4983,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">66</td>
 <td>EC958</td>
-<td>16788aae-a795-42c6-b0df-08449865511b</td>
+<td>5b152c9c-7310-41db-bde0-bd20e70bc498</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>2252365</td>
 <td>2254232</td>
 <td>-1</td>
 <td>False</td>
-<td>16788aae-a795-42c6-b0df-08449865511b</td>
+<td>5b152c9c-7310-41db-bde0-bd20e70bc498</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -5005,7 +5014,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>2253124</td>
 <td>-1</td>
 <td>False</td>
-<td>16788aae-a795-42c6-b0df-08449865511b</td>
+<td>5b152c9c-7310-41db-bde0-bd20e70bc498</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -5029,7 +5038,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>2254146</td>
 <td>-1</td>
 <td>False</td>
-<td>16788aae-a795-42c6-b0df-08449865511b</td>
+<td>5b152c9c-7310-41db-bde0-bd20e70bc498</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -5053,7 +5062,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>2256816</td>
 <td>1</td>
 <td>False</td>
-<td>16788aae-a795-42c6-b0df-08449865511b</td>
+<td>5b152c9c-7310-41db-bde0-bd20e70bc498</td>
 <td>1438bp</td>
 <td>...</td>
 <td>-</td>
@@ -5077,7 +5086,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>2265904</td>
 <td>1</td>
 <td>False</td>
-<td>e7634d77-3fa3-40da-9a49-2b93fe5ea066</td>
+<td>ca21a70e-a14d-444a-9a1e-a36cbc9a7974</td>
 <td>-71bp</td>
 <td>...</td>
 <td>disrupted</td>
@@ -5094,14 +5103,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td data-quarto-table-cell-role="th">71</td>
 <td>EC958</td>
-<td>e7634d77-3fa3-40da-9a49-2b93fe5ea066</td>
+<td>ca21a70e-a14d-444a-9a1e-a36cbc9a7974</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>2265833</td>
 <td>2268365</td>
 <td>1</td>
 <td>False</td>
-<td>e7634d77-3fa3-40da-9a49-2b93fe5ea066</td>
+<td>ca21a70e-a14d-444a-9a1e-a36cbc9a7974</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -5125,7 +5134,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>2266344</td>
 <td>1</td>
 <td>False</td>
-<td>e7634d77-3fa3-40da-9a49-2b93fe5ea066</td>
+<td>ca21a70e-a14d-444a-9a1e-a36cbc9a7974</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -5149,7 +5158,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>2266691</td>
 <td>1</td>
 <td>False</td>
-<td>e7634d77-3fa3-40da-9a49-2b93fe5ea066</td>
+<td>ca21a70e-a14d-444a-9a1e-a36cbc9a7974</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -5166,14 +5175,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">74</td>
 <td>EC958</td>
-<td>e7634d77-3fa3-40da-9a49-2b93fe5ea066_promoter_1</td>
+<td>ca21a70e-a14d-444a-9a1e-a36cbc9a7974_promoter_1</td>
 <td>regulatory</td>
 <td>HG941718.1</td>
 <td>2266685</td>
 <td>2266716</td>
 <td>1</td>
 <td>False</td>
-<td>e7634d77-3fa3-40da-9a49-2b93fe5ea066</td>
+<td>ca21a70e-a14d-444a-9a1e-a36cbc9a7974</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -5197,7 +5206,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>2268335</td>
 <td>1</td>
 <td>False</td>
-<td>e7634d77-3fa3-40da-9a49-2b93fe5ea066</td>
+<td>ca21a70e-a14d-444a-9a1e-a36cbc9a7974</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -5221,7 +5230,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>2268670</td>
 <td>1</td>
 <td>False</td>
-<td>e7634d77-3fa3-40da-9a49-2b93fe5ea066</td>
+<td>ca21a70e-a14d-444a-9a1e-a36cbc9a7974</td>
 <td>29bp</td>
 <td>...</td>
 <td>upregulated</td>
@@ -5245,7 +5254,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>2271188</td>
 <td>1</td>
 <td>False</td>
-<td>64aea013-b785-4d1e-be9d-2fdad3f6528d</td>
+<td>2debfdf5-b90f-499a-8472-eacb5b4b3404</td>
 <td>-79bp</td>
 <td>...</td>
 <td>disrupted</td>
@@ -5262,14 +5271,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">78</td>
 <td>EC958</td>
-<td>64aea013-b785-4d1e-be9d-2fdad3f6528d</td>
+<td>2debfdf5-b90f-499a-8472-eacb5b4b3404</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>2271109</td>
 <td>2273690</td>
 <td>1</td>
 <td>False</td>
-<td>64aea013-b785-4d1e-be9d-2fdad3f6528d</td>
+<td>2debfdf5-b90f-499a-8472-eacb5b4b3404</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -5293,7 +5302,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>2272844</td>
 <td>1</td>
 <td>False</td>
-<td>64aea013-b785-4d1e-be9d-2fdad3f6528d</td>
+<td>2debfdf5-b90f-499a-8472-eacb5b4b3404</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -5317,7 +5326,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>2273605</td>
 <td>1</td>
 <td>False</td>
-<td>64aea013-b785-4d1e-be9d-2fdad3f6528d</td>
+<td>2debfdf5-b90f-499a-8472-eacb5b4b3404</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -5341,7 +5350,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>2274038</td>
 <td>1</td>
 <td>False</td>
-<td>64aea013-b785-4d1e-be9d-2fdad3f6528d</td>
+<td>2debfdf5-b90f-499a-8472-eacb5b4b3404</td>
 <td>78bp</td>
 <td>...</td>
 <td>disrupted</td>
@@ -5365,7 +5374,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>2284841</td>
 <td>1</td>
 <td>False</td>
-<td>a899d2f9-3d30-4d96-bbbb-f9967072494e</td>
+<td>7fe262ed-7f71-49da-97c0-7a2912b41600</td>
 <td>1bp</td>
 <td>...</td>
 <td>disrupted</td>
@@ -5382,14 +5391,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td data-quarto-table-cell-role="th">83</td>
 <td>EC958</td>
-<td>a899d2f9-3d30-4d96-bbbb-f9967072494e</td>
+<td>7fe262ed-7f71-49da-97c0-7a2912b41600</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>2284842</td>
 <td>2285551</td>
 <td>-1</td>
 <td>False</td>
-<td>a899d2f9-3d30-4d96-bbbb-f9967072494e</td>
+<td>7fe262ed-7f71-49da-97c0-7a2912b41600</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -5413,7 +5422,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>2285410</td>
 <td>-1</td>
 <td>False</td>
-<td>a899d2f9-3d30-4d96-bbbb-f9967072494e</td>
+<td>7fe262ed-7f71-49da-97c0-7a2912b41600</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -5437,7 +5446,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>2286985</td>
 <td>-1</td>
 <td>False</td>
-<td>a899d2f9-3d30-4d96-bbbb-f9967072494e</td>
+<td>7fe262ed-7f71-49da-97c0-7a2912b41600</td>
 <td>75bp</td>
 <td>...</td>
 <td>disrupted</td>
@@ -5461,7 +5470,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>2384566</td>
 <td>-1</td>
 <td>False</td>
-<td>a4d473e6-3d71-4f78-9a3b-cf7d749cdcab</td>
+<td>278a9a71-74d1-4b4e-8e3d-e1e46f9cd22f</td>
 <td>148bp</td>
 <td>...</td>
 <td>disrupted</td>
@@ -5478,14 +5487,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td data-quarto-table-cell-role="th">87</td>
 <td>EC958</td>
-<td>a4d473e6-3d71-4f78-9a3b-cf7d749cdcab</td>
+<td>278a9a71-74d1-4b4e-8e3d-e1e46f9cd22f</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>2384714</td>
 <td>2385482</td>
 <td>-1</td>
 <td>False</td>
-<td>a4d473e6-3d71-4f78-9a3b-cf7d749cdcab</td>
+<td>278a9a71-74d1-4b4e-8e3d-e1e46f9cd22f</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -5509,7 +5518,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>2385107</td>
 <td>-1</td>
 <td>False</td>
-<td>a4d473e6-3d71-4f78-9a3b-cf7d749cdcab</td>
+<td>278a9a71-74d1-4b4e-8e3d-e1e46f9cd22f</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -5533,7 +5542,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>2385427</td>
 <td>-1</td>
 <td>False</td>
-<td>a4d473e6-3d71-4f78-9a3b-cf7d749cdcab</td>
+<td>278a9a71-74d1-4b4e-8e3d-e1e46f9cd22f</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -5557,7 +5566,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>2386087</td>
 <td>-1</td>
 <td>False</td>
-<td>a4d473e6-3d71-4f78-9a3b-cf7d749cdcab</td>
+<td>278a9a71-74d1-4b4e-8e3d-e1e46f9cd22f</td>
 <td>-22bp</td>
 <td>...</td>
 <td>disrupted</td>
@@ -5581,7 +5590,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>3111900</td>
 <td>1</td>
 <td>False</td>
-<td>cbefb2ec-94cc-48fa-ae09-bac2aa30322f</td>
+<td>9b6a15a0-dd08-4e37-8a48-d17c77374e7a</td>
 <td>-53bp</td>
 <td>...</td>
 <td>disrupted</td>
@@ -5598,14 +5607,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">92</td>
 <td>EC958</td>
-<td>cbefb2ec-94cc-48fa-ae09-bac2aa30322f</td>
+<td>9b6a15a0-dd08-4e37-8a48-d17c77374e7a</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>3111847</td>
 <td>3114428</td>
 <td>1</td>
 <td>False</td>
-<td>cbefb2ec-94cc-48fa-ae09-bac2aa30322f</td>
+<td>9b6a15a0-dd08-4e37-8a48-d17c77374e7a</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -5629,7 +5638,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>3113582</td>
 <td>1</td>
 <td>False</td>
-<td>cbefb2ec-94cc-48fa-ae09-bac2aa30322f</td>
+<td>9b6a15a0-dd08-4e37-8a48-d17c77374e7a</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -5653,7 +5662,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>3114343</td>
 <td>1</td>
 <td>False</td>
-<td>cbefb2ec-94cc-48fa-ae09-bac2aa30322f</td>
+<td>9b6a15a0-dd08-4e37-8a48-d17c77374e7a</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -5677,7 +5686,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>3116196</td>
 <td>1</td>
 <td>False</td>
-<td>cbefb2ec-94cc-48fa-ae09-bac2aa30322f</td>
+<td>9b6a15a0-dd08-4e37-8a48-d17c77374e7a</td>
 <td>-35bp</td>
 <td>...</td>
 <td>disrupted</td>
@@ -5701,7 +5710,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>3237286</td>
 <td>-1</td>
 <td>False</td>
-<td>93848478-2397-4d0c-a691-4bed20163de1</td>
+<td>54cf91df-784c-4fa4-9253-a7f37d1b5e5d</td>
 <td>28bp</td>
 <td>...</td>
 <td>disrupted</td>
@@ -5718,14 +5727,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td data-quarto-table-cell-role="th">97</td>
 <td>EC958</td>
-<td>93848478-2397-4d0c-a691-4bed20163de1</td>
+<td>54cf91df-784c-4fa4-9253-a7f37d1b5e5d</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>3237314</td>
 <td>3237436</td>
 <td>-1</td>
 <td>False</td>
-<td>93848478-2397-4d0c-a691-4bed20163de1</td>
+<td>54cf91df-784c-4fa4-9253-a7f37d1b5e5d</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -5749,7 +5758,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>3238663</td>
 <td>-1</td>
 <td>False</td>
-<td>93848478-2397-4d0c-a691-4bed20163de1</td>
+<td>54cf91df-784c-4fa4-9253-a7f37d1b5e5d</td>
 <td>63bp</td>
 <td>...</td>
 <td>disrupted</td>
@@ -5773,7 +5782,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>3287645</td>
 <td>1</td>
 <td>False</td>
-<td>13ea7476-cfa9-438e-8d68-cc84b2dc38b4</td>
+<td>b09fc9f2-05ad-4e3d-b363-b65dca620bcb</td>
 <td>474bp</td>
 <td>...</td>
 <td>-</td>
@@ -5790,14 +5799,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">100</td>
 <td>EC958</td>
-<td>13ea7476-cfa9-438e-8d68-cc84b2dc38b4</td>
+<td>b09fc9f2-05ad-4e3d-b363-b65dca620bcb</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>3288119</td>
 <td>3288887</td>
 <td>1</td>
 <td>False</td>
-<td>13ea7476-cfa9-438e-8d68-cc84b2dc38b4</td>
+<td>b09fc9f2-05ad-4e3d-b363-b65dca620bcb</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -5821,7 +5830,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>3288450</td>
 <td>1</td>
 <td>False</td>
-<td>13ea7476-cfa9-438e-8d68-cc84b2dc38b4</td>
+<td>b09fc9f2-05ad-4e3d-b363-b65dca620bcb</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -5845,7 +5854,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>3288872</td>
 <td>1</td>
 <td>False</td>
-<td>13ea7476-cfa9-438e-8d68-cc84b2dc38b4</td>
+<td>b09fc9f2-05ad-4e3d-b363-b65dca620bcb</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -5869,7 +5878,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>3289839</td>
 <td>-1</td>
 <td>False</td>
-<td>13ea7476-cfa9-438e-8d68-cc84b2dc38b4</td>
+<td>b09fc9f2-05ad-4e3d-b363-b65dca620bcb</td>
 <td>451bp</td>
 <td>...</td>
 <td>-</td>
@@ -5886,14 +5895,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">104</td>
 <td>EC958</td>
-<td>b45c5a6b-e84e-4042-b632-7fb37fcab563</td>
+<td>fb34149d-4035-4262-8047-681af2110e23</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>3290039</td>
 <td>3290146</td>
 <td>-1</td>
 <td>True</td>
-<td>b45c5a6b-e84e-4042-b632-7fb37fcab563</td>
+<td>fb34149d-4035-4262-8047-681af2110e23</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -5910,14 +5919,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td data-quarto-table-cell-role="th">105</td>
 <td>EC958</td>
-<td>d3e55129-c5e9-4926-8b5d-3b11f6e13ed2</td>
+<td>089960c3-115d-4c75-9800-7e22d939f44d</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>3290146</td>
 <td>3290914</td>
 <td>-1</td>
 <td>False</td>
-<td>d3e55129-c5e9-4926-8b5d-3b11f6e13ed2</td>
+<td>089960c3-115d-4c75-9800-7e22d939f44d</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -5941,7 +5950,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>3290539</td>
 <td>-1</td>
 <td>False</td>
-<td>d3e55129-c5e9-4926-8b5d-3b11f6e13ed2</td>
+<td>089960c3-115d-4c75-9800-7e22d939f44d</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -5965,7 +5974,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>3290859</td>
 <td>-1</td>
 <td>False</td>
-<td>d3e55129-c5e9-4926-8b5d-3b11f6e13ed2</td>
+<td>089960c3-115d-4c75-9800-7e22d939f44d</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -5989,7 +5998,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>3291157</td>
 <td>-1</td>
 <td>False</td>
-<td>d3e55129-c5e9-4926-8b5d-3b11f6e13ed2</td>
+<td>089960c3-115d-4c75-9800-7e22d939f44d</td>
 <td>-27bp</td>
 <td>...</td>
 <td>disrupted</td>
@@ -6013,7 +6022,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>3292615</td>
 <td>1</td>
 <td>False</td>
-<td>6b695984-be42-43fe-ab95-aa34a32b6eb3</td>
+<td>8b3bc88e-3c8f-4a37-bfda-aa1e963690b8</td>
 <td>521bp</td>
 <td>...</td>
 <td>-</td>
@@ -6030,14 +6039,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">110</td>
 <td>EC958</td>
-<td>6b695984-be42-43fe-ab95-aa34a32b6eb3</td>
+<td>8b3bc88e-3c8f-4a37-bfda-aa1e963690b8</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>3293136</td>
 <td>3294446</td>
 <td>-1</td>
 <td>False</td>
-<td>6b695984-be42-43fe-ab95-aa34a32b6eb3</td>
+<td>8b3bc88e-3c8f-4a37-bfda-aa1e963690b8</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -6061,7 +6070,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>3294066</td>
 <td>-1</td>
 <td>False</td>
-<td>6b695984-be42-43fe-ab95-aa34a32b6eb3</td>
+<td>8b3bc88e-3c8f-4a37-bfda-aa1e963690b8</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -6085,7 +6094,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>3294392</td>
 <td>-1</td>
 <td>False</td>
-<td>6b695984-be42-43fe-ab95-aa34a32b6eb3</td>
+<td>8b3bc88e-3c8f-4a37-bfda-aa1e963690b8</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -6102,14 +6111,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td data-quarto-table-cell-role="th">113</td>
 <td>EC958</td>
-<td>d57849a0-e9cf-4b5e-9756-ee89f0f17dfa</td>
+<td>762c27d0-10f2-4631-935d-678b5c2e326d</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>3295103</td>
 <td>3295881</td>
 <td>-1</td>
 <td>True</td>
-<td>d57849a0-e9cf-4b5e-9756-ee89f0f17dfa</td>
+<td>762c27d0-10f2-4631-935d-678b5c2e326d</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -6133,7 +6142,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>3295878</td>
 <td>-1</td>
 <td>False</td>
-<td>d57849a0-e9cf-4b5e-9756-ee89f0f17dfa</td>
+<td>762c27d0-10f2-4631-935d-678b5c2e326d</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -6157,7 +6166,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>3296690</td>
 <td>1</td>
 <td>False</td>
-<td>d57849a0-e9cf-4b5e-9756-ee89f0f17dfa</td>
+<td>762c27d0-10f2-4631-935d-678b5c2e326d</td>
 <td>548bp</td>
 <td>...</td>
 <td>-</td>
@@ -6181,7 +6190,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>3313249</td>
 <td>1</td>
 <td>False</td>
-<td>f54d9376-3a17-4588-b725-05887304d417</td>
+<td>30875497-6ea4-4476-bf07-b022e0970fcb</td>
 <td>-106bp</td>
 <td>...</td>
 <td>disrupted</td>
@@ -6198,14 +6207,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td data-quarto-table-cell-role="th">117</td>
 <td>EC958</td>
-<td>f54d9376-3a17-4588-b725-05887304d417</td>
+<td>30875497-6ea4-4476-bf07-b022e0970fcb</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>3313143</td>
 <td>3314364</td>
 <td>1</td>
 <td>False</td>
-<td>f54d9376-3a17-4588-b725-05887304d417</td>
+<td>30875497-6ea4-4476-bf07-b022e0970fcb</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -6229,7 +6238,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>3314357</td>
 <td>1</td>
 <td>False</td>
-<td>f54d9376-3a17-4588-b725-05887304d417</td>
+<td>30875497-6ea4-4476-bf07-b022e0970fcb</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -6246,14 +6255,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td data-quarto-table-cell-role="th">119</td>
 <td>EC958</td>
-<td>f54d9376-3a17-4588-b725-05887304d417_promoter_1</td>
+<td>30875497-6ea4-4476-bf07-b022e0970fcb_promoter_1</td>
 <td>regulatory</td>
 <td>HG941718.1</td>
 <td>3313903</td>
 <td>3313933</td>
 <td>1</td>
 <td>False</td>
-<td>f54d9376-3a17-4588-b725-05887304d417</td>
+<td>30875497-6ea4-4476-bf07-b022e0970fcb</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -6270,14 +6279,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">120</td>
 <td>EC958</td>
-<td>37bd641f-5e91-4df6-84d5-2efedcc929a5</td>
+<td>d1f6bd32-b874-4712-a7d7-76872603161e</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>3314362</td>
 <td>3315303</td>
 <td>1</td>
 <td>True</td>
-<td>37bd641f-5e91-4df6-84d5-2efedcc929a5</td>
+<td>d1f6bd32-b874-4712-a7d7-76872603161e</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -6301,7 +6310,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>3315260</td>
 <td>1</td>
 <td>False</td>
-<td>37bd641f-5e91-4df6-84d5-2efedcc929a5</td>
+<td>d1f6bd32-b874-4712-a7d7-76872603161e</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -6325,7 +6334,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>3315727</td>
 <td>1</td>
 <td>False</td>
-<td>37bd641f-5e91-4df6-84d5-2efedcc929a5</td>
+<td>d1f6bd32-b874-4712-a7d7-76872603161e</td>
 <td>-32bp</td>
 <td>...</td>
 <td>disrupted</td>
@@ -6342,14 +6351,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td data-quarto-table-cell-role="th">123</td>
 <td>EC958</td>
-<td>2a4c0322-b14a-499d-9fc7-96880b701093</td>
+<td>91cd015c-05ff-4c8f-9d0f-795b9dd68dac</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>3316099</td>
 <td>3317706</td>
 <td>1</td>
 <td>True</td>
-<td>2a4c0322-b14a-499d-9fc7-96880b701093</td>
+<td>91cd015c-05ff-4c8f-9d0f-795b9dd68dac</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -6373,7 +6382,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>3316604</td>
 <td>1</td>
 <td>False</td>
-<td>2a4c0322-b14a-499d-9fc7-96880b701093</td>
+<td>91cd015c-05ff-4c8f-9d0f-795b9dd68dac</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -6397,7 +6406,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>3317180</td>
 <td>1</td>
 <td>False</td>
-<td>2a4c0322-b14a-499d-9fc7-96880b701093</td>
+<td>91cd015c-05ff-4c8f-9d0f-795b9dd68dac</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -6414,14 +6423,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">126</td>
 <td>EC958</td>
-<td>2a4c0322-b14a-499d-9fc7-96880b701093_promoter_1</td>
+<td>91cd015c-05ff-4c8f-9d0f-795b9dd68dac_promoter_1</td>
 <td>regulatory</td>
 <td>HG941718.1</td>
 <td>3316746</td>
 <td>3316776</td>
 <td>1</td>
 <td>False</td>
-<td>2a4c0322-b14a-499d-9fc7-96880b701093</td>
+<td>91cd015c-05ff-4c8f-9d0f-795b9dd68dac</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -6445,7 +6454,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>3317888</td>
 <td>-1</td>
 <td>False</td>
-<td>2a4c0322-b14a-499d-9fc7-96880b701093</td>
+<td>91cd015c-05ff-4c8f-9d0f-795b9dd68dac</td>
 <td>-22bp</td>
 <td>...</td>
 <td>disrupted</td>
@@ -6462,14 +6471,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">128</td>
 <td>EC958</td>
-<td>11cbe8e3-d56b-4d3e-8781-2bed00ec9e4f</td>
+<td>d3586a73-31e3-458c-9291-26f6df1f4443</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>3318218</td>
 <td>3318561</td>
 <td>1</td>
 <td>True</td>
-<td>11cbe8e3-d56b-4d3e-8781-2bed00ec9e4f</td>
+<td>d3586a73-31e3-458c-9291-26f6df1f4443</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -6493,7 +6502,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>3319353</td>
 <td>-1</td>
 <td>False</td>
-<td>11cbe8e3-d56b-4d3e-8781-2bed00ec9e4f</td>
+<td>d3586a73-31e3-458c-9291-26f6df1f4443</td>
 <td>576bp</td>
 <td>...</td>
 <td>-</td>
@@ -6517,7 +6526,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>3320249</td>
 <td>-1</td>
 <td>False</td>
-<td>a0350138-015c-4c44-98f1-8be27fbe6a49</td>
+<td>86239c82-911f-43e6-81b3-994fa49e94a6</td>
 <td>482bp</td>
 <td>...</td>
 <td>-</td>
@@ -6534,14 +6543,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td data-quarto-table-cell-role="th">131</td>
 <td>EC958</td>
-<td>a0350138-015c-4c44-98f1-8be27fbe6a49</td>
+<td>86239c82-911f-43e6-81b3-994fa49e94a6</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>3320731</td>
 <td>3320925</td>
 <td>1</td>
 <td>True</td>
-<td>a0350138-015c-4c44-98f1-8be27fbe6a49</td>
+<td>86239c82-911f-43e6-81b3-994fa49e94a6</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -6565,7 +6574,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>3323201</td>
 <td>-1</td>
 <td>False</td>
-<td>a0350138-015c-4c44-98f1-8be27fbe6a49</td>
+<td>86239c82-911f-43e6-81b3-994fa49e94a6</td>
 <td>185bp</td>
 <td>...</td>
 <td>-</td>
@@ -6582,14 +6591,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td data-quarto-table-cell-role="th">133</td>
 <td>EC958</td>
-<td>1d70449c-b60b-4390-8a2a-67d842a0e98d</td>
+<td>7c0e44f4-740e-494d-8a19-a55482a0b651</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>3323689</td>
 <td>3325020</td>
 <td>-1</td>
 <td>False</td>
-<td>1d70449c-b60b-4390-8a2a-67d842a0e98d</td>
+<td>7c0e44f4-740e-494d-8a19-a55482a0b651</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -6613,7 +6622,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>3324606</td>
 <td>-1</td>
 <td>False</td>
-<td>1d70449c-b60b-4390-8a2a-67d842a0e98d</td>
+<td>7c0e44f4-740e-494d-8a19-a55482a0b651</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -6637,7 +6646,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>3324929</td>
 <td>-1</td>
 <td>False</td>
-<td>1d70449c-b60b-4390-8a2a-67d842a0e98d</td>
+<td>7c0e44f4-740e-494d-8a19-a55482a0b651</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -6661,7 +6670,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>3326067</td>
 <td>-1</td>
 <td>False</td>
-<td>1d70449c-b60b-4390-8a2a-67d842a0e98d</td>
+<td>7c0e44f4-740e-494d-8a19-a55482a0b651</td>
 <td>60bp</td>
 <td>...</td>
 <td>disrupted</td>
@@ -6685,7 +6694,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>3333982</td>
 <td>-1</td>
 <td>False</td>
-<td>666e5fb4-a891-4fd8-8530-6b66db1feee3</td>
+<td>8b749d4d-6907-4da6-83b7-a43d9f808a3f</td>
 <td>571bp</td>
 <td>...</td>
 <td>-</td>
@@ -6702,14 +6711,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">138</td>
 <td>EC958</td>
-<td>666e5fb4-a891-4fd8-8530-6b66db1feee3</td>
+<td>8b749d4d-6907-4da6-83b7-a43d9f808a3f</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>3334553</td>
 <td>3336544</td>
 <td>1</td>
 <td>True</td>
-<td>666e5fb4-a891-4fd8-8530-6b66db1feee3</td>
+<td>8b749d4d-6907-4da6-83b7-a43d9f808a3f</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -6733,7 +6742,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>3335068</td>
 <td>1</td>
 <td>False</td>
-<td>666e5fb4-a891-4fd8-8530-6b66db1feee3</td>
+<td>8b749d4d-6907-4da6-83b7-a43d9f808a3f</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -6757,7 +6766,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>3335415</td>
 <td>1</td>
 <td>False</td>
-<td>666e5fb4-a891-4fd8-8530-6b66db1feee3</td>
+<td>8b749d4d-6907-4da6-83b7-a43d9f808a3f</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -6774,14 +6783,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td data-quarto-table-cell-role="th">141</td>
 <td>EC958</td>
-<td>666e5fb4-a891-4fd8-8530-6b66db1feee3_promoter_1</td>
+<td>8b749d4d-6907-4da6-83b7-a43d9f808a3f_promoter_1</td>
 <td>regulatory</td>
 <td>HG941718.1</td>
 <td>3335409</td>
 <td>3335440</td>
 <td>1</td>
 <td>False</td>
-<td>666e5fb4-a891-4fd8-8530-6b66db1feee3</td>
+<td>8b749d4d-6907-4da6-83b7-a43d9f808a3f</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -6805,7 +6814,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>3336546</td>
 <td>1</td>
 <td>False</td>
-<td>666e5fb4-a891-4fd8-8530-6b66db1feee3</td>
+<td>8b749d4d-6907-4da6-83b7-a43d9f808a3f</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -6829,7 +6838,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>3338081</td>
 <td>1</td>
 <td>False</td>
-<td>666e5fb4-a891-4fd8-8530-6b66db1feee3</td>
+<td>8b749d4d-6907-4da6-83b7-a43d9f808a3f</td>
 <td>-2bp</td>
 <td>...</td>
 <td>upregulated</td>
@@ -6846,14 +6855,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">144</td>
 <td>EC958</td>
-<td>676516c1-215d-4240-9275-dfb55d9f548f</td>
+<td>03fe1c93-bbae-4005-b1d7-4295a8c548c3</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>3336575</td>
 <td>3338118</td>
 <td>1</td>
 <td>True</td>
-<td>676516c1-215d-4240-9275-dfb55d9f548f</td>
+<td>03fe1c93-bbae-4005-b1d7-4295a8c548c3</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -6877,7 +6886,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>3338305</td>
 <td>-1</td>
 <td>False</td>
-<td>676516c1-215d-4240-9275-dfb55d9f548f</td>
+<td>03fe1c93-bbae-4005-b1d7-4295a8c548c3</td>
 <td>-122bp</td>
 <td>...</td>
 <td>disrupted</td>
@@ -6901,7 +6910,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>3359630</td>
 <td>1</td>
 <td>False</td>
-<td>6763cd65-1435-4074-ba52-06d7d20a4988</td>
+<td>923a6440-ea64-437b-930b-098ce7b534f3</td>
 <td>469bp</td>
 <td>...</td>
 <td>-</td>
@@ -6918,14 +6927,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td data-quarto-table-cell-role="th">147</td>
 <td>EC958</td>
-<td>6763cd65-1435-4074-ba52-06d7d20a4988</td>
+<td>923a6440-ea64-437b-930b-098ce7b534f3</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>3360099</td>
 <td>3360319</td>
 <td>1</td>
 <td>True</td>
-<td>6763cd65-1435-4074-ba52-06d7d20a4988</td>
+<td>923a6440-ea64-437b-930b-098ce7b534f3</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -6949,7 +6958,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>3360271</td>
 <td>1</td>
 <td>False</td>
-<td>6763cd65-1435-4074-ba52-06d7d20a4988</td>
+<td>923a6440-ea64-437b-930b-098ce7b534f3</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -6966,14 +6975,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td data-quarto-table-cell-role="th">149</td>
 <td>EC958</td>
-<td>9733b80c-a178-4507-a552-5aa1e4f9e923</td>
+<td>3d475d9b-d572-4012-9d5c-df129a5fbdc5</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>3360526</td>
 <td>3362935</td>
 <td>1</td>
 <td>False</td>
-<td>9733b80c-a178-4507-a552-5aa1e4f9e923</td>
+<td>3d475d9b-d572-4012-9d5c-df129a5fbdc5</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -6997,7 +7006,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>3362119</td>
 <td>1</td>
 <td>False</td>
-<td>9733b80c-a178-4507-a552-5aa1e4f9e923</td>
+<td>3d475d9b-d572-4012-9d5c-df129a5fbdc5</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -7021,7 +7030,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>3362871</td>
 <td>1</td>
 <td>False</td>
-<td>9733b80c-a178-4507-a552-5aa1e4f9e923</td>
+<td>3d475d9b-d572-4012-9d5c-df129a5fbdc5</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -7045,7 +7054,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>3364480</td>
 <td>1</td>
 <td>False</td>
-<td>9733b80c-a178-4507-a552-5aa1e4f9e923</td>
+<td>3d475d9b-d572-4012-9d5c-df129a5fbdc5</td>
 <td>561bp</td>
 <td>...</td>
 <td>-</td>
@@ -7069,7 +7078,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>3558269</td>
 <td>-1</td>
 <td>False</td>
-<td>22bb26fc-8af0-44e2-83f2-fe8935a5107f</td>
+<td>dbbc98cf-609e-40fe-bf73-3efae9f8996c</td>
 <td>96bp</td>
 <td>...</td>
 <td>disrupted</td>
@@ -7086,14 +7095,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">154</td>
 <td>EC958</td>
-<td>22bb26fc-8af0-44e2-83f2-fe8935a5107f</td>
+<td>dbbc98cf-609e-40fe-bf73-3efae9f8996c</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>3558365</td>
 <td>3559615</td>
 <td>1</td>
 <td>False</td>
-<td>22bb26fc-8af0-44e2-83f2-fe8935a5107f</td>
+<td>dbbc98cf-609e-40fe-bf73-3efae9f8996c</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -7117,7 +7126,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>3558740</td>
 <td>1</td>
 <td>False</td>
-<td>22bb26fc-8af0-44e2-83f2-fe8935a5107f</td>
+<td>dbbc98cf-609e-40fe-bf73-3efae9f8996c</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -7134,14 +7143,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">156</td>
 <td>EC958</td>
-<td>22bb26fc-8af0-44e2-83f2-fe8935a5107f_promoter_1</td>
+<td>dbbc98cf-609e-40fe-bf73-3efae9f8996c_promoter_1</td>
 <td>regulatory</td>
 <td>HG941718.1</td>
 <td>3558666</td>
 <td>3558693</td>
 <td>1</td>
 <td>False</td>
-<td>22bb26fc-8af0-44e2-83f2-fe8935a5107f</td>
+<td>dbbc98cf-609e-40fe-bf73-3efae9f8996c</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -7165,7 +7174,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>3559585</td>
 <td>1</td>
 <td>False</td>
-<td>22bb26fc-8af0-44e2-83f2-fe8935a5107f</td>
+<td>dbbc98cf-609e-40fe-bf73-3efae9f8996c</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -7189,7 +7198,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>3560071</td>
 <td>-1</td>
 <td>False</td>
-<td>22bb26fc-8af0-44e2-83f2-fe8935a5107f</td>
+<td>dbbc98cf-609e-40fe-bf73-3efae9f8996c</td>
 <td>-3bp</td>
 <td>...</td>
 <td>disrupted</td>
@@ -7213,7 +7222,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>3820234</td>
 <td>1</td>
 <td>False</td>
-<td>b7ebd781-58ee-4ecf-bd88-c98ab8101662</td>
+<td>3f8c9425-55dd-44d1-b154-09adcde9d0b4</td>
 <td>79bp</td>
 <td>...</td>
 <td>disrupted</td>
@@ -7230,14 +7239,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">160</td>
 <td>EC958</td>
-<td>b7ebd781-58ee-4ecf-bd88-c98ab8101662</td>
+<td>3f8c9425-55dd-44d1-b154-09adcde9d0b4</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>3820313</td>
 <td>3821771</td>
 <td>-1</td>
 <td>True</td>
-<td>b7ebd781-58ee-4ecf-bd88-c98ab8101662</td>
+<td>3f8c9425-55dd-44d1-b154-09adcde9d0b4</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -7261,7 +7270,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>3821505</td>
 <td>-1</td>
 <td>False</td>
-<td>b7ebd781-58ee-4ecf-bd88-c98ab8101662</td>
+<td>3f8c9425-55dd-44d1-b154-09adcde9d0b4</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -7278,14 +7287,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">162</td>
 <td>EC958</td>
-<td>b7ebd781-58ee-4ecf-bd88-c98ab8101662_promoter_1</td>
+<td>3f8c9425-55dd-44d1-b154-09adcde9d0b4_promoter_1</td>
 <td>regulatory</td>
 <td>HG941718.1</td>
 <td>3820631</td>
 <td>3820662</td>
 <td>-1</td>
 <td>False</td>
-<td>b7ebd781-58ee-4ecf-bd88-c98ab8101662</td>
+<td>3f8c9425-55dd-44d1-b154-09adcde9d0b4</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -7309,7 +7318,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>3823592</td>
 <td>-1</td>
 <td>False</td>
-<td>b7ebd781-58ee-4ecf-bd88-c98ab8101662</td>
+<td>3f8c9425-55dd-44d1-b154-09adcde9d0b4</td>
 <td>96bp</td>
 <td>...</td>
 <td>disrupted</td>
@@ -7333,7 +7342,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>4139496</td>
 <td>1</td>
 <td>False</td>
-<td>788d22c5-31d4-4542-a5a0-dd42720bcc62</td>
+<td>a50d3089-7f7c-463b-90fa-16a5efeb3a7f</td>
 <td>582bp</td>
 <td>...</td>
 <td>-</td>
@@ -7350,14 +7359,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td data-quarto-table-cell-role="th">165</td>
 <td>EC958</td>
-<td>788d22c5-31d4-4542-a5a0-dd42720bcc62</td>
+<td>a50d3089-7f7c-463b-90fa-16a5efeb3a7f</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>4140078</td>
 <td>4140846</td>
 <td>-1</td>
 <td>False</td>
-<td>788d22c5-31d4-4542-a5a0-dd42720bcc62</td>
+<td>a50d3089-7f7c-463b-90fa-16a5efeb3a7f</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -7381,7 +7390,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>4140387</td>
 <td>-1</td>
 <td>False</td>
-<td>788d22c5-31d4-4542-a5a0-dd42720bcc62</td>
+<td>a50d3089-7f7c-463b-90fa-16a5efeb3a7f</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -7405,7 +7414,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>4141281</td>
 <td>-1</td>
 <td>False</td>
-<td>788d22c5-31d4-4542-a5a0-dd42720bcc62</td>
+<td>a50d3089-7f7c-463b-90fa-16a5efeb3a7f</td>
 <td>-27bp</td>
 <td>...</td>
 <td>disrupted</td>
@@ -7429,7 +7438,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>4156143</td>
 <td>-1</td>
 <td>False</td>
-<td>9a3034c0-c29a-4fa5-8482-097484725db3</td>
+<td>95f5d6cb-e7bc-4ecb-ab60-0bffc4ed7c38</td>
 <td>-77bp</td>
 <td>...</td>
 <td>disrupted</td>
@@ -7446,14 +7455,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td data-quarto-table-cell-role="th">169</td>
 <td>EC958</td>
-<td>9a3034c0-c29a-4fa5-8482-097484725db3</td>
+<td>95f5d6cb-e7bc-4ecb-ab60-0bffc4ed7c38</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>4156066</td>
 <td>4156579</td>
 <td>-1</td>
 <td>True</td>
-<td>9a3034c0-c29a-4fa5-8482-097484725db3</td>
+<td>95f5d6cb-e7bc-4ecb-ab60-0bffc4ed7c38</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -7477,7 +7486,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>4156555</td>
 <td>-1</td>
 <td>False</td>
-<td>9a3034c0-c29a-4fa5-8482-097484725db3</td>
+<td>95f5d6cb-e7bc-4ecb-ab60-0bffc4ed7c38</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -7501,7 +7510,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>4158195</td>
 <td>-1</td>
 <td>False</td>
-<td>9a3034c0-c29a-4fa5-8482-097484725db3</td>
+<td>95f5d6cb-e7bc-4ecb-ab60-0bffc4ed7c38</td>
 <td>92bp</td>
 <td>...</td>
 <td>disrupted</td>
@@ -7525,7 +7534,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>4159266</td>
 <td>-1</td>
 <td>False</td>
-<td>9191d5a7-8ea7-4b25-a79a-e60ee17f30f4</td>
+<td>6e27a2f0-1776-40a8-9a32-3f2c4793023b</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -7542,14 +7551,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td data-quarto-table-cell-role="th">173</td>
 <td>EC958</td>
-<td>9191d5a7-8ea7-4b25-a79a-e60ee17f30f4</td>
+<td>6e27a2f0-1776-40a8-9a32-3f2c4793023b</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>4158851</td>
 <td>4159646</td>
 <td>-1</td>
 <td>True</td>
-<td>9191d5a7-8ea7-4b25-a79a-e60ee17f30f4</td>
+<td>6e27a2f0-1776-40a8-9a32-3f2c4793023b</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -7573,7 +7582,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>4159592</td>
 <td>-1</td>
 <td>False</td>
-<td>9191d5a7-8ea7-4b25-a79a-e60ee17f30f4</td>
+<td>6e27a2f0-1776-40a8-9a32-3f2c4793023b</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -7597,7 +7606,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>4160195</td>
 <td>1</td>
 <td>False</td>
-<td>9191d5a7-8ea7-4b25-a79a-e60ee17f30f4</td>
+<td>6e27a2f0-1776-40a8-9a32-3f2c4793023b</td>
 <td>3bp</td>
 <td>...</td>
 <td>disrupted</td>
@@ -7621,7 +7630,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>4160326</td>
 <td>1</td>
 <td>False</td>
-<td>288f6ff7-74b9-4dee-899c-372a80981507</td>
+<td>b961b460-488b-4d94-a24a-42403e173b93</td>
 <td>48bp</td>
 <td>...</td>
 <td>disrupted</td>
@@ -7645,7 +7654,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>4160985</td>
 <td>-1</td>
 <td>False</td>
-<td>288f6ff7-74b9-4dee-899c-372a80981507</td>
+<td>b961b460-488b-4d94-a24a-42403e173b93</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -7662,14 +7671,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">178</td>
 <td>EC958</td>
-<td>288f6ff7-74b9-4dee-899c-372a80981507</td>
+<td>b961b460-488b-4d94-a24a-42403e173b93</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>4160374</td>
 <td>4161488</td>
 <td>-1</td>
 <td>True</td>
-<td>288f6ff7-74b9-4dee-899c-372a80981507</td>
+<td>b961b460-488b-4d94-a24a-42403e173b93</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -7693,7 +7702,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>4162394</td>
 <td>-1</td>
 <td>False</td>
-<td>288f6ff7-74b9-4dee-899c-372a80981507</td>
+<td>b961b460-488b-4d94-a24a-42403e173b93</td>
 <td>318bp</td>
 <td>...</td>
 <td>-</td>
@@ -7710,14 +7719,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">180</td>
 <td>EC958</td>
-<td>a3d70827-944e-43b3-904d-af79f9fa80bd</td>
+<td>920668b0-3f9a-4782-8b7f-e988b3f360e1</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>4161813</td>
 <td>4163725</td>
 <td>-1</td>
 <td>True</td>
-<td>a3d70827-944e-43b3-904d-af79f9fa80bd</td>
+<td>920668b0-3f9a-4782-8b7f-e988b3f360e1</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -7741,7 +7750,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>4163438</td>
 <td>-1</td>
 <td>False</td>
-<td>a3d70827-944e-43b3-904d-af79f9fa80bd</td>
+<td>920668b0-3f9a-4782-8b7f-e988b3f360e1</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -7765,7 +7774,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>4163987</td>
 <td>-1</td>
 <td>False</td>
-<td>a3d70827-944e-43b3-904d-af79f9fa80bd</td>
+<td>920668b0-3f9a-4782-8b7f-e988b3f360e1</td>
 <td>-281bp</td>
 <td>...</td>
 <td>disrupted</td>
@@ -7789,7 +7798,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>4170586</td>
 <td>-1</td>
 <td>False</td>
-<td>1b719a8d-23f0-4ef6-9773-f40181bfb960</td>
+<td>b7ac1482-1b5d-4c37-b88c-364fe09c2a32</td>
 <td>542bp</td>
 <td>...</td>
 <td>-</td>
@@ -7806,14 +7815,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">184</td>
 <td>EC958</td>
-<td>1b719a8d-23f0-4ef6-9773-f40181bfb960</td>
+<td>b7ac1482-1b5d-4c37-b88c-364fe09c2a32</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>4171128</td>
 <td>4173827</td>
 <td>1</td>
 <td>False</td>
-<td>1b719a8d-23f0-4ef6-9773-f40181bfb960</td>
+<td>b7ac1482-1b5d-4c37-b88c-364fe09c2a32</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -7837,7 +7846,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>4171859</td>
 <td>1</td>
 <td>False</td>
-<td>1b719a8d-23f0-4ef6-9773-f40181bfb960</td>
+<td>b7ac1482-1b5d-4c37-b88c-364fe09c2a32</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -7861,7 +7870,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>4172206</td>
 <td>1</td>
 <td>False</td>
-<td>1b719a8d-23f0-4ef6-9773-f40181bfb960</td>
+<td>b7ac1482-1b5d-4c37-b88c-364fe09c2a32</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -7885,7 +7894,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>4173797</td>
 <td>1</td>
 <td>False</td>
-<td>1b719a8d-23f0-4ef6-9773-f40181bfb960</td>
+<td>b7ac1482-1b5d-4c37-b88c-364fe09c2a32</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -7909,7 +7918,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>4175097</td>
 <td>-1</td>
 <td>False</td>
-<td>1b719a8d-23f0-4ef6-9773-f40181bfb960</td>
+<td>b7ac1482-1b5d-4c37-b88c-364fe09c2a32</td>
 <td>874bp</td>
 <td>...</td>
 <td>-</td>
@@ -7926,14 +7935,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td data-quarto-table-cell-role="th">189</td>
 <td>EC958</td>
-<td>8559398e-0bfc-4555-967a-4893d46c77d6</td>
+<td>633f3550-90ba-459d-acdf-12b03ad19b87</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>4175107</td>
 <td>4177238</td>
 <td>-1</td>
 <td>False</td>
-<td>8559398e-0bfc-4555-967a-4893d46c77d6</td>
+<td>633f3550-90ba-459d-acdf-12b03ad19b87</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -7957,7 +7966,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>4175965</td>
 <td>-1</td>
 <td>False</td>
-<td>8559398e-0bfc-4555-967a-4893d46c77d6</td>
+<td>633f3550-90ba-459d-acdf-12b03ad19b87</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -7974,14 +7983,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td data-quarto-table-cell-role="th">191</td>
 <td>EC958</td>
-<td>8559398e-0bfc-4555-967a-4893d46c77d6_promoter_1</td>
+<td>633f3550-90ba-459d-acdf-12b03ad19b87_promoter_1</td>
 <td>regulatory</td>
 <td>HG941718.1</td>
 <td>4175486</td>
 <td>4175513</td>
 <td>-1</td>
 <td>False</td>
-<td>8559398e-0bfc-4555-967a-4893d46c77d6</td>
+<td>633f3550-90ba-459d-acdf-12b03ad19b87</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -8005,7 +8014,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>4177137</td>
 <td>-1</td>
 <td>False</td>
-<td>8559398e-0bfc-4555-967a-4893d46c77d6</td>
+<td>633f3550-90ba-459d-acdf-12b03ad19b87</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -8022,14 +8031,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td data-quarto-table-cell-role="th">193</td>
 <td>EC958</td>
-<td>8559398e-0bfc-4555-967a-4893d46c77d6_promoter_2</td>
+<td>633f3550-90ba-459d-acdf-12b03ad19b87_promoter_2</td>
 <td>regulatory</td>
 <td>HG941718.1</td>
 <td>4176438</td>
 <td>4176469</td>
 <td>-1</td>
 <td>False</td>
-<td>8559398e-0bfc-4555-967a-4893d46c77d6</td>
+<td>633f3550-90ba-459d-acdf-12b03ad19b87</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -8046,14 +8055,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">194</td>
 <td>EC958</td>
-<td>8559398e-0bfc-4555-967a-4893d46c77d6_promoter_3</td>
+<td>633f3550-90ba-459d-acdf-12b03ad19b87_promoter_3</td>
 <td>regulatory</td>
 <td>HG941718.1</td>
 <td>4177040</td>
 <td>4177072</td>
 <td>-1</td>
 <td>False</td>
-<td>8559398e-0bfc-4555-967a-4893d46c77d6</td>
+<td>633f3550-90ba-459d-acdf-12b03ad19b87</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -8077,7 +8086,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>4177718</td>
 <td>-1</td>
 <td>False</td>
-<td>8559398e-0bfc-4555-967a-4893d46c77d6</td>
+<td>633f3550-90ba-459d-acdf-12b03ad19b87</td>
 <td>-15bp</td>
 <td>...</td>
 <td>disrupted</td>
@@ -8101,7 +8110,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>4914638</td>
 <td>1</td>
 <td>False</td>
-<td>f5adea21-2b06-4015-bb0b-f73a40251e81</td>
+<td>61a0e46e-5dc4-4943-9e99-48a5309d074e</td>
 <td>645bp</td>
 <td>...</td>
 <td>-</td>
@@ -8118,14 +8127,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td data-quarto-table-cell-role="th">197</td>
 <td>EC958</td>
-<td>f5adea21-2b06-4015-bb0b-f73a40251e81</td>
+<td>61a0e46e-5dc4-4943-9e99-48a5309d074e</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>4915283</td>
 <td>4915620</td>
 <td>1</td>
 <td>True</td>
-<td>f5adea21-2b06-4015-bb0b-f73a40251e81</td>
+<td>61a0e46e-5dc4-4943-9e99-48a5309d074e</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -8149,7 +8158,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>4916081</td>
 <td>1</td>
 <td>False</td>
-<td>f5adea21-2b06-4015-bb0b-f73a40251e81</td>
+<td>61a0e46e-5dc4-4943-9e99-48a5309d074e</td>
 <td>185bp</td>
 <td>...</td>
 <td>-</td>
@@ -8166,14 +8175,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td data-quarto-table-cell-role="th">199</td>
 <td>EC958</td>
-<td>47071ec4-1729-4540-bc4e-df3c6369c343</td>
+<td>50e138b5-7237-4dd7-b313-c24523c81c2d</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>4916123</td>
 <td>4916576</td>
 <td>1</td>
 <td>True</td>
-<td>47071ec4-1729-4540-bc4e-df3c6369c343</td>
+<td>50e138b5-7237-4dd7-b313-c24523c81c2d</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -8197,7 +8206,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>4916410</td>
 <td>-1</td>
 <td>False</td>
-<td>47071ec4-1729-4540-bc4e-df3c6369c343</td>
+<td>50e138b5-7237-4dd7-b313-c24523c81c2d</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -8221,7 +8230,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>4917639</td>
 <td>-1</td>
 <td>False</td>
-<td>47071ec4-1729-4540-bc4e-df3c6369c343</td>
+<td>50e138b5-7237-4dd7-b313-c24523c81c2d</td>
 <td>298bp</td>
 <td>...</td>
 <td>-</td>
@@ -8245,7 +8254,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>4924836</td>
 <td>-1</td>
 <td>False</td>
-<td>021ccbe6-e761-4acb-a7dd-056f07852cd8</td>
+<td>3fa16b33-f73a-431f-8249-7dab11c4c78b</td>
 <td>252bp</td>
 <td>...</td>
 <td>-</td>
@@ -8262,14 +8271,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td data-quarto-table-cell-role="th">203</td>
 <td>EC958</td>
-<td>021ccbe6-e761-4acb-a7dd-056f07852cd8</td>
+<td>3fa16b33-f73a-431f-8249-7dab11c4c78b</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>4925088</td>
 <td>4927620</td>
 <td>1</td>
 <td>False</td>
-<td>021ccbe6-e761-4acb-a7dd-056f07852cd8</td>
+<td>3fa16b33-f73a-431f-8249-7dab11c4c78b</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -8293,7 +8302,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>4925599</td>
 <td>1</td>
 <td>False</td>
-<td>021ccbe6-e761-4acb-a7dd-056f07852cd8</td>
+<td>3fa16b33-f73a-431f-8249-7dab11c4c78b</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -8317,7 +8326,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>4925946</td>
 <td>1</td>
 <td>False</td>
-<td>021ccbe6-e761-4acb-a7dd-056f07852cd8</td>
+<td>3fa16b33-f73a-431f-8249-7dab11c4c78b</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -8334,14 +8343,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">206</td>
 <td>EC958</td>
-<td>021ccbe6-e761-4acb-a7dd-056f07852cd8_promoter_1</td>
+<td>3fa16b33-f73a-431f-8249-7dab11c4c78b_promoter_1</td>
 <td>regulatory</td>
 <td>HG941718.1</td>
 <td>4925940</td>
 <td>4925971</td>
 <td>1</td>
 <td>False</td>
-<td>021ccbe6-e761-4acb-a7dd-056f07852cd8</td>
+<td>3fa16b33-f73a-431f-8249-7dab11c4c78b</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -8365,7 +8374,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>4927590</td>
 <td>1</td>
 <td>False</td>
-<td>021ccbe6-e761-4acb-a7dd-056f07852cd8</td>
+<td>3fa16b33-f73a-431f-8249-7dab11c4c78b</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -8389,7 +8398,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>4928874</td>
 <td>-1</td>
 <td>False</td>
-<td>021ccbe6-e761-4acb-a7dd-056f07852cd8</td>
+<td>3fa16b33-f73a-431f-8249-7dab11c4c78b</td>
 <td>240bp</td>
 <td>...</td>
 <td>-</td>
@@ -8413,7 +8422,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>4937327</td>
 <td>-1</td>
 <td>False</td>
-<td>bec32a7c-7af0-4648-9d29-f1e857eb75bd</td>
+<td>8993f362-b70d-4efd-9930-bebd5a6522a1</td>
 <td>105bp</td>
 <td>...</td>
 <td>disrupted</td>
@@ -8430,14 +8439,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">210</td>
 <td>EC958</td>
-<td>bec32a7c-7af0-4648-9d29-f1e857eb75bd</td>
+<td>8993f362-b70d-4efd-9930-bebd5a6522a1</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>4937432</td>
 <td>4938941</td>
 <td>1</td>
 <td>True</td>
-<td>bec32a7c-7af0-4648-9d29-f1e857eb75bd</td>
+<td>8993f362-b70d-4efd-9930-bebd5a6522a1</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -8454,14 +8463,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td data-quarto-table-cell-role="th">211</td>
 <td>EC958</td>
-<td>bec32a7c-7af0-4648-9d29-f1e857eb75bd_promoter_1</td>
+<td>8993f362-b70d-4efd-9930-bebd5a6522a1_promoter_1</td>
 <td>regulatory</td>
 <td>HG941718.1</td>
 <td>4937559</td>
 <td>4937591</td>
 <td>1</td>
 <td>False</td>
-<td>bec32a7c-7af0-4648-9d29-f1e857eb75bd</td>
+<td>8993f362-b70d-4efd-9930-bebd5a6522a1</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -8485,7 +8494,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>4938881</td>
 <td>1</td>
 <td>False</td>
-<td>bec32a7c-7af0-4648-9d29-f1e857eb75bd</td>
+<td>8993f362-b70d-4efd-9930-bebd5a6522a1</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -8502,14 +8511,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td data-quarto-table-cell-role="th">213</td>
 <td>EC958</td>
-<td>bec32a7c-7af0-4648-9d29-f1e857eb75bd_promoter_2</td>
+<td>8993f362-b70d-4efd-9930-bebd5a6522a1_promoter_2</td>
 <td>regulatory</td>
 <td>HG941718.1</td>
 <td>4937622</td>
 <td>4937650</td>
 <td>1</td>
 <td>False</td>
-<td>bec32a7c-7af0-4648-9d29-f1e857eb75bd</td>
+<td>8993f362-b70d-4efd-9930-bebd5a6522a1</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -8526,14 +8535,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">214</td>
 <td>EC958</td>
-<td>bec32a7c-7af0-4648-9d29-f1e857eb75bd_promoter_3</td>
+<td>8993f362-b70d-4efd-9930-bebd5a6522a1_promoter_3</td>
 <td>regulatory</td>
 <td>HG941718.1</td>
 <td>4938122</td>
 <td>4938153</td>
 <td>1</td>
 <td>False</td>
-<td>bec32a7c-7af0-4648-9d29-f1e857eb75bd</td>
+<td>8993f362-b70d-4efd-9930-bebd5a6522a1</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -8550,14 +8559,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td data-quarto-table-cell-role="th">215</td>
 <td>EC958</td>
-<td>bec32a7c-7af0-4648-9d29-f1e857eb75bd_promoter_4</td>
+<td>8993f362-b70d-4efd-9930-bebd5a6522a1_promoter_4</td>
 <td>regulatory</td>
 <td>HG941718.1</td>
 <td>4938204</td>
 <td>4938234</td>
 <td>1</td>
 <td>False</td>
-<td>bec32a7c-7af0-4648-9d29-f1e857eb75bd</td>
+<td>8993f362-b70d-4efd-9930-bebd5a6522a1</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -8574,14 +8583,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">216</td>
 <td>EC958</td>
-<td>bec32a7c-7af0-4648-9d29-f1e857eb75bd_promoter_5</td>
+<td>8993f362-b70d-4efd-9930-bebd5a6522a1_promoter_5</td>
 <td>regulatory</td>
 <td>HG941718.1</td>
 <td>4938505</td>
 <td>4938537</td>
 <td>1</td>
 <td>False</td>
-<td>bec32a7c-7af0-4648-9d29-f1e857eb75bd</td>
+<td>8993f362-b70d-4efd-9930-bebd5a6522a1</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -8598,14 +8607,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td data-quarto-table-cell-role="th">217</td>
 <td>EC958</td>
-<td>bec32a7c-7af0-4648-9d29-f1e857eb75bd_promoter_6</td>
+<td>8993f362-b70d-4efd-9930-bebd5a6522a1_promoter_6</td>
 <td>regulatory</td>
 <td>HG941718.1</td>
 <td>4938550</td>
 <td>4938578</td>
 <td>1</td>
 <td>False</td>
-<td>bec32a7c-7af0-4648-9d29-f1e857eb75bd</td>
+<td>8993f362-b70d-4efd-9930-bebd5a6522a1</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -8622,14 +8631,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">218</td>
 <td>EC958</td>
-<td>ab539be2-b448-41dc-85ac-b2455dae9352</td>
+<td>50a6081e-b98c-453a-a4d4-091f439e9aab</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>4938940</td>
 <td>4940135</td>
 <td>-1</td>
 <td>False</td>
-<td>ab539be2-b448-41dc-85ac-b2455dae9352</td>
+<td>50a6081e-b98c-453a-a4d4-091f439e9aab</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -8653,7 +8662,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>4940067</td>
 <td>-1</td>
 <td>False</td>
-<td>ab539be2-b448-41dc-85ac-b2455dae9352</td>
+<td>50a6081e-b98c-453a-a4d4-091f439e9aab</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -8670,14 +8679,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">220</td>
 <td>EC958</td>
-<td>1ec73113-926f-476f-9369-f4b4ce8e374c</td>
+<td>a05ca008-6a69-4f45-b295-18bcd46d9a93</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>4940135</td>
 <td>4940287</td>
 <td>1</td>
 <td>True</td>
-<td>1ec73113-926f-476f-9369-f4b4ce8e374c</td>
+<td>a05ca008-6a69-4f45-b295-18bcd46d9a93</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -8694,14 +8703,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td data-quarto-table-cell-role="th">221</td>
 <td>EC958</td>
-<td>1ec73113-926f-476f-9369-f4b4ce8e374c_promoter_1</td>
+<td>a05ca008-6a69-4f45-b295-18bcd46d9a93_promoter_1</td>
 <td>regulatory</td>
 <td>HG941718.1</td>
 <td>4940183</td>
 <td>4940213</td>
 <td>1</td>
 <td>False</td>
-<td>1ec73113-926f-476f-9369-f4b4ce8e374c</td>
+<td>a05ca008-6a69-4f45-b295-18bcd46d9a93</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -8725,7 +8734,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>4941549</td>
 <td>1</td>
 <td>False</td>
-<td>1ec73113-926f-476f-9369-f4b4ce8e374c</td>
+<td>a05ca008-6a69-4f45-b295-18bcd46d9a93</td>
 <td>116bp</td>
 <td>...</td>
 <td>upregulated</td>
@@ -8749,7 +8758,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>4942275</td>
 <td>-1</td>
 <td>False</td>
-<td>44741ea9-042f-4edb-9352-dced78e22076</td>
+<td>2627b6f9-bf50-4c6a-8f48-4e4a40c28f28</td>
 <td>110bp</td>
 <td>...</td>
 <td>disrupted</td>
@@ -8766,14 +8775,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">224</td>
 <td>EC958</td>
-<td>44741ea9-042f-4edb-9352-dced78e22076</td>
+<td>2627b6f9-bf50-4c6a-8f48-4e4a40c28f28</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>4942385</td>
 <td>4943650</td>
 <td>-1</td>
 <td>False</td>
-<td>44741ea9-042f-4edb-9352-dced78e22076</td>
+<td>2627b6f9-bf50-4c6a-8f48-4e4a40c28f28</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -8797,7 +8806,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>4943248</td>
 <td>-1</td>
 <td>False</td>
-<td>44741ea9-042f-4edb-9352-dced78e22076</td>
+<td>2627b6f9-bf50-4c6a-8f48-4e4a40c28f28</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -8821,7 +8830,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>4943586</td>
 <td>-1</td>
 <td>False</td>
-<td>44741ea9-042f-4edb-9352-dced78e22076</td>
+<td>2627b6f9-bf50-4c6a-8f48-4e4a40c28f28</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -8845,7 +8854,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>4944198</td>
 <td>1</td>
 <td>False</td>
-<td>44741ea9-042f-4edb-9352-dced78e22076</td>
+<td>2627b6f9-bf50-4c6a-8f48-4e4a40c28f28</td>
 <td>134bp</td>
 <td>...</td>
 <td>disrupted</td>
@@ -8869,7 +8878,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>4952879</td>
 <td>-1</td>
 <td>False</td>
-<td>94c96829-336c-4efe-ade1-4e0811a50c0b</td>
+<td>46d8cf50-593e-4506-98a3-86d5c65d6658</td>
 <td>236bp</td>
 <td>...</td>
 <td>-</td>
@@ -8886,14 +8895,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td data-quarto-table-cell-role="th">229</td>
 <td>EC958</td>
-<td>94c96829-336c-4efe-ade1-4e0811a50c0b</td>
+<td>46d8cf50-593e-4506-98a3-86d5c65d6658</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>4953115</td>
 <td>4953883</td>
 <td>1</td>
 <td>False</td>
-<td>94c96829-336c-4efe-ade1-4e0811a50c0b</td>
+<td>46d8cf50-593e-4506-98a3-86d5c65d6658</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -8917,7 +8926,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>4953868</td>
 <td>1</td>
 <td>False</td>
-<td>94c96829-336c-4efe-ade1-4e0811a50c0b</td>
+<td>46d8cf50-593e-4506-98a3-86d5c65d6658</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -8941,7 +8950,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>4955799</td>
 <td>1</td>
 <td>False</td>
-<td>94c96829-336c-4efe-ade1-4e0811a50c0b</td>
+<td>46d8cf50-593e-4506-98a3-86d5c65d6658</td>
 <td>557bp</td>
 <td>...</td>
 <td>-</td>
@@ -8958,14 +8967,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">232</td>
 <td>EC958</td>
-<td>95fda9c3-5b67-4c01-8e09-e123bcc0c6fc</td>
+<td>41a858cc-57ef-4c51-9d1e-c908048c60d6</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>4956000</td>
 <td>4958289</td>
 <td>-1</td>
 <td>False</td>
-<td>95fda9c3-5b67-4c01-8e09-e123bcc0c6fc</td>
+<td>41a858cc-57ef-4c51-9d1e-c908048c60d6</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -8989,7 +8998,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>4957423</td>
 <td>-1</td>
 <td>False</td>
-<td>95fda9c3-5b67-4c01-8e09-e123bcc0c6fc</td>
+<td>41a858cc-57ef-4c51-9d1e-c908048c60d6</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -9013,7 +9022,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>4957820</td>
 <td>-1</td>
 <td>False</td>
-<td>95fda9c3-5b67-4c01-8e09-e123bcc0c6fc</td>
+<td>41a858cc-57ef-4c51-9d1e-c908048c60d6</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -9037,7 +9046,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>4958197</td>
 <td>-1</td>
 <td>False</td>
-<td>95fda9c3-5b67-4c01-8e09-e123bcc0c6fc</td>
+<td>41a858cc-57ef-4c51-9d1e-c908048c60d6</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -9061,7 +9070,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>4958552</td>
 <td>-1</td>
 <td>False</td>
-<td>95fda9c3-5b67-4c01-8e09-e123bcc0c6fc</td>
+<td>41a858cc-57ef-4c51-9d1e-c908048c60d6</td>
 <td>26bp</td>
 <td>...</td>
 <td>disrupted</td>
@@ -9085,7 +9094,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>4971881</td>
 <td>1</td>
 <td>False</td>
-<td>ee2d1669-f6bc-430e-b319-afd82fb44bff</td>
+<td>4f4bd9a0-bf39-4714-8652-7e37a9550bfa</td>
 <td>-53bp</td>
 <td>...</td>
 <td>disrupted</td>
@@ -9102,14 +9111,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">238</td>
 <td>EC958</td>
-<td>ee2d1669-f6bc-430e-b319-afd82fb44bff</td>
+<td>4f4bd9a0-bf39-4714-8652-7e37a9550bfa</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>4971828</td>
 <td>4974409</td>
 <td>1</td>
 <td>False</td>
-<td>ee2d1669-f6bc-430e-b319-afd82fb44bff</td>
+<td>4f4bd9a0-bf39-4714-8652-7e37a9550bfa</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -9133,7 +9142,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>4973563</td>
 <td>1</td>
 <td>False</td>
-<td>ee2d1669-f6bc-430e-b319-afd82fb44bff</td>
+<td>4f4bd9a0-bf39-4714-8652-7e37a9550bfa</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -9157,7 +9166,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>4974324</td>
 <td>1</td>
 <td>False</td>
-<td>ee2d1669-f6bc-430e-b319-afd82fb44bff</td>
+<td>4f4bd9a0-bf39-4714-8652-7e37a9550bfa</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -9181,7 +9190,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>4974965</td>
 <td>1</td>
 <td>False</td>
-<td>ee2d1669-f6bc-430e-b319-afd82fb44bff</td>
+<td>4f4bd9a0-bf39-4714-8652-7e37a9550bfa</td>
 <td>187bp</td>
 <td>...</td>
 <td>-</td>
@@ -9205,7 +9214,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>4976368</td>
 <td>1</td>
 <td>False</td>
-<td>ef411918-3952-4653-9313-f069bc6f7641</td>
+<td>b1de5cbc-b01b-403a-97f0-feb93f2e4fdb</td>
 <td>310bp</td>
 <td>...</td>
 <td>-</td>
@@ -9222,14 +9231,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td data-quarto-table-cell-role="th">243</td>
 <td>EC958</td>
-<td>ef411918-3952-4653-9313-f069bc6f7641</td>
+<td>b1de5cbc-b01b-403a-97f0-feb93f2e4fdb</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>4976678</td>
 <td>4977037</td>
 <td>1</td>
 <td>True</td>
-<td>ef411918-3952-4653-9313-f069bc6f7641</td>
+<td>b1de5cbc-b01b-403a-97f0-feb93f2e4fdb</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -9253,7 +9262,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>4977157</td>
 <td>1</td>
 <td>False</td>
-<td>ef411918-3952-4653-9313-f069bc6f7641</td>
+<td>b1de5cbc-b01b-403a-97f0-feb93f2e4fdb</td>
 <td>-306bp</td>
 <td>...</td>
 <td>disrupted</td>
@@ -9277,7 +9286,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>5006801</td>
 <td>-1</td>
 <td>False</td>
-<td>efc21d82-0bf7-4542-bb9e-0d3984aab29c</td>
+<td>b92dc414-d749-4daa-96d5-bd642ef51c0d</td>
 <td>543bp</td>
 <td>...</td>
 <td>-</td>
@@ -9294,14 +9303,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">246</td>
 <td>EC958</td>
-<td>efc21d82-0bf7-4542-bb9e-0d3984aab29c</td>
+<td>b92dc414-d749-4daa-96d5-bd642ef51c0d</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>5007344</td>
 <td>5008594</td>
 <td>-1</td>
 <td>False</td>
-<td>efc21d82-0bf7-4542-bb9e-0d3984aab29c</td>
+<td>b92dc414-d749-4daa-96d5-bd642ef51c0d</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -9325,7 +9334,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>5008007</td>
 <td>-1</td>
 <td>False</td>
-<td>efc21d82-0bf7-4542-bb9e-0d3984aab29c</td>
+<td>b92dc414-d749-4daa-96d5-bd642ef51c0d</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -9342,14 +9351,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">248</td>
 <td>EC958</td>
-<td>efc21d82-0bf7-4542-bb9e-0d3984aab29c_promoter_1</td>
+<td>b92dc414-d749-4daa-96d5-bd642ef51c0d_promoter_1</td>
 <td>regulatory</td>
 <td>HG941718.1</td>
 <td>5007645</td>
 <td>5007672</td>
 <td>-1</td>
 <td>False</td>
-<td>efc21d82-0bf7-4542-bb9e-0d3984aab29c</td>
+<td>b92dc414-d749-4daa-96d5-bd642ef51c0d</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -9373,7 +9382,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>5008522</td>
 <td>-1</td>
 <td>False</td>
-<td>efc21d82-0bf7-4542-bb9e-0d3984aab29c</td>
+<td>b92dc414-d749-4daa-96d5-bd642ef51c0d</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -9397,7 +9406,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>5009691</td>
 <td>1</td>
 <td>False</td>
-<td>efc21d82-0bf7-4542-bb9e-0d3984aab29c</td>
+<td>b92dc414-d749-4daa-96d5-bd642ef51c0d</td>
 <td>53bp</td>
 <td>...</td>
 <td>disrupted</td>
@@ -9421,7 +9430,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>5014353</td>
 <td>-1</td>
 <td>False</td>
-<td>4f7d7b95-d2e0-4e99-a427-01ba3c5a1e1d</td>
+<td>01cb5690-1dd0-4347-b475-659cc7d887c8</td>
 <td>460bp</td>
 <td>...</td>
 <td>-</td>
@@ -9438,14 +9447,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">252</td>
 <td>EC958</td>
-<td>4f7d7b95-d2e0-4e99-a427-01ba3c5a1e1d</td>
+<td>01cb5690-1dd0-4347-b475-659cc7d887c8</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>5014813</td>
 <td>5016698</td>
 <td>-1</td>
 <td>False</td>
-<td>4f7d7b95-d2e0-4e99-a427-01ba3c5a1e1d</td>
+<td>01cb5690-1dd0-4347-b475-659cc7d887c8</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -9469,7 +9478,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>5016062</td>
 <td>-1</td>
 <td>False</td>
-<td>4f7d7b95-d2e0-4e99-a427-01ba3c5a1e1d</td>
+<td>01cb5690-1dd0-4347-b475-659cc7d887c8</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -9486,14 +9495,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">254</td>
 <td>EC958</td>
-<td>4f7d7b95-d2e0-4e99-a427-01ba3c5a1e1d_promoter_1</td>
+<td>01cb5690-1dd0-4347-b475-659cc7d887c8_promoter_1</td>
 <td>regulatory</td>
 <td>HG941718.1</td>
 <td>5015227</td>
 <td>5015258</td>
 <td>-1</td>
 <td>False</td>
-<td>4f7d7b95-d2e0-4e99-a427-01ba3c5a1e1d</td>
+<td>01cb5690-1dd0-4347-b475-659cc7d887c8</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -9510,14 +9519,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td data-quarto-table-cell-role="th">255</td>
 <td>EC958</td>
-<td>4f7d7b95-d2e0-4e99-a427-01ba3c5a1e1d_promoter_2</td>
+<td>01cb5690-1dd0-4347-b475-659cc7d887c8_promoter_2</td>
 <td>regulatory</td>
 <td>HG941718.1</td>
 <td>5015389</td>
 <td>5015418</td>
 <td>-1</td>
 <td>False</td>
-<td>4f7d7b95-d2e0-4e99-a427-01ba3c5a1e1d</td>
+<td>01cb5690-1dd0-4347-b475-659cc7d887c8</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -9534,14 +9543,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">256</td>
 <td>EC958</td>
-<td>4f7d7b95-d2e0-4e99-a427-01ba3c5a1e1d_promoter_3</td>
+<td>01cb5690-1dd0-4347-b475-659cc7d887c8_promoter_3</td>
 <td>regulatory</td>
 <td>HG941718.1</td>
 <td>5015764</td>
 <td>5015796</td>
 <td>-1</td>
 <td>False</td>
-<td>4f7d7b95-d2e0-4e99-a427-01ba3c5a1e1d</td>
+<td>01cb5690-1dd0-4347-b475-659cc7d887c8</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -9558,14 +9567,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td data-quarto-table-cell-role="th">257</td>
 <td>EC958</td>
-<td>4f7d7b95-d2e0-4e99-a427-01ba3c5a1e1d_promoter_4</td>
+<td>01cb5690-1dd0-4347-b475-659cc7d887c8_promoter_4</td>
 <td>regulatory</td>
 <td>HG941718.1</td>
 <td>5015891</td>
 <td>5015922</td>
 <td>-1</td>
 <td>False</td>
-<td>4f7d7b95-d2e0-4e99-a427-01ba3c5a1e1d</td>
+<td>01cb5690-1dd0-4347-b475-659cc7d887c8</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -9589,7 +9598,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>5016599</td>
 <td>-1</td>
 <td>False</td>
-<td>4f7d7b95-d2e0-4e99-a427-01ba3c5a1e1d</td>
+<td>01cb5690-1dd0-4347-b475-659cc7d887c8</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -9613,7 +9622,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>5018180</td>
 <td>1</td>
 <td>False</td>
-<td>4f7d7b95-d2e0-4e99-a427-01ba3c5a1e1d</td>
+<td>01cb5690-1dd0-4347-b475-659cc7d887c8</td>
 <td>885bp</td>
 <td>...</td>
 <td>-</td>
@@ -9634,21 +9643,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<pre><code> -   Isescan</code></pre>
-<div id="17483d31" class="cell" data-execution_count="15">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>isescan.py <span class="op">--</span>seqfile ec958.fasta <span class="op">--</span>output outputs<span class="op">/</span>isescan<span class="op">/</span> <span class="op">--</span>nthread <span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="isescan" class="level5">
+<h5 class="anchored" data-anchor-id="isescan">Isescan</h5>
+<div id="45def202" class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>isescan.py <span class="op">--</span>seqfile ec958.fasta <span class="op">--</span>output outputs<span class="op">/</span>isescan<span class="op">/</span> <span class="op">--</span>nthread <span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="66c771c2" class="cell" data-execution_count="16">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>tail <span class="op">+</span><span class="dv">2</span> ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>isescan<span class="op">-</span>outputs<span class="op">/</span>EC958.fasta.tsv <span class="op">|</span> wc <span class="op">-</span>l</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="2007297e" class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>tail <span class="op">+</span><span class="dv">2</span> ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>isescan<span class="op">-</span>outputs<span class="op">/</span>EC958.fasta.tsv <span class="op">|</span> wc <span class="op">-</span>l</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      65</code></pre>
 </div>
 </div>
 <p><strong>ISscan identified 65 IS in full genome</strong></p>
-<div id="462ef19e" class="cell" data-execution_count="17">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>pd.set_option(<span class="st">'display.max_rows'</span>, <span class="va">None</span>)</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>isescan_chr <span class="op">=</span> pd.read_csv(<span class="st">"../../data/ecoli/isescan-outputs/EC958.fasta.tsv"</span>, sep<span class="op">=</span><span class="st">"</span><span class="ch">\t</span><span class="st">"</span>)</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>isescan_chr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="5091da22" class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>pd.set_option(<span class="st">'display.max_rows'</span>, <span class="va">None</span>)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>isescan_chr <span class="op">=</span> pd.read_csv(<span class="st">"../../data/ecoli/isescan-outputs/EC958.fasta.tsv"</span>, sep<span class="op">=</span><span class="st">"</span><span class="ch">\t</span><span class="st">"</span>)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>isescan_chr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="12">
 <div>
 
@@ -11249,10 +11260,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
+</section>
 <section id="inspect-the-is-elements-in-the-e-coli-958-genome" class="level4">
 <h4 class="anchored" data-anchor-id="inspect-the-is-elements-in-the-e-coli-958-genome">Inspect the IS elements in the E coli 958 genome</h4>
-<div id="af4d6a19" class="cell" data-execution_count="18">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>awk <span class="st">'/mobile_element/ {print NR, $0}'</span> ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>ec958.gb <span class="op">|</span> head <span class="op">-</span>n <span class="dv">10</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="49f143e9" class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>awk <span class="st">'/mobile_element/ {print NR, $0}'</span> ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>ec958.gb <span class="op">|</span> head <span class="op">-</span>n <span class="dv">10</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>4937      mobile_element  233728..236259
 4938                      /mobile_element_type="insertion sequence:ISEc23"
@@ -11267,34 +11279,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>IS identifier with mobile_element and genomic coordinate in one line, and line after it, follows the IS name.. sometimes with unclassified and no IS family</p>
-<div id="ba730d07" class="cell" data-execution_count="19">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get IS features only from the genbank file, and convert it into bed file</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re, os</span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>os.remove(<span class="st">"../../data/ecoli/ec958_IS.bed"</span>)</span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>pattern <span class="op">=</span> <span class="vs">r"</span><span class="kw">(</span><span class="dv">\d</span><span class="op">+</span><span class="kw">)</span><span class="ch">\.\.</span><span class="kw">(</span><span class="dv">\d</span><span class="op">+</span><span class="kw">)</span><span class="vs">"</span></span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"../../data/ecoli/ec958.gb"</span>, <span class="st">"r"</span>) <span class="im">as</span> <span class="bu">file</span>:</span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>    lines <span class="op">=</span> <span class="bu">file</span>.readlines()</span>
-<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i, line <span class="kw">in</span> <span class="bu">enumerate</span>(lines):</span>
-<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="st">"LOCUS"</span> <span class="kw">in</span> line:</span>
-<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>            chromosome <span class="op">=</span> line.split()[<span class="dv">1</span>]</span>
-<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="st">"mobile_element"</span> <span class="kw">in</span> line.split():</span>
-<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>            region <span class="op">=</span> re.search(pattern, line)</span>
-<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>            start, end <span class="op">=</span> region.group().split(<span class="st">".."</span>)</span>
-<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>            orientation <span class="op">=</span> <span class="st">"-"</span> <span class="cf">if</span> <span class="st">"complement"</span> <span class="kw">in</span> line <span class="cf">else</span> <span class="st">"+"</span></span>
-<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a>            name <span class="op">=</span> lines[i<span class="op">+</span><span class="dv">1</span>].split(<span class="st">"="</span>)[<span class="dv">1</span>]</span>
-<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a>            name <span class="op">=</span> name.replace(<span class="st">'"'</span>, <span class="st">''</span>).replace(<span class="st">";"</span>, <span class="st">""</span>).strip()</span>
-<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a>            <span class="cf">with</span> <span class="bu">open</span>(<span class="st">"../../data/ecoli/ec958_IS.bed"</span>, <span class="st">"a"</span>) <span class="im">as</span> output:</span>
-<span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a>                output.write(<span class="ss">f"</span><span class="sc">{</span>chromosome<span class="sc">}</span><span class="ch">\t</span><span class="sc">{</span><span class="bu">int</span>(start)<span class="op">-</span><span class="dv">1</span><span class="sc">}</span><span class="ch">\t</span><span class="sc">{</span>end<span class="sc">}</span><span class="ch">\t</span><span class="sc">{</span>name<span class="sc">}</span><span class="ch">\t</span><span class="sc">{</span><span class="dv">0</span><span class="sc">}</span><span class="ch">\t</span><span class="sc">{</span>orientation<span class="sc">}</span><span class="ch">\n</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="2b26ef86" class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get IS features only from the genbank file, and convert it into bed file</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re, os</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>os.remove(<span class="st">"../../data/ecoli/ec958_IS.bed"</span>)</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>pattern <span class="op">=</span> <span class="vs">r"</span><span class="kw">(</span><span class="dv">\d</span><span class="op">+</span><span class="kw">)</span><span class="ch">\.\.</span><span class="kw">(</span><span class="dv">\d</span><span class="op">+</span><span class="kw">)</span><span class="vs">"</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"../../data/ecoli/ec958.gb"</span>, <span class="st">"r"</span>) <span class="im">as</span> <span class="bu">file</span>:</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>    lines <span class="op">=</span> <span class="bu">file</span>.readlines()</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i, line <span class="kw">in</span> <span class="bu">enumerate</span>(lines):</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="st">"LOCUS"</span> <span class="kw">in</span> line:</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>            chromosome <span class="op">=</span> line.split()[<span class="dv">1</span>]</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="st">"mobile_element"</span> <span class="kw">in</span> line.split():</span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>            region <span class="op">=</span> re.search(pattern, line)</span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>            start, end <span class="op">=</span> region.group().split(<span class="st">".."</span>)</span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>            orientation <span class="op">=</span> <span class="st">"-"</span> <span class="cf">if</span> <span class="st">"complement"</span> <span class="kw">in</span> line <span class="cf">else</span> <span class="st">"+"</span></span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>            name <span class="op">=</span> lines[i<span class="op">+</span><span class="dv">1</span>].split(<span class="st">"="</span>)[<span class="dv">1</span>]</span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>            name <span class="op">=</span> name.replace(<span class="st">'"'</span>, <span class="st">''</span>).replace(<span class="st">";"</span>, <span class="st">""</span>).strip()</span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>            <span class="cf">with</span> <span class="bu">open</span>(<span class="st">"../../data/ecoli/ec958_IS.bed"</span>, <span class="st">"a"</span>) <span class="im">as</span> output:</span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>                output.write(<span class="ss">f"</span><span class="sc">{</span>chromosome<span class="sc">}</span><span class="ch">\t</span><span class="sc">{</span><span class="bu">int</span>(start)<span class="op">-</span><span class="dv">1</span><span class="sc">}</span><span class="ch">\t</span><span class="sc">{</span>end<span class="sc">}</span><span class="ch">\t</span><span class="sc">{</span>name<span class="sc">}</span><span class="ch">\t</span><span class="sc">{</span><span class="dv">0</span><span class="sc">}</span><span class="ch">\t</span><span class="sc">{</span>orientation<span class="sc">}</span><span class="ch">\n</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="ef63d96d" class="cell" data-execution_count="20">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>pd.set_option(<span class="st">'display.max_rows'</span>, <span class="va">None</span>)</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>genome_is_bed <span class="op">=</span> pd.read_csv(<span class="st">"../../data/ecoli/ec958_IS.bed"</span>, sep<span class="op">=</span><span class="st">"</span><span class="ch">\t</span><span class="st">"</span>, header<span class="op">=</span><span class="va">None</span>)</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>genome_is_bed.columns <span class="op">=</span> [<span class="st">"chrom"</span>, <span class="st">"start"</span>, <span class="st">"end"</span>, <span class="st">"name"</span>, <span class="st">"score"</span>, <span class="st">"strand"</span>][:genome_is_bed.shape[<span class="dv">1</span>]]</span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>genome_is_bed</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="6477bee2" class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>pd.set_option(<span class="st">'display.max_rows'</span>, <span class="va">None</span>)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>genome_is_bed <span class="op">=</span> pd.read_csv(<span class="st">"../../data/ecoli/ec958_IS.bed"</span>, sep<span class="op">=</span><span class="st">"</span><span class="ch">\t</span><span class="st">"</span>, header<span class="op">=</span><span class="va">None</span>)</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>genome_is_bed.columns <span class="op">=</span> [<span class="st">"chrom"</span>, <span class="st">"start"</span>, <span class="st">"end"</span>, <span class="st">"name"</span>, <span class="st">"score"</span>, <span class="st">"strand"</span>][:genome_is_bed.shape[<span class="dv">1</span>]]</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>genome_is_bed</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="15">
 <div>
 
@@ -11687,18 +11699,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="20b16c09" class="cell" data-execution_count="21">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>wc <span class="op">-</span>l ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>ec958_IS.bed</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="3d3a913f" class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>wc <span class="op">-</span>l ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>ec958_IS.bed</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      41 ../../data/ecoli/ec958_IS.bed</code></pre>
 </div>
 </div>
 <p><strong>The actual IS number in the E coli 958 is 41</strong></p>
-<div id="fdcf3e13" class="cell" data-execution_count="22">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> eris.io <span class="im">import</span> parse</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> record <span class="kw">in</span> parse(<span class="st">"../../data/ecoli/ec958.gb"</span>, <span class="st">"genbank"</span>):</span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="bu">len</span>(record))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="3e63be87" class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> eris.io <span class="im">import</span> parse</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> record <span class="kw">in</span> parse(<span class="st">"../../data/ecoli/ec958.gb"</span>, <span class="st">"genbank"</span>):</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="bu">len</span>(record))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <pre class="{markdown}"><code>---------------------------------------------------------------------------
 IndexError                                Traceback (most recent call last)
