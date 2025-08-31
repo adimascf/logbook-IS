@@ -245,33 +245,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Downloaded the illumina paired end reads, from ENA <a href="https://www.ebi.ac.uk/ena/browser/view/SRR5194982">SRR5194982</a></li>
 </ul></li>
 </ul>
-<div id="c6a4babb" class="cell" data-execution_count="1">
+<div id="a92f4a43" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>wget <span class="op">-</span>nc ftp:<span class="op">//</span>ftp.sra.ebi.ac.uk<span class="op">/</span>vol1<span class="op">/</span>fastq<span class="op">/</span>SRR519<span class="op">/</span><span class="dv">00</span><span class="er">2</span><span class="op">/</span>SRR5194982<span class="op">/</span>SRR5194982_1.fastq.gz</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>wget <span class="op">-</span>nc ftp:<span class="op">//</span>ftp.sra.ebi.ac.uk<span class="op">/</span>vol1<span class="op">/</span>fastq<span class="op">/</span>SRR519<span class="op">/</span><span class="dv">00</span><span class="er">2</span><span class="op">/</span>SRR5194982<span class="op">/</span>SRR5194982_2.fastq.gz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li>Assemblied the Illumina reads using spades</li>
 </ul>
-<div id="c10b0d54" class="cell" data-execution_count="2">
+<div id="877ffd85" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="op">~/</span><span class="bu">bin</span><span class="op">/</span>SPAdes<span class="op">-</span><span class="fl">4.2.0</span><span class="op">-</span>Linux<span class="op">/</span><span class="bu">bin</span><span class="op">/</span>spades.py <span class="op">-</span><span class="dv">1</span> data<span class="op">/</span>ecoli958<span class="op">/</span>fastqs<span class="op">/</span>SRR5194982_1.fastq.gz <span class="op">-</span><span class="dv">2</span> data<span class="op">/</span>ecoli958<span class="op">/</span>fastqs<span class="op">/</span>SRR5194982_2.fastq.gz <span class="op">--</span>threads <span class="dv">8</span> <span class="op">--</span>memory <span class="dv">32</span> <span class="op">-</span>o outputs<span class="op">/</span>spades<span class="op">/</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li>Assemblied the Illumina reads using spades (with <code>--isolate</code>)</li>
 </ul>
-<div id="2c83eb2c" class="cell" data-execution_count="3">
+<div id="d9acf036" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="op">~/</span><span class="bu">bin</span><span class="op">/</span>SPAdes<span class="op">-</span><span class="fl">4.2.0</span><span class="op">-</span>Linux<span class="op">/</span><span class="bu">bin</span><span class="op">/</span>spades.py <span class="op">--</span>isolate <span class="op">-</span><span class="dv">1</span> data<span class="op">/</span>ecoli958<span class="op">/</span>fastqs<span class="op">/</span>SRR5194982_1.fastq.gz <span class="op">-</span><span class="dv">2</span> data<span class="op">/</span>ecoli958<span class="op">/</span>fastqs<span class="op">/</span>SRR5194982_2.fastq.gz <span class="op">--</span>threads <span class="dv">8</span> <span class="op">--</span>memory <span class="dv">32</span> <span class="op">-</span>o outputs<span class="op">/</span>spades<span class="op">-</span>isolates</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li>Run Eris in both assembly results, with gfa and fasta file separately</li>
 </ul>
-<div id="2a17d9d2" class="cell" data-execution_count="4">
+<div id="530cffff" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>mkdir <span class="op">-</span>p eris<span class="op">-</span>outputs</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>eris scan ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>spades<span class="op">-</span>isolates<span class="op">/</span>assembly_graph_after_simplification.gfa <span class="op">&gt;</span> eris<span class="op">-</span>outputs<span class="op">/</span>result_gfa_isolate.tsv</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>eris scan ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>spades<span class="op">-</span>isolates<span class="op">/</span>contigs.fasta <span class="op">&gt;</span> eris<span class="op">-</span>outputs<span class="op">/</span>result_fasta_isolate.tsv</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>eris scan ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>spades<span class="op">-</span>outputs<span class="op">/</span>assembly_graph_after_simplification.gfa <span class="op">&gt;</span> eris<span class="op">-</span>outputs<span class="op">/</span>result_gfa.tsv</span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>eris scan ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>spades<span class="op">-</span>outputs<span class="op">/</span>contigs.fasta <span class="op">&gt;</span> eris<span class="op">-</span>outputs<span class="op">/</span>result_fasta.tsv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="3d28006c" class="cell" data-execution_count="5">
+<p>how many IS detected by Eris?</p>
+<div id="0ce538b6" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>grep <span class="st">"mobile_element"</span> eris<span class="op">-</span>outputs<span class="op">/</span>result_gfa_isolate.tsv <span class="op">|</span> wc <span class="op">-</span>l</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>grep <span class="st">"mobile_element"</span> eris<span class="op">-</span>outputs<span class="op">/</span>result_fasta_isolate.tsv <span class="op">|</span> wc <span class="op">-</span>l</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>grep <span class="st">"mobile_element"</span> eris<span class="op">-</span>outputs<span class="op">/</span>result_gfa.tsv <span class="op">|</span> wc <span class="op">-</span>l</span>
@@ -287,11 +288,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>Run <a href="https://github.com/xiezhq/ISEScan?tab=readme-ov-file#Usage">ISEcan</a> on both assembly results</li>
 </ul>
-<div id="844e4b7e" class="cell" data-execution_count="6">
+<div id="b25ae48f" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>isescan.py <span class="op">--</span>seqfile outputs<span class="op">/</span>spades<span class="op">-</span>isolate<span class="op">/</span>contigs.fasta <span class="op">--</span>output outputs<span class="op">/</span>isescan<span class="op">/</span> <span class="op">--</span>nthread <span class="dv">2</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>isescan.py <span class="op">--</span>seqfile outputs<span class="op">/</span>spades<span class="op">/</span>contigs.fasta <span class="op">--</span>output outputs<span class="op">/</span>isescan<span class="op">/</span> <span class="op">--</span>nthread <span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="fcbe9934" class="cell" data-execution_count="7">
+<p>how many IS detected by Isescan?</p>
+<div id="8b164dd9" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>tail <span class="op">+</span><span class="dv">2</span> ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>isescan<span class="op">-</span>outputs<span class="op">/</span>spades<span class="op">/</span>contigs.fasta.tsv <span class="op">|</span> wc <span class="op">-</span>l</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>tail <span class="op">+</span><span class="dv">2</span> ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>isescan<span class="op">-</span>outputs<span class="op">/</span>spades<span class="op">-</span>isolates<span class="op">/</span>contigs.fasta.tsv <span class="op">|</span> wc <span class="op">-</span>l</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -299,7 +301,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       77</code></pre>
 </div>
 </div>
-<div id="0b278aed" class="cell" data-execution_count="8">
+<div id="d16a972a" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>eris_fasta <span class="op">=</span> pd.read_csv(<span class="st">"eris-outputs/result_fasta.tsv"</span>, sep<span class="op">=</span><span class="st">"</span><span class="ch">\t</span><span class="st">"</span>)</span>
@@ -340,14 +342,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">0</td>
 <td>contig</td>
-<td>306fb499-d214-49bc-bf00-d694e05265e4</td>
+<td>88361617-485d-4e07-8809-de7f018fe19d</td>
 <td>mobile_element</td>
 <td>NODE_100_length_1368_cov_118.453161</td>
 <td>55</td>
 <td>162</td>
 <td>1</td>
 <td>True</td>
-<td>306fb499-d214-49bc-bf00-d694e05265e4</td>
+<td>88361617-485d-4e07-8809-de7f018fe19d</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -364,14 +366,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td data-quarto-table-cell-role="th">2</td>
 <td>contig</td>
-<td>b0642a52-e328-424d-8f71-ff066c3f3ccd</td>
+<td>6cff2cf1-91fc-4a9e-957f-5684992e7b1b</td>
 <td>mobile_element</td>
 <td>NODE_102_length_1330_cov_112.021961</td>
 <td>47</td>
 <td>1268</td>
 <td>1</td>
 <td>False</td>
-<td>b0642a52-e328-424d-8f71-ff066c3f3ccd</td>
+<td>6cff2cf1-91fc-4a9e-957f-5684992e7b1b</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -388,14 +390,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">5</td>
 <td>contig</td>
-<td>ea619f64-89d9-4c38-8be8-fcc6bfa0bbc4</td>
+<td>20c89701-5a1c-4688-a6b0-01243047af86</td>
 <td>mobile_element</td>
 <td>NODE_116_length_894_cov_238.991657</td>
 <td>0</td>
 <td>894</td>
 <td>-1</td>
 <td>True</td>
-<td>ea619f64-89d9-4c38-8be8-fcc6bfa0bbc4</td>
+<td>20c89701-5a1c-4688-a6b0-01243047af86</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -412,14 +414,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td data-quarto-table-cell-role="th">8</td>
 <td>contig</td>
-<td>6a9b9597-2340-4933-aafe-9f76bfe6c460</td>
+<td>84319da9-b3ac-49ba-b75e-c073dd8fbc90</td>
 <td>mobile_element</td>
 <td>NODE_11_length_158869_cov_118.708621</td>
 <td>158756</td>
 <td>158869</td>
 <td>-1</td>
 <td>True</td>
-<td>6a9b9597-2340-4933-aafe-9f76bfe6c460</td>
+<td>84319da9-b3ac-49ba-b75e-c073dd8fbc90</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -436,14 +438,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">9</td>
 <td>contig</td>
-<td>cecbc431-d452-49b6-ac65-b737546f4d5a</td>
+<td>6342ac9d-492a-4a3f-8b1e-f806aeb0582e</td>
 <td>mobile_element</td>
 <td>NODE_120_length_777_cov_1709.146814</td>
 <td>0</td>
 <td>777</td>
 <td>-1</td>
 <td>True</td>
-<td>cecbc431-d452-49b6-ac65-b737546f4d5a</td>
+<td>6342ac9d-492a-4a3f-8b1e-f806aeb0582e</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -464,7 +466,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="34a7320f" class="cell" data-execution_count="9">
+<div id="57d8a0ae" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>isescan_fasta <span class="op">=</span> pd.read_csv(<span class="st">"../../data/ecoli/isescan-outputs/spades/contigs.fasta.tsv"</span>, sep<span class="op">=</span><span class="st">"</span><span class="ch">\t</span><span class="st">"</span>)</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>isescan_fasta.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
@@ -627,7 +629,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p><code>isescan</code> output seems only reporting IS family, not IS Name. <code>Contig</code> column in eris, and <code>seqID</code> have the same value with id contig from fasta</p>
-<div id="2576bf91" class="cell" data-execution_count="10">
+<div id="32b7ae4d" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>pd.set_option(<span class="st">'display.max_rows'</span>, <span class="va">None</span>)</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co"># select less columns</span></span>
@@ -3312,7 +3314,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>How many contigs contain insertions of IS elements identified by Eris and ISEScan?</p>
-<div id="84dd4b1b" class="cell" data-execution_count="11">
+<div id="21edddf3" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib_venn <span class="im">import</span> venn2</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -3333,13 +3335,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>Inspect the IS elements in the E coli 958 genome</li>
 </ul>
-<div id="319fd8d2" class="cell" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>grep <span class="st">"mobile_element"</span> ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>ec958.gb <span class="op">|</span> wc <span class="op">-</span>l</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="a671991c" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>awk <span class="st">'/mobile_element/ {print NR, $0}'</span> ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>ec958.gb <span class="op">|</span> head <span class="op">-</span>n <span class="dv">10</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>      82</code></pre>
+<pre><code>4937      mobile_element  233728..236259
+4938                      /mobile_element_type="insertion sequence:ISEc23"
+29661      mobile_element  1365601..1366443
+29663                      /mobile_element_type="insertion sequence:unclassified
+29806      mobile_element  complement(1372288..1373517)
+29807                      /mobile_element_type="insertion sequence:ISEc24"
+30788      mobile_element  complement(1417477..1418621)
+30790                      /mobile_element_type="insertion sequence:IS4(partial)"
+32174      mobile_element  1480032..1482480
+32175                      /mobile_element_type="insertion sequence:ISEc12"</code></pre>
 </div>
 </div>
-<div id="5a6b6102" class="cell" data-execution_count="13">
+<p>IS identifier with mobile_element and genomic coordinate in one line, and line after it, follows the IS name.. sometimes with unclassified and no IS family</p>
+<div id="f3b263ce" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get IS features only from the genbank file, and convert it into bed file</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re, os</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -3360,7 +3372,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>            <span class="cf">with</span> <span class="bu">open</span>(<span class="st">"../../data/ecoli/ec958_IS.bed"</span>, <span class="st">"a"</span>) <span class="im">as</span> output:</span>
 <span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>                output.write(<span class="ss">f"</span><span class="sc">{</span>chromosome<span class="sc">}</span><span class="ch">\t</span><span class="sc">{</span><span class="bu">int</span>(start)<span class="op">-</span><span class="dv">1</span><span class="sc">}</span><span class="ch">\t</span><span class="sc">{</span>end<span class="sc">}</span><span class="ch">\t</span><span class="sc">{</span>name<span class="sc">}</span><span class="ch">\t</span><span class="sc">{</span><span class="dv">0</span><span class="sc">}</span><span class="ch">\t</span><span class="sc">{</span>orientation<span class="sc">}</span><span class="ch">\n</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="3fd14e10" class="cell" data-execution_count="14">
+<div id="cd52da94" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>pd.set_option(<span class="st">'display.max_rows'</span>, <span class="va">None</span>)</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>genome_is_bed <span class="op">=</span> pd.read_csv(<span class="st">"../../data/ecoli/ec958_IS.bed"</span>, sep<span class="op">=</span><span class="st">"</span><span class="ch">\t</span><span class="st">"</span>, header<span class="op">=</span><span class="va">None</span>)</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -3759,14 +3771,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="1ee1260f" class="cell" data-execution_count="15">
+<div id="79975d6d" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>wc <span class="op">-</span>l ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>ec958_IS.bed</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      41 ../../data/ecoli/ec958_IS.bed</code></pre>
 </div>
 </div>
 <p>The actual IS number in the E coli 958 is 41</p>
-<div id="56ac7de8" class="cell" data-execution_count="16">
+<div id="e2865efa" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> eris.io <span class="im">import</span> parse</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> record <span class="kw">in</span> parse(<span class="st">"../../data/ecoli/ec958.gb"</span>, <span class="st">"genbank"</span>):</span>
