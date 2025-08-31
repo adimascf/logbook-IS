@@ -149,7 +149,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="dropdown-text">Week 4</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../weekly-logs/week04.html">
+    <a class="dropdown-item" href="../weekly-logs/week05.html">
  <span class="dropdown-text">Week 5</span></a>
   </li>  
     </ul>
@@ -241,24 +241,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Downloaded the <a href="https://www.ncbi.nlm.nih.gov/nuccore/HG941718.1/">genebank file</a>, and visualise it on the artemis</li>
 <li>Downloaded the illumina paired end reads, from ENA <a href="https://www.ebi.ac.uk/ena/browser/view/SRR5194982">SRR5194982</a></li>
 </ul>
-<div id="0233ec11" class="cell" data-execution_count="1">
+<div id="99e61163" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>wget <span class="op">-</span>nc ftp:<span class="op">//</span>ftp.sra.ebi.ac.uk<span class="op">/</span>vol1<span class="op">/</span>fastq<span class="op">/</span>SRR519<span class="op">/</span><span class="dv">00</span><span class="er">2</span><span class="op">/</span>SRR5194982<span class="op">/</span>SRR5194982_1.fastq.gz</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>wget <span class="op">-</span>nc ftp:<span class="op">//</span>ftp.sra.ebi.ac.uk<span class="op">/</span>vol1<span class="op">/</span>fastq<span class="op">/</span>SRR519<span class="op">/</span><span class="dv">00</span><span class="er">2</span><span class="op">/</span>SRR5194982<span class="op">/</span>SRR5194982_2.fastq.gz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></li>
 <li><p>Assemblied the Illumina reads using spades</p>
-<p>::: {#e108349e .cell execution_count=2} <code>{.python .cell-code}  ~/bin/SPAdes-4.2.0-Linux/bin/spades.py -1 data/ecoli958/fastqs/SRR5194982_1.fastq.gz -2 data/ecoli958/fastqs/SRR5194982_2.fastq.gz --threads 8 --memory 32 -o outputs/spades/</code> :::</p></li>
+<p>::: {#700b1ee9 .cell execution_count=2} <code>{.python .cell-code}  ~/bin/SPAdes-4.2.0-Linux/bin/spades.py -1 data/ecoli958/fastqs/SRR5194982_1.fastq.gz -2 data/ecoli958/fastqs/SRR5194982_2.fastq.gz --threads 8 --memory 32 -o outputs/spades/</code> :::</p></li>
 <li><p>Assemblied the Illumina reads using spades (with <code>--isolate</code>)</p>
-<p>::: {#1b650c49 .cell execution_count=3} <code>{.python .cell-code}  ~/bin/SPAdes-4.2.0-Linux/bin/spades.py --isolate -1 data/ecoli958/fastqs/SRR5194982_1.fastq.gz -2 data/ecoli958/fastqs/SRR5194982_2.fastq.gz --threads 8 --memory 32 -o outputs/spades-isolates</code> :::</p></li>
+<p>::: {#cbde5c90 .cell execution_count=3} <code>{.python .cell-code}  ~/bin/SPAdes-4.2.0-Linux/bin/spades.py --isolate -1 data/ecoli958/fastqs/SRR5194982_1.fastq.gz -2 data/ecoli958/fastqs/SRR5194982_2.fastq.gz --threads 8 --memory 32 -o outputs/spades-isolates</code> :::</p></li>
 <li><p>Run Eris in both assembly results, with gfa and fasta file separately</p></li>
 </ul>
-<div id="c856a682" class="cell" data-execution_count="4">
+<div id="350a3b3a" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>mkdir <span class="op">-</span>p eris<span class="op">-</span>outputs</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>eris scan ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>spades<span class="op">-</span>isolates<span class="op">/</span>assembly_graph_after_simplification.gfa <span class="op">&gt;</span> eris<span class="op">-</span>outputs<span class="op">/</span>result_gfa_isolate.tsv</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>eris scan ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>spades<span class="op">-</span>isolates<span class="op">/</span>contigs.fasta <span class="op">&gt;</span> eris<span class="op">-</span>outputs<span class="op">/</span>result_fasta_isolate.tsv</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>eris scan ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>spades<span class="op">-</span>outputs<span class="op">/</span>assembly_graph_after_simplification.gfa <span class="op">&gt;</span> eris<span class="op">-</span>outputs<span class="op">/</span>result_gfa.tsv</span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>eris scan ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>spades<span class="op">-</span>outputs<span class="op">/</span>contigs.fasta <span class="op">&gt;</span> eris<span class="op">-</span>outputs<span class="op">/</span>result_fasta.tsv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="fcd64e5c" class="cell" data-execution_count="5">
+<div id="e4d83d35" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>grep <span class="st">"mobile_element"</span> eris<span class="op">-</span>outputs<span class="op">/</span>result_gfa_isolate.tsv <span class="op">|</span> wc <span class="op">-</span>l</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>grep <span class="st">"mobile_element"</span> eris<span class="op">-</span>outputs<span class="op">/</span>result_fasta_isolate.tsv <span class="op">|</span> wc <span class="op">-</span>l</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>grep <span class="st">"mobile_element"</span> eris<span class="op">-</span>outputs<span class="op">/</span>result_gfa.tsv <span class="op">|</span> wc <span class="op">-</span>l</span>
@@ -274,11 +274,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>Run ISEcan on both assembly results</li>
 </ul>
-<div id="a8fdbb2f" class="cell" data-execution_count="6">
+<div id="ae5dcdfb" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>isescan.py <span class="op">--</span>seqfile outputs<span class="op">/</span>spades<span class="op">-</span>isolate<span class="op">/</span>contigs.fasta <span class="op">--</span>output outputs<span class="op">/</span>isescan<span class="op">/</span> <span class="op">--</span>nthread <span class="dv">2</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>isescan.py <span class="op">--</span>seqfile outputs<span class="op">/</span>spades<span class="op">/</span>contigs.fasta <span class="op">--</span>output outputs<span class="op">/</span>isescan<span class="op">/</span> <span class="op">--</span>nthread <span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="5cc66679" class="cell" data-execution_count="7">
+<div id="a8702db3" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>tail <span class="op">+</span><span class="dv">2</span> ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>isescan<span class="op">-</span>outputs<span class="op">/</span>spades<span class="op">/</span>contigs.fasta.tsv <span class="op">|</span> wc <span class="op">-</span>l</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>tail <span class="op">+</span><span class="dv">2</span> ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>isescan<span class="op">-</span>outputs<span class="op">/</span>spades<span class="op">-</span>isolates<span class="op">/</span>contigs.fasta.tsv <span class="op">|</span> wc <span class="op">-</span>l</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -286,13 +286,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       77</code></pre>
 </div>
 </div>
-<div id="4ae9e10f" class="cell" data-execution_count="8">
+<div id="8cfdef36" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>grep <span class="st">"mobile_element"</span> ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>ec958.gb <span class="op">|</span> wc <span class="op">-</span>l</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      82</code></pre>
 </div>
 </div>
-<div id="d9603d01" class="cell" data-execution_count="9">
+<div id="47f8faaa" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get IS features only from the genbank file, and convert it into bed file</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re, os</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -313,14 +313,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>            <span class="cf">with</span> <span class="bu">open</span>(<span class="st">"../../data/ecoli/ec958_IS.bed"</span>, <span class="st">"a"</span>) <span class="im">as</span> output:</span>
 <span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>                output.write(<span class="ss">f"</span><span class="sc">{</span>chromosome<span class="sc">}</span><span class="ch">\t</span><span class="sc">{</span><span class="bu">int</span>(start)<span class="op">-</span><span class="dv">1</span><span class="sc">}</span><span class="ch">\t</span><span class="sc">{</span>end<span class="sc">}</span><span class="ch">\t</span><span class="sc">{</span>name<span class="sc">}</span><span class="ch">\t</span><span class="sc">{</span><span class="dv">0</span><span class="sc">}</span><span class="ch">\t</span><span class="sc">{</span>orientation<span class="sc">}</span><span class="ch">\n</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="a3dc6273" class="cell" data-execution_count="10">
+<div id="57bcedac" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>wc <span class="op">-</span>l ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>ec958_IS.bed</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      41 ../../data/ecoli/ec958_IS.bed</code></pre>
 </div>
 </div>
 <p>The actual IS number in the E coli 958 is 41</p>
-<div id="dbcbaef5" class="cell" data-execution_count="11">
+<div id="99857260" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> eris.io <span class="im">import</span> parse</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> record <span class="kw">in</span> parse(<span class="st">"../../data/ecoli/ec958.gb"</span>, <span class="st">"genbank"</span>):</span>
