@@ -155,6 +155,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="dropdown-item" href="../weekly-logs/week05.html">
  <span class="dropdown-text">Week 5</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="../weekly-logs/week06.html">
+ <span class="dropdown-text">Week 6</span></a>
+  </li>  
     </ul>
   </li>
 </ul>
@@ -179,17 +183,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section">01-09-2025</a></li>
   <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1">02-09-2025</a>
-  <ul class="collapse">
+  <ul>
   <li><a href="#identify-is-in-complete-chromosome" id="toc-identify-is-in-complete-chromosome" class="nav-link" data-scroll-target="#identify-is-in-complete-chromosome">identify IS in complete chromosome</a>
-  <ul class="collapse">
+  <ul>
   <li><a href="#eris" id="toc-eris" class="nav-link" data-scroll-target="#eris">Eris</a></li>
   <li><a href="#isescan" id="toc-isescan" class="nav-link" data-scroll-target="#isescan">Isescan</a></li>
   </ul></li>
   </ul></li>
   <li><a href="#section-2" id="toc-section-2" class="nav-link" data-scroll-target="#section-2">05-09-2025</a>
-  <ul class="collapse">
+  <ul>
   <li><a href="#simulated-illumina-reads-from-only-the-ec985-chromosome-sequence" id="toc-simulated-illumina-reads-from-only-the-ec985-chromosome-sequence" class="nav-link" data-scroll-target="#simulated-illumina-reads-from-only-the-ec985-chromosome-sequence">Simulated illumina reads from only the EC985 chromosome sequence</a>
-  <ul class="collapse">
+  <ul>
   <li><a href="#performed-genome-assembly-using-shovill" id="toc-performed-genome-assembly-using-shovill" class="nav-link" data-scroll-target="#performed-genome-assembly-using-shovill">Performed genome assembly using shovill</a></li>
   <li><a href="#scan-is-using-eris-from-contigs" id="toc-scan-is-using-eris-from-contigs" class="nav-link" data-scroll-target="#scan-is-using-eris-from-contigs">Scan IS using eris from contigs</a></li>
   <li><a href="#scan-is-using-isescan-from-contigs" id="toc-scan-is-using-isescan-from-contigs" class="nav-link" data-scroll-target="#scan-is-using-isescan-from-contigs">Scan IS using isescan from contigs</a></li>
@@ -254,17 +258,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h4 class="anchored" data-anchor-id="identify-is-in-complete-chromosome">identify IS in complete chromosome</h4>
 <section id="eris" class="level5">
 <h5 class="anchored" data-anchor-id="eris">Eris</h5>
-<div id="152b775a" class="cell" data-execution_count="1">
+<div id="f647ed15" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>eris scan ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>EC958.fasta <span class="op">&gt;</span> eris<span class="op">-</span>outputs<span class="op">/</span>chromosome_fasta.tsv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="c0ce1a47" class="cell" data-execution_count="2">
+<div id="fbc7ab28" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>grep <span class="st">"mobile_element"</span> eris<span class="op">-</span>outputs<span class="op">/</span>chromosome_fasta.tsv <span class="op">|</span> wc <span class="op">-</span>l</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      58</code></pre>
 </div>
 </div>
 <p><strong>Eris identified 58 IS in full genome</strong></p>
-<div id="6baf796d" class="cell" data-execution_count="3">
+<div id="0fe39ed3" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>pd.set_option(<span class="st">'display.max_rows'</span>, <span class="va">None</span>)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>eris_chr <span class="op">=</span> pd.read_csv(<span class="st">"eris-outputs/chromosome_fasta.tsv"</span>, sep<span class="op">=</span><span class="st">"</span><span class="ch">\t</span><span class="st">"</span>)</span>
@@ -305,14 +309,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">1</td>
 <td>EC958</td>
-<td>8654c76e-d414-4cf6-81ab-4a650f8d76cf</td>
+<td>759063b0-a786-4892-b826-64b42c376fe4</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>233727</td>
 <td>236259</td>
 <td>1</td>
 <td>False</td>
-<td>8654c76e-d414-4cf6-81ab-4a650f8d76cf</td>
+<td>759063b0-a786-4892-b826-64b42c376fe4</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -329,14 +333,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td data-quarto-table-cell-role="th">8</td>
 <td>EC958</td>
-<td>e9017654-ff1e-416b-bf77-ded3974bc1b8</td>
+<td>f4d677fe-eab5-4cae-b80c-e45d27a4fd91</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>814902</td>
 <td>815025</td>
 <td>-1</td>
 <td>False</td>
-<td>e9017654-ff1e-416b-bf77-ded3974bc1b8</td>
+<td>f4d677fe-eab5-4cae-b80c-e45d27a4fd91</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -353,14 +357,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">11</td>
 <td>EC958</td>
-<td>eeecd702-72cc-4d5c-9776-df6f43caef0a</td>
+<td>41445a13-528f-4ecc-9e8b-921e0e2c609e</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>1365630</td>
 <td>1366324</td>
 <td>1</td>
 <td>True</td>
-<td>eeecd702-72cc-4d5c-9776-df6f43caef0a</td>
+<td>41445a13-528f-4ecc-9e8b-921e0e2c609e</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -377,14 +381,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td data-quarto-table-cell-role="th">16</td>
 <td>EC958</td>
-<td>0a521ebb-eac9-4f17-adab-c2e693c4292a</td>
+<td>dbecca34-0ea9-4eee-8f66-aa8cefb674cc</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>1371326</td>
 <td>1371811</td>
 <td>-1</td>
 <td>True</td>
-<td>0a521ebb-eac9-4f17-adab-c2e693c4292a</td>
+<td>dbecca34-0ea9-4eee-8f66-aa8cefb674cc</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -401,14 +405,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">19</td>
 <td>EC958</td>
-<td>b077764b-60e6-4299-b5a2-808626283817</td>
+<td>f1414017-ad2c-4be8-a8a1-2ed619af30f2</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>1372287</td>
 <td>1373517</td>
 <td>-1</td>
 <td>False</td>
-<td>b077764b-60e6-4299-b5a2-808626283817</td>
+<td>f1414017-ad2c-4be8-a8a1-2ed619af30f2</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -425,14 +429,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td data-quarto-table-cell-role="th">24</td>
 <td>EC958</td>
-<td>a809ae95-e019-4938-972a-e2f772f06075</td>
+<td>3b9270e7-e3d8-4694-b86c-2bef7ef59b4a</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>1417638</td>
 <td>1418621</td>
 <td>-1</td>
 <td>True</td>
-<td>a809ae95-e019-4938-972a-e2f772f06075</td>
+<td>3b9270e7-e3d8-4694-b86c-2bef7ef59b4a</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -449,14 +453,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">27</td>
 <td>EC958</td>
-<td>7ea202cd-1e49-416e-a3b1-679fdbfac821</td>
+<td>285e5f3f-1c94-4714-a7dc-5ed278417cab</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>1479959</td>
 <td>1482540</td>
 <td>1</td>
 <td>False</td>
-<td>7ea202cd-1e49-416e-a3b1-679fdbfac821</td>
+<td>285e5f3f-1c94-4714-a7dc-5ed278417cab</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -473,14 +477,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td data-quarto-table-cell-role="th">32</td>
 <td>EC958</td>
-<td>8221f8c8-ce0f-46d5-9348-8a11efa6d1d8</td>
+<td>dc52e995-1b41-4daa-b93a-60b0175248ca</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>1647528</td>
 <td>1648819</td>
 <td>1</td>
 <td>False</td>
-<td>8221f8c8-ce0f-46d5-9348-8a11efa6d1d8</td>
+<td>dc52e995-1b41-4daa-b93a-60b0175248ca</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -497,14 +501,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">39</td>
 <td>EC958</td>
-<td>7709c750-43c7-4f1f-a47a-052685da4f7c</td>
+<td>36352c8e-deaa-434a-8ee8-c558d338f19d</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>1997445</td>
 <td>1997536</td>
 <td>1</td>
 <td>True</td>
-<td>7709c750-43c7-4f1f-a47a-052685da4f7c</td>
+<td>36352c8e-deaa-434a-8ee8-c558d338f19d</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -521,14 +525,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td data-quarto-table-cell-role="th">40</td>
 <td>EC958</td>
-<td>dc3c42e9-f657-4af6-9a5d-05e3bbef2456</td>
+<td>9b36c135-560c-4fb0-9d3b-b6e57b938182</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>1997567</td>
 <td>1998999</td>
 <td>-1</td>
 <td>False</td>
-<td>dc3c42e9-f657-4af6-9a5d-05e3bbef2456</td>
+<td>9b36c135-560c-4fb0-9d3b-b6e57b938182</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -545,14 +549,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">46</td>
 <td>EC958</td>
-<td>d454dc04-79dc-4e5f-8665-52d4278666df</td>
+<td>d92e3ee7-38e3-4935-a761-0f01f9f42d89</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>2135365</td>
 <td>2136797</td>
 <td>-1</td>
 <td>False</td>
-<td>d454dc04-79dc-4e5f-8665-52d4278666df</td>
+<td>d92e3ee7-38e3-4935-a761-0f01f9f42d89</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -569,14 +573,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td data-quarto-table-cell-role="th">52</td>
 <td>EC958</td>
-<td>703c4160-9cf5-4ed0-bc72-7b32d2df0b5d</td>
+<td>3dbb03ef-fcec-4442-bd79-68213649e872</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>2142423</td>
 <td>2143132</td>
 <td>-1</td>
 <td>False</td>
-<td>703c4160-9cf5-4ed0-bc72-7b32d2df0b5d</td>
+<td>3dbb03ef-fcec-4442-bd79-68213649e872</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -593,14 +597,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">56</td>
 <td>EC958</td>
-<td>2edfb044-7353-4480-8fc0-8d368e73fe0d</td>
+<td>ef63700f-2c14-4bc0-8839-0ebf7d06b6a0</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>2244066</td>
 <td>2245788</td>
 <td>-1</td>
 <td>False</td>
-<td>2edfb044-7353-4480-8fc0-8d368e73fe0d</td>
+<td>ef63700f-2c14-4bc0-8839-0ebf7d06b6a0</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -617,14 +621,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td data-quarto-table-cell-role="th">62</td>
 <td>EC958</td>
-<td>7d49669b-e2a8-4af1-8bbb-c6d3fb3eb2f1</td>
+<td>0a3280ad-e0c5-458e-9f47-38ae6bf661c5</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>2248880</td>
 <td>2250339</td>
 <td>1</td>
 <td>False</td>
-<td>7d49669b-e2a8-4af1-8bbb-c6d3fb3eb2f1</td>
+<td>0a3280ad-e0c5-458e-9f47-38ae6bf661c5</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -641,14 +645,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">66</td>
 <td>EC958</td>
-<td>10cec2c4-4caa-4419-82cc-b6982d735ada</td>
+<td>97b0cf54-d314-4c45-85bf-fa4bf4f43fb5</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>2252365</td>
 <td>2254232</td>
 <td>-1</td>
 <td>False</td>
-<td>10cec2c4-4caa-4419-82cc-b6982d735ada</td>
+<td>97b0cf54-d314-4c45-85bf-fa4bf4f43fb5</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -665,14 +669,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td data-quarto-table-cell-role="th">71</td>
 <td>EC958</td>
-<td>f4d62b2c-d16a-4dd6-a7d8-e3167971443d</td>
+<td>c4dd4093-3886-4d88-b644-b669fc20bc77</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>2265833</td>
 <td>2268365</td>
 <td>1</td>
 <td>False</td>
-<td>f4d62b2c-d16a-4dd6-a7d8-e3167971443d</td>
+<td>c4dd4093-3886-4d88-b644-b669fc20bc77</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -689,14 +693,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">78</td>
 <td>EC958</td>
-<td>aeb1a57d-1857-4168-806e-0f38b1c32172</td>
+<td>5e21a57d-ea7b-4793-9240-2c82ff3b5721</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>2271109</td>
 <td>2273690</td>
 <td>1</td>
 <td>False</td>
-<td>aeb1a57d-1857-4168-806e-0f38b1c32172</td>
+<td>5e21a57d-ea7b-4793-9240-2c82ff3b5721</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -713,14 +717,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td data-quarto-table-cell-role="th">83</td>
 <td>EC958</td>
-<td>df422e50-58da-4d14-a449-d2375102d5a0</td>
+<td>e0320c16-0196-4aaf-88af-b49b068ee5b3</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>2284842</td>
 <td>2285551</td>
 <td>-1</td>
 <td>False</td>
-<td>df422e50-58da-4d14-a449-d2375102d5a0</td>
+<td>e0320c16-0196-4aaf-88af-b49b068ee5b3</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -737,14 +741,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">87</td>
 <td>EC958</td>
-<td>3b68e9af-d220-48eb-baad-c120bc9a0f45</td>
+<td>9cc37636-f4fb-4312-b0fb-b1c44b0ff019</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>2384714</td>
 <td>2385482</td>
 <td>-1</td>
 <td>False</td>
-<td>3b68e9af-d220-48eb-baad-c120bc9a0f45</td>
+<td>9cc37636-f4fb-4312-b0fb-b1c44b0ff019</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -761,14 +765,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td data-quarto-table-cell-role="th">92</td>
 <td>EC958</td>
-<td>92daa461-5631-4ddc-bc3f-58acfd8328b7</td>
+<td>62a46471-0e04-475a-beb2-ecebb80acb34</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>3111847</td>
 <td>3114428</td>
 <td>1</td>
 <td>False</td>
-<td>92daa461-5631-4ddc-bc3f-58acfd8328b7</td>
+<td>62a46471-0e04-475a-beb2-ecebb80acb34</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -785,14 +789,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">97</td>
 <td>EC958</td>
-<td>408cafe1-e774-4f89-b027-5edbccda0afd</td>
+<td>82571f56-74c5-4a2f-99b5-633830152756</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>3237314</td>
 <td>3237436</td>
 <td>-1</td>
 <td>False</td>
-<td>408cafe1-e774-4f89-b027-5edbccda0afd</td>
+<td>82571f56-74c5-4a2f-99b5-633830152756</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -809,14 +813,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td data-quarto-table-cell-role="th">100</td>
 <td>EC958</td>
-<td>bb2f74d8-98d3-463d-9411-ffc0b03cdef2</td>
+<td>6e8ee82a-7b4d-4c32-9f27-d288989a763e</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>3288119</td>
 <td>3288887</td>
 <td>1</td>
 <td>False</td>
-<td>bb2f74d8-98d3-463d-9411-ffc0b03cdef2</td>
+<td>6e8ee82a-7b4d-4c32-9f27-d288989a763e</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -833,14 +837,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">104</td>
 <td>EC958</td>
-<td>5d858fca-5755-4ed6-842d-6f1ad762dcd6</td>
+<td>7c6f0c4b-3aba-4f15-b6df-0bc1f4422517</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>3290039</td>
 <td>3290146</td>
 <td>-1</td>
 <td>True</td>
-<td>5d858fca-5755-4ed6-842d-6f1ad762dcd6</td>
+<td>7c6f0c4b-3aba-4f15-b6df-0bc1f4422517</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -857,14 +861,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td data-quarto-table-cell-role="th">105</td>
 <td>EC958</td>
-<td>19df1b3d-396f-48f2-b414-6fef66b1a549</td>
+<td>83567981-b794-46e2-9de6-b214ade06131</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>3290146</td>
 <td>3290914</td>
 <td>-1</td>
 <td>False</td>
-<td>19df1b3d-396f-48f2-b414-6fef66b1a549</td>
+<td>83567981-b794-46e2-9de6-b214ade06131</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -881,14 +885,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">110</td>
 <td>EC958</td>
-<td>d2a5ed60-1e40-4cdd-bd6a-1e8041302a4b</td>
+<td>6e986942-0a81-4383-a5f2-7a07bf362091</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>3293136</td>
 <td>3294446</td>
 <td>-1</td>
 <td>False</td>
-<td>d2a5ed60-1e40-4cdd-bd6a-1e8041302a4b</td>
+<td>6e986942-0a81-4383-a5f2-7a07bf362091</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -905,14 +909,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td data-quarto-table-cell-role="th">113</td>
 <td>EC958</td>
-<td>d58f6f19-0f4d-480a-9bb0-c1ad86f28c6f</td>
+<td>d5106593-5a3f-4230-bb11-2253ff9caad0</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>3295103</td>
 <td>3295881</td>
 <td>-1</td>
 <td>True</td>
-<td>d58f6f19-0f4d-480a-9bb0-c1ad86f28c6f</td>
+<td>d5106593-5a3f-4230-bb11-2253ff9caad0</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -929,14 +933,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">117</td>
 <td>EC958</td>
-<td>116f6ac0-ba9b-4846-9e80-677998fa43fb</td>
+<td>c5f7a725-9d6d-4d33-9510-90766984e291</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>3313143</td>
 <td>3314364</td>
 <td>1</td>
 <td>False</td>
-<td>116f6ac0-ba9b-4846-9e80-677998fa43fb</td>
+<td>c5f7a725-9d6d-4d33-9510-90766984e291</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -953,14 +957,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td data-quarto-table-cell-role="th">120</td>
 <td>EC958</td>
-<td>89a5d0c3-f32e-4143-94e3-d1fff5cfc65c</td>
+<td>62a5a7da-44b4-4ebe-ba6d-dfd475bb3606</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>3314362</td>
 <td>3315303</td>
 <td>1</td>
 <td>True</td>
-<td>89a5d0c3-f32e-4143-94e3-d1fff5cfc65c</td>
+<td>62a5a7da-44b4-4ebe-ba6d-dfd475bb3606</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -977,14 +981,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">123</td>
 <td>EC958</td>
-<td>436103ad-fd66-4c36-941f-94c3951202f4</td>
+<td>9c4a89b0-a562-4cec-befc-80c4354c6c7d</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>3316099</td>
 <td>3317706</td>
 <td>1</td>
 <td>True</td>
-<td>436103ad-fd66-4c36-941f-94c3951202f4</td>
+<td>9c4a89b0-a562-4cec-befc-80c4354c6c7d</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -1001,14 +1005,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td data-quarto-table-cell-role="th">128</td>
 <td>EC958</td>
-<td>0be86127-52e8-471d-aa86-ebf468b394ec</td>
+<td>24fbffb7-132e-40e2-9263-69a701d56111</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>3318218</td>
 <td>3318561</td>
 <td>1</td>
 <td>True</td>
-<td>0be86127-52e8-471d-aa86-ebf468b394ec</td>
+<td>24fbffb7-132e-40e2-9263-69a701d56111</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -1025,14 +1029,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">131</td>
 <td>EC958</td>
-<td>1b864151-ffe2-42f2-9d41-c500684a4a11</td>
+<td>89f8c79e-5128-496a-ac89-a32b4c3768ce</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>3320731</td>
 <td>3320925</td>
 <td>1</td>
 <td>True</td>
-<td>1b864151-ffe2-42f2-9d41-c500684a4a11</td>
+<td>89f8c79e-5128-496a-ac89-a32b4c3768ce</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -1049,14 +1053,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td data-quarto-table-cell-role="th">133</td>
 <td>EC958</td>
-<td>1039175d-ca64-49d8-819e-7006889cf9d6</td>
+<td>fbc9f795-ac86-498a-a595-610868ee6838</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>3323689</td>
 <td>3325020</td>
 <td>-1</td>
 <td>False</td>
-<td>1039175d-ca64-49d8-819e-7006889cf9d6</td>
+<td>fbc9f795-ac86-498a-a595-610868ee6838</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -1073,14 +1077,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">138</td>
 <td>EC958</td>
-<td>ac35fcf3-1e7f-4d13-b278-c094aee0ea59</td>
+<td>6a04436b-99db-4a97-bbd4-37819dc842b1</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>3334553</td>
 <td>3336544</td>
 <td>1</td>
 <td>True</td>
-<td>ac35fcf3-1e7f-4d13-b278-c094aee0ea59</td>
+<td>6a04436b-99db-4a97-bbd4-37819dc842b1</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -1097,14 +1101,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td data-quarto-table-cell-role="th">144</td>
 <td>EC958</td>
-<td>6be2447e-25ec-45c0-8278-e0317bdcbd60</td>
+<td>c04dea06-a93b-414a-8bb0-f8243d4a5ce2</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>3336575</td>
 <td>3338118</td>
 <td>1</td>
 <td>True</td>
-<td>6be2447e-25ec-45c0-8278-e0317bdcbd60</td>
+<td>c04dea06-a93b-414a-8bb0-f8243d4a5ce2</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -1121,14 +1125,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">147</td>
 <td>EC958</td>
-<td>9c57a111-8b17-446d-a80a-736892386069</td>
+<td>7e9a1c91-13b2-4ce5-a83f-c29102862d9b</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>3360099</td>
 <td>3360319</td>
 <td>1</td>
 <td>True</td>
-<td>9c57a111-8b17-446d-a80a-736892386069</td>
+<td>7e9a1c91-13b2-4ce5-a83f-c29102862d9b</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -1145,14 +1149,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td data-quarto-table-cell-role="th">149</td>
 <td>EC958</td>
-<td>b27d7ab1-1ef5-43b5-86b8-c298010df20d</td>
+<td>f80ada60-51fd-406e-a43c-68276f876f8b</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>3360526</td>
 <td>3362935</td>
 <td>1</td>
 <td>False</td>
-<td>b27d7ab1-1ef5-43b5-86b8-c298010df20d</td>
+<td>f80ada60-51fd-406e-a43c-68276f876f8b</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -1169,14 +1173,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">154</td>
 <td>EC958</td>
-<td>2a780a63-3aca-4099-99df-318c360703ed</td>
+<td>f45631f0-8069-442e-b519-2718022364d5</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>3558365</td>
 <td>3559615</td>
 <td>1</td>
 <td>False</td>
-<td>2a780a63-3aca-4099-99df-318c360703ed</td>
+<td>f45631f0-8069-442e-b519-2718022364d5</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -1193,14 +1197,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td data-quarto-table-cell-role="th">160</td>
 <td>EC958</td>
-<td>d7cc000b-4b88-42af-9760-dd0dd3a85de1</td>
+<td>916681bd-1901-4c9d-8080-98c50c29621b</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>3820313</td>
 <td>3821771</td>
 <td>-1</td>
 <td>True</td>
-<td>d7cc000b-4b88-42af-9760-dd0dd3a85de1</td>
+<td>916681bd-1901-4c9d-8080-98c50c29621b</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -1217,14 +1221,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">165</td>
 <td>EC958</td>
-<td>63d1abad-105e-44a6-a923-0f78b6f9c380</td>
+<td>96452ae6-ab07-4f43-bb2d-a2cf8562031c</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>4140078</td>
 <td>4140846</td>
 <td>-1</td>
 <td>False</td>
-<td>63d1abad-105e-44a6-a923-0f78b6f9c380</td>
+<td>96452ae6-ab07-4f43-bb2d-a2cf8562031c</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -1241,14 +1245,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td data-quarto-table-cell-role="th">169</td>
 <td>EC958</td>
-<td>de29898f-3932-439e-a980-92ce808a5638</td>
+<td>ea223107-879f-4a99-9f22-fd3ebd0beac2</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>4156066</td>
 <td>4156579</td>
 <td>-1</td>
 <td>True</td>
-<td>de29898f-3932-439e-a980-92ce808a5638</td>
+<td>ea223107-879f-4a99-9f22-fd3ebd0beac2</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -1265,14 +1269,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">173</td>
 <td>EC958</td>
-<td>3fcc87f0-62ea-43e1-83f9-1f9655644d91</td>
+<td>2db5a613-946b-40e5-99b2-4baefdfbf0d6</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>4158851</td>
 <td>4159646</td>
 <td>-1</td>
 <td>True</td>
-<td>3fcc87f0-62ea-43e1-83f9-1f9655644d91</td>
+<td>2db5a613-946b-40e5-99b2-4baefdfbf0d6</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -1289,14 +1293,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td data-quarto-table-cell-role="th">178</td>
 <td>EC958</td>
-<td>c008f62c-4cc5-4249-8fab-3b1437fbfa3d</td>
+<td>bb0ba1d9-7d6f-467b-98df-7159f3a97bca</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>4160374</td>
 <td>4161488</td>
 <td>-1</td>
 <td>True</td>
-<td>c008f62c-4cc5-4249-8fab-3b1437fbfa3d</td>
+<td>bb0ba1d9-7d6f-467b-98df-7159f3a97bca</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -1313,14 +1317,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">180</td>
 <td>EC958</td>
-<td>ce549c1f-c4d8-4dfc-85eb-c32d5b8c1577</td>
+<td>d30cbe68-ac5a-4cd8-bdd6-1c8b326567f6</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>4161813</td>
 <td>4163725</td>
 <td>-1</td>
 <td>True</td>
-<td>ce549c1f-c4d8-4dfc-85eb-c32d5b8c1577</td>
+<td>d30cbe68-ac5a-4cd8-bdd6-1c8b326567f6</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -1337,14 +1341,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td data-quarto-table-cell-role="th">184</td>
 <td>EC958</td>
-<td>bfa119d0-96fd-482a-b2a6-d482734a78d7</td>
+<td>6aa0f7bf-17b6-4948-adf3-13db8b4b1814</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>4171128</td>
 <td>4173827</td>
 <td>1</td>
 <td>False</td>
-<td>bfa119d0-96fd-482a-b2a6-d482734a78d7</td>
+<td>6aa0f7bf-17b6-4948-adf3-13db8b4b1814</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -1361,14 +1365,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">189</td>
 <td>EC958</td>
-<td>dfe64cf4-3551-4bac-8cd2-564e7afa1a39</td>
+<td>b3241c25-186f-4fb2-a7f5-1efb07368f4a</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>4175107</td>
 <td>4177238</td>
 <td>-1</td>
 <td>False</td>
-<td>dfe64cf4-3551-4bac-8cd2-564e7afa1a39</td>
+<td>b3241c25-186f-4fb2-a7f5-1efb07368f4a</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -1385,14 +1389,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td data-quarto-table-cell-role="th">197</td>
 <td>EC958</td>
-<td>580b7416-0e98-445a-a10d-7904f6e475a4</td>
+<td>399c07c1-a1a8-40dc-8f82-09045cd0ab29</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>4915283</td>
 <td>4915620</td>
 <td>1</td>
 <td>True</td>
-<td>580b7416-0e98-445a-a10d-7904f6e475a4</td>
+<td>399c07c1-a1a8-40dc-8f82-09045cd0ab29</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -1409,14 +1413,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">199</td>
 <td>EC958</td>
-<td>49d05361-e246-42b5-ab1a-fea933214abd</td>
+<td>fe416a2e-2066-4a4a-a112-67bd6346ba97</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>4916123</td>
 <td>4916576</td>
 <td>1</td>
 <td>True</td>
-<td>49d05361-e246-42b5-ab1a-fea933214abd</td>
+<td>fe416a2e-2066-4a4a-a112-67bd6346ba97</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -1433,14 +1437,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td data-quarto-table-cell-role="th">203</td>
 <td>EC958</td>
-<td>5aaa9466-6a0c-4c52-9ffe-ae088d271a51</td>
+<td>9c67dcaa-9b82-449e-8f87-777951745e3f</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>4925088</td>
 <td>4927620</td>
 <td>1</td>
 <td>False</td>
-<td>5aaa9466-6a0c-4c52-9ffe-ae088d271a51</td>
+<td>9c67dcaa-9b82-449e-8f87-777951745e3f</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -1457,14 +1461,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">210</td>
 <td>EC958</td>
-<td>d0074bc0-1b9b-4df2-9131-fd444fc42aa3</td>
+<td>cea6790e-3021-4169-bc30-8711e9299961</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>4937432</td>
 <td>4938941</td>
 <td>1</td>
 <td>True</td>
-<td>d0074bc0-1b9b-4df2-9131-fd444fc42aa3</td>
+<td>cea6790e-3021-4169-bc30-8711e9299961</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -1481,14 +1485,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td data-quarto-table-cell-role="th">218</td>
 <td>EC958</td>
-<td>1150fd53-c4c9-4d65-bade-cc529df47f25</td>
+<td>e66ce2e3-3e23-451a-9577-4543c37146e1</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>4938940</td>
 <td>4940135</td>
 <td>-1</td>
 <td>False</td>
-<td>1150fd53-c4c9-4d65-bade-cc529df47f25</td>
+<td>e66ce2e3-3e23-451a-9577-4543c37146e1</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -1505,14 +1509,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">220</td>
 <td>EC958</td>
-<td>f27a8e76-f852-4000-9a5d-cc329a7ad6d8</td>
+<td>4b1e363b-8cac-430d-83de-4cdf58f3089f</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>4940135</td>
 <td>4940287</td>
 <td>1</td>
 <td>True</td>
-<td>f27a8e76-f852-4000-9a5d-cc329a7ad6d8</td>
+<td>4b1e363b-8cac-430d-83de-4cdf58f3089f</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -1529,14 +1533,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td data-quarto-table-cell-role="th">224</td>
 <td>EC958</td>
-<td>e3bb13d1-bcfd-4218-86b8-6ce5f2701549</td>
+<td>e3d86646-43da-4f1c-b2a7-eb439ad35430</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>4942385</td>
 <td>4943650</td>
 <td>-1</td>
 <td>False</td>
-<td>e3bb13d1-bcfd-4218-86b8-6ce5f2701549</td>
+<td>e3d86646-43da-4f1c-b2a7-eb439ad35430</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -1553,14 +1557,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">229</td>
 <td>EC958</td>
-<td>02e81187-79f8-4ffe-94f5-0a38d824c80b</td>
+<td>2365ea2f-8019-4c00-bb12-944eb829762a</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>4953115</td>
 <td>4953883</td>
 <td>1</td>
 <td>False</td>
-<td>02e81187-79f8-4ffe-94f5-0a38d824c80b</td>
+<td>2365ea2f-8019-4c00-bb12-944eb829762a</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -1577,14 +1581,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td data-quarto-table-cell-role="th">232</td>
 <td>EC958</td>
-<td>f18a26fc-4117-4903-a2cd-720f51e378fa</td>
+<td>7ba9551b-df56-48e1-88c6-657940e5d7af</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>4956000</td>
 <td>4958289</td>
 <td>-1</td>
 <td>False</td>
-<td>f18a26fc-4117-4903-a2cd-720f51e378fa</td>
+<td>7ba9551b-df56-48e1-88c6-657940e5d7af</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -1601,14 +1605,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">238</td>
 <td>EC958</td>
-<td>6ee2b10d-df99-4121-a03e-0a6382074238</td>
+<td>7031f187-ae41-44df-8af0-d5dac4f4258f</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>4971828</td>
 <td>4974409</td>
 <td>1</td>
 <td>False</td>
-<td>6ee2b10d-df99-4121-a03e-0a6382074238</td>
+<td>7031f187-ae41-44df-8af0-d5dac4f4258f</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -1625,14 +1629,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td data-quarto-table-cell-role="th">243</td>
 <td>EC958</td>
-<td>455e3700-8ce5-4084-b80d-e53b6c2c024e</td>
+<td>1c486a11-9d28-4b23-97b0-8275d7939848</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>4976678</td>
 <td>4977037</td>
 <td>1</td>
 <td>True</td>
-<td>455e3700-8ce5-4084-b80d-e53b6c2c024e</td>
+<td>1c486a11-9d28-4b23-97b0-8275d7939848</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -1649,14 +1653,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">246</td>
 <td>EC958</td>
-<td>2a3f67ef-550b-438f-83e7-5aff2b47ae8e</td>
+<td>c17c7dd0-4323-4233-a66b-5f0d4b2a87d6</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>5007344</td>
 <td>5008594</td>
 <td>-1</td>
 <td>False</td>
-<td>2a3f67ef-550b-438f-83e7-5aff2b47ae8e</td>
+<td>c17c7dd0-4323-4233-a66b-5f0d4b2a87d6</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -1673,14 +1677,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td data-quarto-table-cell-role="th">252</td>
 <td>EC958</td>
-<td>567be5c6-e62d-4558-8d7e-3cab4a99024d</td>
+<td>368cb4ae-494e-4efc-901d-b7ea89994d1d</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>5014813</td>
 <td>5016698</td>
 <td>-1</td>
 <td>False</td>
-<td>567be5c6-e62d-4558-8d7e-3cab4a99024d</td>
+<td>368cb4ae-494e-4efc-901d-b7ea89994d1d</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -1701,7 +1705,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="aca45277" class="cell" data-execution_count="4">
+<div id="1795c005" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># convert the mobile element entries into bed file</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>eris_chr[<span class="st">"Score"</span>] <span class="op">=</span> <span class="st">"0"</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>eris_chr <span class="op">=</span> eris_chr.assign(</span>
@@ -1711,7 +1715,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>eris_chr_bed.to_csv(<span class="st">"eris-outputs/chromosome_fasta.bed"</span>, sep<span class="op">=</span><span class="st">"</span><span class="ch">\t</span><span class="st">"</span>, index<span class="op">=</span><span class="va">False</span>, header<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>How many IS entries from chromosome EC958 overlap with Eris identified IS (from complete chromosome)?</p>
-<div id="ea166ffb" class="cell" data-execution_count="5">
+<div id="6cf61e44" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>bedtools intersect <span class="op">-</span>a ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>ec958_IS.bed <span class="op">-</span>b eris<span class="op">-</span>outputs<span class="op">/</span>chromosome_fasta.bed <span class="op">-</span>u <span class="op">|</span> wc <span class="op">-</span>l</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>bedtools intersect <span class="op">-</span>a ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>ec958_IS.bed <span class="op">-</span>b eris<span class="op">-</span>outputs<span class="op">/</span>chromosome_fasta.bed <span class="op">-</span>wb</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1760,7 +1764,7 @@ HG941718.1  5014813 5016698 insertion sequence that encodes an ISL3-like    0   
 </div>
 <p>37 of 41 entries overlap with Eris. Some entries have overlap with more than one IS from Eris.</p>
 <p>The entries that have no overlap:</p>
-<div id="0bb0c3af" class="cell" data-execution_count="6">
+<div id="a5598d28" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>bedtools intersect <span class="op">-</span>a ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>ec958_IS.bed <span class="op">-</span>b eris<span class="op">-</span>outputs<span class="op">/</span>chromosome_fasta.bed <span class="op">-</span>v</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>HG941718.1  2103782 2104446 truncated at both ends 95% identical to IS609 from  0   +
@@ -1770,7 +1774,7 @@ HG941718.1  4943650 4944441 truncated at left end by IS600 95% identical to 0   
 </div>
 </div>
 <p>There are 20 IS identified by Eris that have no overlaps with:</p>
-<div id="48b1bbbe" class="cell" data-execution_count="7">
+<div id="37e786c8" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>bedtools intersect <span class="op">-</span>a  eris<span class="op">-</span>outputs<span class="op">/</span>chromosome_fasta.bed <span class="op">-</span>b ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>ec958_IS.bed <span class="op">-</span>v</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>HG941718.1  814902  815025  MITEEc1 0   -   100.0
@@ -1798,17 +1802,17 @@ HG941718.1  4940135 4940287 ISEc9   0   +   9.178743961352657</code></pre>
 </section>
 <section id="isescan" class="level5">
 <h5 class="anchored" data-anchor-id="isescan">Isescan</h5>
-<div id="67decafc" class="cell" data-execution_count="8">
+<div id="218f09c1" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>isescan.py <span class="op">--</span>seqfile ec958.fasta <span class="op">--</span>output outputs<span class="op">/</span>isescan<span class="op">/</span> <span class="op">--</span>nthread <span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="67b57aba" class="cell" data-execution_count="9">
+<div id="d4435d66" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>tail <span class="op">+</span><span class="dv">2</span> ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>isescan<span class="op">-</span>outputs<span class="op">/</span>chromosome<span class="op">/</span>EC958.fasta.tsv <span class="op">|</span> wc <span class="op">-</span>l</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      65</code></pre>
 </div>
 </div>
 <p><strong>ISscan identified 65 IS in full genome</strong></p>
-<div id="ab42c554" class="cell" data-execution_count="10">
+<div id="4572c348" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># convert it to bed</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>pd.set_option(<span class="st">'display.max_rows'</span>, <span class="va">None</span>)</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>isescan_chr <span class="op">=</span> pd.read_csv(<span class="st">"../../data/ecoli/isescan-outputs/chromosome/EC958.fasta.tsv"</span>, sep<span class="op">=</span><span class="st">"</span><span class="ch">\t</span><span class="st">"</span>)</span>
@@ -1821,7 +1825,7 @@ HG941718.1  4940135 4940287 ISEc9   0   +   9.178743961352657</code></pre>
 <span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>isescan_chr_bed.to_csv(<span class="st">"../../data/ecoli/isescan-outputs/EC958.fasta.bed"</span>, sep<span class="op">=</span><span class="st">"</span><span class="ch">\t</span><span class="st">"</span>, index<span class="op">=</span><span class="va">False</span>, header<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>How many IS entries from chromosome EC958 overlap with Isescan identified IS (from complete chromosome)?</p>
-<div id="f27e8ca3" class="cell" data-execution_count="11">
+<div id="bd9255b6" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>bedtools intersect <span class="op">-</span>a ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>ec958_IS.bed <span class="op">-</span>b ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>isescan<span class="op">-</span>outputs<span class="op">/</span>chromosome<span class="op">/</span>EC958.fasta.bed <span class="op">-</span>u <span class="op">|</span> wc <span class="op">-</span>l</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>bedtools intersect <span class="op">-</span>a ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>ec958_IS.bed <span class="op">-</span>b ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>isescan<span class="op">-</span>outputs<span class="op">/</span>chromosome<span class="op">/</span>EC958.fasta.bed <span class="op">-</span>wb</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1870,7 +1874,7 @@ HG941718.1  5014813 5016462 insertion sequence that encodes an ISL3-like    0   
 </div>
 <p>37 of 41 entries overlap with Isescan. Some entries have overlap with more than one IS from Eris.</p>
 <p>The entries that have no overlap:</p>
-<div id="003c62ca" class="cell" data-execution_count="12">
+<div id="3375354e" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>bedtools intersect <span class="op">-</span>a ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>ec958_IS.bed <span class="op">-</span>b ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>isescan<span class="op">-</span>outputs<span class="op">/</span>chromosome<span class="op">/</span>EC958.fasta.bed <span class="op">-</span>v</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>HG941718.1  1365600 1366443 similar to unclassified IS in gb|FP236830   0   +
@@ -1909,7 +1913,7 @@ gzip EC958.read2.fq
 <pre class="{bash}"><code>#| eval: false
 eris scan ../shovill-outputs/contigs.fa &gt; eris-outputs/eris_fasta_shovill_sim.tsv
 eris scan ../shovill-outputs/contigs.gfa &gt; eris-outputs /eris_gfa_shovill_sim.tsv</code></pre>
-<div id="2b998179" class="cell" data-execution_count="13">
+<div id="35141d17" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>grep <span class="st">"mobile_element"</span> eris<span class="op">-</span>outputs<span class="op">/</span>eris_fasta_shovill_sim.tsv <span class="op">|</span> wc <span class="op">-</span>l</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>grep <span class="st">"mobile_element"</span> eris<span class="op">-</span>outputs<span class="op">/</span>eris_gfa_shovill_sim.tsv <span class="op">|</span> wc <span class="op">-</span>l</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1918,7 +1922,7 @@ eris scan ../shovill-outputs/contigs.gfa &gt; eris-outputs /eris_gfa_shovill_sim
 </div>
 </div>
 <p>by using niave counting, eris from gfa and fasta have the same number identified IS. But the number of IS from both files are detected 49 IS more.. are some IS detected more than one?</p>
-<div id="b84672bb" class="cell" data-execution_count="14">
+<div id="d877e375" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>eris_sv_sim <span class="op">=</span> pd.read_csv(<span class="st">"eris-outputs/eris_gfa_shovill_sim.tsv"</span>, sep<span class="op">=</span><span class="st">"</span><span class="ch">\t</span><span class="st">"</span>)</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>eris_sv_sim <span class="op">=</span> eris_sv_sim[eris_sv_sim[<span class="st">'Type'</span>] <span class="op">==</span> <span class="st">"mobile_element"</span>]</span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>eris_sv_sim.sort_values(by <span class="op">=</span> <span class="st">"Name"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -4122,7 +4126,7 @@ eris scan ../shovill-outputs/contigs.gfa &gt; eris-outputs /eris_gfa_shovill_sim
 </div>
 </div>
 <p>What are IS name identified from complete chromosome, and how many each of them identified by Eris?</p>
-<div id="b1fa03c0" class="cell" data-execution_count="15">
+<div id="8bcac331" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>eris_chr[<span class="st">"Name"</span>].value_counts()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="14">
 <pre><code>Name
@@ -4173,7 +4177,7 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 <p>What are IS name identified from contigs, and how many each of them identified by Eris?</p>
-<div id="0701a40a" class="cell" data-execution_count="16">
+<div id="7c34b5bf" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>eris_sv_sim[<span class="st">"Name"</span>].value_counts()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="15">
 <pre><code>Name
@@ -4231,7 +4235,7 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 <p>IS1397 is found 6 times from contigs files, whereas it’s found only 2 in complete chromosome.</p>
-<div id="246592a9" class="cell" data-execution_count="17">
+<div id="adf0912f" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>eris_sv_sim[eris_sv_sim[<span class="st">"Name"</span>] <span class="op">==</span> <span class="st">"IS1397"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="16">
 <div>
@@ -4416,7 +4420,7 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 </div>
-<div id="2aa67a0a" class="cell" data-execution_count="18">
+<div id="4c78b877" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>eris_chr[eris_chr[<span class="st">"Name"</span>] <span class="op">==</span> <span class="st">"IS1397"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="17">
 <div>
@@ -4453,14 +4457,14 @@ Name: count, dtype: int64</code></pre>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">40</td>
 <td>EC958</td>
-<td>dc3c42e9-f657-4af6-9a5d-05e3bbef2456</td>
+<td>9b36c135-560c-4fb0-9d3b-b6e57b938182</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>1997567</td>
 <td>1998999</td>
 <td>-1</td>
 <td>False</td>
-<td>dc3c42e9-f657-4af6-9a5d-05e3bbef2456</td>
+<td>9b36c135-560c-4fb0-9d3b-b6e57b938182</td>
 <td>-</td>
 <td>...</td>
 <td>100.0</td>
@@ -4477,14 +4481,14 @@ Name: count, dtype: int64</code></pre>
 <tr class="even">
 <td data-quarto-table-cell-role="th">46</td>
 <td>EC958</td>
-<td>d454dc04-79dc-4e5f-8665-52d4278666df</td>
+<td>d92e3ee7-38e3-4935-a761-0f01f9f42d89</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>2135365</td>
 <td>2136797</td>
 <td>-1</td>
 <td>False</td>
-<td>d454dc04-79dc-4e5f-8665-52d4278666df</td>
+<td>d92e3ee7-38e3-4935-a761-0f01f9f42d89</td>
 <td>-</td>
 <td>...</td>
 <td>100.0</td>
@@ -4506,7 +4510,7 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 <p>Two copies IS1397 elements in the genome are fragmented into six contigs, and all of them is identified separetely by Eris: <img src="pictures/IS1397.png" class="img-fluid" alt="IS1397 elements are fragmented into contigs"></p>
-<div id="832b51b0" class="cell" data-execution_count="19">
+<div id="fecd8224" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>eris_sv_sim[eris_sv_sim[<span class="st">"Name"</span>] <span class="op">==</span> <span class="st">"ISEc52"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="18">
 <div>
@@ -4667,7 +4671,7 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 </div>
-<div id="e7a5ff74" class="cell" data-execution_count="20">
+<div id="a90f24a1" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>eris_chr[eris_chr[<span class="st">"Name"</span>] <span class="op">==</span> <span class="st">"ISEc52"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="19">
 <div>
@@ -4704,14 +4708,14 @@ Name: count, dtype: int64</code></pre>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">154</td>
 <td>EC958</td>
-<td>2a780a63-3aca-4099-99df-318c360703ed</td>
+<td>f45631f0-8069-442e-b519-2718022364d5</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>3558365</td>
 <td>3559615</td>
 <td>1</td>
 <td>False</td>
-<td>2a780a63-3aca-4099-99df-318c360703ed</td>
+<td>f45631f0-8069-442e-b519-2718022364d5</td>
 <td>-</td>
 <td>...</td>
 <td>100.0</td>
@@ -4728,14 +4732,14 @@ Name: count, dtype: int64</code></pre>
 <tr class="even">
 <td data-quarto-table-cell-role="th">246</td>
 <td>EC958</td>
-<td>2a3f67ef-550b-438f-83e7-5aff2b47ae8e</td>
+<td>c17c7dd0-4323-4233-a66b-5f0d4b2a87d6</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>5007344</td>
 <td>5008594</td>
 <td>-1</td>
 <td>False</td>
-<td>2a3f67ef-550b-438f-83e7-5aff2b47ae8e</td>
+<td>c17c7dd0-4323-4233-a66b-5f0d4b2a87d6</td>
 <td>-</td>
 <td>...</td>
 <td>100.0</td>
@@ -4760,7 +4764,7 @@ Name: count, dtype: int64</code></pre>
 </section>
 <section id="scan-is-using-isescan-from-contigs" class="level5">
 <h5 class="anchored" data-anchor-id="scan-is-using-isescan-from-contigs">Scan IS using isescan from contigs</h5>
-<div id="bf957285" class="cell" data-execution_count="21">
+<div id="ed7780bd" class="cell" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>tail <span class="op">+</span><span class="dv">2</span> ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>isescan<span class="op">-</span>outputs<span class="op">/</span>shovill<span class="op">-</span>outputs<span class="op">/</span>contigs.fa.tsv <span class="op">|</span> wc <span class="op">-</span>l</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      88</code></pre>
