@@ -183,7 +183,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#daily-log" id="toc-daily-log" class="nav-link" data-scroll-target="#daily-log">Daily Log</a>
   <ul>
   <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section">08-09-2025</a></li>
-  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1">09-09-2025</a></li>
+  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1">09-09-2025</a>
+  <ul>
+  <li><a href="#extract-is-that-eris-missed-and-inspect-them-manually" id="toc-extract-is-that-eris-missed-and-inspect-them-manually" class="nav-link" data-scroll-target="#extract-is-that-eris-missed-and-inspect-them-manually">Extract IS that eris missed and inspect them manually</a></li>
+  <li><a href="#extract-the-eris-overcalled-is" id="toc-extract-the-eris-overcalled-is" class="nav-link" data-scroll-target="#extract-the-eris-overcalled-is">Extract the Eris overcalled IS</a></li>
+  </ul></li>
   </ul></li>
   </ul></li>
   </ul>
@@ -232,13 +236,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="section-1" class="level3">
 <h3 class="anchored" data-anchor-id="section-1">09-09-2025</h3>
-<p>Extract IS that eris missed and inspect them manually</p>
-<div id="a76dd9d8" class="cell" data-execution_count="1">
+<section id="extract-is-that-eris-missed-and-inspect-them-manually" class="level4">
+<h4 class="anchored" data-anchor-id="extract-is-that-eris-missed-and-inspect-them-manually">Extract IS that eris missed and inspect them manually</h4>
+<div id="7915260f" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>bedtools intersect <span class="op">-</span>a ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>ec958_IS.bed <span class="op">-</span>b eris<span class="op">-</span>outputs<span class="op">/</span>chromosome_fasta.bed <span class="op">-</span>v  <span class="op">|</span> bedtools getfasta <span class="op">-</span>name <span class="op">-</span>fi ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>EC958.fasta <span class="op">-</span>bed <span class="op">-</span> <span class="op">&gt;</span> IS_eris_missed.fasta</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>isinder blast result from those four missed IS elements can be accessed <a href="https://isfinder.biotoul.fr/blast/resultat.php?id=phpFfKWlE&amp;title=&amp;prog=blastn">here</a></p>
+<p>ISfinder blast result from those four Eris missed IS elements can be accessed <a href="https://isfinder.biotoul.fr/blast/resultat.php?id=phpFfKWlE&amp;title=&amp;prog=blastn">here</a></p>
+<div id="8df764f1" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>bedtools intersect <span class="op">-</span>a ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>ec958_IS.bed <span class="op">-</span>b ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>isescan<span class="op">-</span>outputs<span class="op">/</span>EC958.fasta.bed <span class="op">-</span>v  <span class="op">|</span> bedtools getfasta <span class="op">-</span>name <span class="op">-</span>fi ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>EC958.fasta <span class="op">-</span>bed <span class="op">-</span> <span class="op">&gt;</span> IS_isescan_missed.fasta</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>ISfinder blast result can be accessed <a href="https://isfinder.biotoul.fr/blast/resultat.php?id=phpQ12WHM&amp;title=&amp;prog=blastn#BL_ORD_ID:330">here</a></p>
+</section>
+<section id="extract-the-eris-overcalled-is" class="level4">
+<h4 class="anchored" data-anchor-id="extract-the-eris-overcalled-is">Extract the Eris overcalled IS</h4>
+<div id="bf821e5d" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>bedtools intersect <span class="op">-</span>a  eris<span class="op">-</span>outputs<span class="op">/</span>chromosome_fasta.bed <span class="op">-</span>b ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>ec958_IS.bed <span class="op">-</span>v <span class="op">|</span> bedtools getfasta <span class="op">-</span>name <span class="op">-</span>fi ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>EC958.fasta <span class="op">-</span>bed <span class="op">-</span> <span class="op">&gt;</span> eris_overcall_IS.fasta</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>ISfinder blast result <a href="https://isfinder.biotoul.fr/blast/resultat.php?id=phpjCCHtz&amp;title=&amp;prog=blastn#BL_ORD_ID:166">here</a></p>
 
 
+</section>
 </section>
 </section>
 </section>
