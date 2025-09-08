@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Week 07: Manually extra IS that Eris (and Isescan) detected and also inspect the IS that Eris missed – IS Project Logbook</title>
+<title>Week 07: Investigating IS Detection: Overcalls by Eris (and ISEScan) and Missed Elements by Eris – IS Project Logbook</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -194,7 +194,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Week 07: Manually extra IS that Eris (and Isescan) detected and also inspect the IS that Eris missed</h1>
+<h1 class="title">Week 07: Investigating IS Detection: Overcalls by Eris (and ISEScan) and Missed Elements by Eris</h1>
 </div>
 
 
@@ -233,7 +233,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="section-1" class="level3">
 <h3 class="anchored" data-anchor-id="section-1">09-09-2025</h3>
 <p>Extract IS that eris missed and inspect them manually</p>
-<div id="5b41e892" class="cell" data-execution_count="1">
+<div id="a76dd9d8" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>bedtools intersect <span class="op">-</span>a ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>ec958_IS.bed <span class="op">-</span>b eris<span class="op">-</span>outputs<span class="op">/</span>chromosome_fasta.bed <span class="op">-</span>v  <span class="op">|</span> bedtools getfasta <span class="op">-</span>name <span class="op">-</span>fi ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>EC958.fasta <span class="op">-</span>bed <span class="op">-</span> <span class="op">&gt;</span> IS_eris_missed.fasta</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>isinder blast result from those four missed IS elements can be accessed <a href="https://isfinder.biotoul.fr/blast/resultat.php?id=phpFfKWlE&amp;title=&amp;prog=blastn">here</a></p>
