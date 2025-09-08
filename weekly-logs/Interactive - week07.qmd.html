@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Week 03: Started drafting the project plan – IS Project Logbook</title>
+<title>interactive---week07.qmd – IS Project Logbook</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +19,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -71,7 +106,7 @@ ul.task-list li input[type="checkbox"] {
 
 </head>
 
-<body class="nav-fixed quarto-light">
+<body class="nav-fixed fullcontent quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -138,125 +173,67 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a>
-  <ul>
-  <li><a href="#daily-log" id="toc-daily-log" class="nav-link" data-scroll-target="#daily-log">Daily Log</a>
-  <ul>
-  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section">11-08-2025</a></li>
-  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1">12-08-2025</a></li>
-  <li><a href="#section-2" id="toc-section-2" class="nav-link" data-scroll-target="#section-2">14-08-2025</a></li>
-  <li><a href="#section-3" id="toc-section-3" class="nav-link" data-scroll-target="#section-3">15-08-2025</a></li>
-  </ul></li>
-  </ul></li>
-  </ul>
-</nav>
-    </div>
+    
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
 
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Week 03: Started drafting the project plan</h1>
+
+
+
+<p>Connected to eris (Python 3.12.11)</p>
+<div id="7878fc4d-257f-483c-b2b8-9295d3382866" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;quarto&quot;}}">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>eris</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>usage: eris &lt;command&gt;
+eris: error: the following arguments are required: &lt;command&gt;</code></pre>
+</div>
+</div>
+<div id="c596d4a7-d8d2-4040-bc7e-b6e4249fa8b0" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;quarto&quot;}}">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>bedtools intersect <span class="op">-</span>a ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>ec958_IS.bed <span class="op">-</span>b eris<span class="op">-</span>outputs<span class="op">/</span>chromosome_fasta.bed <span class="op">-</span>v</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>HG941718.1  2103782 2104446 truncated at both ends 95% identical to IS609 from  0   +
+HG941718.1  3312816 3313143 truncated by IS30   0   +
+HG941718.1  4922924 4923251 truncated at right end of IS    0   +
+HG941718.1  4943650 4944441 truncated at left end by IS600 95% identical to 0   +</code></pre>
+</div>
+</div>
+<div id="17133e52-4bed-441a-a5fd-e4122ce70f82" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;quarto&quot;}}">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>bedtools intersect <span class="op">-</span>a ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>ec958_IS.bed <span class="op">-</span>b eris<span class="op">-</span>outputs<span class="op">/</span>chromosome_fasta.bed <span class="op">-</span>v  <span class="op">|</span> bedtools getfasta <span class="op">-</span>fi data<span class="op">/</span>ecoli<span class="op">/</span>EC958.fasta <span class="op">-</span>bed <span class="op">-</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Error: The requested fasta database file (data/ecoli/EC958.fasta) could not be opened. Exiting!</code></pre>
+</div>
+</div>
+<div id="80501d02-8423-4d35-ba7e-52f34ddd5e1e" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;quarto&quot;}}">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>bedtools intersect <span class="op">-</span>a ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>ec958_IS.bed <span class="op">-</span>b eris<span class="op">-</span>outputs<span class="op">/</span>chromosome_fasta.bed <span class="op">-</span>v  <span class="op">|</span> bedtools getfasta <span class="op">-</span>fi ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>EC958.fasta <span class="op">-</span>bed <span class="op">-</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&gt;HG941718.1:2103782-2104446
+CCGGAAGAAGTTTTTGTAAGCCCGCTCAGGGTCTTTCAGTGACTGTTGCAATGGCTGTGAGGGCGAATCTTTAAGCCATTGCGTTTCAGTGGCATTTTTCCACTCAACCAACCAGGAAGCCATTTTCCCGTAAGGGATGTATTTATTACCGGCCTCATGATTCTCATTCTGAAGCGCCAGAGCACGATTGAAAACGAAACGACATGCGCCTGCGAAGCGCCTCATTCCACGCTCCTGTTGACCACCTGGTCTTAACCGGAATTTGAATGCCTGTAGTCGTTTCATGGGCCAAATCATACTTTGGCCTATGAAAAAAGAAACCGATATCCGACGCGGAAGGCATTGTGTTTTCCTGAAGCATGTTCACCTGGTCTTCGTTACTAAATACCGACGTCAGATTTTTGACCATGACGCGACAGAAAAACTACGCACTTACTTTTCAAATGTATGTGCTGATTTTGAAGCTGAACGGGTTGAAATGGATGGCGGACCAGATCACGTCCATTTGTTAATTAACTATCCTCCCAAACTGGCGATATCCAGTCTGGTAAACAGCCTCAAAGGCGTATCGAGTAGGTTACTGCGACGAGATCGACCAGATATTGCAGTCAGGTATTACGACAAAGGCGTTTTGTGGAGTCCTGGCTATTTTGTCAGTAGCTGC
+&gt;HG941718.1:3312816-3313143
+TGAGGTAGCCTGAGTTTAACGGACACTCCTTCCTGAAATAGAATGGCATCAGAAGGAGCTAATAATGAGCAGAAAAACCCAACGTTACTCTAAAGAGTTCAAAGCCGAAGCTGTCAGAACGGTTCTTGAAAATCAACTTTCGATCAGTGAAGGCGCTTCCCGATTATCTCTTCCTGAAGGCACTTTAGGACAATGGGTTACCGCCGCCAGAAAAGGGCTCGGTACTCCTGGTTCCCGCACGGTGGCTGAACTGGAATCTGAAATTCTGCAACTGCGTAAGGCGTTAAATGAAGCTCGCCTTGAGCGAGATATATTAAAAAAAGCAAC
+&gt;HG941718.1:4922924-4923251
+TGAAGTGGTCTACTGAATTTGGCCATCTGAACAGGGTGATATGCTCACCTTAGAACAACACAGGTGCACCTATGAAAAGAAGAAATTTCAGTCCTGAATTCAAACGTGAATCCGCTCAGTTGGTTGTCGATCAAAATTACACTGTTTCTGACGCTGCTAAGGCTATGGATGTTGGTCTTTCCACGATGACGGAATGGTTCAAACAACTGCGTGATGAGCGTCAGGGTAAACGCCAAAAGCCTCCCTGATAACACCGGAACAAATCAAACTACGTGAGCTAAAGAAAAAGCTACAACGAATTGAAATGGAAAACGAAATATTAAAAAA
+&gt;HG941718.1:4943650-4944441
+GGAAAAACCGTCCTGAAAAACCAGACGGCAGACGGGCTGTATTACGCAGTCAGGTACTTGAGCTACATGGCATCAGCCACGGTTCGGCCGGAGCAAGAAGCATCGCCACAATGGCAACCCAGAGAGGCTACCAGATGGGGCGCTGGCTTGCTGGCAGACTCATGAAAGAGCTGGGGCTGGTCAGCTGTCAGCAGCCGACTTACCGGTATAAACGTGGTGGTCATGAACATGTTGCTATCCCTAACTACCTTGAACGGCAGTTCGCCGTGACCGAGCCAAATCAGGTGTGGTGCGGTGATGTGACCTATATCTGGACGGGTAAGCGCTGGGCGTACCTCGCCGTTGTTCTCGACCTGTTCGCAAGAAAACCAGTGGGCTGGGCCATGTCGTTCTCGCCGGACAGCAGGCTTACCATGAAAGCACTGGAAATGGCATGGGAAACCCGTGGTAAGCCCGTCGGGGTGATGTTCCAAGCGATCAAGGCAGTCATTATACGAGCAGGCAGTTCCGGCAGTTACTGTGGCGATACCGGATCAGGCAGAGTATGAGTCGGCGTGGAAACTGCTGGGATAACAGCCCAATGGAGCGCTTCTTCAGGAGTCTGAAGAACGAATGGGTGCCAGCGACGGGCTATGTAAGCTTCAGCGATGCAGCTCACGCAATAACGGACTATATCGTTGGATATTACAGCGCACTAAGACCGCACGAATATAATGGTGGGTTACCACCAAACGAATCAGAAAACCGATACTGGAAAAACTCTAACGCGGAGGCCAGTTTTAGTTGACCAC</code></pre>
+</div>
+</div>
+<div id="eb5831fd-42c5-40bb-a2cb-44213b592162" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;quarto&quot;}}">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>bedtools intersect <span class="op">-</span>a ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>ec958_IS.bed <span class="op">-</span>b eris<span class="op">-</span>outputs<span class="op">/</span>chromosome_fasta.bed <span class="op">-</span>v  <span class="op">|</span> bedtools getfasta <span class="op">-</span>name <span class="op">-</span>fi ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>EC958.fasta <span class="op">-</span>bed <span class="op">-</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&gt;truncated at both ends 95% identical to IS609 from::HG941718.1:2103782-2104446
+CCGGAAGAAGTTTTTGTAAGCCCGCTCAGGGTCTTTCAGTGACTGTTGCAATGGCTGTGAGGGCGAATCTTTAAGCCATTGCGTTTCAGTGGCATTTTTCCACTCAACCAACCAGGAAGCCATTTTCCCGTAAGGGATGTATTTATTACCGGCCTCATGATTCTCATTCTGAAGCGCCAGAGCACGATTGAAAACGAAACGACATGCGCCTGCGAAGCGCCTCATTCCACGCTCCTGTTGACCACCTGGTCTTAACCGGAATTTGAATGCCTGTAGTCGTTTCATGGGCCAAATCATACTTTGGCCTATGAAAAAAGAAACCGATATCCGACGCGGAAGGCATTGTGTTTTCCTGAAGCATGTTCACCTGGTCTTCGTTACTAAATACCGACGTCAGATTTTTGACCATGACGCGACAGAAAAACTACGCACTTACTTTTCAAATGTATGTGCTGATTTTGAAGCTGAACGGGTTGAAATGGATGGCGGACCAGATCACGTCCATTTGTTAATTAACTATCCTCCCAAACTGGCGATATCCAGTCTGGTAAACAGCCTCAAAGGCGTATCGAGTAGGTTACTGCGACGAGATCGACCAGATATTGCAGTCAGGTATTACGACAAAGGCGTTTTGTGGAGTCCTGGCTATTTTGTCAGTAGCTGC
+&gt;truncated by IS30::HG941718.1:3312816-3313143
+TGAGGTAGCCTGAGTTTAACGGACACTCCTTCCTGAAATAGAATGGCATCAGAAGGAGCTAATAATGAGCAGAAAAACCCAACGTTACTCTAAAGAGTTCAAAGCCGAAGCTGTCAGAACGGTTCTTGAAAATCAACTTTCGATCAGTGAAGGCGCTTCCCGATTATCTCTTCCTGAAGGCACTTTAGGACAATGGGTTACCGCCGCCAGAAAAGGGCTCGGTACTCCTGGTTCCCGCACGGTGGCTGAACTGGAATCTGAAATTCTGCAACTGCGTAAGGCGTTAAATGAAGCTCGCCTTGAGCGAGATATATTAAAAAAAGCAAC
+&gt;truncated at right end of IS::HG941718.1:4922924-4923251
+TGAAGTGGTCTACTGAATTTGGCCATCTGAACAGGGTGATATGCTCACCTTAGAACAACACAGGTGCACCTATGAAAAGAAGAAATTTCAGTCCTGAATTCAAACGTGAATCCGCTCAGTTGGTTGTCGATCAAAATTACACTGTTTCTGACGCTGCTAAGGCTATGGATGTTGGTCTTTCCACGATGACGGAATGGTTCAAACAACTGCGTGATGAGCGTCAGGGTAAACGCCAAAAGCCTCCCTGATAACACCGGAACAAATCAAACTACGTGAGCTAAAGAAAAAGCTACAACGAATTGAAATGGAAAACGAAATATTAAAAAA
+&gt;truncated at left end by IS600 95% identical to::HG941718.1:4943650-4944441
+GGAAAAACCGTCCTGAAAAACCAGACGGCAGACGGGCTGTATTACGCAGTCAGGTACTTGAGCTACATGGCATCAGCCACGGTTCGGCCGGAGCAAGAAGCATCGCCACAATGGCAACCCAGAGAGGCTACCAGATGGGGCGCTGGCTTGCTGGCAGACTCATGAAAGAGCTGGGGCTGGTCAGCTGTCAGCAGCCGACTTACCGGTATAAACGTGGTGGTCATGAACATGTTGCTATCCCTAACTACCTTGAACGGCAGTTCGCCGTGACCGAGCCAAATCAGGTGTGGTGCGGTGATGTGACCTATATCTGGACGGGTAAGCGCTGGGCGTACCTCGCCGTTGTTCTCGACCTGTTCGCAAGAAAACCAGTGGGCTGGGCCATGTCGTTCTCGCCGGACAGCAGGCTTACCATGAAAGCACTGGAAATGGCATGGGAAACCCGTGGTAAGCCCGTCGGGGTGATGTTCCAAGCGATCAAGGCAGTCATTATACGAGCAGGCAGTTCCGGCAGTTACTGTGGCGATACCGGATCAGGCAGAGTATGAGTCGGCGTGGAAACTGCTGGGATAACAGCCCAATGGAGCGCTTCTTCAGGAGTCTGAAGAACGAATGGGTGCCAGCGACGGGCTATGTAAGCTTCAGCGATGCAGCTCACGCAATAACGGACTATATCGTTGGATATTACAGCGCACTAAGACCGCACGAATATAATGGTGGGTTACCACCAAACGAATCAGAAAACCGATACTGGAAAAACTCTAACGCGGAGGCCAGTTTTAGTTGACCAC</code></pre>
+</div>
+</div>
+<div id="ebe55ef9-8c7d-4ed0-80d5-2c46b99ec465" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;quarto&quot;}}">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>bedtools intersect <span class="op">-</span>a ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>ec958_IS.bed <span class="op">-</span>b eris<span class="op">-</span>outputs<span class="op">/</span>chromosome_fasta.bed <span class="op">-</span>v  <span class="op">|</span> bedtools getfasta <span class="op">-</span>name <span class="op">-</span>fi ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>EC958.fasta <span class="op">-</span>bed <span class="op">-</span> <span class="op">&gt;</span> IS_eris_missed.fasta</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 
-
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
-
-
-</header>
-
-
-<section id="overview" class="level1">
-<h1>Overview</h1>
-<section id="daily-log" class="level2">
-<h2 class="anchored" data-anchor-id="daily-log">Daily Log</h2>
-<section id="section" class="level3">
-<h3 class="anchored" data-anchor-id="section">11-08-2025</h3>
-<ul>
-<li>Weekly project meeting
-<ul>
-<li>Put all the commands Dimas has run to the logbook, will be helpful later</li>
-<li>Visualise the result to bandage later</li>
-<li>Walked through the code that I explored with Tom adding some insight on Features, Id generations, graph weight</li>
-<li>How much is the cut off value form predicting IS insertion and also the effect? hits cutoff and min proximity.</li>
-<li>Promoter sequence bacteria is usually can be searched using regular expression with the balence of modularity of the tool and also it has good accuracy</li>
-<li>Discuss about the discrepancies of the result between tools (will be disscused more later)</li>
-<li>Ask clarification on the project plan assesment
-<ul>
-<li>The course coordinator already said that it is okay for supervisors to see the draft before submission</li>
-</ul></li>
-<li>Dimas needs to start drafting the project plan</li>
-</ul></li>
-</ul>
-</section>
-<section id="section-1" class="level3">
-<h3 class="anchored" data-anchor-id="section-1">12-08-2025</h3>
-<ul>
-<li>Started writing the introduction of the project plan
-<ul>
-<li>I used all of the summary from paper that Tom and Leah gave me in the week 1</li>
-</ul></li>
-</ul>
-</section>
-<section id="section-2" class="level3">
-<h3 class="anchored" data-anchor-id="section-2">14-08-2025</h3>
-<ul>
-<li>Started writing the plan and startegy paragraphs
-<ul>
-<li>Used Leah and Tom google docs as a guidance</li>
-</ul></li>
-</ul>
-</section>
-<section id="section-3" class="level3">
-<h3 class="anchored" data-anchor-id="section-3">15-08-2025</h3>
-<ul>
-<li><p>Tried to install ISseeker and digIS</p>
-<ul>
-<li>digIS command</li>
-</ul>
-<pre class="{bash}"><code>python3 digIS/digIS_search.py -i ../project-scratch/outputs/genomes/contigs.fasta -g ../project-scratch/data/GCF_000016305.1_ASM1630v1_genomic.gbff -o digis_outputs/</code></pre>
-<p>encountered an error that seems to be some index slicing issue:</p>
-<pre class="{bash}"><code>Parsing Hmmer outputs...
-Traceback (most recent call last):
-File "/Users/adimascf/UQ-resources/SEM2/research-project/existing_tools/digIS/digIS_search.py", line 26, in &lt;module&gt;
-    digIS.run()
-File "/Users/adimascf/UQ-resources/SEM2/research-project/existing_tools/digIS/src/search_tool/digISMultifasta.py", line 23, in run
-    digIS_rec.run(search=search)
-File "/Users/adimascf/UQ-resources/SEM2/research-project/existing_tools/digIS/src/search_tool/digIS.py", line 313, in run
-    self.parse()
-File "/Users/adimascf/UQ-resources/SEM2/research-project/existing_tools/digIS/src/search_tool/digIS.py", line 57, in parse
-    self.parse_hmmer_output('model', self.hmmsearch_output)
-File "/Users/adimascf/UQ-resources/SEM2/research-project/existing_tools/digIS/src/search_tool/digIS.py", line 70, in parse_hmmer_output
-    self.recs.append(RecordDigIS.from_hmmer(hsp, sid, dna_range[0], dna_range[1], strand, self.genome.name,
-File "/Users/adimascf/UQ-resources/SEM2/research-project/existing_tools/digIS/src/search_tool/RecordDigIS.py", line 31, in from_hmmer
-    return cls(genome_name, chrom, genome_seq, seq_len, hsp.qid, sid, hsp.qstart, hsp.qend, start, end, strand, float(hsp.acc), float(hsp.dom_bitscore), float(hsp.dom_evalue))
-File "/Users/adimascf/UQ-resources/SEM2/research-project/existing_tools/digIS/src/search_tool/RecordDigIS.py", line 13, in __init__
-    super().__init__(genome_name, chrom, start, end, strand, genome_seq, genome_len)
-File "/Users/adimascf/UQ-resources/SEM2/research-project/existing_tools/digIS/src/common/grange.py", line 17, in __init__
-    raise ValueError("GRange: start or end position is out of the range.")
-ValueError: GRange: start or end position is out of the range.</code></pre>
-<ul>
-<li>ISseeker installation is not succeeded yet</li>
-</ul></li>
-<li><p>Finalised the project plan draft</p></li>
-</ul>
-
-
-</section>
-</section>
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
