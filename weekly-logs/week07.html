@@ -58,7 +58,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -102,6 +102,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
 </head>
@@ -189,6 +192,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#extract-is-that-isescan-missed-and-inspect-them-manually" id="toc-extract-is-that-isescan-missed-and-inspect-them-manually" class="nav-link" data-scroll-target="#extract-is-that-isescan-missed-and-inspect-them-manually">Extract IS that isescan missed and inspect them manually</a></li>
   <li><a href="#extract-the-eris-overcalled-is" id="toc-extract-the-eris-overcalled-is" class="nav-link" data-scroll-target="#extract-the-eris-overcalled-is">Extract the Eris overcalled IS</a></li>
   </ul></li>
+  <li><a href="#section-2" id="toc-section-2" class="nav-link" data-scroll-target="#section-2">11-09-2025</a>
+  <ul>
+  <li><a href="#tried-other-read-simulator" id="toc-tried-other-read-simulator" class="nav-link" data-scroll-target="#tried-other-read-simulator">Tried other read simulator</a></li>
+  </ul></li>
+  <li><a href="#section-3" id="toc-section-3" class="nav-link" data-scroll-target="#section-3">12-09-2025</a>
+  <ul>
+  <li><a href="#explore-the-is-fragmented-sequence-and-look-in-the-genome-graph" id="toc-explore-the-is-fragmented-sequence-and-look-in-the-genome-graph" class="nav-link" data-scroll-target="#explore-the-is-fragmented-sequence-and-look-in-the-genome-graph">Explore the IS fragmented sequence and look in the genome graph</a></li>
+  <li><a href="#build-the-steps-to-resoolve-the-is-fragmented-contigs" id="toc-build-the-steps-to-resoolve-the-is-fragmented-contigs" class="nav-link" data-scroll-target="#build-the-steps-to-resoolve-the-is-fragmented-contigs">Build the steps to resoolve the IS fragmented contigs</a></li>
+  </ul></li>
+  <li><a href="#section-4" id="toc-section-4" class="nav-link" data-scroll-target="#section-4">13-09-2025</a></li>
   </ul></li>
   </ul></li>
   </ul>
@@ -239,27 +252,1168 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="section-1">09-09-2025</h3>
 <section id="extract-is-that-eris-missed-and-inspect-them-manually" class="level4">
 <h4 class="anchored" data-anchor-id="extract-is-that-eris-missed-and-inspect-them-manually">Extract IS that eris missed and inspect them manually</h4>
-<div id="c5bbd8cf" class="cell" data-execution_count="1">
+<div id="965ead33" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>bedtools intersect <span class="op">-</span>a ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>ec958_IS.bed <span class="op">-</span>b eris<span class="op">-</span>outputs<span class="op">/</span>chromosome_fasta.bed <span class="op">-</span>v  <span class="op">|</span> bedtools getfasta <span class="op">-</span>name <span class="op">-</span>fi ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>EC958.fasta <span class="op">-</span>bed <span class="op">-</span> <span class="op">&gt;</span> IS_eris_missed.fasta</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>ISfinder blast result from those four Eris missed IS elements can be accessed <a href="https://isfinder.biotoul.fr/blast/resultat.php?id=phpFfKWlE&amp;title=&amp;prog=blastn">here</a></p>
 </section>
 <section id="extract-is-that-isescan-missed-and-inspect-them-manually" class="level4">
 <h4 class="anchored" data-anchor-id="extract-is-that-isescan-missed-and-inspect-them-manually">Extract IS that isescan missed and inspect them manually</h4>
-<div id="69aae474" class="cell" data-execution_count="2">
+<div id="f89664cb" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>bedtools intersect <span class="op">-</span>a ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>ec958_IS.bed <span class="op">-</span>b ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>isescan<span class="op">-</span>outputs<span class="op">/</span>EC958.fasta.bed <span class="op">-</span>v  <span class="op">|</span> bedtools getfasta <span class="op">-</span>name <span class="op">-</span>fi ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>EC958.fasta <span class="op">-</span>bed <span class="op">-</span> <span class="op">&gt;</span> IS_isescan_missed.fasta</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>ISfinder blast result can be accessed <a href="https://isfinder.biotoul.fr/blast/resultat.php?id=phpQ12WHM&amp;title=&amp;prog=blastn#BL_ORD_ID:330">here</a></p>
 </section>
 <section id="extract-the-eris-overcalled-is" class="level4">
 <h4 class="anchored" data-anchor-id="extract-the-eris-overcalled-is">Extract the Eris overcalled IS</h4>
-<div id="882cced9" class="cell" data-execution_count="3">
+<div id="c907db64" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>bedtools intersect <span class="op">-</span>a  eris<span class="op">-</span>outputs<span class="op">/</span>chromosome_fasta.bed <span class="op">-</span>b ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>ec958_IS.bed <span class="op">-</span>v <span class="op">|</span> bedtools getfasta <span class="op">-</span>name <span class="op">-</span>fi ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>EC958.fasta <span class="op">-</span>bed <span class="op">-</span> <span class="op">&gt;</span> eris_overcall_IS.fasta</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>ISfinder blast result <a href="https://isfinder.biotoul.fr/blast/resultat.php?id=phpjCCHtz&amp;title=&amp;prog=blastn#BL_ORD_ID:166">here</a></p>
-
-
 </section>
+</section>
+<section id="section-2" class="level3">
+<h3 class="anchored" data-anchor-id="section-2">11-09-2025</h3>
+<section id="tried-other-read-simulator" class="level4">
+<h4 class="anchored" data-anchor-id="tried-other-read-simulator">Tried other read simulator</h4>
+<div id="a3a723ce" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>mason_simulator <span class="op">-</span>ir ..<span class="op">/</span>fastas<span class="op">/</span>EC958.fasta <span class="op">-</span>n <span class="dv">8000000</span> <span class="op">-</span>o reads_1.fq <span class="op">-</span><span class="kw">or</span> reads_2.fq <span class="op">\</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="op">--</span>illumina<span class="op">-</span>read<span class="op">-</span>length <span class="dv">150</span> <span class="op">--</span>fragment<span class="op">-</span>mean<span class="op">-</span>size <span class="dv">400</span> <span class="op">--</span>fragment<span class="op">-</span>size<span class="op">-</span>std<span class="op">-</span>dev <span class="dv">50</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="8725cbe3" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> eris.graph</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> eris.io</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>eris scan ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>assembly<span class="op">-</span>simulated<span class="op">/</span>shovills<span class="op">-</span>mason<span class="op">/</span>contigs.gfa <span class="op">&gt;</span> eris<span class="op">-</span>outputs<span class="op">/</span>mason_shovill_gfa.tsv</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>eris_gfa <span class="op">=</span> pd.read_csv(<span class="st">"eris-outputs/mason_shovill_gfa.tsv"</span>, sep<span class="op">=</span><span class="st">"</span><span class="ch">\t</span><span class="st">"</span>)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>eris_gfa <span class="op">=</span> eris_gfa[eris_gfa[<span class="st">'Type'</span>] <span class="op">==</span> <span class="st">"mobile_element"</span>]</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>eris_gfa.head()</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>eris_gfa[eris_gfa[<span class="st">"Name"</span>] <span class="op">==</span> <span class="st">"IS1397"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Genome</th>
+<th data-quarto-table-cell-role="th">Feature</th>
+<th data-quarto-table-cell-role="th">Type</th>
+<th data-quarto-table-cell-role="th">Contig</th>
+<th data-quarto-table-cell-role="th">Start</th>
+<th data-quarto-table-cell-role="th">End</th>
+<th data-quarto-table-cell-role="th">Strand</th>
+<th data-quarto-table-cell-role="th">Partial</th>
+<th data-quarto-table-cell-role="th">Element</th>
+<th data-quarto-table-cell-role="th">Element_distance</th>
+<th data-quarto-table-cell-role="th">...</th>
+<th data-quarto-table-cell-role="th">Element_effect</th>
+<th data-quarto-table-cell-role="th">Percent_identity</th>
+<th data-quarto-table-cell-role="th">Percent_coverage</th>
+<th data-quarto-table-cell-role="th">Name</th>
+<th data-quarto-table-cell-role="th">Family</th>
+<th data-quarto-table-cell-role="th">Group</th>
+<th data-quarto-table-cell-role="th">Synonyms</th>
+<th data-quarto-table-cell-role="th">Origin</th>
+<th data-quarto-table-cell-role="th">IR</th>
+<th data-quarto-table-cell-role="th">DR</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">10</td>
+<td>contigs</td>
+<td>34786f9f-9faa-4e96-8934-7d75945b9f81</td>
+<td>mobile_element</td>
+<td>323485</td>
+<td>0</td>
+<td>223</td>
+<td>-1</td>
+<td>True</td>
+<td>34786f9f-9faa-4e96-8934-7d75945b9f81</td>
+<td>-</td>
+<td>...</td>
+<td>-</td>
+<td>99.55156950672645</td>
+<td>15.572625698324021</td>
+<td>IS1397</td>
+<td>IS3</td>
+<td>IS150</td>
+<td>NaN</td>
+<td>Escherichia coli</td>
+<td>20/25</td>
+<td>4</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">15</td>
+<td>contigs</td>
+<td>8222724b-1ab6-4938-8009-8cccec553f8d</td>
+<td>mobile_element</td>
+<td>350841</td>
+<td>0</td>
+<td>300</td>
+<td>-1</td>
+<td>True</td>
+<td>8222724b-1ab6-4938-8009-8cccec553f8d</td>
+<td>-</td>
+<td>...</td>
+<td>-</td>
+<td>99.0</td>
+<td>20.949720670391063</td>
+<td>IS1397</td>
+<td>IS3</td>
+<td>IS150</td>
+<td>NaN</td>
+<td>Escherichia coli</td>
+<td>20/25</td>
+<td>4</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">25</td>
+<td>contigs</td>
+<td>32656168-5991-47a7-8ed7-76ebd0399830</td>
+<td>mobile_element</td>
+<td>384239</td>
+<td>0</td>
+<td>362</td>
+<td>-1</td>
+<td>True</td>
+<td>32656168-5991-47a7-8ed7-76ebd0399830</td>
+<td>-</td>
+<td>...</td>
+<td>-</td>
+<td>99.17127071823204</td>
+<td>25.27932960893855</td>
+<td>IS1397</td>
+<td>IS3</td>
+<td>IS150</td>
+<td>NaN</td>
+<td>Escherichia coli</td>
+<td>20/25</td>
+<td>4</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">29</td>
+<td>contigs</td>
+<td>5d3bb2ba-9ddc-47a5-8f8c-196398962a87</td>
+<td>mobile_element</td>
+<td>390831</td>
+<td>0</td>
+<td>223</td>
+<td>-1</td>
+<td>True</td>
+<td>5d3bb2ba-9ddc-47a5-8f8c-196398962a87</td>
+<td>-</td>
+<td>...</td>
+<td>-</td>
+<td>100.0</td>
+<td>15.572625698324021</td>
+<td>IS1397</td>
+<td>IS3</td>
+<td>IS150</td>
+<td>NaN</td>
+<td>Escherichia coli</td>
+<td>20/25</td>
+<td>4</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">77</td>
+<td>contigs</td>
+<td>8aa0aab1-3289-4ed9-a952-7d3fef6e7de4</td>
+<td>mobile_element</td>
+<td>413147</td>
+<td>0</td>
+<td>300</td>
+<td>1</td>
+<td>True</td>
+<td>8aa0aab1-3289-4ed9-a952-7d3fef6e7de4</td>
+<td>-</td>
+<td>...</td>
+<td>-</td>
+<td>100.0</td>
+<td>20.949720670391063</td>
+<td>IS1397</td>
+<td>IS3</td>
+<td>IS150</td>
+<td>NaN</td>
+<td>Escherichia coli</td>
+<td>20/25</td>
+<td>4</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">101</td>
+<td>contigs</td>
+<td>a270b216-3f3a-400f-815d-cc8cbab033be</td>
+<td>mobile_element</td>
+<td>415522</td>
+<td>1</td>
+<td>830</td>
+<td>1</td>
+<td>True</td>
+<td>a270b216-3f3a-400f-815d-cc8cbab033be</td>
+<td>-</td>
+<td>...</td>
+<td>-</td>
+<td>99.75874547647769</td>
+<td>57.891061452513966</td>
+<td>IS1397</td>
+<td>IS3</td>
+<td>IS150</td>
+<td>NaN</td>
+<td>Escherichia coli</td>
+<td>20/25</td>
+<td>4</td>
+</tr>
+</tbody>
+</table>
+
+<p>6 rows × 22 columns</p>
+</div>
+</div>
+</div>
+<div id="d646e9c7" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>eris_gfa[eris_gfa[<span class="st">"Name"</span>] <span class="op">==</span> <span class="st">"IS200C"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="5">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Genome</th>
+<th data-quarto-table-cell-role="th">Feature</th>
+<th data-quarto-table-cell-role="th">Type</th>
+<th data-quarto-table-cell-role="th">Contig</th>
+<th data-quarto-table-cell-role="th">Start</th>
+<th data-quarto-table-cell-role="th">End</th>
+<th data-quarto-table-cell-role="th">Strand</th>
+<th data-quarto-table-cell-role="th">Partial</th>
+<th data-quarto-table-cell-role="th">Element</th>
+<th data-quarto-table-cell-role="th">Element_distance</th>
+<th data-quarto-table-cell-role="th">...</th>
+<th data-quarto-table-cell-role="th">Element_effect</th>
+<th data-quarto-table-cell-role="th">Percent_identity</th>
+<th data-quarto-table-cell-role="th">Percent_coverage</th>
+<th data-quarto-table-cell-role="th">Name</th>
+<th data-quarto-table-cell-role="th">Family</th>
+<th data-quarto-table-cell-role="th">Group</th>
+<th data-quarto-table-cell-role="th">Synonyms</th>
+<th data-quarto-table-cell-role="th">Origin</th>
+<th data-quarto-table-cell-role="th">IR</th>
+<th data-quarto-table-cell-role="th">DR</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">7</td>
+<td>contigs</td>
+<td>fe9675f9-ad22-4e1a-be9e-2a6e888fbd41</td>
+<td>mobile_element</td>
+<td>306725</td>
+<td>0</td>
+<td>156</td>
+<td>1</td>
+<td>True</td>
+<td>fe9675f9-ad22-4e1a-be9e-2a6e888fbd41</td>
+<td>-</td>
+<td>...</td>
+<td>-</td>
+<td>100.0</td>
+<td>22.002820874471084</td>
+<td>IS200C</td>
+<td>IS200/IS605</td>
+<td>IS200</td>
+<td>NaN</td>
+<td>Escherichia coli</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">31</td>
+<td>contigs</td>
+<td>136a9c0c-2c31-4959-bfb3-5acd1efa4080</td>
+<td>mobile_element</td>
+<td>394149</td>
+<td>0</td>
+<td>496</td>
+<td>-1</td>
+<td>True</td>
+<td>136a9c0c-2c31-4959-bfb3-5acd1efa4080</td>
+<td>-</td>
+<td>...</td>
+<td>-</td>
+<td>99.79838709677419</td>
+<td>69.95768688293371</td>
+<td>IS200C</td>
+<td>IS200/IS605</td>
+<td>IS200</td>
+<td>NaN</td>
+<td>Escherichia coli</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">38</td>
+<td>contigs</td>
+<td>efdf046f-a7ee-49f0-a10c-5b35d017b9c7</td>
+<td>mobile_element</td>
+<td>396963</td>
+<td>0</td>
+<td>193</td>
+<td>-1</td>
+<td>True</td>
+<td>efdf046f-a7ee-49f0-a10c-5b35d017b9c7</td>
+<td>-</td>
+<td>...</td>
+<td>-</td>
+<td>100.0</td>
+<td>27.221438645980257</td>
+<td>IS200C</td>
+<td>IS200/IS605</td>
+<td>IS200</td>
+<td>NaN</td>
+<td>Escherichia coli</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">49</td>
+<td>contigs</td>
+<td>ea1c059e-1f77-48af-aadc-6b789c975761</td>
+<td>mobile_element</td>
+<td>405885</td>
+<td>0</td>
+<td>496</td>
+<td>-1</td>
+<td>True</td>
+<td>ea1c059e-1f77-48af-aadc-6b789c975761</td>
+<td>-</td>
+<td>...</td>
+<td>-</td>
+<td>98.99193548387096</td>
+<td>69.95768688293371</td>
+<td>IS200C</td>
+<td>IS200/IS605</td>
+<td>IS200</td>
+<td>NaN</td>
+<td>Escherichia coli</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">100</td>
+<td>contigs</td>
+<td>59bd03e7-c25e-4846-8283-1516692dad73</td>
+<td>mobile_element</td>
+<td>414706</td>
+<td>1284</td>
+<td>1446</td>
+<td>1</td>
+<td>True</td>
+<td>59bd03e7-c25e-4846-8283-1516692dad73</td>
+<td>-</td>
+<td>...</td>
+<td>-</td>
+<td>99.38271604938271</td>
+<td>22.8490832157969</td>
+<td>IS200C</td>
+<td>IS200/IS605</td>
+<td>IS200</td>
+<td>NaN</td>
+<td>Escherichia coli</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">270</td>
+<td>contigs</td>
+<td>686b9c90-3da2-4aad-bd33-191fe49406b3</td>
+<td>mobile_element</td>
+<td>423141</td>
+<td>99274</td>
+<td>99436</td>
+<td>1</td>
+<td>True</td>
+<td>686b9c90-3da2-4aad-bd33-191fe49406b3</td>
+<td>-</td>
+<td>...</td>
+<td>-</td>
+<td>100.0</td>
+<td>22.8490832157969</td>
+<td>IS200C</td>
+<td>IS200/IS605</td>
+<td>IS200</td>
+<td>NaN</td>
+<td>Escherichia coli</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+</tbody>
+</table>
+
+<p>6 rows × 22 columns</p>
+</div>
+</div>
+</div>
+<div id="843604a2" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>eris_gfa[eris_gfa[<span class="st">"Name"</span>] <span class="op">==</span> <span class="st">"ISEc12"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="6">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Genome</th>
+<th data-quarto-table-cell-role="th">Feature</th>
+<th data-quarto-table-cell-role="th">Type</th>
+<th data-quarto-table-cell-role="th">Contig</th>
+<th data-quarto-table-cell-role="th">Start</th>
+<th data-quarto-table-cell-role="th">End</th>
+<th data-quarto-table-cell-role="th">Strand</th>
+<th data-quarto-table-cell-role="th">Partial</th>
+<th data-quarto-table-cell-role="th">Element</th>
+<th data-quarto-table-cell-role="th">Element_distance</th>
+<th data-quarto-table-cell-role="th">...</th>
+<th data-quarto-table-cell-role="th">Element_effect</th>
+<th data-quarto-table-cell-role="th">Percent_identity</th>
+<th data-quarto-table-cell-role="th">Percent_coverage</th>
+<th data-quarto-table-cell-role="th">Name</th>
+<th data-quarto-table-cell-role="th">Family</th>
+<th data-quarto-table-cell-role="th">Group</th>
+<th data-quarto-table-cell-role="th">Synonyms</th>
+<th data-quarto-table-cell-role="th">Origin</th>
+<th data-quarto-table-cell-role="th">IR</th>
+<th data-quarto-table-cell-role="th">DR</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">96</td>
+<td>contigs</td>
+<td>c00e3986-5562-4e67-a4e0-910ebef56747</td>
+<td>mobile_element</td>
+<td>414211</td>
+<td>2</td>
+<td>2583</td>
+<td>-1</td>
+<td>False</td>
+<td>c00e3986-5562-4e67-a4e0-910ebef56747</td>
+<td>-</td>
+<td>...</td>
+<td>-</td>
+<td>99.96125532739248</td>
+<td>100.0</td>
+<td>ISEc12</td>
+<td>IS21</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>Escherichia coli</td>
+<td>20/24</td>
+<td>5</td>
+</tr>
+</tbody>
+</table>
+
+<p>1 rows × 22 columns</p>
+</div>
+</div>
+</div>
+<p>It has similar issue with fragmented IS sequence</p>
+</section>
+</section>
+<section id="section-3" class="level3">
+<h3 class="anchored" data-anchor-id="section-3">12-09-2025</h3>
+<section id="explore-the-is-fragmented-sequence-and-look-in-the-genome-graph" class="level4">
+<h4 class="anchored" data-anchor-id="explore-the-is-fragmented-sequence-and-look-in-the-genome-graph">Explore the IS fragmented sequence and look in the genome graph</h4>
+<div id="4543a14d" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> eris.scan <span class="im">import</span> Scanner</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> Path(<span class="st">'../../data/ecoli/assembly-simulated/shovill-outputs/contigs.gfa'</span>)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> Scanner() <span class="im">as</span> scanner:</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    results <span class="op">=</span> <span class="bu">list</span>(scanner.scan(p))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="4dc13319" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> eris.io <span class="im">import</span> Genome</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>genome_graph <span class="op">=</span> Genome.as_assembly_graph(results[<span class="dv">0</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="2220f6d2" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>genome_graph.adj</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="9">
+<pre><code>defaultdict(set,
+            {'591e0829-9b60-4130-9f57-54adc3a93164': {Edge(591e0829-9b60-4130-9f57-54adc3a93164 -&gt; 1015060_00032 (w=-223))},
+             '1015060_00032': {Edge(1015060_00032 -&gt; 1208211_00117 (w=3)),
+              Edge(1015060_00032 -&gt; 591e0829-9b60-4130-9f57-54adc3a93164 (w=-223))},
+             '1208211_00117': {Edge(1208211_00117 -&gt; 1015060_00032 (w=3))},
+             '11c1a6a6-94fa-492e-9880-501f6c7b0eb0': {Edge(11c1a6a6-94fa-492e-9880-501f6c7b0eb0 -&gt; 1116087_00050 (w=-223))},
+             '1116087_00050': {Edge(1116087_00050 -&gt; 11c1a6a6-94fa-492e-9880-501f6c7b0eb0 (w=-223))},
+             '0af302c8-5bef-4d52-a27d-91383503c37f': {Edge(0af302c8-5bef-4d52-a27d-91383503c37f -&gt; 1125059_00056 (w=-221))},
+             '1125059_00056': {Edge(1125059_00056 -&gt; 0af302c8-5bef-4d52-a27d-91383503c37f (w=-221)),
+              Edge(1125059_00056 -&gt; 1235120_00177 (w=3))},
+             '1235120_00177': {Edge(1235120_00177 -&gt; 1125059_00056 (w=3))},
+             'd4293d46-1459-47cb-9056-182f9430e106': {Edge(d4293d46-1459-47cb-9056-182f9430e106 -&gt; 1158833_00071 (w=-121))},
+             '1158833_00071': {Edge(1158833_00071 -&gt; d4293d46-1459-47cb-9056-182f9430e106 (w=-121))},
+             'f609b6c9-a307-49cf-9913-4d6ab8ce396e': {Edge(f609b6c9-a307-49cf-9913-4d6ab8ce396e -&gt; 1159225_00072 (w=-223))},
+             '1159225_00072': {Edge(1159225_00072 -&gt; f609b6c9-a307-49cf-9913-4d6ab8ce396e (w=-223))},
+             'ef7ab424-08c0-4b1c-8b6e-758a9e385098': {Edge(ef7ab424-08c0-4b1c-8b6e-758a9e385098 -&gt; 1169319_00075 (w=-129))},
+             '1169319_00075': {Edge(1169319_00075 -&gt; 1241860_00257 (w=0)),
+              Edge(1169319_00075 -&gt; ef7ab424-08c0-4b1c-8b6e-758a9e385098 (w=-129))},
+             '1241860_00257': {Edge(1241860_00257 -&gt; 1169319_00075 (w=0))},
+             'c984e8af-28c3-41dc-912d-62c6691b7e59': {Edge(c984e8af-28c3-41dc-912d-62c6691b7e59 -&gt; 1171599_00078 (w=-259))},
+             '1171599_00078': {Edge(1171599_00078 -&gt; 1244936_01278 (w=139)),
+              Edge(1171599_00078 -&gt; 1245046_03736 (w=144)),
+              Edge(1171599_00078 -&gt; c984e8af-28c3-41dc-912d-62c6691b7e59 (w=-259))},
+             '1244936_01278': {Edge(1244936_01278 -&gt; 1171599_00078 (w=139))},
+             '1245046_03736': {Edge(1245046_03736 -&gt; 1171599_00078 (w=144))},
+             '77d37681-fdf3-4cde-9773-95f3ce6c217e': {Edge(77d37681-fdf3-4cde-9773-95f3ce6c217e -&gt; 1202947_00109 (w=-217))},
+             '1202947_00109': {Edge(1202947_00109 -&gt; 1244320_00408 (w=3)),
+              Edge(1202947_00109 -&gt; 77d37681-fdf3-4cde-9773-95f3ce6c217e (w=-217))},
+             '1244320_00408': {Edge(1244320_00408 -&gt; 1202947_00109 (w=3))},
+             'dc0c9aaa-b4dc-421a-ae3b-3d24d80e5582': {Edge(dc0c9aaa-b4dc-421a-ae3b-3d24d80e5582 -&gt; 1206755_00111 (w=-205))},
+             '1206755_00111': {Edge(1206755_00111 -&gt; 1206755_00112 (w=198)),
+              Edge(1206755_00111 -&gt; dc0c9aaa-b4dc-421a-ae3b-3d24d80e5582 (w=-205))},
+             '1206755_00112': {Edge(1206755_00112 -&gt; 1206755_00111 (w=198))},
+             '087827b8-f191-4d56-98d9-ab9a73cd3066': {Edge(087827b8-f191-4d56-98d9-ab9a73cd3066 -&gt; 1208153_00116 (w=-282)),
+              Edge(087827b8-f191-4d56-98d9-ab9a73cd3066 -&gt; 1245136_04886 (w=0)),
+              Edge(087827b8-f191-4d56-98d9-ab9a73cd3066 -&gt; 1245138_04887 (w=0))},
+             '1245138_04887': {Edge(1245138_04887 -&gt; 087827b8-f191-4d56-98d9-ab9a73cd3066 (w=0))},
+             '1245136_04886': {Edge(1245136_04886 -&gt; 087827b8-f191-4d56-98d9-ab9a73cd3066 (w=0))},
+             '1208153_00116': {Edge(1208153_00116 -&gt; 087827b8-f191-4d56-98d9-ab9a73cd3066 (w=-282)),
+              Edge(1208153_00116 -&gt; 1236016_00186 (w=577)),
+              Edge(1208153_00116 -&gt; 1245038_03183 (w=274))},
+             '1236016_00186': {Edge(1236016_00186 -&gt; 1208153_00116 (w=577))},
+             '1245038_03183': {Edge(1245038_03183 -&gt; 1208153_00116 (w=274))},
+             'bf3701e5-0db5-4c28-996f-ef90446d3a08': {Edge(bf3701e5-0db5-4c28-996f-ef90446d3a08 -&gt; 1208964_00119 (w=-222))},
+             '1208964_00119': {Edge(1208964_00119 -&gt; bf3701e5-0db5-4c28-996f-ef90446d3a08 (w=-222))},
+             '4f75ce5f-04ea-4193-b7e9-d8a969959168': {Edge(4f75ce5f-04ea-4193-b7e9-d8a969959168 -&gt; 1215098_00134 (w=-121))},
+             '1215098_00134': {Edge(1215098_00134 -&gt; 4f75ce5f-04ea-4193-b7e9-d8a969959168 (w=-121))},
+             'c51a1602-064d-4429-bf66-a4f76926d0cf': {Edge(c51a1602-064d-4429-bf66-a4f76926d0cf -&gt; 1216050_00137 (w=-298))},
+             '1216050_00137': {Edge(1216050_00137 -&gt; c51a1602-064d-4429-bf66-a4f76926d0cf (w=-298))},
+             '5dd2aea5-25a4-43ad-9da5-4bab0ddf56f6': {Edge(5dd2aea5-25a4-43ad-9da5-4bab0ddf56f6 -&gt; 1221552_00144 (w=-496))},
+             '1221552_00144': {Edge(1221552_00144 -&gt; 1221552_00145 (w=-44)),
+              Edge(1221552_00144 -&gt; 5dd2aea5-25a4-43ad-9da5-4bab0ddf56f6 (w=-496))},
+             '1221552_00145': {Edge(1221552_00145 -&gt; 1221552_00144 (w=-44))},
+             '60d71f96-b16a-499f-b751-9721eb976f0e': {Edge(60d71f96-b16a-499f-b751-9721eb976f0e -&gt; 1227142_00154 (w=-134))},
+             '1227142_00154': {Edge(1227142_00154 -&gt; 60d71f96-b16a-499f-b751-9721eb976f0e (w=-134))},
+             'c48ce75a-cd07-40c0-bc2e-4fc3fe649877': {Edge(c48ce75a-cd07-40c0-bc2e-4fc3fe649877 -&gt; 1228204_00159 (w=-230))},
+             '1228204_00159': {Edge(1228204_00159 -&gt; 1242602_00265 (w=3)),
+              Edge(1228204_00159 -&gt; 976171_00026 (w=3)),
+              Edge(1228204_00159 -&gt; c48ce75a-cd07-40c0-bc2e-4fc3fe649877 (w=-230))},
+             '1242602_00265': {Edge(1242602_00265 -&gt; 1228204_00159 (w=3))},
+             '976171_00026': {Edge(976171_00026 -&gt; 1228204_00159 (w=3))},
+             'db41ba45-6ebf-4417-a93b-6ea8077a169a': {Edge(db41ba45-6ebf-4417-a93b-6ea8077a169a -&gt; 1234604_00174 (w=-221))},
+             '1234604_00174': {Edge(1234604_00174 -&gt; db41ba45-6ebf-4417-a93b-6ea8077a169a (w=-221))},
+             '6a50f9ff-65ab-49c6-862b-20ec1c5d7bb6': {Edge(6a50f9ff-65ab-49c6-862b-20ec1c5d7bb6 -&gt; 1234872_00176 (w=-298))},
+             '1234872_00176': {Edge(1234872_00176 -&gt; 6a50f9ff-65ab-49c6-862b-20ec1c5d7bb6 (w=-298))},
+             'a74e936f-fd71-475f-9081-eff887dc2747': {Edge(a74e936f-fd71-475f-9081-eff887dc2747 -&gt; 1244674_00859 (w=0))},
+             '1244674_00859': {Edge(1244674_00859 -&gt; a74e936f-fd71-475f-9081-eff887dc2747 (w=0))},
+             'f681dc13-ad91-414a-a981-9ab51e47f47a': {Edge(f681dc13-ad91-414a-a981-9ab51e47f47a -&gt; 1236482_00188 (w=-319))},
+             '1236482_00188': {Edge(1236482_00188 -&gt; 1244890_01166 (w=55)),
+              Edge(1236482_00188 -&gt; 1245106_04649 (w=55)),
+              Edge(1236482_00188 -&gt; f681dc13-ad91-414a-a981-9ab51e47f47a (w=-319))},
+             '1245106_04649': {Edge(1245106_04649 -&gt; 1236482_00188 (w=55))},
+             '1244890_01166': {Edge(1244890_01166 -&gt; 1236482_00188 (w=55))},
+             '13d67cda-e6d4-428c-b137-5b5e17a3ca35': {Edge(13d67cda-e6d4-428c-b137-5b5e17a3ca35 -&gt; 1236644_00189 (w=-965))},
+             '1236644_00189': {Edge(1236644_00189 -&gt; 1236644_00190 (w=49)),
+              Edge(1236644_00189 -&gt; 13d67cda-e6d4-428c-b137-5b5e17a3ca35 (w=-965))},
+             '1236644_00190': {Edge(1236644_00190 -&gt; 1236644_00189 (w=49)),
+              Edge(1236644_00190 -&gt; 1236644_00191 (w=-4))},
+             '1236644_00191': {Edge(1236644_00191 -&gt; 1236644_00190 (w=-4))},
+             '72abd189-c6c7-41f9-986b-aa3ba0ea909c': {Edge(72abd189-c6c7-41f9-986b-aa3ba0ea909c -&gt; 1240608_00243 (w=-191))},
+             '1240608_00243': {Edge(1240608_00243 -&gt; 1243212_00271 (w=0)),
+              Edge(1240608_00243 -&gt; 72abd189-c6c7-41f9-986b-aa3ba0ea909c (w=-191))},
+             '1243212_00271': {Edge(1243212_00271 -&gt; 1240608_00243 (w=0))},
+             '7d4e101e-3f31-4c3e-ab12-d3ec6732cce3': {Edge(7d4e101e-3f31-4c3e-ab12-d3ec6732cce3 -&gt; 1241248_00250 (w=-827))},
+             '1241248_00250': {Edge(1241248_00250 -&gt; 1241248_00251 (w=71)),
+              Edge(1241248_00250 -&gt; 7d4e101e-3f31-4c3e-ab12-d3ec6732cce3 (w=-827))},
+             '1241248_00251': {Edge(1241248_00251 -&gt; 1241248_00250 (w=71)),
+              Edge(1241248_00251 -&gt; 1244664_00858 (w=719)),
+              Edge(1241248_00251 -&gt; 1244964_01310 (w=568))},
+             '1244664_00858': {Edge(1244664_00858 -&gt; 1241248_00251 (w=719))},
+             '1244964_01310': {Edge(1244964_01310 -&gt; 1241248_00251 (w=568))},
+             '333efec6-b4c0-4989-b26a-d959a4d923cd': {Edge(333efec6-b4c0-4989-b26a-d959a4d923cd -&gt; 1241860_00256 (w=-496))},
+             '1241860_00256': {Edge(1241860_00256 -&gt; 333efec6-b4c0-4989-b26a-d959a4d923cd (w=-496))},
+             '9cebd238-1115-422e-9126-9fdc085ecae5': {Edge(9cebd238-1115-422e-9126-9fdc085ecae5 -&gt; 1242602_00264 (w=-1214))},
+             '1242602_00264': {Edge(1242602_00264 -&gt; 9cebd238-1115-422e-9126-9fdc085ecae5 (w=-1214))},
+             '6b64721c-da78-4e59-b7a2-7aa5480bc978': {Edge(6b64721c-da78-4e59-b7a2-7aa5480bc978 -&gt; 1111349_00049 (w=145))},
+             '1111349_00049': {Edge(1111349_00049 -&gt; 6b64721c-da78-4e59-b7a2-7aa5480bc978 (w=145))},
+             'eaae28de-b187-4310-904b-7c4dbb23a8d1': {Edge(eaae28de-b187-4310-904b-7c4dbb23a8d1 -&gt; 1176191_00082 (w=31)),
+              Edge(eaae28de-b187-4310-904b-7c4dbb23a8d1 -&gt; 1243328_00277 (w=-44))},
+             '1243328_00277': {Edge(1243328_00277 -&gt; eaae28de-b187-4310-904b-7c4dbb23a8d1 (w=-44))},
+             '1176191_00082': {Edge(1176191_00082 -&gt; eaae28de-b187-4310-904b-7c4dbb23a8d1 (w=31))},
+             'a80337ab-5a19-4c1e-9c8c-a6fff0a66b89': {Edge(a80337ab-5a19-4c1e-9c8c-a6fff0a66b89 -&gt; 1243586_00314 (w=-384))},
+             '1243586_00314': {Edge(1243586_00314 -&gt; a80337ab-5a19-4c1e-9c8c-a6fff0a66b89 (w=-384))},
+             '8e984128-bef6-4d88-9be8-6daad4ccd969': {Edge(8e984128-bef6-4d88-9be8-6daad4ccd969 -&gt; 1243600_00315 (w=-205))},
+             '1243600_00315': {Edge(1243600_00315 -&gt; 1243600_00316 (w=51)),
+              Edge(1243600_00315 -&gt; 8e984128-bef6-4d88-9be8-6daad4ccd969 (w=-205))},
+             '1243600_00316': {Edge(1243600_00316 -&gt; 1243600_00315 (w=51))},
+             '79dee9db-07ed-44d4-b04b-c21000c879cf': {Edge(79dee9db-07ed-44d4-b04b-c21000c879cf -&gt; 1243600_00326 (w=548)),
+              Edge(79dee9db-07ed-44d4-b04b-c21000c879cf -&gt; 1243600_00327 (w=-775))},
+             '1243600_00326': {Edge(1243600_00326 -&gt; 79dee9db-07ed-44d4-b04b-c21000c879cf (w=548))},
+             '1243600_00327': {Edge(1243600_00327 -&gt; 79dee9db-07ed-44d4-b04b-c21000c879cf (w=-775))},
+             '458a7469-2e82-4f2b-9828-96728aa25fb9': {Edge(458a7469-2e82-4f2b-9828-96728aa25fb9 -&gt; 1243600_00328 (w=-300))},
+             '1243600_00328': {Edge(1243600_00328 -&gt; 1002621_00031 (w=0)),
+              Edge(1243600_00328 -&gt; 458a7469-2e82-4f2b-9828-96728aa25fb9 (w=-300))},
+             '1002621_00031': {Edge(1002621_00031 -&gt; 1243600_00328 (w=0))},
+             '1aa96ea5-aae4-4106-b73d-6a2e0649e84a': {Edge(1aa96ea5-aae4-4106-b73d-6a2e0649e84a -&gt; 1243758_00330 (w=-893))},
+             '1243758_00330': {Edge(1243758_00330 -&gt; 1242486_00262 (w=6)),
+              Edge(1243758_00330 -&gt; 1245048_03750 (w=6)),
+              Edge(1243758_00330 -&gt; 1aa96ea5-aae4-4106-b73d-6a2e0649e84a (w=-893))},
+             '1242486_00262': {Edge(1242486_00262 -&gt; 1243758_00330 (w=6))},
+             '1245048_03750': {Edge(1245048_03750 -&gt; 1243758_00330 (w=6))},
+             '65cbb85a-a831-45ca-a7a3-9f77a3489d8b': {Edge(65cbb85a-a831-45ca-a7a3-9f77a3489d8b -&gt; 1244018_00385 (w=11))},
+             '1244018_00385': {Edge(1244018_00385 -&gt; 65cbb85a-a831-45ca-a7a3-9f77a3489d8b (w=11))},
+             '2cae165e-c36c-408e-8298-4b6c104ad6fa': {Edge(2cae165e-c36c-408e-8298-4b6c104ad6fa -&gt; 1244160_00403 (w=-362))},
+             '1244160_00403': {Edge(1244160_00403 -&gt; 1244458_00486 (w=194)),
+              Edge(1244160_00403 -&gt; 2cae165e-c36c-408e-8298-4b6c104ad6fa (w=-362))},
+             '1244458_00486': {Edge(1244458_00486 -&gt; 1244160_00403 (w=194))},
+             '87f529c7-0e1b-46f7-854c-7bb4e60d2950': {Edge(87f529c7-0e1b-46f7-854c-7bb4e60d2950 -&gt; 1244320_00405 (w=-940))},
+             '1244320_00405': {Edge(1244320_00405 -&gt; 1244320_00406 (w=238)),
+              Edge(1244320_00405 -&gt; 87f529c7-0e1b-46f7-854c-7bb4e60d2950 (w=-940))},
+             '1244320_00406': {Edge(1244320_00406 -&gt; 1244320_00405 (w=238))},
+             '245c932c-7321-4874-a334-dd33184e36f3': {Edge(245c932c-7321-4874-a334-dd33184e36f3 -&gt; 1244320_00407 (w=-323))},
+             '1244320_00407': {Edge(1244320_00407 -&gt; 245c932c-7321-4874-a334-dd33184e36f3 (w=-323))},
+             'bd1ac5a1-4732-468d-9123-ea2b32fb9716': {Edge(bd1ac5a1-4732-468d-9123-ea2b32fb9716 -&gt; 1244402_00439 (w=1438)),
+              Edge(bd1ac5a1-4732-468d-9123-ea2b32fb9716 -&gt; 1244402_00440 (w=-1781))},
+             '1244402_00440': {Edge(1244402_00440 -&gt; 1244402_00441 (w=-1)),
+              Edge(1244402_00440 -&gt; bd1ac5a1-4732-468d-9123-ea2b32fb9716 (w=-1781))},
+             '1244402_00439': {Edge(1244402_00439 -&gt; bd1ac5a1-4732-468d-9123-ea2b32fb9716 (w=1438))},
+             '1244402_00441': {Edge(1244402_00441 -&gt; 1244402_00440 (w=-1)),
+              Edge(1244402_00441 -&gt; 1244402_00442 (w=1025))},
+             '1244402_00442': {Edge(1244402_00442 -&gt; 1244402_00441 (w=1025))},
+             'e3584833-80d2-4c24-b5db-c016ebd55e7c': {Edge(e3584833-80d2-4c24-b5db-c016ebd55e7c -&gt; 1244402_00443 (w=164)),
+              Edge(e3584833-80d2-4c24-b5db-c016ebd55e7c -&gt; 1244402_00444 (w=-1428))},
+             '1244402_00444': {Edge(1244402_00444 -&gt; 1244402_00445 (w=1179)),
+              Edge(1244402_00444 -&gt; e3584833-80d2-4c24-b5db-c016ebd55e7c (w=-1428))},
+             '1244402_00443': {Edge(1244402_00443 -&gt; e3584833-80d2-4c24-b5db-c016ebd55e7c (w=164))},
+             '1244402_00445': {Edge(1244402_00445 -&gt; 1244402_00444 (w=1179))},
+             'cf3cd705-2e9f-41e4-91f3-fe88973436b4': {Edge(cf3cd705-2e9f-41e4-91f3-fe88973436b4 -&gt; 1244434_00446 (w=-650))},
+             '1244434_00446': {Edge(1244434_00446 -&gt; 1244434_00447 (w=212)),
+              Edge(1244434_00446 -&gt; cf3cd705-2e9f-41e4-91f3-fe88973436b4 (w=-650))},
+             '1244434_00447': {Edge(1244434_00447 -&gt; 1244434_00446 (w=212)),
+              Edge(1244434_00447 -&gt; 1244638_00703 (w=236)),
+              Edge(1244434_00447 -&gt; 1244994_01901 (w=279))},
+             '1244638_00703': {Edge(1244638_00703 -&gt; 1244434_00447 (w=236))},
+             '1244994_01901': {Edge(1244994_01901 -&gt; 1244434_00447 (w=279))},
+             '24189f3e-29df-4656-a90a-5027b6ce6c7c': {Edge(24189f3e-29df-4656-a90a-5027b6ce6c7c -&gt; 1244458_00449 (w=-547)),
+              Edge(24189f3e-29df-4656-a90a-5027b6ce6c7c -&gt; 832167_00019 (w=1))},
+             '1244458_00449': {Edge(1244458_00449 -&gt; 1244458_00450 (w=58)),
+              Edge(1244458_00449 -&gt; 24189f3e-29df-4656-a90a-5027b6ce6c7c (w=-547))},
+             '832167_00019': {Edge(832167_00019 -&gt; 24189f3e-29df-4656-a90a-5027b6ce6c7c (w=1))},
+             '1244458_00450': {Edge(1244458_00450 -&gt; 1244458_00449 (w=58))},
+             '8fd55b97-4751-46d0-9788-ed75a510c868': {Edge(8fd55b97-4751-46d0-9788-ed75a510c868 -&gt; 1244570_00584 (w=79)),
+              Edge(8fd55b97-4751-46d0-9788-ed75a510c868 -&gt; 1244570_00585 (w=-1146))},
+             '1244570_00585': {Edge(1244570_00585 -&gt; 8fd55b97-4751-46d0-9788-ed75a510c868 (w=-1146))},
+             '1244570_00584': {Edge(1244570_00584 -&gt; 8fd55b97-4751-46d0-9788-ed75a510c868 (w=79))},
+             '8ef2d869-8b9f-4b13-a8d6-dc06c2789731': {Edge(8ef2d869-8b9f-4b13-a8d6-dc06c2789731 -&gt; 1244638_00697 (w=885)),
+              Edge(8ef2d869-8b9f-4b13-a8d6-dc06c2789731 -&gt; 1244638_00698 (w=-1786))},
+             '1244638_00698': {Edge(1244638_00698 -&gt; 1244638_00699 (w=18)),
+              Edge(1244638_00698 -&gt; 8ef2d869-8b9f-4b13-a8d6-dc06c2789731 (w=-1786))},
+             '1244638_00697': {Edge(1244638_00697 -&gt; 8ef2d869-8b9f-4b13-a8d6-dc06c2789731 (w=885))},
+             '1244638_00699': {Edge(1244638_00699 -&gt; 1244638_00698 (w=18)),
+              Edge(1244638_00699 -&gt; 1244638_00700 (w=1681))},
+             '1244638_00700': {Edge(1244638_00700 -&gt; 1244638_00699 (w=1681))},
+             '9e3f0c2a-d739-439e-8416-436a214eaeea': {Edge(9e3f0c2a-d739-439e-8416-436a214eaeea -&gt; 1244656_00831 (w=-354))},
+             '1244656_00831': {Edge(1244656_00831 -&gt; 1244656_00832 (w=57)),
+              Edge(1244656_00831 -&gt; 9e3f0c2a-d739-439e-8416-436a214eaeea (w=-354))},
+             '1244656_00832': {Edge(1244656_00832 -&gt; 1244656_00831 (w=57))},
+             'cf026799-fdc6-48d6-9360-4309609cb3ff': {Edge(cf026799-fdc6-48d6-9360-4309609cb3ff -&gt; 1244656_00833 (w=-216))},
+             '1244656_00833': {Edge(1244656_00833 -&gt; 1244656_00834 (w=26)),
+              Edge(1244656_00833 -&gt; cf026799-fdc6-48d6-9360-4309609cb3ff (w=-216))},
+             '1244656_00834': {Edge(1244656_00834 -&gt; 1244656_00833 (w=26))},
+             '354c89aa-12df-454e-97c4-636538078772': {Edge(354c89aa-12df-454e-97c4-636538078772 -&gt; 1244656_00835 (w=318))},
+             '1244656_00835': {Edge(1244656_00835 -&gt; 354c89aa-12df-454e-97c4-636538078772 (w=318))},
+             'dc11b767-71b3-494c-9af7-5deed3359af2': {Edge(dc11b767-71b3-494c-9af7-5deed3359af2 -&gt; 1244656_00836 (w=-1319))},
+             '1244656_00836': {Edge(1244656_00836 -&gt; 1244656_00837 (w=6)),
+              Edge(1244656_00836 -&gt; dc11b767-71b3-494c-9af7-5deed3359af2 (w=-1319))},
+             '1244656_00837': {Edge(1244656_00837 -&gt; 1244656_00836 (w=6))},
+             '63336db3-7acc-4e90-967b-1efd1e25b7e9': {Edge(63336db3-7acc-4e90-967b-1efd1e25b7e9 -&gt; 1244656_00843 (w=542)),
+              Edge(63336db3-7acc-4e90-967b-1efd1e25b7e9 -&gt; 1244656_00844 (w=-2616))},
+             '1244656_00843': {Edge(1244656_00843 -&gt; 63336db3-7acc-4e90-967b-1efd1e25b7e9 (w=542))},
+             '1244656_00844': {Edge(1244656_00844 -&gt; 1244656_00845 (w=-1)),
+              Edge(1244656_00844 -&gt; 63336db3-7acc-4e90-967b-1efd1e25b7e9 (w=-2616))},
+             '1244656_00845': {Edge(1244656_00845 -&gt; 1244656_00844 (w=-1)),
+              Edge(1244656_00845 -&gt; 1244656_00846 (w=19))},
+             '1244656_00846': {Edge(1244656_00846 -&gt; 1244656_00845 (w=19)),
+              Edge(1244656_00846 -&gt; 1244656_00847 (w=904))},
+             '1244656_00847': {Edge(1244656_00847 -&gt; 1244656_00846 (w=904))},
+             '099f9743-7be8-4218-9a52-63b61e9a1954': {Edge(099f9743-7be8-4218-9a52-63b61e9a1954 -&gt; 1244656_00848 (w=-2071))},
+             '1244656_00848': {Edge(1244656_00848 -&gt; 099f9743-7be8-4218-9a52-63b61e9a1954 (w=-2071)),
+              Edge(1244656_00848 -&gt; 1244656_00849 (w=-1))},
+             '1244656_00849': {Edge(1244656_00849 -&gt; 1244656_00848 (w=-1)),
+              Edge(1244656_00849 -&gt; 1244656_00850 (w=86))},
+             '1244656_00850': {Edge(1244656_00850 -&gt; 1244656_00849 (w=86))},
+             '43e57bbb-2fae-441a-90a6-da19da2b8479': {Edge(43e57bbb-2fae-441a-90a6-da19da2b8479 -&gt; 1244674_00860 (w=-1099)),
+              Edge(43e57bbb-2fae-441a-90a6-da19da2b8479 -&gt; 1244674_00861 (w=-862))},
+             '1244674_00860': {Edge(1244674_00860 -&gt; 43e57bbb-2fae-441a-90a6-da19da2b8479 (w=-1099))},
+             '1244674_00861': {Edge(1244674_00861 -&gt; 1244674_00862 (w=-4)),
+              Edge(1244674_00861 -&gt; 43e57bbb-2fae-441a-90a6-da19da2b8479 (w=-862))},
+             '1244674_00862': {Edge(1244674_00862 -&gt; 1244674_00861 (w=-4)),
+              Edge(1244674_00862 -&gt; 1244674_00863 (w=660))},
+             '1244674_00863': {Edge(1244674_00863 -&gt; 1244674_00862 (w=660))},
+             '8e35893f-07be-4c05-b51d-da330c8e9bf5': {Edge(8e35893f-07be-4c05-b51d-da330c8e9bf5 -&gt; 1244674_00871 (w=60)),
+              Edge(8e35893f-07be-4c05-b51d-da330c8e9bf5 -&gt; 1244674_00872 (w=-1240))},
+             '1244674_00871': {Edge(1244674_00871 -&gt; 8e35893f-07be-4c05-b51d-da330c8e9bf5 (w=60))},
+             '1244674_00872': {Edge(1244674_00872 -&gt; 1244674_00873 (w=-43)),
+              Edge(1244674_00872 -&gt; 8e35893f-07be-4c05-b51d-da330c8e9bf5 (w=-1240))},
+             '1244674_00873': {Edge(1244674_00873 -&gt; 1244674_00872 (w=-43)),
+              Edge(1244674_00873 -&gt; 1244674_00874 (w=499))},
+             '1244674_00874': {Edge(1244674_00874 -&gt; 1244674_00873 (w=499))},
+             '6155febe-5511-48a2-b0ad-965fab3ed27e': {Edge(6155febe-5511-48a2-b0ad-965fab3ed27e -&gt; 1244674_00875 (w=482))},
+             '1244674_00875': {Edge(1244674_00875 -&gt; 6155febe-5511-48a2-b0ad-965fab3ed27e (w=482))},
+             '752c7c6a-e8d1-47bc-9ba4-f9cf96142536': {Edge(752c7c6a-e8d1-47bc-9ba4-f9cf96142536 -&gt; 1244674_00877 (w=576)),
+              Edge(752c7c6a-e8d1-47bc-9ba4-f9cf96142536 -&gt; 1244674_00878 (w=330))},
+             '1244674_00877': {Edge(1244674_00877 -&gt; 752c7c6a-e8d1-47bc-9ba4-f9cf96142536 (w=576))},
+             '1244674_00878': {Edge(1244674_00878 -&gt; 752c7c6a-e8d1-47bc-9ba4-f9cf96142536 (w=330))},
+             '9e7c47ee-31a6-4788-8b39-ab7fdab96d9c': {Edge(9e7c47ee-31a6-4788-8b39-ab7fdab96d9c -&gt; 1244674_00879 (w=-1081))},
+             '1244674_00879': {Edge(1244674_00879 -&gt; 1244674_00880 (w=36)),
+              Edge(1244674_00879 -&gt; 9e7c47ee-31a6-4788-8b39-ab7fdab96d9c (w=-1081))},
+             '1244674_00880': {Edge(1244674_00880 -&gt; 1244674_00879 (w=36))},
+             '626fe7d1-e046-4c89-b066-e0b4df93fc32': {Edge(626fe7d1-e046-4c89-b066-e0b4df93fc32 -&gt; 1244700_00882 (w=-1326))},
+             '1244700_00882': {Edge(1244700_00882 -&gt; 1244700_00883 (w=30)),
+              Edge(1244700_00882 -&gt; 626fe7d1-e046-4c89-b066-e0b4df93fc32 (w=-1326))},
+             '1244700_00883': {Edge(1244700_00883 -&gt; 1244700_00882 (w=30)),
+              Edge(1244700_00883 -&gt; 1244700_00884 (w=-4))},
+             '1244700_00884': {Edge(1244700_00884 -&gt; 1244700_00883 (w=-4)),
+              Edge(1244700_00884 -&gt; 1245118_04670 (w=448))},
+             '1245118_04670': {Edge(1245118_04670 -&gt; 1244700_00884 (w=448))},
+             'c3fe74bc-397e-4138-bc06-d4c60275bdc1': {Edge(c3fe74bc-397e-4138-bc06-d4c60275bdc1 -&gt; 1244706_00887 (w=-309))},
+             '1244706_00887': {Edge(1244706_00887 -&gt; 1244706_00888 (w=597)),
+              Edge(1244706_00887 -&gt; c3fe74bc-397e-4138-bc06-d4c60275bdc1 (w=-309))},
+             '1244706_00888': {Edge(1244706_00888 -&gt; 1244706_00887 (w=597))},
+             '2eed5cbc-209a-44b8-8d5e-fe127763f68c': {Edge(2eed5cbc-209a-44b8-8d5e-fe127763f68c -&gt; 1240840_00244 (w=189)),
+              Edge(2eed5cbc-209a-44b8-8d5e-fe127763f68c -&gt; 1244742_00933 (w=-2496))},
+             '1240840_00244': {Edge(1240840_00244 -&gt; 2eed5cbc-209a-44b8-8d5e-fe127763f68c (w=189))},
+             '1244742_00933': {Edge(1244742_00933 -&gt; 1244742_00934 (w=14)),
+              Edge(1244742_00933 -&gt; 2eed5cbc-209a-44b8-8d5e-fe127763f68c (w=-2496))},
+             '1244742_00934': {Edge(1244742_00934 -&gt; 1243278_00273 (w=251)),
+              Edge(1244742_00934 -&gt; 1244742_00933 (w=14)),
+              Edge(1244742_00934 -&gt; 1244912_01169 (w=225))},
+             '1244912_01169': {Edge(1244912_01169 -&gt; 1244742_00934 (w=225))},
+             '1243278_00273': {Edge(1243278_00273 -&gt; 1244742_00934 (w=251))},
+             '5978fd0c-7057-47d5-a334-06ae0303568d': {Edge(5978fd0c-7057-47d5-a334-06ae0303568d -&gt; 1244764_01146 (w=96)),
+              Edge(5978fd0c-7057-47d5-a334-06ae0303568d -&gt; 1244764_01147 (w=-110))},
+             '1244764_01146': {Edge(1244764_01146 -&gt; 5978fd0c-7057-47d5-a334-06ae0303568d (w=96))},
+             '1244764_01147': {Edge(1244764_01147 -&gt; 5978fd0c-7057-47d5-a334-06ae0303568d (w=-110))},
+             '006f7509-ae12-4fac-bfc2-244b58883b15': {Edge(006f7509-ae12-4fac-bfc2-244b58883b15 -&gt; 1244816_01151 (w=-1133))},
+             '1244816_01151': {Edge(1244816_01151 -&gt; 006f7509-ae12-4fac-bfc2-244b58883b15 (w=-1133)),
+              Edge(1244816_01151 -&gt; 1243458_00308 (w=3))},
+             '1243458_00308': {Edge(1243458_00308 -&gt; 1244816_01151 (w=3))},
+             'd42a3a84-38d8-4806-b348-1a3c795378a4': {Edge(d42a3a84-38d8-4806-b348-1a3c795378a4 -&gt; 1244910_01167 (w=55))},
+             '1244910_01167': {Edge(1244910_01167 -&gt; d42a3a84-38d8-4806-b348-1a3c795378a4 (w=55))},
+             '48014254-1b5a-47db-8bcc-95e156417280': {Edge(48014254-1b5a-47db-8bcc-95e156417280 -&gt; 1244936_01274 (w=-1043))},
+             '1244936_01274': {Edge(1244936_01274 -&gt; 1244936_01275 (w=-1)),
+              Edge(1244936_01274 -&gt; 48014254-1b5a-47db-8bcc-95e156417280 (w=-1043))},
+             '1244936_01275': {Edge(1244936_01275 -&gt; 1244936_01274 (w=-1)),
+              Edge(1244936_01275 -&gt; 1244936_01276 (w=650))},
+             '1244936_01276': {Edge(1244936_01276 -&gt; 1244936_01275 (w=650))},
+             'a73522d6-f82f-484d-bfa6-30c83be8ecc1': {Edge(a73522d6-f82f-484d-bfa6-30c83be8ecc1 -&gt; 1244994_01721 (w=469)),
+              Edge(a73522d6-f82f-484d-bfa6-30c83be8ecc1 -&gt; 1244994_01722 (w=-204))},
+             '1244994_01722': {Edge(1244994_01722 -&gt; a73522d6-f82f-484d-bfa6-30c83be8ecc1 (w=-204))},
+             '1244994_01721': {Edge(1244994_01721 -&gt; a73522d6-f82f-484d-bfa6-30c83be8ecc1 (w=469))},
+             '33ccfac9-1d9c-4992-a85f-b21c98aef406': {Edge(33ccfac9-1d9c-4992-a85f-b21c98aef406 -&gt; 1244994_01723 (w=-2316))},
+             '1244994_01723': {Edge(1244994_01723 -&gt; 1244994_01724 (w=191)),
+              Edge(1244994_01723 -&gt; 33ccfac9-1d9c-4992-a85f-b21c98aef406 (w=-2316))},
+             '1244994_01724': {Edge(1244994_01724 -&gt; 1244994_01723 (w=191)),
+              Edge(1244994_01724 -&gt; 1244994_01725 (w=625))},
+             '1244994_01725': {Edge(1244994_01725 -&gt; 1244994_01724 (w=625))},
+             '97461d18-50a1-48eb-a875-19c9819dc5da': {Edge(97461d18-50a1-48eb-a875-19c9819dc5da -&gt; 1245002_02024 (w=109)),
+              Edge(97461d18-50a1-48eb-a875-19c9819dc5da -&gt; 1245002_02025 (w=-544))},
+             '1245002_02025': {Edge(1245002_02025 -&gt; 1245002_02026 (w=137)),
+              Edge(1245002_02025 -&gt; 97461d18-50a1-48eb-a875-19c9819dc5da (w=-544))},
+             '1245002_02024': {Edge(1245002_02024 -&gt; 97461d18-50a1-48eb-a875-19c9819dc5da (w=109))},
+             '1245002_02026': {Edge(1245002_02026 -&gt; 1245002_02025 (w=137))},
+             'a5650711-d720-4d22-a54c-53b23825f6fb': {Edge(a5650711-d720-4d22-a54c-53b23825f6fb -&gt; 1245002_02030 (w=79)),
+              Edge(a5650711-d720-4d22-a54c-53b23825f6fb -&gt; 1245002_02031 (w=-363))},
+             '1245002_02031': {Edge(1245002_02031 -&gt; 1245002_02032 (w=134)),
+              Edge(1245002_02031 -&gt; a5650711-d720-4d22-a54c-53b23825f6fb (w=-363))},
+             '1245002_02030': {Edge(1245002_02030 -&gt; a5650711-d720-4d22-a54c-53b23825f6fb (w=79))},
+             '1245002_02032': {Edge(1245002_02032 -&gt; 1245002_02031 (w=134))},
+             '7bda06c1-4b98-4db2-97a1-2c7d897648dd': {Edge(7bda06c1-4b98-4db2-97a1-2c7d897648dd -&gt; 1245002_02033 (w=-1195))},
+             '1245002_02033': {Edge(1245002_02033 -&gt; 1245002_02034 (w=359)),
+              Edge(1245002_02033 -&gt; 7bda06c1-4b98-4db2-97a1-2c7d897648dd (w=-1195))},
+             '1245002_02034': {Edge(1245002_02034 -&gt; 1245002_02033 (w=359)),
+              Edge(1245002_02034 -&gt; 1245002_02035 (w=110))},
+             '1245002_02035': {Edge(1245002_02035 -&gt; 1245002_02034 (w=110))},
+             'ac345a28-a719-44a9-905a-73e52855e909': {Edge(ac345a28-a719-44a9-905a-73e52855e909 -&gt; 1245002_02077 (w=-899)),
+              Edge(ac345a28-a719-44a9-905a-73e52855e909 -&gt; 1245002_02078 (w=40))},
+             '1245002_02077': {Edge(1245002_02077 -&gt; ac345a28-a719-44a9-905a-73e52855e909 (w=-899))},
+             '1245002_02078': {Edge(1245002_02078 -&gt; ac345a28-a719-44a9-905a-73e52855e909 (w=40))},
+             '43ccd7ab-48a7-48f6-acee-6e3385e4fc10': {Edge(43ccd7ab-48a7-48f6-acee-6e3385e4fc10 -&gt; 1245022_02113 (w=63)),
+              Edge(43ccd7ab-48a7-48f6-acee-6e3385e4fc10 -&gt; 1245022_02114 (w=28))},
+             '1245022_02114': {Edge(1245022_02114 -&gt; 43ccd7ab-48a7-48f6-acee-6e3385e4fc10 (w=28))},
+             '1245022_02113': {Edge(1245022_02113 -&gt; 43ccd7ab-48a7-48f6-acee-6e3385e4fc10 (w=63))},
+             '5338ebd8-c4e5-419d-8dee-be721f8ba8ba': {Edge(5338ebd8-c4e5-419d-8dee-be721f8ba8ba -&gt; 1245024_02220 (w=310)),
+              Edge(5338ebd8-c4e5-419d-8dee-be721f8ba8ba -&gt; 1245024_02221 (w=-306))},
+             '1245024_02220': {Edge(1245024_02220 -&gt; 5338ebd8-c4e5-419d-8dee-be721f8ba8ba (w=310))},
+             '1245024_02221': {Edge(1245024_02221 -&gt; 5338ebd8-c4e5-419d-8dee-be721f8ba8ba (w=-306))},
+             '84041930-d5f8-4288-8093-148b3532ac2a': {Edge(84041930-d5f8-4288-8093-148b3532ac2a -&gt; 1245024_02247 (w=543))},
+             '1245024_02247': {Edge(1245024_02247 -&gt; 84041930-d5f8-4288-8093-148b3532ac2a (w=543))},
+             '99ad50a8-a0eb-430f-b4ec-996477eae698': {Edge(99ad50a8-a0eb-430f-b4ec-996477eae698 -&gt; 1245026_02248 (w=39))},
+             '1245026_02248': {Edge(1245026_02248 -&gt; 99ad50a8-a0eb-430f-b4ec-996477eae698 (w=39))},
+             'f0fc4d51-3b01-469f-8b8a-5ca7058ad35d': {Edge(f0fc4d51-3b01-469f-8b8a-5ca7058ad35d -&gt; 1245038_03095 (w=75))},
+             '1245038_03095': {Edge(1245038_03095 -&gt; f0fc4d51-3b01-469f-8b8a-5ca7058ad35d (w=75))},
+             '0f4c42a2-dcbf-4f89-bd87-89d926b952e4': {Edge(0f4c42a2-dcbf-4f89-bd87-89d926b952e4 -&gt; 1245048_03737 (w=240))},
+             '1245048_03737': {Edge(1245048_03737 -&gt; 0f4c42a2-dcbf-4f89-bd87-89d926b952e4 (w=240))},
+             '642ca498-2935-44d8-92f0-9b0a106ce95f': {Edge(642ca498-2935-44d8-92f0-9b0a106ce95f -&gt; 1245048_03745 (w=105)),
+              Edge(642ca498-2935-44d8-92f0-9b0a106ce95f -&gt; 1245048_03746 (w=-1323))},
+             '1245048_03746': {Edge(1245048_03746 -&gt; 642ca498-2935-44d8-92f0-9b0a106ce95f (w=-1323))},
+             '1245048_03745': {Edge(1245048_03745 -&gt; 642ca498-2935-44d8-92f0-9b0a106ce95f (w=105))},
+             '6d1ec722-3eba-4952-9860-d369dde18cda': {Edge(6d1ec722-3eba-4952-9860-d369dde18cda -&gt; 1245048_03747 (w=-1049))},
+             '1245048_03747': {Edge(1245048_03747 -&gt; 6d1ec722-3eba-4952-9860-d369dde18cda (w=-1049))},
+             '74ddf010-229c-4622-abf7-82de0c01a4f8': {Edge(74ddf010-229c-4622-abf7-82de0c01a4f8 -&gt; 1245048_03748 (w=116))},
+             '1245048_03748': {Edge(1245048_03748 -&gt; 74ddf010-229c-4622-abf7-82de0c01a4f8 (w=116))},
+             'f820365a-ee5d-4e75-87e7-d02ab761867a': {Edge(f820365a-ee5d-4e75-87e7-d02ab761867a -&gt; 1245052_03851 (w=-3))},
+             '1245052_03851': {Edge(1245052_03851 -&gt; f820365a-ee5d-4e75-87e7-d02ab761867a (w=-3))},
+             '21e6b4fb-2d25-4cf7-9432-1f68c531edd5': {Edge(21e6b4fb-2d25-4cf7-9432-1f68c531edd5 -&gt; 1245056_04173 (w=56)),
+              Edge(21e6b4fb-2d25-4cf7-9432-1f68c531edd5 -&gt; 1245056_04174 (w=3))},
+             '1245056_04173': {Edge(1245056_04173 -&gt; 21e6b4fb-2d25-4cf7-9432-1f68c531edd5 (w=56))},
+             '1245056_04174': {Edge(1245056_04174 -&gt; 21e6b4fb-2d25-4cf7-9432-1f68c531edd5 (w=3))},
+             '77e4984b-9b6c-4bca-bed9-80db91276b87': {Edge(77e4984b-9b6c-4bca-bed9-80db91276b87 -&gt; 1245062_04536 (w=383)),
+              Edge(77e4984b-9b6c-4bca-bed9-80db91276b87 -&gt; 1245062_04537 (w=-1454))},
+             '1245062_04536': {Edge(1245062_04536 -&gt; 77e4984b-9b6c-4bca-bed9-80db91276b87 (w=383))},
+             '1245062_04537': {Edge(1245062_04537 -&gt; 1245062_04538 (w=805)),
+              Edge(1245062_04537 -&gt; 77e4984b-9b6c-4bca-bed9-80db91276b87 (w=-1454))},
+             '1245062_04538': {Edge(1245062_04538 -&gt; 1245062_04537 (w=805))},
+             '34bff0d2-a474-4ce2-b070-b79dc463d268': {Edge(34bff0d2-a474-4ce2-b070-b79dc463d268 -&gt; 1245080_04545 (w=-372))},
+             '1245080_04545': {Edge(1245080_04545 -&gt; 34bff0d2-a474-4ce2-b070-b79dc463d268 (w=-372))},
+             '7d5bdf3b-4d76-4f04-b983-a664816ff930': {Edge(7d5bdf3b-4d76-4f04-b983-a664816ff930 -&gt; 1245082_04546 (w=-372))},
+             '1245082_04546': {Edge(1245082_04546 -&gt; 7d5bdf3b-4d76-4f04-b983-a664816ff930 (w=-372))},
+             '30511925-ba42-413f-8c2f-e5fb55566bc1': {Edge(30511925-ba42-413f-8c2f-e5fb55566bc1 -&gt; 1245088_04553 (w=2))},
+             '1245088_04553': {Edge(1245088_04553 -&gt; 30511925-ba42-413f-8c2f-e5fb55566bc1 (w=2))},
+             'ae72b4c7-7ce7-4a9d-af6e-5f71afd610ac': {Edge(ae72b4c7-7ce7-4a9d-af6e-5f71afd610ac -&gt; 1245088_04557 (w=354)),
+              Edge(ae72b4c7-7ce7-4a9d-af6e-5f71afd610ac -&gt; 1245088_04558 (w=384))},
+             '1245088_04558': {Edge(1245088_04558 -&gt; ae72b4c7-7ce7-4a9d-af6e-5f71afd610ac (w=384))},
+             '1245088_04557': {Edge(1245088_04557 -&gt; ae72b4c7-7ce7-4a9d-af6e-5f71afd610ac (w=354))},
+             '20c95417-842e-45a9-9562-090e8d0b2157': {Edge(20c95417-842e-45a9-9562-090e8d0b2157 -&gt; 1245096_04605 (w=667)),
+              Edge(20c95417-842e-45a9-9562-090e8d0b2157 -&gt; 1245096_04606 (w=-1147))},
+             '1245096_04605': {Edge(1245096_04605 -&gt; 20c95417-842e-45a9-9562-090e8d0b2157 (w=667))},
+             '1245096_04606': {Edge(1245096_04606 -&gt; 1245096_04607 (w=70)),
+              Edge(1245096_04606 -&gt; 20c95417-842e-45a9-9562-090e8d0b2157 (w=-1147))},
+             '1245096_04607': {Edge(1245096_04607 -&gt; 1245096_04606 (w=70))},
+             '3e1431cd-72f7-48e8-ad2f-3f03910118be': {Edge(3e1431cd-72f7-48e8-ad2f-3f03910118be -&gt; 1245106_04638 (w=92)),
+              Edge(3e1431cd-72f7-48e8-ad2f-3f03910118be -&gt; 1245106_04639 (w=-489))},
+             '1245106_04638': {Edge(1245106_04638 -&gt; 3e1431cd-72f7-48e8-ad2f-3f03910118be (w=92))},
+             '1245106_04639': {Edge(1245106_04639 -&gt; 1245106_04640 (w=-35)),
+              Edge(1245106_04639 -&gt; 3e1431cd-72f7-48e8-ad2f-3f03910118be (w=-489))},
+             '1245106_04640': {Edge(1245106_04640 -&gt; 1245106_04639 (w=-35))},
+             'eea23b0d-996a-4e7f-b40b-29d930a57b36': {Edge(eea23b0d-996a-4e7f-b40b-29d930a57b36 -&gt; 1245118_04678 (w=298)),
+              Edge(eea23b0d-996a-4e7f-b40b-29d930a57b36 -&gt; 1245118_04679 (w=-287))},
+             '1245118_04679': {Edge(1245118_04679 -&gt; 1245118_04680 (w=113)),
+              Edge(1245118_04679 -&gt; eea23b0d-996a-4e7f-b40b-29d930a57b36 (w=-287))},
+             '1245118_04678': {Edge(1245118_04678 -&gt; eea23b0d-996a-4e7f-b40b-29d930a57b36 (w=298))},
+             '1245118_04680': {Edge(1245118_04680 -&gt; 1245118_04679 (w=113))},
+             '44c5f0ed-c45b-4c2a-8e92-e366b07c9e21': {Edge(44c5f0ed-c45b-4c2a-8e92-e366b07c9e21 -&gt; 1245118_04681 (w=645))},
+             '1245118_04681': {Edge(1245118_04681 -&gt; 44c5f0ed-c45b-4c2a-8e92-e366b07c9e21 (w=645))},
+             'e4076514-4c14-4f92-938a-644530cad097': {Edge(e4076514-4c14-4f92-938a-644530cad097 -&gt; 1245136_04885 (w=-446))},
+             '1245136_04885': {Edge(1245136_04885 -&gt; e4076514-4c14-4f92-938a-644530cad097 (w=-446))}})</code></pre>
+</div>
+</div>
+<div id="64badd13" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collections <span class="im">import</span> defaultdict</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>is_with_contigs <span class="op">=</span> defaultdict(<span class="bu">list</span>)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> entry <span class="kw">in</span> results[<span class="dv">0</span>]:</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> entry.kind <span class="op">==</span> <span class="st">"mobile_element"</span>:</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    is_name  <span class="op">=</span> entry.qualifiers[<span class="dv">0</span>].value.split(<span class="st">"_"</span>)[<span class="dv">0</span>]</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    is_with_contigs[is_name].append(entry.location.parent_id)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="0b4f9d6f" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"IS1397 contigs are: </span><span class="sc">{</span>is_with_contigs[<span class="st">'IS1397'</span>]<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"ISEc52 contigs are: </span><span class="sc">{</span>is_with_contigs[<span class="st">'ISEc52'</span>]<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>IS1397 contigs are: ['1015060', '1208964', '1216050', '1234872', '1241248', '1244160']
+ISEc52 contigs are: ['1236636', '1243586', '1244434', '1245080', '1245082']</code></pre>
+</div>
+</div>
+<div id="04d74704" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">len</span>(is_with_contigs))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>50</code></pre>
+</div>
+</div>
+<div id="12764477" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> eris <span class="im">import</span> io</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>myedges <span class="op">=</span> []</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>contigs_graphs <span class="op">=</span> io.SeqFile(<span class="st">"../../data/ecoli/assembly-simulated/shovill-outputs/contigs.gfa"</span>)</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> c <span class="kw">in</span> contigs_graphs:</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="bu">type</span>(c) <span class="op">==</span> eris.graph.Edge:</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    myedges.append(c)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="b96b22b3" class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> eris <span class="im">import</span> graph</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>mygraph <span class="op">=</span> graph.Graph(<span class="op">*</span>myedges, directed<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>tot_edge <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, adj <span class="kw">in</span> <span class="bu">enumerate</span>(mygraph.adj):</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  tot_edge <span class="op">+=</span> <span class="bu">len</span>(mygraph.adj[adj])</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(tot_edge)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>612</code></pre>
+</div>
+</div>
+<div id="3866a436" class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"IS1397 graph looks like"</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(mygraph.adj[<span class="st">"1208211"</span>]) <span class="co"># in the middle, not identified as IS</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(mygraph.adj[<span class="st">"1015060"</span>])</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(mygraph.adj[<span class="st">"1208964"</span>])</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(mygraph.adj[<span class="st">"1216050"</span>])</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(mygraph.adj[<span class="st">"1234872"</span>])</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(mygraph.adj[<span class="st">"1241248"</span>])</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(mygraph.adj[<span class="st">"1244160"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>IS1397 graph looks like
+{Edge(1208211 -&gt; 1208964 (w=111)), Edge(1208211 -&gt; 1015060 (w=111))}
+{Edge(1015060 -&gt; 1244160 (w=111))}
+{Edge(1208964 -&gt; 1244160 (w=111))}
+{Edge(1216050 -&gt; 1208211 (w=111))}
+{Edge(1234872 -&gt; 1208211 (w=111))}
+{Edge(1241248 -&gt; 1244964 (w=111)), Edge(1241248 -&gt; 1244664 (w=111)), Edge(1241248 -&gt; 1234872 (w=111)), Edge(1241248 -&gt; 1216050 (w=111))}
+{Edge(1244160 -&gt; 1244458 (w=111)), Edge(1244160 -&gt; 1245026 (w=111))}</code></pre>
+</div>
+</div>
+<div id="d7e25c3f" class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"ISEc52 graph looks like"</span>)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(mygraph.adj[<span class="st">"1236636"</span>])</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(mygraph.adj[<span class="st">"1243586"</span>])</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(mygraph.adj[<span class="st">"1244434"</span>])</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(mygraph.adj[<span class="st">"1245080"</span>])</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(mygraph.adj[<span class="st">"1245082"</span>])</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(mygraph.adj[<span class="st">"238677"</span>]) <span class="co"># in the middle, not identified as IS</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>ISEc52 graph looks like
+{Edge(1236636 -&gt; 1245052 (w=111)), Edge(1236636 -&gt; 1245024 (w=111)), Edge(1236636 -&gt; 238677 (w=111))}
+{Edge(1243586 -&gt; 1245082 (w=111)), Edge(1243586 -&gt; 1244434 (w=111)), Edge(1243586 -&gt; 1245080 (w=111)), Edge(1243586 -&gt; 1206755 (w=111))}
+set()
+{Edge(1245080 -&gt; 238677 (w=111))}
+{Edge(1245082 -&gt; 238677 (w=111))}
+set()</code></pre>
+</div>
+</div>
+<div id="d8acf280" class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"IS200C graph looks like"</span>)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(mygraph.adj[<span class="st">"1169319"</span>])</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(mygraph.adj[<span class="st">"1221552"</span>])</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(mygraph.adj[<span class="st">"1241860"</span>])</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(mygraph.adj[<span class="st">"1244018"</span>])</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(mygraph.adj[<span class="st">"1244910"</span>])</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(mygraph.adj[<span class="st">"1245038"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>IS200C graph looks like
+{Edge(1169319 -&gt; 1241860 (w=111)), Edge(1169319 -&gt; 1221552 (w=111)), Edge(1169319 -&gt; 1245088 (w=111)), Edge(1169319 -&gt; 1244018 (w=111))}
+{Edge(1221552 -&gt; 1227142 (w=111))}
+{Edge(1241860 -&gt; 1227142 (w=111))}
+set()
+{Edge(1244910 -&gt; 1227142 (w=111)), Edge(1244910 -&gt; 852799 (w=111))}
+{Edge(1245038 -&gt; 1227142 (w=111))}</code></pre>
+</div>
+</div>
+</section>
+<section id="build-the-steps-to-resoolve-the-is-fragmented-contigs" class="level4">
+<h4 class="anchored" data-anchor-id="build-the-steps-to-resoolve-the-is-fragmented-contigs">Build the steps to resoolve the IS fragmented contigs</h4>
+<p>my approach is like this: 1. <strong>Organise all the identified IS</strong> collect all identified IS elements with their corresponding contigs in the genome 2. <strong>Genome assembly graph reconstruction</strong> Build the directed graph representation of the genome assembly</p>
+<p>For each identified IS: 3. <strong>Boundary identification</strong> - Locate the boundaries of fragmented IS sequence within the graph, determine the start and and nodes. - I use outdegree edges and indegree edges to find it - end node = no outgoing edges to the nodes of the same IS, at leat two levels - start node = no ingoing edges from nodes that has same IS, at least two levels - but the problem is, some nodes have no indegree at all and others have no outdegree..</p>
+<ol start="4" type="1">
+<li><strong>Graph traversal and copy quantification</strong></li>
+</ol>
+<ul>
+<li>From the identified start node, find the shortest path to the corresponding end node. It may pass through contigs that are not marked as the same IS</li>
+<li>While traversing, estimate the number of IS copies in the genome by comparing the node depth to global median depth of all nodes in the genome</li>
+<li>In the traversing graph, quantify the IS copies by the depth of the node
+<ul>
+<li>For example, id the median depth is 30x, and it finds a node that has 92x depth in the traversing process, it estimate the IS has 3 copies. It uses floor rounding to the nearest integer.</li>
+</ul></li>
+</ul>
+<p>It may struggle to traverse in the nodes that have complicated outgoing and ingoing edges. It hasn’t include stard orientation when traversing. Also, this approach maybe not very efficient. But let’s try using two simulated read dataset: art_modern and mason that is going to shovill assembly. Use the gfa from it as input.</p>
+</section>
+</section>
+<section id="section-4" class="level3">
+<h3 class="anchored" data-anchor-id="section-4">13-09-2025</h3>
+<div id="42d761d6" class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> eris.scan <span class="im">import</span> Scanner</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> eris.io <span class="im">import</span> SeqFile</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="co"># scan IS in the contigs</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> Path(<span class="st">'../../data/ecoli/assembly-simulated/shovill-outputs/contigs.gfa'</span>)</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> Scanner() <span class="im">as</span> scanner:</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>    eris_result <span class="op">=</span> <span class="bu">list</span>(scanner.scan(p))</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>gfa_eris <span class="op">=</span> eris_result[<span class="dv">0</span>]</span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a><span class="co"># load the genome graph</span></span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>graph_assembly <span class="op">=</span> SeqFile(<span class="st">"../../data/ecoli/assembly-simulated/shovill-outputs/contigs.gfa"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="7512bec3" class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collapse <span class="im">import</span> collapseis</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>is_eris <span class="op">=</span> collapseis(gfa_eris, graph_assembly)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Looks like the IS contigs graph is circular
+Looks like the IS contigs graph is circular
+Looks like the IS contigs graph is circular
+Looks like the IS contigs graph is circular
+Looks like the IS contigs graph is circular</code></pre>
+</div>
+</div>
+<div id="20752f00" class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>total_is <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> is_name, path_copies <span class="kw">in</span> is_eris.items():</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>is_name<span class="sc">}</span><span class="ss"> has </span><span class="sc">{</span>path_copies[<span class="dv">1</span>]<span class="sc">}</span><span class="ss"> copies with collapsed path: </span><span class="sc">{</span>path_copies[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  total_is <span class="op">+=</span> path_copies[<span class="dv">1</span>]</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(total_is)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>IS1397 has 2 copies with collapsed path: ['1241248', '1216050', '1208211', '1015060', '1244160']
+ISEc23 has 2 copies with collapsed path: ['1116087', '1244700', '1244816', '1176191', '1243328']
+ISEc8 has 2 copies with collapsed path: ['1236644', '1235120', '1125059']
+IS1F has 1 copies with collapsed path: ['1158833', '1236482']
+IS200C has 1 copies with collapsed path: ['1169319', '1244018', '1221552']
+IS1A has 2 copies with collapsed path: ['1171599', '1245138', '1208153']
+IS1X2 has 1 copies with collapsed path: ['1202947']
+IS600 has 1 copies with collapsed path: ['1206755', '1228204']
+IS1541D has 1 copies with collapsed path: ['1227142']
+ISKpn37 has 1 copies with collapsed path: ['1236016']
+ISEc52 has 1 copies with collapsed path: ['1236636']
+ISEc22 has 2 copies with collapsed path: ['1243212', '1240608']
+IS30 has 1 copies with collapsed path: ['1242602']
+ISKox3 has 1 copies with collapsed path: ['1243600']
+IS3411 has 1 copies with collapsed path: ['1243600']
+ISSd1 has 2 copies with collapsed path: ['1243758']
+IS100kyp has 1 copies with collapsed path: ['1244402']
+ISEc20 has 1 copies with collapsed path: ['1244402']
+IS609 has 1 copies with collapsed path: ['1244458', '832167', '1244570']
+ISEc53 has 1 copies with collapsed path: ['1244638']
+ISEc43 has 1 copies with collapsed path: ['1244656']
+ISEc49 has 1 copies with collapsed path: ['1245118']
+ISCro1 has 1 copies with collapsed path: ['1244656']
+IS21 has 1 copies with collapsed path: ['1244656']
+IS682 has 1 copies with collapsed path: ['1244674']
+IS2 has 1 copies with collapsed path: ['1244674']
+ISEc83 has 1 copies with collapsed path: ['1244674']
+ISEc45 has 1 copies with collapsed path: ['1244674']
+ISEch14 has 1 copies with collapsed path: ['1244674']
+ISEc12 has 3 copies with collapsed path: ['1244742']
+IS1203 has 1 copies with collapsed path: ['1244936']
+ISKpn42 has 1 copies with collapsed path: ['1244994']
+ISEc10 has 1 copies with collapsed path: ['1244994']
+ISCfr4 has 1 copies with collapsed path: ['1245002']
+ISSen3 has 1 copies with collapsed path: ['1245002']
+ISEc24 has 1 copies with collapsed path: ['1245002']
+IS4 has 1 copies with collapsed path: ['1245002']
+MITEEc1 has 1 copies with collapsed path: ['1245056']
+ISSen1 has 1 copies with collapsed path: ['1245024']
+IS911 has 1 copies with collapsed path: ['1245024']
+IS621 has 1 copies with collapsed path: ['1245026']
+ISEc9 has 1 copies with collapsed path: ['1245048']
+IS5 has 1 copies with collapsed path: ['1245048']
+ISEc38 has 1 copies with collapsed path: ['1245062']
+ISEch5 has 1 copies with collapsed path: ['1245088']
+ISEc47 has 1 copies with collapsed path: ['1245088']
+ISEc1 has 1 copies with collapsed path: ['1245096']
+ISSen10 has 1 copies with collapsed path: ['1245106']
+ISEc13 has 1 copies with collapsed path: ['1245118']
+IS1B has 1 copies with collapsed path: ['1245136']
+58</code></pre>
+</div>
+</div>
+<div id="e82a8e61" class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> eris.scan <span class="im">import</span> Scanner</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> eris.io <span class="im">import</span> SeqFile</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="co"># scan IS in the contigs</span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> Path(<span class="st">'../../data/ecoli/assembly-simulated/shovills-mason/contigs.gfa'</span>)</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> Scanner() <span class="im">as</span> scanner:</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>    eris_result <span class="op">=</span> <span class="bu">list</span>(scanner.scan(p))</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>gfa_eris <span class="op">=</span> eris_result[<span class="dv">0</span>]</span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a><span class="co"># load the genome graph</span></span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>graph_assembly <span class="op">=</span> SeqFile(<span class="st">"../../data/ecoli/assembly-simulated/shovills-mason/contigs.gfa"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="db3ae550" class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collapse <span class="im">import</span> collapseis</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>is_eris <span class="op">=</span> collapseis(gfa_eris, graph_assembly)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Looks like the IS contigs graph is circular
+Looks like the IS contigs graph is circular
+Looks like the IS contigs graph is circular
+Looks like the IS contigs graph is circular
+Looks like the IS contigs graph is circular</code></pre>
+</div>
+</div>
+<div id="78c4487e" class="cell" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>total_is <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> is_name, path_copies <span class="kw">in</span> is_eris.items():</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>is_name<span class="sc">}</span><span class="ss"> has </span><span class="sc">{</span>path_copies[<span class="dv">1</span>]<span class="sc">}</span><span class="ss"> copies with collapsed path: </span><span class="sc">{</span>path_copies[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  total_is <span class="op">+=</span> path_copies[<span class="dv">1</span>]</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(total_is)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>ISEc8 has 1 copies with collapsed path: ['413343']
+IS1X2 has 1 copies with collapsed path: ['232201']
+IS1F has 2 copies with collapsed path: ['269407', '413377', '232201', '413343']
+IS200C has 1 copies with collapsed path: ['396963', '405885', '306725']
+IS1397 has 2 copies with collapsed path: ['415522', '350841', '373033', '390831', '384239']
+IS1541D has 1 copies with collapsed path: ['344599']
+ISEc23 has 2 copies with collapsed path: ['357289', '413263', '421120', '411359', '716183']
+IS600 has 1 copies with collapsed path: ['411663', '374961']
+ISEc52 has 2 copies with collapsed path: ['382003']
+IS1A has 3 copies with collapsed path: ['403013', '407441', '386075']
+IS30 has 1 copies with collapsed path: ['402155']
+ISEc22 has 1 copies with collapsed path: ['402753', '413235']
+IS1B has 1 copies with collapsed path: ['407441']
+ISKpn37 has 1 copies with collapsed path: ['410383']
+IS682 has 1 copies with collapsed path: ['411535']
+ISEch5 has 1 copies with collapsed path: ['412819']
+ISEc12 has 3 copies with collapsed path: ['414211']
+ISKox3 has 1 copies with collapsed path: ['415910']
+IS3411 has 1 copies with collapsed path: ['415910']
+ISEch14 has 1 copies with collapsed path: ['417346']
+ISEc45 has 1 copies with collapsed path: ['417346']
+ISEc83 has 1 copies with collapsed path: ['417346']
+IS2 has 1 copies with collapsed path: ['417346']
+IS911 has 1 copies with collapsed path: ['417560']
+ISSen1 has 1 copies with collapsed path: ['417560']
+ISEc9 has 1 copies with collapsed path: ['417788']
+IS5 has 1 copies with collapsed path: ['417788']
+ISSd1 has 1 copies with collapsed path: ['418218']
+IS609 has 2 copies with collapsed path: ['419142', '307469', '422052']
+ISSen10 has 1 copies with collapsed path: ['419898']
+ISEc38 has 1 copies with collapsed path: ['421642']
+IS21 has 1 copies with collapsed path: ['421808']
+ISCro1 has 1 copies with collapsed path: ['421808']
+ISEc49 has 1 copies with collapsed path: ['423285']
+ISEc43 has 1 copies with collapsed path: ['421808']
+ISEc10 has 1 copies with collapsed path: ['421918']
+ISKpn42 has 1 copies with collapsed path: ['421918']
+IS1203 has 1 copies with collapsed path: ['421962']
+IS4 has 1 copies with collapsed path: ['421982']
+ISEc24 has 1 copies with collapsed path: ['421982']
+ISSen3 has 1 copies with collapsed path: ['421982']
+ISCfr4 has 1 copies with collapsed path: ['421982']
+ISEc20 has 1 copies with collapsed path: ['422010']
+IS100kyp has 1 copies with collapsed path: ['422010']
+MITEEc1 has 1 copies with collapsed path: ['423313']
+IS621 has 1 copies with collapsed path: ['423277']
+ISEc53 has 1 copies with collapsed path: ['423281']
+ISEc13 has 1 copies with collapsed path: ['423285']
+ISEc1 has 1 copies with collapsed path: ['423301']
+58</code></pre>
+</div>
+</div>
+
+
 </section>
 </section>
 </section>
