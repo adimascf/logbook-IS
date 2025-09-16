@@ -15,3 +15,15 @@ website:
             href: weekly-logs/week01.qmd
           - text: Week 2
             href: weekly-logs/week02.qmd
+          - text: Week 3
+            href: weekly-logs/week03.qmd
+          - text: Week 4
+            href: weekly-logs/week04.qmd
+          - text: Week 5
+            href: weekly-logs/week05.qmd
+          - text: Week 6
+            href: weekly-logs/week06.qmd
+          - text: Week 7
+            href: weekly-logs/week07.qmd
+          - text: Week 8
+            href: weekly-logs/week08.qmd
