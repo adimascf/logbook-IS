@@ -1,0 +1,245 @@
+---
+title: "Week 06: Scan IS elements both from complete chromosome and simulated read contigs "
+format:
+  html:
+    toc: true
+    toc-depth: 8
+editor: visual
+---
+
+# Overview
+
+## Daily Log
+
+### 01-09-2025
+
+-   Weekly project meeting
+    -   Dimas has submitted the project plan on the Blackboard
+    -   Dimas started to work on the truth dataset E coli 958
+        -   There are 41 IS annotated in the chromosome + 1 mistery IS
+        -   There are 12 IS annotated in the plasmid pEC958
+        -   RTotal 53 + 1 mistery IS
+    -   Dimas will try simulate reads from the chromosome only, this will help:
+        -   Get only reads from chromosome, not from plasmid
+        -   Handle noise from different genetic composition in the isolates
+        -   Also test the the assembly again
+    -   Using bedtools to find the intersection region IS detected by Eris and other tools with truth
+
+### 02-09-2025
+
+#### identify IS in complete chromosome
+##### Eris
+
+```{python}
+!eris scan ../../data/ecoli/EC958.fasta > eris-outputs/chromosome_fasta.tsv
+```
+
+```{python}
+!grep "mobile_element" eris-outputs/chromosome_fasta.tsv | wc -l
+```
+
+**Eris identified 58 IS in full genome**
+
+```{python}
+import pandas as pd
+pd.set_option('display.max_rows', None)
+eris_chr = pd.read_csv("eris-outputs/chromosome_fasta.tsv", sep="\t")
+eris_chr = eris_chr[eris_chr['Type'] == "mobile_element"]
+```
+
+```{python}
+# convert the mobile element entries into bed file
+eris_chr["Score"] = "0"
+eris_chr = eris_chr.assign(
+    StrandBed = eris_chr["Strand"].apply(lambda x: "+" if x == 1 else "-")
+)
+eris_chr_bed = eris_chr[["Contig", "Start", "End", "Name", "Score", "StrandBed", "Percent_coverage"]]
+eris_chr_bed.to_csv("eris-outputs/chromosome_fasta.bed", sep="\t", index=False, header=False)
+
+```
+
+How many IS entries from chromosome EC958 overlap with Eris identified IS (from complete chromosome)?
+
+```{python}
+!bedtools intersect -a ../../data/ecoli/ec958_IS.bed -b eris-outputs/chromosome_fasta.bed -u | wc -l
+!bedtools intersect -a ../../data/ecoli/ec958_IS.bed -b eris-outputs/chromosome_fasta.bed -wb
+```
+
+37 of 41 entries overlap with Eris. Some entries have overlap with more than one IS from Eris.
+
+The entries that have no overlap:
+```{python}
+!bedtools intersect -a ../../data/ecoli/ec958_IS.bed -b eris-outputs/chromosome_fasta.bed -v
+```
+
+There are 20 IS identified by Eris that have no overlaps with (the last column refers to percent coverage from eris):
+
+```{python}
+!bedtools intersect -a  eris-outputs/chromosome_fasta.bed -b ../../data/ecoli/ec958_IS.bed -v
+```
+
+##### Isescan
+```{python}
+#| eval: false
+!isescan.py --seqfile ec958.fasta --output outputs/isescan/ --nthread 2
+```
+
+```{python}
+!tail +2 ../../data/ecoli/isescan-outputs/chromosome/EC958.fasta.tsv | wc -l
+```
+
+**ISscan identified 65 IS in full genome**
+
+```{python}
+# convert it to bed
+pd.set_option('display.max_rows', None)
+isescan_chr = pd.read_csv("../../data/ecoli/isescan-outputs/chromosome/EC958.fasta.tsv", sep="\t")
+isescan_chr["Score"] = "0"
+
+isescan_chr_bed = isescan_chr[["seqID", "isBegin", "isEnd", "family", "Score", "strand", "E-value"]]
+# make it coordinate to 0 index
+isescan_chr_bed.loc[:, "isBegin"] = isescan_chr_bed["isBegin"] - 1
+isescan_chr_bed
+isescan_chr_bed.to_csv("../../data/ecoli/isescan-outputs/EC958.fasta.bed", sep="\t", index=False, header=False)
+```
+
+How many IS entries from chromosome EC958 overlap with Isescan identified IS (from complete chromosome)?
+
+```{python}
+!bedtools intersect -a ../../data/ecoli/ec958_IS.bed -b ../../data/ecoli/isescan-outputs/chromosome/EC958.fasta.bed -u | wc -l
+!bedtools intersect -a ../../data/ecoli/ec958_IS.bed -b ../../data/ecoli/isescan-outputs/chromosome/EC958.fasta.bed -wb
+```
+
+37 of 41 entries overlap with Isescan. Some entries have overlap with more than one IS.
+
+The entries that have no overlap:
+```{python}
+!bedtools intersect -a ../../data/ecoli/ec958_IS.bed -b ../../data/ecoli/isescan-outputs/chromosome/EC958.fasta.bed -v
+```
+
+Although it has the same number of IS that are missed with Eris, but the entires are different
+
+### 05-09-2025
+
+#### Simulated illumina reads from only the EC985 chromosome sequence
+-   Started to simulate Illumina reads from the chromosme sequence only using [art_modern](https://github.com/YU-Zhejian/art_modern)
+
+```{bash}
+#| eval: false
+~/bin/art_modern/opt/build_release/art_modern --mode wgs --lc pe --i-file ../fastas/EC958.fasta --o-fastq ./EC958_pe --qual_file_1 ~/bin/art_modern/data/Illumina_profiles/HiSeq2500L150R1.txt --qual_file_2 ~/bin/art_modern/data/Illumina_profiles/HiSeq2500L150R2.txt --read_len 150 --parallel 2  --i-fcov 150 --pe_frag_dist_mean 400 --pe_frag_dist_std_dev 50
+```
+
+It generated interleaved files are when the R1 and R2 reads are combined in one file. And It seems we R1 identifier on the seq ID with `art_modern:1:nompi` and `art_modern:2:nompi` for R2. Then, i used seqkit to split the reads into two files.
+
+```{bash}
+#| eval: false
+seqkit grep -r -p "art_modern:1:nompi" EC958_pe -o EC958.read1.fq.gz
+seqkit grep -r -p "art_modern:2:nompi" EC958_pe -o EC958.read1.fq.gz
+
+gzip EC958.read1.fq
+gzip EC958.read2.fq
+
+```
+
+#####   Performed genome assembly using [shovill](https://github.com/tseemann/shovill)
+
+```{bash}
+shovill --outdir shovill-outputs/ --R1 ../data/ecoli958/fastqs-art-simulated/EC958.read1.fq.gz --R2 ../data/ecoli958/fastqs-art-simulated/EC958.read2.fq.gz
+```
+
+#####  Scan IS using eris from contigs
+
+```{bash}
+#| eval: false
+eris scan ../shovill-outputs/contigs.fa > eris-outputs/eris_fasta_shovill_sim.tsv
+eris scan ../shovill-outputs/contigs.gfa > eris-outputs /eris_gfa_shovill_sim.tsv
+```
+
+```{python}
+!grep "mobile_element" eris-outputs/eris_fasta_shovill_sim.tsv | wc -l
+!grep "mobile_element" eris-outputs/eris_gfa_shovill_sim.tsv | wc -l
+```
+
+by using niave counting, eris from gfa and fasta have the same number identified IS.
+But the number of IS from both files are detected 49 IS more.. are some IS detected more than one?
+
+```{python}
+import pandas as pd
+eris_sv_sim = pd.read_csv("eris-outputs/eris_gfa_shovill_sim.tsv", sep="\t")
+eris_sv_sim = eris_sv_sim[eris_sv_sim['Type'] == "mobile_element"]
+```
+
+What are IS name identified from complete chromosome, and how many each of them identified by Eris?
+
+```{python}
+eris_chr["Name"].value_counts()
+```
+
+What are IS name identified from contigs, and how many each of them identified by Eris?
+```{python}
+eris_sv_sim["Name"].value_counts()
+```
+
+IS1397 is found 6 times from contigs files, whereas it's found only 2 in complete chromosome.
+```{python}
+isnames_eris_sv_sim = eris_sv_sim["Name"].value_counts().index.tolist()
+isnames_eris_chr = eris_chr["Name"].value_counts().index.tolist()
+print(f"{len(isnames_eris_sv_sim)} unique names detected from contigs")
+print(f"{len(isnames_eris_chr)} unique names detected from the complete chromosome")
+```
+
+Eris still detected the IS names more from contigs compared from chromosome
+
+```{python}
+for name in isnames_eris_sv_sim:
+    if name not in isnames_eris_chr:
+        print(name)
+```
+
+```{python}
+eris_sv_sim[eris_sv_sim["Name"] == "IS1397"]
+```
+
+```{python}
+eris_chr[eris_chr["Name"] == "IS1397"]
+```
+
+Two copies IS1397 elements in the genome are fragmented into six contigs, and all of them is identified separetely by Eris:
+![IS1397 elements are fragmented into contigs](pictures/IS1397.png)
+
+```{python}
+eris_sv_sim[eris_sv_sim["Name"] == "ISEc52"]
+```
+
+```{python}
+eris_sv_sim[eris_sv_sim["Name"] == "ISEc12"]
+```
+
+```{python}
+eris_chr[eris_chr["Name"] == "ISEc52"]
+```
+
+Two copies ISEc52 elements in the genome are fragmented into five contigs, and all of them is identified separetely by Eris:
+![one IS1397 copy is fragmented into three contigs](pictures/ISEc52-all.png)
+
+
+```{python}
+eris_sv_sim[eris_sv_sim["Name"] == "IS200C"]
+```
+
+```{python}
+eris_chr[eris_chr["Name"] == "IS200C"]
+```
+
+```{python}
+eris_sv_sim[eris_sv_sim["Name"] == "IS1541D"]
+```
+
+#####  Scan IS using isescan from contigs
+
+```{python}
+!tail +2 ../../data/ecoli/isescan-outputs/shovill-outputs/contigs.fa.tsv | wc -l
+```
+
+Similar to eris, isescan also detected more IS elements than expected, about twice the actual number (41 plus one misterious IS)
+

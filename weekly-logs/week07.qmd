@@ -1,0 +1,355 @@
+---
+title: "Week 07: Investigating missed calls and overcalls by eris, and attempting to resolve fragmented IS sequences"
+format:
+  html:
+    toc: true
+    toc-depth: 8
+editor: visual
+---
+
+# Overview
+
+-   All IS element that is missed by Eris are truncated (not full) sequences in the complete chromosome. Isescan missed one full IS sequence.
+-   2 (IS*609* and IS*Ec52*) of 4 eris missed IS elements have 600-800 bp long, hit to IS sequencen ISfinder with high identity and 0 E value.
+-   MITE*Ec1*, IS*1397*, IS*100kyp*, IS*Kox3*, IS*Ech14*, IS*Ec10*, IS*21* are likely to be true exist in the EC958 complete chromosome sequence.
+-   Eris (and isescan) overcounted the number of IS in the genome asssembly result, because they counted a fragmented IS sequence separtely.
+-   Fragmented IS also appear when I used `mason` to simulte the reads.
+-   By graph traversal logic, fragmented IS sequnces (nodes in the graph) can be collapsed and the IS copies can be quantified by their contig depths relative to the median depth
+-   `FragGeneScanRs` detected more ORFs than `Pyrodgial`. It is more sensitive than Pyrodgial, but has lower precision score.
+
+## Daily Log
+
+### 08-09-2025
+
+-   Weekly project meeting
+    -   Dimas will inspect more IS that eris missed, as well as the extra IS
+    -   Workaround to get IS name from isescan is to extract the sequence using genomic coordimnate and blast it to the ISfinder
+    -   Need resolve fragmented IS elements that eris (also isescan) detects seperately, for instance:
+        -   Using graph logic for traversing the graph until we don't get the mobile_element (consider the adjacent and also orientation)
+        -   block mapping
+
+### 09-09-2025
+
+#### Extract IS that eris missed and inspect them manually
+
+```{python}
+!bedtools intersect -a ../../data/ecoli/ec958_IS.bed -b eris-outputs/chromosome_fasta.bed -v  | bedtools getfasta -name -fi ../../data/ecoli/EC958.fasta -bed - > IS_eris_missed.fasta
+```
+
+ISfinder blast result from those four Eris missed IS elements can be accessed [here](https://isfinder.biotoul.fr/blast/resultat.php?id=phpswLd02&title=&prog=blastn)
+
+-   **HG941718.1 2103782 2104446 : truncated at both ends IS609** (origin: Escherichia coli, length: 664 bp) is real, hit on the BLAST with E value 0.0. True IS*609*.
+-   **HG941718.1 3312816 3313143 truncated by IS30** has two equal E value and score bits on BLAST IS*Sfl10* and IS*600*. It has 327 of 1237 total element length. Too short? is this still functional?
+-   **HG941718.1 4922924 4923251 truncated at right end of IS** hits to ISLad1 (327 of 1249 bp length), score = 430 bits
+-   **HG941718.1 4943650 4944441** truncated at left end by IS600 95% is real, identified as IS*Ec52* (791 of 1250 bp) on ISfinder, E value 0.
+
+Two of them have E value 0 on BLAST, all truncated.
+
+#### Extract IS that isescan missed and inspect them manually
+
+```{python}
+!bedtools intersect -a ../../data/ecoli/ec958_IS.bed -b ../../data/ecoli/isescan-outputs/EC958.fasta.bed -v  | bedtools getfasta -name -fi ../../data/ecoli/EC958.fasta -bed - > IS_isescan_missed.fasta
+```
+
+ISfinder blast result can be accessed [here](https://isfinder.biotoul.fr/blast/resultat.php?id=phpj7SNIc&title=&prog=blastn)
+
+It has different missed IS calls with eris
+
+-   **HG941718.1 1365600 1366443** hits to IS*Cfr4* (843 of 1253 bp), Evalue 0
+-   **HG941718.1 3312816 3313143 truncated by IS30** hits to IS*Sfl10* (327 of 1237 bp)
+-   **HG941718.1 3313143 3314364 insertion sequence:IS30** hits to IS*30* and IS30D (1221 of 1221 bp), Evalue 0
+-   **HG941718.1 4976678 4977300 deletion within IS** hits to IS*Sen1* (622 of 1312 bp)
+
+Full IS*30* sequence in the chromosome missed to detect
+
+#### Extract the Eris overcalled IS
+
+```{python}
+!bedtools intersect -a  eris-outputs/chromosome_fasta.bed -b ../../data/ecoli/ec958_IS.bed -v | bedtools getfasta -name -fi ../../data/ecoli/EC958.fasta -bed - > eris_overcall_IS.fasta
+```
+
+ISfinder blast result [here](https://isfinder.biotoul.fr/blast/resultat.php?id=phptk2pnv&title=&prog=blastn)
+
+IS elements that seem to be true are:
+
+-   **HG941718.1 814902 815025 MITEEc1**: A novel repetitive element (only 123 bp long) in enterobacteria genomes (100% coverage)
+-   **HG941718.1 1997567 1998999 IS1397**: About 100% for coverage and identitiy, and it is also from E coli origin. It has two copies.
+-   **2252365 2254232 IS100kyp**: 99% identity with is found in 1867 bp long
+-   **HG941718.1 3295103 3295881 ISKox3**: 59% coverage with 788 bp long, it has E value 0
+-   **HG941718.1 3316099 3317706 ISEch14**: 97% coverage,but with 80% identity with ISEch14. E value 0
+-   **HG941718.1 3360526 3362935 ISEc10**: 100% coverage 99% identity with ISEch10 on ISfinder
+-   **HG941718.1 4175107 4177238 IS21**: 100% coverage and 99% identitiy with IS21, E value 0.
+
+Orther IS identified sequences have low (<50%) coverage and low identity on the ISfinder blast result.
+
+### 11-09-2025
+
+#### Tried other read simulator (mason)
+
+```{python}
+#| eval: false
+mason_simulator -ir ../fastas/EC958.fasta -n 8000000 -o reads_1.fq -or reads_2.fq \
+    --illumina-read-length 150 --fragment-mean-size 400 --fragment-size-std-dev 50
+```
+
+```{python}
+import pandas as pd
+
+!eris scan ../../data/ecoli/assembly-simulated/shovills-mason/contigs.gfa > eris-outputs/mason_shovill_gfa.tsv
+
+eris_mason_gfa = pd.read_csv("eris-outputs/mason_shovill_gfa.tsv", sep="\t")
+eris_mason_gfa = eris_mason_gfa[eris_mason_gfa['Type'] == "mobile_element"]
+eris_mason_gfa[eris_mason_gfa["Name"] == "ISEc23"]
+```
+
+```{python}
+eris_mason_gfa[eris_mason_gfa["Name"] == "ISEc12"]
+```
+
+```{python}
+eris_mason_gfa[eris_mason_gfa["Name"] == "IS1397"]
+```
+
+It has similar issue with fragmented IS sequence, this picture graph from mason simlar with last week on the same IS name: IS1397
+
+![fragmented IS1397 from mason](pictures/IS137-mason.png)
+
+### 12-09-2025
+
+#### Explore the IS fragmented sequence and look in the genome graph
+
+```{python}
+from eris.scan import Scanner
+from pathlib import Path
+
+p = Path('../../data/ecoli/assembly-simulated/shovill-outputs/contigs.gfa')
+with Scanner() as scanner:
+    results = list(scanner.scan(p))
+```
+
+```{python}
+from eris.io import Genome
+genome_graph = Genome.as_assembly_graph(results[0])
+```
+
+```{python}
+from eris.io import SeqFile
+from eris.graph import Edge
+
+myedges = []
+contigs_graphs = SeqFile("../../data/ecoli/assembly-simulated/shovill-outputs/contigs.gfa")
+for ed in contigs_graphs:
+  if isinstance(ed, Edge):
+    myedges.append(ed)
+```
+
+```{python}
+from eris.graph import Graph
+
+mygraph = Graph(*myedges, directed=True)
+
+tot_edge = 0
+for i, adj in enumerate(mygraph.adj):
+  tot_edge += len(mygraph.adj[adj])
+print(tot_edge)
+```
+
+```{python}
+print("IS1397 graph looks like")
+print(mygraph.adj["1208211"]) # in the middle, not identified as IS
+print(mygraph.adj["1015060"])
+print(mygraph.adj["1208964"])
+print(mygraph.adj["1216050"])
+print(mygraph.adj["1234872"])
+print(mygraph.adj["1241248"])
+print(mygraph.adj["1244160"])
+```
+
+```{python}
+print("ISEc52 graph looks like")
+print(mygraph.adj["1236636"])
+print(mygraph.adj["1243586"])
+print(mygraph.adj["1244434"])
+print(mygraph.adj["1245080"])
+print(mygraph.adj["1245082"])
+print(mygraph.adj["238677"]) # in the middle, not identified as IS
+```
+
+#### Build the steps to resoolve the IS fragmented contigs
+
+my approach is like this:
+
+1.  **Organise all the identified IS**
+
+collect all identified IS elements with their corresponding contigs in the genome
+
+2.  **Genome assembly graph reconstruction**
+
+Build the directed graph representation of the genome assembly
+
+For each identified IS:
+
+3.  **Boundary identification**
+
+-   Locate the boundaries of fragmented IS sequence within the graph, determine the start and and nodes.
+-   I use outdegree edges and indegree edges to find it
+    -   end node = no outgoing edges to the nodes of the same IS, at leat two levels
+    -   start node = no ingoing edges from nodes that has same IS, at least two levels
+-   but the problem is, some nodes have no indegree at all and others have no outdegree..
+
+4.  **Graph traversal and copy quantification**
+
+-   From the identified start node, find the shortest path to the corresponding end node. It may pass through contigs that are not marked as the same IS
+-   While traversing, estimate the number of IS copies in the genome by comparing the node depth to global median depth of all nodes in the genome
+-   In the traversing graph, quantify the IS copies by the depth of the node
+    -   For example, id the median depth is 30x, and it finds a node that has 92x depth in the traversing process, it estimate the IS has 3 copies. It rounds to the nearest integer.
+
+Note: It may struggle to traverse in the nodes that have complicated outgoing and ingoing edges. It hasn't include stard orientation when traversing. Also, this approach maybe not very efficient. But let's try using two simulated read dataset: `art_modern` and `mason` that is going to `shovill` assembly. Use the `gfa` from it as an input.
+
+### 13-09-2025
+
+##### test on art_modern assembly result
+
+```{python}
+from pathlib import Path
+from eris.scan import Scanner
+from eris.io import SeqFile
+
+# scan IS in the contigs
+p = Path('../../data/ecoli/assembly-simulated/shovill-outputs/contigs.gfa')
+with Scanner() as scanner:
+    eris_result = list(scanner.scan(p))
+
+gfa_eris = eris_result[0]
+
+# load the genome graph
+graph_assembly = SeqFile("../../data/ecoli/assembly-simulated/shovill-outputs/contigs.gfa")
+graph_assembly.close()
+```
+
+```{python}
+from collapse import collapseis
+is_eris = collapseis(gfa_eris, graph_assembly)
+```
+
+```{python}
+total_is = 0
+for is_name, path_copies in is_eris.items():
+  print(f"{is_name} has {path_copies[1]} copies with collapsed path: {" -> ".join(path_copies[0])}")
+  total_is += path_copies[1]
+
+print(total_is)
+```
+
+##### test on mason assembly result
+
+```{python}
+from pathlib import Path
+from eris.scan import Scanner
+from eris.io import SeqFile
+
+# scan IS in the contigs
+p = Path('../../data/ecoli/assembly-simulated/shovills-mason/contigs.gfa')
+with Scanner() as scanner:
+    eris_result = list(scanner.scan(p))
+gfa_mason_eris = eris_result[0]
+
+# load the genome graph
+graph_assembly_mason = SeqFile("../../data/ecoli/assembly-simulated/shovills-mason/contigs.gfa")
+graph_assembly_mason.close()
+```
+
+```{python}
+from collapse import collapseis
+is_mason_eris = collapseis(gfa_mason_eris, graph_assembly_mason)
+```
+
+```{python}
+total_is = 0
+for is_name, path_copies in is_mason_eris.items():
+  print(f"{is_name} has {path_copies[1]} copies with collapsed path: {" -> ".join(path_copies[0])}")
+  total_is += path_copies[1]
+
+print(total_is)
+```
+
+### 14-09-2025
+
+#### Intersect FragGeneScanRs result with GTF EC958
+
+```{python}
+#| eval: false
+# Download GFF file for EC958
+wget https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/285/655/GCF_000285655.3_EC958.v1/GCF_000285655.3_EC958.v1_genomic.gff.gz
+```
+
+```{python}
+!bedtools sort -i ../../data/ecoli/EC958_FragGeneScanRs.gff > ../../data/ecoli/EC958_FragGeneScanRs.sorted.gff
+!bedtools sort -i ../../data/ecoli/EC958_Pyrodigal.gff > ../../data/ecoli/EC958_pyrodigal_sorted.gff
+!bedtools sort -i ../../data/ecoli/GCF_000285655.3_EC958.v1_genomic.gff.gz > ../../data/ecoli/EC958_genomic_sorted.gff
+!grep "CDS" ../../data/ecoli/EC958_genomic_sorted.gff > ../../data/ecoli/EC958_genomic_sorted.cds.gff
+```
+
+#### True Positive
+
+Predicted CDS overalap with annotated CDS in EC958 GFF
+
+```{python}
+# fraggenescan
+!bedtools intersect -a ../../data/ecoli/EC958_FragGeneScanRs.sorted.gff -b ../../data/ecoli/EC958_genomic_sorted.cds.gff -u | wc -l 
+
+# pyrodigal
+!bedtools intersect -a ../../data/ecoli/EC958_pyrodigal_sorted.gff -b ../../data/ecoli/EC958_genomic_sorted.cds.gff -u | wc -l 
+```
+
+#### False Positive
+
+Predicted CDS do not overlap with any CDS in EC958 GFF
+
+```{python}
+# fraggenescan
+!bedtools intersect -a ../../data/ecoli/EC958_FragGeneScanRs.sorted.gff -b ../../data/ecoli/EC958_genomic_sorted.cds.gff -v | wc -l 
+
+# pyrodigal
+!bedtools intersect -a ../../data/ecoli/EC958_pyrodigal_sorted.gff -b ../../data/ecoli/EC958_genomic_sorted.cds.gff -v | wc -l 
+```
+
+#### False Negative
+
+CDS entries in GFF do not overlap with predicted CDSs
+
+```{python}
+# fraggenescan
+!bedtools intersect -a ../../data/ecoli/EC958_genomic_sorted.cds.gff -b ../../data/ecoli/EC958_FragGeneScanRs.sorted.gff -v | wc -l
+
+# pyrodigal
+!bedtools intersect -a ../../data/ecoli/EC958_genomic_sorted.cds.gff -b ../../data/ecoli/EC958_pyrodigal_sorted.gff -v | wc -l
+```
+
+```{python}
+fgsan_tp = 5089
+pyro_tp = 4886
+
+fgscan_fp = 585
+pyro_fp = 39
+
+fgscan_fn = 54
+pyro_fn = 198
+
+
+precision_fgscan = fgsan_tp/(fgsan_tp + fgscan_fp)
+precision_pyro = pyro_tp/(pyro_tp + pyro_fp)
+
+sensitivity_fgscan = fgsan_tp/(fgsan_tp + fgscan_fn)
+sensitivity_pyro = pyro_tp/(pyro_tp + pyro_fn)
+
+print("FragGeneScan metrics:")
+print(f"Precision (How many predicted ORF are true): {round(precision_fgscan, 3)}")
+print(f"Sensitivity (How many true ORF are recovered): {round(sensitivity_fgscan, 3)}")
+
+print(" ------------------------------- ")
+
+print("Pyrodigal metrics:")
+print(f"Precision (How many predicted ORF are true): {round(precision_pyro, 3)}")
+print(f"Sensitivity (How many true ORF are recovered): {round(sensitivity_pyro, 3)}")
+```

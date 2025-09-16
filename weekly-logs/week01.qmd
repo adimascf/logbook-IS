@@ -18,9 +18,9 @@ Setup Bunya HPC account and access, read IS related papers from Leah and Tom, co
 ### 28-07-2025
 
 -   Weekly project meeting
-    
-    -   Tom introduced [eris](https://github.com/tomdstanton/eris), and explained how the tool works. 
-    -   leah made google docs to list the things that I need to do
+
+    -   Tom introduced [eris](https://github.com/tomdstanton/eris), and explained how the tool works.
+    -   Leah made google docs to list the things that I need to do
     -   Leah and Tom send IS related papers for me to study
 
 -   Submitted the **Bunya application form**.
@@ -31,7 +31,7 @@ Setup Bunya HPC account and access, read IS related papers from Leah and Tom, co
 
     1.  [IS-capades of Klebsiella pneumoniae: Insertion sequences drive metabolic loss in obscure sub-lineages](https://www.biorxiv.org/content/10.1101/2025.07.24.666535v1)
 
-    -   These four sub lineages SL91 and SL10031 (also referred to as subspecies 19 ozaenae), SL10032 (subspecies rhinoscleromatis) and SL82 have relatively high number of IS, each with differenT profile. These high number of IS are linked to the loss of the ability to use many nutrients for metabolic process. 
+    -   These four sub lineages SL91 and SL10031 (also referred to as subspecies 19 ozaenae), SL10032 (subspecies rhinoscleromatis) and SL82 have relatively high number of IS, each with differenT profile. These high number of IS are linked to the loss of the ability to use many nutrients for metabolic process.
     -   IS may affect metabolism by directly disrupting nearby genes or indirectly through genome rearrangements over time. Despite these loses, the sub lineages still keep a core of metabolic traits that likely help the survive.
 
     2.  [A metagenomics pipeline reveals insertion sequence-driven evolution of the microbiota](https://www.cell.com/cell-host-microbe/fulltext/S1931-3128(24)00085-4?dgcid=raven_jbs_aip_email#sec-4-1)

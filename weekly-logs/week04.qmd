@@ -1,0 +1,41 @@
+---
+title: "Week 04: Started explore Bunya and improve the project plan draft"
+format:
+  html: 
+    toc: true
+    toc-depth: 5
+editor: visual
+---
+
+# Overview
+
+## Daily Log
+
+### 18-08-2025
+
+- Weekly project meeting
+    -   Dimas has shared the project plan. Leah and Tom will give the feedback this week, so that Dimas has time to fix.
+    -   Bunya crash course with Leah on tomorrow
+    -   *E. coli* truth dataset will be stasrted to uuse for further exploration as well benchmarking. It will start from reads fastq data (illumina) the, we generate GFA, etc. We have data from other sequencers ONT, Pacbio
+    -   Tom will share the reference for *Kleibsella pneumonia* data
+    -   We will try using overleaf to drafting manuscript
+
+### 19-08-2025
+
+- Carsh course on Bunya with Leah
+    - Gone thorugh aliases and three different drives; home drive, scratch (fast acess), and RDM for slow access (long term storage)
+    - Login node and compute node (as well as with interative node) for any computational tasks
+    - Conda use in Bunya
+    - account string, `uqccr_a` -> I have been joined to the group. i can use the string
+
+
+### 21-08-2025
+
+- Course course on ssubmit with Michael, a SLRUM wrapper
+- Made an improvement on the project plan draft from the feedback leah has given
+  - Add a typical IS figure
+  - Add additional examples on how IS can affect gene expression or phenotype of the host
+
+### 22-08-2025
+
+- Made an improvement on the project pland draft from Tom's feedback

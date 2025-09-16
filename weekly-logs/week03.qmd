@@ -1,0 +1,73 @@
+---
+title: "Week 03: Started drafting the project plan"
+format:
+  html: 
+    toc: true
+    toc-depth: 5
+editor: visual
+---
+
+# Overview
+
+## Daily Log
+
+### 11-08-2025
+
+-   Weekly project meeting
+    -   Put all the commands Dimas has run to the logbook, will be helpful later
+    -   Visualise the result to bandage later
+    -   Walked through the code that I explored with Tom adding some insight on Features, Id generations, graph weight
+    -   How much is the cut off value form predicting IS insertion and also the effect? hits cutoff and min proximity.
+    -   Promoter sequence bacteria is usually can be searched using regular expression with the balence of modularity of the tool and also it has good accuracy
+    -   Discuss about the discrepancies of the result between tools (will be disscused more later)
+    -   Ask clarification on the project plan assesment
+        -   The course coordinator already said that it is okay for supervisors to see the draft before submission
+    -   Dimas needs to start drafting the project plan
+
+### 12-08-2025
+
+-   Started writing the introduction of the project plan
+    -   I used all of the summary from paper that Tom and Leah gave me in the week 1
+
+### 14-08-2025
+
+-   Started writing the plan and startegy paragraphs
+    -   Used Leah and Tom google docs as a guidance
+
+### 15-08-2025
+
+-   Tried to install ISseeker and digIS
+
+    -   digIS command
+
+    ```{bash}
+    python3 digIS/digIS_search.py -i ../project-scratch/outputs/genomes/contigs.fasta -g ../project-scratch/data/GCF_000016305.1_ASM1630v1_genomic.gbff -o digis_outputs/
+    ```
+
+    encountered an error that seems to be some index slicing issue:
+
+    ```{bash}
+    Parsing Hmmer outputs...
+    Traceback (most recent call last):
+    File "/Users/adimascf/UQ-resources/SEM2/research-project/existing_tools/digIS/digIS_search.py", line 26, in <module>
+        digIS.run()
+    File "/Users/adimascf/UQ-resources/SEM2/research-project/existing_tools/digIS/src/search_tool/digISMultifasta.py", line 23, in run
+        digIS_rec.run(search=search)
+    File "/Users/adimascf/UQ-resources/SEM2/research-project/existing_tools/digIS/src/search_tool/digIS.py", line 313, in run
+        self.parse()
+    File "/Users/adimascf/UQ-resources/SEM2/research-project/existing_tools/digIS/src/search_tool/digIS.py", line 57, in parse
+        self.parse_hmmer_output('model', self.hmmsearch_output)
+    File "/Users/adimascf/UQ-resources/SEM2/research-project/existing_tools/digIS/src/search_tool/digIS.py", line 70, in parse_hmmer_output
+        self.recs.append(RecordDigIS.from_hmmer(hsp, sid, dna_range[0], dna_range[1], strand, self.genome.name,
+    File "/Users/adimascf/UQ-resources/SEM2/research-project/existing_tools/digIS/src/search_tool/RecordDigIS.py", line 31, in from_hmmer
+        return cls(genome_name, chrom, genome_seq, seq_len, hsp.qid, sid, hsp.qstart, hsp.qend, start, end, strand, float(hsp.acc), float(hsp.dom_bitscore), float(hsp.dom_evalue))
+    File "/Users/adimascf/UQ-resources/SEM2/research-project/existing_tools/digIS/src/search_tool/RecordDigIS.py", line 13, in __init__
+        super().__init__(genome_name, chrom, start, end, strand, genome_seq, genome_len)
+    File "/Users/adimascf/UQ-resources/SEM2/research-project/existing_tools/digIS/src/common/grange.py", line 17, in __init__
+        raise ValueError("GRange: start or end position is out of the range.")
+    ValueError: GRange: start or end position is out of the range.
+    ```
+
+    -   ISseeker installation is not succeeded yet
+
+-   Finalised the project plan draft

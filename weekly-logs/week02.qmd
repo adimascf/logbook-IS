@@ -1,5 +1,5 @@
 ---
-title: "Week 02"
+title: "Week 02: Explore Eris Codebase and existing IS related tools"
 format:
   html: 
     toc: true
@@ -9,12 +9,184 @@ editor: visual
 
 # Overview
 
-```{python}
-from collections import defaultdict
-hello = "Hello world!"
-counter = defaultdict(int)
-for char in hello:
-    counter[char] += 1
-print(counter)
+## Daily Log
 
+### 04-08-2025
+
+-   Weekly project meeting
+    -   Reviewed project aims and scope
+    -   Bunya Training on the last Friday of each month
+    -   Assessment on checkpoint meeting and project plan (draft report sent it on 18 Aug)
+    -   Proposed the testing dataset
+-   Publish the logbook
+
+### 05-08-2025
+
+-   UQCCR Building induction
+
+### 07-08-2025
+
+-   Started reviewing [eris](https://github.com/tomdstanton/eris) code base
+    -   Data structure
+        -   Custom python classes (e.g Record, SeqFile, Qualifier, Feature, Edge, Seq, etc) are used to represent biological entities and annotation.
+        -   These calsses store metadata, sequences, and other attributes
+    -   External Program and database handling
+        -   Wrap calls to external tools (minimap2, pyrodigal). Also handle csv and fna ISfinder data as the Eris data structure
+        -   Function to construct command line argument, run program, and manipulate their outputs
+    -   File input/ouput
+        -   Read and parse common bioinformatics format (fasta, gfa, etc)
+        -   Parse it into Eris data structure
+        -   Output the scan eris data structure to the file
+    -   Pipeline
+        -   Worklow logic to scan pipeline in `scan.py` from handle the input data, processes it to Eris data structure, run external tools (minimap, orf finder), travesing the feature, and predict the insertion effect
+    -   CLI handling
+        -   Manage user inputs and pipeline execution via CLI commands.
+    -   Feature vs. Element in ERIS — Discussion with Tom
+        -   Feature:
+            -   A label for any part of sequences
+            -   Includes IS element (mobile_element), CDS, repeat region?, and other annotations
+            -   Tracks under the genome sequence on the genome viewer
+        -   Element:
+            -   Specially referes to insertion sequences detected by the mapping process
+        -   Feature graph
+            -   Nodes represent biological features
+            -   Edges represent overlap or flanking relationship between features
+            -   Promoter inside IS element are handled separately and not included in the graph
+        -   Traverdsal and logic
+            -   Breadth first search (BFS) is used to find CDS and feature overlapping or flanking IS elements
+        -   Data structure:
+            -   Eris does not use de Brujin graphs for representing overlaps
+
+### 08-08-2025
+
+-   Downloaded the *Klebsiella pneumoniae* WGS data ([SRR20082569](https://www.ebi.ac.uk/ena/browser/view/SRR20082569))
+
+-   Perfomed genome assembly from the raw paired end reads:
+
+    ```{python}
+    #| eval: false
+    spades.py -1 $PWD/data/SRR20082569_1.fastq.gz -2 $PWD/data/SRR20082569_1.fastq.gz -o $PWD/outputs
+    ```
+
+-   Started exploring Eris CLI and API reference
+
+    -   Using input data from Klebsiella pneumoniae WGS data ([SRR20082569](https://www.ebi.ac.uk/ena/browser/view/SRR20082569))
+
+    -   Run Eris using CLI interface:
+
+    ```{python}
+    !eris scan /Users/adimascf/UQ-resources/SEM2/research-project/project-scratch/outputs/genomes/* > contigs_results.tsv
+
+    !head -n 10 contigs_results.tsv | column -t
+    ```
+
+    -   Run Eris using API interface:
+
+    ```{python}
+    from eris.scan import Scanner
+    from pathlib import Path
+
+    p = Path('/Users/adimascf/UQ-resources/SEM2/research-project/project-scratch/outputs/genomes/')
+    with Scanner() as scanner:
+        results = list(scanner.scan(*p.iterdir()))
+    ```
+
+    ```{python}
+    for result in results:
+        for feature in result.features[:10]:
+            print(feature)
+    ```
+
+    ```{python}
+    for result in results:
+        for edge in result.edges[:10]:
+            print(edge)
+    ```
+
+    ```{python}
+    for result in results:
+        for feature in result.features[:10]:
+            print(feature.qualifiers)
+    ```
+
+    ```{python}
+    for result in results:
+        for feature in result.features[:10]:
+            print(feature.kind, feature.location)
+    ```
+
+    ```{python}
+    upregulated_is = []
+    for result in results:
+        for k, v in result.contexts.items():
+            if v.effect == "upregulated":
+                upregulated_is.append(v.id)
+    ```
+
+    ```{python}
+    # get only upregulated effect scenario indeces
+    upregulated_context = []
+    for result in results:
+        for feature, kv in zip(result.features, result.contexts.items()):
+            if kv[1].id in upregulated_is:
+                upregulated_context.append([feature.id, feature.qualifiers, kv[1]])
+    print(upregulated_context)
+    ```
+
+    ```{python}
+    # get only the IS name, and counter
+    from collections import defaultdict
+    is_found = defaultdict(int)
+    for result in results:
+        for feature in result.features:
+            if feature.kind == "mobile_element":
+                is_name  = str(feature.qualifiers[0]).replace("name:Z:", "")
+                is_found[is_name] += 1
+    print(f"{len(is_found)} IS are found")
+    ```
+
+    ```{python}
+    from eris.io import SeqFile
+    from pathlib import Path
+    import os
+
+    # extract IS sequence from ISfinder that are found the sample and and write into fasta file
+    filename = "is_found.fasta"
+    if os.path.exists(filename):
+        os.remove(filename)
+
+    n = 0
+    isf_path = Path('/Users/adimascf/UQ-resources/SEM2/research-project/eris/src/eris/data/IS.fna')
+    isf_fasta = SeqFile(isf_path, format_="fasta")
+    for record in isf_fasta:
+        if record.id in is_found:
+            with open("is_found.fasta", "a") as file:
+                identifier = ">" + record.id + "\n"
+                file.write(identifier)
+                data = str(record.seq)
+                length = len(data)
+                nlines = (length + 59) // 60
+                for line in range(nlines):
+                    lineofseq = data[line*60:(line+1)*60] + "\n"
+                    file.write(lineofseq)
+            n += 1
+    print(n)
+
+    ```
+
+-   Started exploring [isescan](https://github.com/xiezhq/ISEScan)
+
+    -   Using input data from *Klebsiella pneumoniae* WGS data ([SRR20082569](https://www.ebi.ac.uk/ena/browser/view/SRR20082569))
+
+```{bash}
+isescan.py --seqfile genomes/contigs.fasta --output isescan-results --nthread 2
+```
+
+-   Started exploring [ISMapper](https://github.com/jhawkey/IS_mapper)
+    -   Using input data from Klebsiella pneumoniae WGS data ([SRR20082569](https://www.ebi.ac.uk/ena/browser/view/SRR20082569))
+    -   Input reference from *Klebsiella pneumoniae* [GCF_000016305.1](https://www.ncbi.nlm.nih.gov/datasets/genome/GCF_000016305.1/)
+    -   Query IS from IS that are found by Eris both partial and full `is_found.fasta` file
+
+```{bash}
+ismap --reads data/SRR20082569_1.fastq.gz data/SRR20082569_2.fastq.gz --queries ../logbook/weekly-logs/is_found.fasta --reference data/GCF_000016305.1_ASM1630v1_genomic.gbff --output_dir ismapper-results/
 ```

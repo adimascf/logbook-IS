@@ -1,0 +1,223 @@
+---
+title: "Week 05: Joined Bunya training and started exploring the test dataset E coli 958"
+format:
+  html: 
+    toc: true
+    toc-depth: 8
+editor: visual
+---
+
+# Overview
+
+## Daily Log
+
+### 25-08-2025
+
+-   Weekly project meeting
+    -   Leah and Tom have given comments on the project plan draft
+    -   Dimas has already address some of tthe comments
+    -   Add typical IS figure
+    -   Add figure on how IS can mess up the de brujin graph
+    -   Add PseudoR in the benchmarking tool againts
+
+### 26-08-2025
+
+-   Finalised the project plan, and submitted to the BlackBoard
+-   Joined the Bunya HPC training
+    -   There are three drives: home (just for login), scratch (fast access, temporary for 90 days), and RDM (back up here, slow access, for storing)
+    -   Do any cimputattion activity in the compute node
+    -   onBunya intro, interactive way to get acces to the Bunya from web browser
+
+### 28-08-2025
+
+-   Started to explore the testing dataset E coli 958
+
+    -   Downloaded the [genbank file](https://www.ncbi.nlm.nih.gov/nuccore/HG941718.1/), and visualise it on the artemis
+    -   Downloaded the illumina paired end reads, from ENA [SRR5194982](https://www.ebi.ac.uk/ena/browser/view/SRR5194982)
+
+    ```{python}
+    #| eval: false
+    wget -nc ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR519/002/SRR5194982/SRR5194982_1.fastq.gz
+    wget -nc ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR519/002/SRR5194982/SRR5194982_2.fastq.gz
+    ```
+
+-   Assemblied the Illumina reads using spades
+
+```{python}
+#| eval: false
+~/bin/SPAdes-4.2.0-Linux/bin/spades.py -1 data/ecoli958/fastqs/SRR5194982_1.fastq.gz -2 data/ecoli958/fastqs/SRR5194982_2.fastq.gz --threads 8 --memory 32 -o outputs/spades/
+```
+
+-   Assemblied the Illumina reads using spades (with `--isolate`)
+
+```{python}
+#| eval: false
+~/bin/SPAdes-4.2.0-Linux/bin/spades.py --isolate -1 data/ecoli958/fastqs/SRR5194982_1.fastq.gz -2 data/ecoli958/fastqs/SRR5194982_2.fastq.gz --threads 8 --memory 32 -o outputs/spades-isolates
+```
+
+#### identify IS in from short read genome assembly result
+
+##### Run Eris in both assembly results, with gfa and fasta file separately
+
+```{python}
+!mkdir -p eris-outputs
+!eris scan ../../data/ecoli/spades-isolates/assembly_graph_after_simplification.gfa > eris-outputs/result_gfa_isolate.tsv
+!eris scan ../../data/ecoli/spades-isolates/contigs.fasta > eris-outputs/result_fasta_isolate.tsv
+!eris scan ../../data/ecoli/spades-outputs/assembly_graph_after_simplification.gfa > eris-outputs/result_gfa.tsv
+!eris scan ../../data/ecoli/spades-outputs/contigs.fasta > eris-outputs/result_fasta.tsv
+```
+
+how many IS detected by Eris?
+
+```{python}
+!grep "mobile_element" eris-outputs/result_gfa_isolate.tsv | wc -l
+!grep "mobile_element" eris-outputs/result_fasta_isolate.tsv | wc -l
+!grep "mobile_element" eris-outputs/result_gfa.tsv | wc -l
+!grep "mobile_element" eris-outputs/result_fasta.tsv | wc -l
+```
+
+Eris results seems to be influenced by what input file type (gfa or fasta) and how assembly genome is genereated (with or without --isolate flag).
+
+##### Run [ISEcan](https://github.com/xiezhq/ISEScan?tab=readme-ov-file#Usage) on both assembly results
+
+```{python}
+#| eval: false
+!isescan.py --seqfile outputs/spades-isolate/contigs.fasta --output outputs/isescan/ --nthread 2
+!isescan.py --seqfile outputs/spades/contigs.fasta --output outputs/isescan/ --nthread 2
+```
+
+how many IS detected by Isescan?
+
+```{python}
+!tail +2 ../../data/ecoli/isescan-outputs/spades/contigs.fasta.tsv | wc -l
+!tail +2 ../../data/ecoli/isescan-outputs/spades-isolates/contigs.fasta.tsv | wc -l
+```
+
+```{python}
+import pandas as pd
+
+eris_fasta = pd.read_csv("eris-outputs/result_fasta.tsv", sep="\t")
+eris_fasta = eris_fasta[eris_fasta['Type'] == "mobile_element"]
+eris_fasta.head()
+```
+
+```{python}
+isescan_fasta = pd.read_csv("../../data/ecoli/isescan-outputs/spades/contigs.fasta.tsv", sep="\t")
+isescan_fasta.head()
+```
+
+`isescan` output seems only reporting IS family, not IS Name. `Contig` column in eris, and `seqID` have the same value with id contig from fasta
+
+```{python}
+pd.set_option('display.max_rows', None)
+
+# select less columns
+eris_fasta = eris_fasta[["Contig", "Start", "End", "Strand", "Partial","Percent_identity", "Percent_coverage", "Name", "Family", "Group"]]
+isescan_fasta = isescan_fasta[["seqID", "family", "cluster", "isBegin", "isEnd", "isLen"]]
+
+# inner join by contig id
+eris_ises_contig = pd.merge(eris_fasta, isescan_fasta, left_on="Contig", right_on="seqID", how="inner")
+eris_ises_contig
+```
+
+How many contigs contain insertions of IS elements identified by Eris and ISEScan?
+
+```{python}
+from matplotlib_venn import venn2
+import matplotlib.pyplot as plt
+
+eris = set(eris_fasta["Contig"])
+isescan = set(isescan_fasta["seqID"])
+
+# Plot Venn
+venn2([eris, isescan], set_labels=("Eris", "ISscan"))
+plt.show()
+```
+
+#### Inspect the IS elements in the E coli 958 genome
+
+```{python}
+!awk '/mobile_element/ {print NR, $0}' ../../data/ecoli/ec958.gb | head -n 10
+```
+
+IS identifier with mobile_element and genomic coordinate in one line, and line after it, follows the IS name.. sometimes with unclassified and no IS family
+
+```{python}
+# get IS features only from the genbank file, and convert it into bed file
+import re, os
+
+os.remove("../../data/ecoli/ec958_IS.bed")
+pattern = r"(\d+)\.\.(\d+)"
+
+with open("../../data/ecoli/ec958.gb", "r") as file:
+    lines = file.readlines()
+    for i, line in enumerate(lines):
+        if "LOCUS" in line:
+            chromosome = line.split()[1] + ".1"
+        if "mobile_element" in line.split():
+            region = re.search(pattern, line)
+            start, end = region.group().split("..")
+            orientation = "-" if "complement" in line else "+"
+            name = lines[i+1].split("=")[1]
+            name = name.replace('"', '').replace(";", "").strip()
+            with open("../../data/ecoli/ec958_IS.bed", "a") as output:
+                output.write(f"{chromosome}\t{int(start)-1}\t{end}\t{name}\t{0}\t{orientation}\n")
+```
+
+```{python}
+pd.set_option('display.max_rows', None)
+genome_is_bed = pd.read_csv("../../data/ecoli/ec958_IS.bed", sep="\t", header=None)
+
+genome_is_bed.columns = ["chrom", "start", "end", "name", "score", "strand"][:genome_is_bed.shape[1]]
+
+genome_is_bed
+```
+
+```{python}
+!wc -l ../../data/ecoli/ec958_IS.bed
+```
+
+**The actual IS number in the E coli 958 is 41**
+
+```{python}
+#| eval: false
+from eris.io import parse
+
+for record in parse("../../data/ecoli/ec958.gb", "genbank"):
+    print(len(record))
+```
+
+```{markdown}
+---------------------------------------------------------------------------
+IndexError                                Traceback (most recent call last)
+Cell In[1], line 3
+      1 from eris.io import parse
+----> 3 for record in parse("../../data/ecoli/ec958.gb", "genbank"):
+      4     print(len(record))
+
+File ~/miniconda/envs/eris/lib/python3.12/site-packages/eris/io.py:582, in parse(handle, format_, *args, **kwargs)
+    579         raise SeqFileError(f'Unsupported SeqFile format or extension: {handle.name}')
+    580 if parser := {'fasta': _parse_fasta, 'gfa': _parse_gfa, 'genbank': _parse_genbank, 'fastq': _parse_fastq,
+    581               'gff': _parse_gff, 'bed': _parse_bed}.get(format_):
+--> 582     yield from parser(handle, *args, **kwargs)
+    583 else:
+    584     raise NotImplementedError(f'Format "{format_}" not supported')
+
+File ~/miniconda/envs/eris/lib/python3.12/site-packages/eris/io.py:727, in _parse_genbank(handle, feature_kinds)
+    725             record.append(line)
+    726 if len(record) > 1:  # Records must all consist of more than 1 line
+--> 727     yield _parse_genbank_record(record, feature_kinds)
+    728 else:
+    729     warn('No records parsed', ParserWarning)
+
+File ~/miniconda/envs/eris/lib/python3.12/site-packages/eris/io.py:734, in _parse_genbank_record(record, feature_kinds)
+    732 def _parse_genbank_record(record: list[str], feature_kinds: set[str] = frozenset({'CDS'})) -> Record:
+    733     """Parser for a single record in Genbank format"""
+...
+    738         qualifiers=[Qualifier('topology', 'circular' if _TOPOLOGY_REGEX.search(record[0]) else 'linear')]
+    739     )
+    740     current_feature = []
+
+IndexError: list index out of range
+Output is truncated. View as a scrollable element or open in a text editor. Adjust cell output settings...
+```
