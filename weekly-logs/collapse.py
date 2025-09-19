@@ -11,7 +11,7 @@ from eris.scan import ScannerResult
 # in other words, search for start and end contigs from a given IS name
 
 # get end node
-def get_end_node(contigs: list, outdegree: dict, indegree: dict):
+def get_end_node(contigs: list, outdegree: dict, indegree: dict) -> str:
     """
     Search a node/contig that has no outging edge to IS identified contigs.
     """
@@ -49,7 +49,7 @@ def get_end_node(contigs: list, outdegree: dict, indegree: dict):
     return contigs[0] # just pick the first node
 
 
-def get_start_node(contigs: list, indegree: dict):
+def get_start_node(contigs: list, indegree: dict) -> str:
     """
     Search a node/contig that has no outging edge to IS identified contigs.
     """
@@ -93,7 +93,7 @@ def get_indegree(graph: Graph):
 # find a shortest path from start to end contigs
 def find_path(graph: Graph, start: str, end: str, depth_records: dict,
               is_with_contigs: dict,
-              is_name: str) -> tuple[list[str], int]:
+              is_name: str, median_depth) -> tuple[list[str], int]:
     """
     Using BFS implementation, find a shortest path from start to end node,
     also quantify the copies of the elements.
@@ -106,8 +106,6 @@ def find_path(graph: Graph, start: str, end: str, depth_records: dict,
 
     # if the path traver node that higher n times more than median,
     # the predicted copies then is approx n.
-
-    median_depth = median(list(depth_records.values()))
     copies = 1
 
     check_contigs = is_with_contigs[is_name]
@@ -201,6 +199,9 @@ def collapseis(eris_result: ScannerResult,
     # so i create indegree edges
     indegree_graph = get_indegree(genome_graph)
 
+    # calculate the median
+    median_depth = median_depth = median(list(node_depth.values()))
+
     for is_name, is_contigs in is_with_contigs.items():
 
         # get the boundaries of the IS in the genome graph
@@ -210,7 +211,7 @@ def collapseis(eris_result: ScannerResult,
         # find the path from start to end for an IS
         # also quantify the copies
         path_copies = find_path(genome_graph, start, end,
-                                node_depth, is_with_contigs, is_name)
+                                node_depth, is_with_contigs, is_name, median_depth)
 
         result[is_name] = path_copies
 
