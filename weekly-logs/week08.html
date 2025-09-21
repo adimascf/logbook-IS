@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -151,7 +186,9 @@ ul.task-list li input[type="checkbox"] {
   <ul>
   <li><a href="#daily-log" id="toc-daily-log" class="nav-link" data-scroll-target="#daily-log">Daily Log</a>
   <ul>
-  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section">08-09-2025</a></li>
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section">15-09-2025</a></li>
+  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1">18-09-2025</a></li>
+  <li><a href="#section-2" id="toc-section-2" class="nav-link" data-scroll-target="#section-2">19-09-2025</a></li>
   </ul></li>
   </ul></li>
   </ul>
@@ -184,14 +221,72 @@ ul.task-list li input[type="checkbox"] {
 <section id="daily-log" class="level2">
 <h2 class="anchored" data-anchor-id="daily-log">Daily Log</h2>
 <section id="section" class="level3">
-<h3 class="anchored" data-anchor-id="section">08-09-2025</h3>
+<h3 class="anchored" data-anchor-id="section">15-09-2025</h3>
 <ul>
 <li><p>Weekly project meeting</p></li>
-<li><p>All the IS that eris missed are truncated sequences. I will extract the sequences from the chromosome and play around with minimap2 settings in eris to understand why they were missed.</p></li>
+<li><p>All the IS that eris missed are truncated sequences. I will extract the sequences from the chromosome and play around with minimap2 settings in eris to understand why they were missed. Try to change the preset setting, maybe it is more appropiate</p></li>
 <li><p>For fragmented IS spread across multiple contigs, I wrote a module using a graph traversal approach to collapse them and quantify their copy numbers. It works quite well on some identified IS and can correct both undercounted and overcounted IS from contigs.</p></li>
 <li><p><code>FragGeneScan</code> has better sensitivity, but lower precision compared to <code>pyrodigal</code> on EC958. It is because <code>FragGeneScan</code> can predict on the truncated ORF sequence?</p></li>
 <li><p>Use <a href="https://en.wikipedia.org/wiki/F-score">F1</a> score to include the balance of senisitivity and precision.</p></li>
 <li><p>Dimas will read through <a href="https://doi.org/10.7554/eLife.98300.3">Michael’s paper</a> and download the dataset</p></li>
+</ul>
+</section>
+<section id="section-1" class="level3">
+<h3 class="anchored" data-anchor-id="section-1">18-09-2025</h3>
+<ul>
+<li><p>Tried different preset on <code>minimap2</code> when aligning IS sequences against the input complete chromosome sequence</p>
+<ul>
+<li>preset <code>minimap2</code> default, <code>lr:hq</code>, and <code>asm5</code> still don’t find IS that missed by eris on the complete EC958 sequence. Using <code>sr</code> ( Short-read alignment without splicing), minimap can detect the missed IS</li>
+</ul>
+<div id="ae848010" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># convert paf file to bed, for easy checking</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>awk <span class="op">-</span>v OFS<span class="op">=</span><span class="st">"</span><span class="ch">\t</span><span class="st">"</span> <span class="st">'{print $6, $8, $9, $1, $11/$2}'</span> ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>minimap2<span class="op">-</span>preset<span class="op">/</span>sr_chromosome_minimap2.paf <span class="op">|</span> bedtools sort <span class="op">-</span>i <span class="op">-</span> <span class="op">&gt;</span> ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>minimap2<span class="op">-</span>preset<span class="op">/</span>sr_chromosome_minimap2.bed</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># intersect missed IS with sr minimap2 bed file</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>bedtools intersect <span class="op">-</span>a ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>ec958_IS.bed <span class="op">-</span>b eris<span class="op">-</span>outputs<span class="op">/</span>chromosome_fasta.bed <span class="op">-</span>v <span class="op">|</span> bedtools intersect <span class="op">-</span>a <span class="op">-</span> <span class="op">-</span>b ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>minimap2<span class="op">-</span>preset<span class="op">/</span>sr_chromosome_minimap2.bed <span class="op">-</span>wb</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>HG941718.1  2104183 2104431 truncated at both ends 95% identical to IS609 from  0   +   HG941718.1  2104183 2104431 IS609_IS200/IS605_IS605/1   0.141876
+HG941718.1  2104183 2104431 truncated at both ends 95% identical to IS609 from  0   +   HG941718.1  2104183 2104431 IS609_IS200/IS605_IS605/2   0.141876
+HG941718.1  4943805 4943830 truncated at left end by IS600 95% identical to 0   +   HG941718.1  4943805 4943830 ISBrsa1_IS3_IS3 0.020016</code></pre>
+</div>
+</div></li>
+</ul>
+<p>Using preset <code>rs</code>, it detects 2 of 4 missed IS, but with poor quality. It detected IS<em>609</em> in position G941718.1:2104183-2104431 that eris missed, but the coverage is very low (14%) of 664bp query length. Also, detected IS in position HG941718.1:4943805-4943830, but mistakenly identified as IS<em>Brsa1</em> with very low coverage of (2%), when ISfinder hit on IS<em>Ec52</em></p>
+<p>And how many overcalls? intersect <code>minimap2</code> result with “truth” IS coordinates, count how many etries from minimap2 have no overlap:</p>
+<div id="6ec2f2bb" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>bedtools intersect <span class="op">-</span>a ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>minimap2<span class="op">-</span>preset<span class="op">/</span>sr_chromosome_minimap2.bed <span class="op">-</span>b ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>ec958_IS.bed <span class="op">-</span>v <span class="op">|</span> wc <span class="op">-</span>l</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      52</code></pre>
+</div>
+</div>
+<p>More sensitive, but more prone to positive false.</p>
+<ul>
+<li>Eris map a list of IS nucleotide sequences against query sequence (can be contigs or, in this case, complete chromosome). However, if we treat the other way around. We map the complete sequence against the IS element sequences (as a reference). All four missed IS are identified by minimap2 (using default preset).. 🤔</li>
+</ul>
+<div id="fa24d76a" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># convert paf file to bed, for easy checking</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>awk <span class="op">-</span>v OFS<span class="op">=</span><span class="st">"</span><span class="ch">\t</span><span class="st">"</span> <span class="st">'{print $1, $3, $4, $6, $11/$7}'</span> ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>minimap2<span class="op">-</span>preset<span class="op">/</span>reversed_chromosome_minimap2.paf <span class="op">|</span> bedtools sort <span class="op">-</span>i <span class="op">-</span> <span class="op">&gt;</span> ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>minimap2<span class="op">-</span>preset<span class="op">/</span>reversed_chromosome_minimap2.bed</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># intersect missed IS with reversed minimap2 bed file</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>bedtools intersect <span class="op">-</span>a ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>ec958_IS.bed <span class="op">-</span>b eris<span class="op">-</span>outputs<span class="op">/</span>chromosome_fasta.bed <span class="op">-</span>v <span class="op">|</span> bedtools intersect <span class="op">-</span>a <span class="op">-</span> <span class="op">-</span>b ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>minimap2<span class="op">-</span>preset<span class="op">/</span>reversed_chromosome_minimap2.bed <span class="op">-</span>wb</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>HG941718.1  2103782 2104432 truncated at both ends 95% identical to IS609 from  0   +   HG941718.1  2103782 2104432 IS609_IS200/IS605_IS605 0.371854
+HG941718.1  3312822 3313143 truncated by IS30   0   +   HG941718.1  3312822 3315298 ISSd1_IS3_IS3   1.95735
+HG941718.1  4922975 4923150 truncated at right end of IS    0   +   HG941718.1  4922975 4923150 ISLad1_IS3_IS3  0.140112
+HG941718.1  4943671 4944385 truncated at left end by IS600 95% identical to 0   +   HG941718.1  4943671 4944385 ISEc52_IS3_IS3  0.572</code></pre>
+</div>
+</div>
+<ul>
+<li><p>By manually inspection, all copies of two missed IS that we decided as true IS elements, IS<em>609</em> and IS<em>Ec52</em> actually were corercty detected from input draft assembly.</p></li>
+<li><p>IS<em>609</em> has two copies in EC958 where at HG941718.1:2103782-2104446 and HG941718.1:3820313-3821771. The later that eris missed from input chromosome. From draft assembly (contigs), eris originally detected as 3 copies (see week 06), but after we collapse the graphs, it has indeed 2 copies ( see week 07).</p></li>
+<li><p>IS<em>Ec52</em> has three copies at HG941718.1:3558365-3559615, HG941718.1 5007344 5008594, and missed HG941718.1:4943671-4944385. When we give eris draft assembly as an input, 5 cointigs detected to have IS<em>Ec52</em>, and after the contigs is collapsed, it only has 2 copies (issue with nodes that have no indegree or no outdegree)</p></li>
+<li><p>question, can i rewrite IS annotations of EC958 so that each entry has single IS name?</p></li>
+</ul>
+</section>
+<section id="section-2" class="level3">
+<h3 class="anchored" data-anchor-id="section-2">19-09-2025</h3>
+<ul>
+<li>Downloaded assembly and annotation files and Illumina reads data from <a href="https://elifesciences.org/articles/98300#data">Hall M et al.,</a></li>
 </ul>
 
 
