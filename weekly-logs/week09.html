@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Week 09: Reannotate IS from EC958, Run PseudoR, and compare effect prediction from eris in complete and draft assembly – IS Project Logbook</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-a14e3238c51140e99ccc48519b6ed9ce.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">IS Project Logbook</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../home.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-weekly-logs" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Weekly Logs</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-weekly-logs">    
+        <li>
+    <a class="dropdown-item" href="../weekly-logs/week01.html">
+ <span class="dropdown-text">Week 1</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../weekly-logs/week02.html">
+ <span class="dropdown-text">Week 2</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../weekly-logs/week03.html">
+ <span class="dropdown-text">Week 3</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../weekly-logs/week04.html">
+ <span class="dropdown-text">Week 4</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../weekly-logs/week05.html">
+ <span class="dropdown-text">Week 5</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../weekly-logs/week06.html">
+ <span class="dropdown-text">Week 6</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../weekly-logs/week07.html">
+ <span class="dropdown-text">Week 7</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../weekly-logs/week08.html">
+ <span class="dropdown-text">Week 8</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../weekly-logs/week09.html">
+ <span class="dropdown-text">Week 9</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a>
+  <ul>
+  <li><a href="#daily-log" id="toc-daily-log" class="nav-link" data-scroll-target="#daily-log">Daily Log</a>
+  <ul>
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section">22-09-2025</a></li>
+  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1">22-09-2025</a></li>
+  <li><a href="#section-2" id="toc-section-2" class="nav-link" data-scroll-target="#section-2">24-09-2025</a></li>
+  <li><a href="#section-3" id="toc-section-3" class="nav-link" data-scroll-target="#section-3">25-09-2025</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Week 09: Reannotate IS from EC958, Run PseudoR, and compare effect prediction from eris in complete and draft assembly</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="overview" class="level1">
+<h1>Overview</h1>
+<section id="daily-log" class="level2">
+<h2 class="anchored" data-anchor-id="daily-log">Daily Log</h2>
+<section id="section" class="level3">
+<h3 class="anchored" data-anchor-id="section">22-09-2025</h3>
+<ul>
+<li><p>Weekly project meeting</p>
+<ul>
+<li>Dimas will reannoate IS from EC958. Adding newly detected IS that are confrimed as true IS. Also, if there are two same IS copies, adding suffix <code>_1</code>, <code>_2</code>, etc.</li>
+<li>Run pseudoR on EC958 genome, and parse the result in a way that can have ISfinder nomenclature</li>
+<li>Run isescan on the bacterial genome from Hall et all paper, and later run eris. Identify if any additional IS called by eris compared to isescan, and if any IS missed by eris relative to isescan result.</li>
+<li>Use isescan results as the “truthset”</li>
+<li>Compare IS effect prediction (such as upregulated and downregulated) between complete sequence and draft assembly</li>
+</ul></li>
+</ul>
+</section>
+<section id="section-1" class="level3">
+<h3 class="anchored" data-anchor-id="section-1">22-09-2025</h3>
+<ul>
+<li>Dimas has rewritten IS annotation of EC958, in a total of 49 IS elements identified in the chromosome sequence. For IS name with multiple copies, each copy is labeled with a suffix <code>_1</code>, <code>_2</code>, <code>_3</code>, and so on.</li>
+</ul>
+</section>
+<section id="section-2" class="level3">
+<h3 class="anchored" data-anchor-id="section-2">24-09-2025</h3>
+<ul>
+<li><p>I ran pseudoR with simulated EC958 reads using the complete EC958 chromosome as the reference. I also tried using simulated reads with the assembly contigs, and real reads with the complete chromosome. All these runs failed during the post-processing step when making the output. This is similar to issue <a href="https://github.com/joshuakirsch/pseudoR/issues/6">#6</a>. In these runs, some some trimmed reads are mapped to IS elements, but they were all filtered out in post-processing, so no entries were left, and the program gave an error. In other words, I suspect that there were no strong IS insertions detected by <code>pseudoR</code> in these cases.</p></li>
+<li><p>I aso tried to change the database to ISfinder sequence, but had no luck as well</p></li>
+<li><p>But when I used real read data with the assembly made from it, the run was successful.</p></li>
+</ul>
+<div id="b1b3569c" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>source pseudoR_single<span class="op">-</span>reference.sh sraList<span class="op">=</span>my<span class="op">-</span><span class="bu">list</span>.txt threads<span class="op">=</span><span class="dv">10</span> database<span class="op">=/</span>scratch<span class="op">/</span>user<span class="op">/</span>s4897040<span class="op">/</span>pseudoR <span class="op">\</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  dedupe<span class="op">=</span>..<span class="op">/</span>data<span class="op">/</span>ecoli958<span class="op">/</span>fastqs<span class="op">/</span> mode<span class="op">=</span>s reference<span class="op">=</span>..<span class="op">/</span>outputs<span class="op">/</span>spades<span class="op">-</span>isolates<span class="op">/</span>contigs.fasta <span class="op">\</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  read1_ending<span class="op">=</span>_1.fastq.gz read2_ending<span class="op">=</span>_2.fastq.gz IR_database<span class="op">=/</span>scratch<span class="op">/</span>user<span class="op">/</span>s4897040<span class="op">/</span>pseudoR</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>I tried to compare IS from ISOSDB that were detected by pseudoR with ISFinder. Since the authors mentioned that they use homology with ISFinder sequences (not exact matches) as one of their criteria when they building the ISOSDB, I also searched them using BLAST.</li>
+</ul>
+<div id="a244f4db" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># build ISfinder database (for blast)</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>makeblastdb <span class="op">-</span>dbtype nucl <span class="op">-</span><span class="kw">in</span> IS.fna</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="a20cb7f1" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># extract only the IS name field from the report</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>tail <span class="op">+</span><span class="dv">2</span>  ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>pseudoR<span class="op">-</span>outputs<span class="op">/</span>pseudoR_output.contig.tsv <span class="op">|</span> cut <span class="op">-</span>f <span class="dv">2</span> <span class="op">&gt;</span> ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>pseudoR<span class="op">-</span>outputs<span class="op">/</span>list_isosdb_names.txt</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># pull out the sequences from ISOSDB by IS name or header</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>seqkit grep <span class="op">-</span>n <span class="op">-</span>f ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>pseudoR<span class="op">-</span>outputs<span class="op">/</span>list_isosdb_names.txt ..<span class="op">/</span>..<span class="op">/</span>ISOSDB.V3.fna <span class="op">-</span>o ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>pseudoR<span class="op">-</span>outputs<span class="op">/</span>SRR5194982_pseudoR_ISOSDB.fna</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># blast ISOSDB sequence query to ISfinder, select only the max hit per query sequence</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>blastn <span class="op">-</span>query ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>pseudoR<span class="op">-</span>outputs<span class="op">/</span>SRR5194982_pseudoR_ISOSDB.fna <span class="op">-</span>db ..<span class="op">/</span>..<span class="op">/</span>eris<span class="op">/</span>src<span class="op">/</span>eris<span class="op">/</span>data<span class="op">/</span>IS.fna <span class="op">-</span>outfmt <span class="dv">6</span> <span class="op">-</span>evalue <span class="fl">1e-3</span> <span class="op">-</span>max_target_seqs <span class="dv">1</span> <span class="op">-</span>out SRR5194982_blast_ISOSDB_ISfinder.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="723a7d42" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>isosdb <span class="op">=</span> pd.read_csv(<span class="st">"../../data/ecoli/pseudoR-outputs/pseudoR_output.contig.tsv"</span>, sep<span class="op">=</span><span class="st">"</span><span class="ch">\t</span><span class="st">"</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>isosdb_blast <span class="op">=</span> pd.read_csv(<span class="st">"../SRR5194982_blast_ISOSDB_ISfinder.tsv"</span>,</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>sep<span class="op">=</span><span class="st">"</span><span class="ch">\t</span><span class="st">"</span>, header<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>names<span class="op">=</span>[<span class="st">"IS"</span>, <span class="st">"ISfinder name"</span>, <span class="st">"identity"</span>, <span class="st">"alignment length"</span>, <span class="st">"mismatches"</span>, <span class="st">"gap opens"</span>, <span class="st">"q. start"</span>, <span class="st">"q. end"</span>, <span class="st">"s. start"</span>, <span class="st">"s. end"</span>, <span class="st">"evalue"</span>, <span class="st">"bit score"</span>])</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Keep only the first occurrence of each IS, get the highest hit and lowest e value</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>isosdb_blast_uniq <span class="op">=</span> isosdb_blast.drop_duplicates(subset<span class="op">=</span>[<span class="st">"IS"</span>], keep<span class="op">=</span><span class="st">"first"</span>)</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co"># left join</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>isosdb_isfinder <span class="op">=</span> pd.merge(isosdb, isosdb_blast_uniq, on<span class="op">=</span><span class="st">"IS"</span>, how<span class="op">=</span><span class="st">"left"</span>)</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>isosdb_isfinder[[<span class="st">"IS"</span>, <span class="st">"ISfinder name"</span>, <span class="st">"contig"</span>, <span class="st">"Insertion_Position"</span>, <span class="st">"identity"</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="1">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">IS</th>
+<th data-quarto-table-cell-role="th">ISfinder name</th>
+<th data-quarto-table-cell-role="th">contig</th>
+<th data-quarto-table-cell-role="th">Insertion_Position</th>
+<th data-quarto-table-cell-role="th">identity</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>ISOSDB1225</td>
+<td>IS1203_IS3_IS51</td>
+<td>NODE_3_length_282336_cov_84.584237</td>
+<td>48</td>
+<td>97.786</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>ISOSDB14220</td>
+<td>ISEc12_IS21_unknown</td>
+<td>NODE_3_length_282336_cov_84.584237</td>
+<td>48</td>
+<td>99.920</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>ISOSDB15646</td>
+<td>ISEcp1_IS1380_unknown</td>
+<td>NODE_3_length_282336_cov_84.584237</td>
+<td>48</td>
+<td>99.459</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>ISOSDB1615</td>
+<td>ISEc23_IS66_unknown</td>
+<td>NODE_3_length_282336_cov_84.584237</td>
+<td>48</td>
+<td>97.671</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>ISOSDB19290</td>
+<td>IS682_IS66_unknown</td>
+<td>NODE_3_length_282336_cov_84.584237</td>
+<td>48</td>
+<td>99.645</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">5</td>
+<td>ISOSDB2061</td>
+<td>IS15_IS6_unknown</td>
+<td>NODE_54_length_10117_cov_197.199066</td>
+<td>56</td>
+<td>96.274</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">6</td>
+<td>ISOSDB20809</td>
+<td>ISEc23_IS66_unknown</td>
+<td>NODE_3_length_282336_cov_84.584237</td>
+<td>48</td>
+<td>100.000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">7</td>
+<td>ISOSDB4298</td>
+<td>ISEc8_IS66_unknown</td>
+<td>NODE_3_length_282336_cov_84.584237</td>
+<td>48</td>
+<td>99.372</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">8</td>
+<td>ISOSDB5455</td>
+<td>IS629_IS3_IS51</td>
+<td>NODE_3_length_282336_cov_84.584237</td>
+<td>48</td>
+<td>99.177</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">9</td>
+<td>ISOSDB5523</td>
+<td>NaN</td>
+<td>NODE_65_length_5110_cov_193.299505</td>
+<td>5023</td>
+<td>NaN</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">10</td>
+<td>ISOSDB7571</td>
+<td>IS6100_IS6_unknown</td>
+<td>NODE_3_length_282336_cov_84.584237</td>
+<td>48</td>
+<td>100.000</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">11</td>
+<td>ISOSDB8740</td>
+<td>ISEc38_ISL3_unknown</td>
+<td>NODE_3_length_282336_cov_84.584237</td>
+<td>48</td>
+<td>99.361</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p><code>pseudoR</code> detected IS in the EC958 much lower than <code>eris</code> and <code>isescan</code>. With one position seems to be inserted by different IS elements?</p>
+<p>Let’s check NODE_3 contigs from <code>eris</code></p>
+<div id="ffe5235c" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>eris scan ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>spades<span class="op">-</span>isolates<span class="op">/</span>contigs.fasta <span class="op">&gt;</span> eris<span class="op">-</span>outputs<span class="op">/</span>result_fasta_isolate.tsv</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>eris <span class="op">=</span> pd.read_csv(<span class="st">"eris-outputs/result_fasta_isolate.tsv"</span>, sep<span class="op">=</span><span class="st">"</span><span class="ch">\t</span><span class="st">"</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>eris[eris[<span class="st">"Contig"</span>] <span class="op">==</span> <span class="st">"NODE_3_length_282336_cov_84.584237"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="2">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Genome</th>
+<th data-quarto-table-cell-role="th">Feature</th>
+<th data-quarto-table-cell-role="th">Type</th>
+<th data-quarto-table-cell-role="th">Contig</th>
+<th data-quarto-table-cell-role="th">Start</th>
+<th data-quarto-table-cell-role="th">End</th>
+<th data-quarto-table-cell-role="th">Strand</th>
+<th data-quarto-table-cell-role="th">Partial</th>
+<th data-quarto-table-cell-role="th">Element</th>
+<th data-quarto-table-cell-role="th">Element_distance</th>
+<th data-quarto-table-cell-role="th">...</th>
+<th data-quarto-table-cell-role="th">Element_effect</th>
+<th data-quarto-table-cell-role="th">Percent_identity</th>
+<th data-quarto-table-cell-role="th">Percent_coverage</th>
+<th data-quarto-table-cell-role="th">Name</th>
+<th data-quarto-table-cell-role="th">Family</th>
+<th data-quarto-table-cell-role="th">Group</th>
+<th data-quarto-table-cell-role="th">Synonyms</th>
+<th data-quarto-table-cell-role="th">Origin</th>
+<th data-quarto-table-cell-role="th">IR</th>
+<th data-quarto-table-cell-role="th">DR</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+
+<p>0 rows × 22 columns</p>
+</div>
+</div>
+</div>
+<p>There is no IS detected in the NODE_3 contigs from <code>eris</code></p>
+<p>After reread the pipeline method described by the author on the paper and his clarification regarding undetected IS <a href="https://github.com/joshuakirsch/pseudoR/issues/9">here</a>, it appears that pseudoR is primarily intended to detect the movement of IS elements, such as novel insertions, excisions, or differences in insertion sites between samples and a reference, rather than to simply identify the presence of IS elements in a genome.</p>
+<p><img src="pictures/pseudoR-pipeline.png" class="img-fluid"></p>
+</section>
+<section id="section-3" class="level3">
+<h3 class="anchored" data-anchor-id="section-3">25-09-2025</h3>
+<ul>
+<li>Run <code>isescan</code> on asssemblies data from <a href="https://elifesciences.org/articles/98300">Hall et al</a>.</li>
+</ul>
+<div id="97865e36" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>ssubmit <span class="op">-</span>m <span class="dv">64</span><span class="er">g</span> <span class="op">-</span>t <span class="dv">1</span><span class="er">d</span> isescan<span class="op">-</span>more <span class="st">"ls ../data/more-bacteria/assemblies/ncbi_dataset/data/*/*.fna | parallel -j 4 isescan.py --seqfile </span><span class="sc">{}</span><span class="st"> --output isescan --nthread 2"</span> <span class="op">--</span> <span class="op">-</span>c <span class="dv">12</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>Also, because the outputs from <code>isescan</code> doesnt give us the IS name, I need to extrarct the sequences detected as IS elements and map them into ISfinder, using blast?</li>
+</ul>
+<div id="57ac4b18" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get the fasta generated by isescan to have sequence identifiers by their IS cluster</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>awk <span class="st">'/^&gt;/{print "&gt;" $2; next} </span><span class="sc">{print}</span><span class="st">'</span> ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>isescan<span class="op">-</span>outputs<span class="op">/</span>chromosome<span class="op">/</span>EC958.fasta.<span class="kw">is</span>.fna <span class="op">&gt;</span> ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>isescan<span class="op">-</span>outputs<span class="op">/</span>chromosome<span class="op">/</span>EC958.fasta.<span class="kw">is</span>.cluster.fna</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># blast isescan IS query to ISfinder, select only the max hit per query sequence</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>blastn <span class="op">-</span>query ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>isescan<span class="op">-</span>outputs<span class="op">/</span>chromosome<span class="op">/</span>EC958.fasta.<span class="kw">is</span>.cluster.fna <span class="op">-</span>db ..<span class="op">/</span>..<span class="op">/</span>eris<span class="op">/</span>src<span class="op">/</span>eris<span class="op">/</span>data<span class="op">/</span>IS.fna <span class="op">-</span>outfmt <span class="dv">6</span> <span class="op">-</span>evalue <span class="fl">1e-3</span> <span class="op">-</span>max_target_seqs <span class="dv">1</span> <span class="op">-</span>out EC958_blast_isescan_ISfinder.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Warning: [blastn] Examining 5 or more matches is recommended</code></pre>
+</div>
+</div>
+<div id="5bf26966" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>isescan <span class="op">=</span> pd.read_csv(<span class="st">"../../data/ecoli/isescan-outputs/chromosome/EC958.fasta.tsv"</span>, sep<span class="op">=</span><span class="st">"</span><span class="ch">\t</span><span class="st">"</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>isescan_blast <span class="op">=</span> pd.read_csv(<span class="st">"EC958_blast_isescan_ISfinder.txt"</span>,</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>sep<span class="op">=</span><span class="st">"</span><span class="ch">\t</span><span class="st">"</span>, header<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>names<span class="op">=</span>[<span class="st">"cluster"</span>, <span class="st">"ISfinder name"</span>, <span class="st">"identity"</span>, <span class="st">"alignment length"</span>, <span class="st">"mismatches"</span>, <span class="st">"gap opens"</span>, <span class="st">"q. start"</span>, <span class="st">"q. end"</span>, <span class="st">"s. start"</span>, <span class="st">"s. end"</span>, <span class="st">"evalue"</span>, <span class="st">"bit score"</span>])</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Keep only the first occurrence of each IS, get the highest hit and lowest e value</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>isescan_blast_uniq <span class="op">=</span> isescan_blast.drop_duplicates(subset<span class="op">=</span>[<span class="st">"cluster"</span>], keep<span class="op">=</span><span class="st">"first"</span>)</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="co"># left join</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>isescan_isfinder <span class="op">=</span> pd.merge(isescan, isescan_blast_uniq, on<span class="op">=</span><span class="st">"cluster"</span>, how<span class="op">=</span><span class="st">"left"</span>)</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(isescan_isfinder[[<span class="st">"cluster"</span>, <span class="st">"family"</span>, <span class="st">"ISfinder name"</span>, <span class="st">"isBegin"</span>, <span class="st">"isEnd"</span>]].to_string())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                                  cluster       family             ISfinder name  isBegin    isEnd
+0                               ISNCY_229        ISNCY                       NaN   159493   161146
+1                                 IS66_46         IS66       ISEc23_IS66_unknown   233728   236259
+2       IS481_30|IS481||protein:vir:99858        IS481                       NaN  1034454  1036664
+3                                IS21_259         IS21       ISSen3_IS21_unknown  1371086  1371765
+4                                 IS3_176          IS3           ISEc24_IS3_IS51  1372288  1373517
+5                                 IS4_107          IS4               IS4_IS4_IS4  1417460  1418638
+6                                IS21_259         IS21       ISSen3_IS21_unknown  1444418  1445660
+7                                 IS21_35         IS21       ISEc12_IS21_unknown  1479960  1482540
+8                                 new_343          new                       NaN  1486631  1488115
+9                               ISAS1_192        ISAS1       ISEc1_ISAs1_unknown  1647529  1648819
+10                                 IS3_61          IS3          IS1397_IS3_IS150  1997589  2000056
+11                        IS200/IS605_138  IS200/IS605   IS609_IS200/IS605_IS605  2103785  2104270
+12                        IS200/IS605_449  IS200/IS605   IS609_IS200/IS605_IS605  2104066  2104614
+13                                 IS3_61          IS3          IS1397_IS3_IS150  2135366  2136797
+14                        IS200/IS605_384  IS200/IS605  IS200C_IS200/IS605_IS200  2142424  2143166
+15                               IS66_345         IS66       ISEc23_IS66_unknown  2238949  2239538
+16  ISL3_265|ISL3||protein:plasmid:123177         ISL3       ISEc38_ISL3_unknown  2244045  2245810
+17                              IS110_139        IS110      ISEc20_IS110_unknown  2248964  2250341
+18  IS66_379|IS66||protein:plasmid:117438         IS66     IS100kyp_IS21_unknown  2252181  2254232
+19                                IS66_46         IS66       ISEc23_IS66_unknown  2265834  2268365
+20                                IS21_35         IS21       ISEc12_IS21_unknown  2271110  2273690
+21                        IS200/IS605_384  IS200/IS605  IS200C_IS200/IS605_IS200  2284843  2286985
+22                                IS1_316          IS1          IS1R_IS1_unknown  2384715  2385482
+23                              ISNCY_229        ISNCY                       NaN  2553738  2554524
+24                              ISNCY_229        ISNCY                       NaN  2554640  2554861
+25                                IS21_35         IS21       ISEc12_IS21_unknown  3111848  3114428
+26                                IS1_316          IS1          IS1R_IS1_unknown  3288120  3288887
+27                                IS1_316          IS1          IS1R_IS1_unknown  3290147  3290914
+28                                IS3_355          IS3           IS1203_IS3_IS51  3293652  3294446
+29                               ISL3_158         ISL3       ISKox3_ISL3_unknown  3294831  3296342
+30                                IS3_176          IS3           ISEc24_IS3_IS51  3314412  3315290
+31                                 IS3_61          IS3          IS1397_IS3_IS150  3316110  3316705
+32                              IS110_170        IS110       ISEc45_IS110_IS1111  3318363  3318635
+33                                IS3_422          IS3               IS2_IS3_IS2  3323698  3325011
+34                                IS66_46         IS66       ISEc23_IS66_unknown  3335419  3338203
+35                              IS110_236        IS110     ISKpn42_IS110_unknown  3360116  3360271
+36                                IS21_69         IS21       ISEc10_IS21_unknown  3360625  3362087
+37                                IS3_176          IS3           ISEc24_IS3_IS51  3558821  3559602
+38                        IS200/IS605_138  IS200/IS605   IS609_IS200/IS605_IS605  3820357  3821788
+39                                IS1_316          IS1          IS1R_IS1_unknown  4140079  4140846
+40                               IS66_345         IS66       ISEc23_IS66_unknown  4155496  4158244
+41                                IS3_355          IS3           IS1203_IS3_IS51  4158787  4159646
+42                                IS66_46         IS66       ISEc23_IS66_unknown  4159760  4160646
+43                                IS66_43         IS66       ISEc49_IS66_unknown  4161018  4162430
+44                                IS66_43         IS66       ISEc49_IS66_unknown  4162210  4163858
+45                                IS66_46         IS66       ISEc23_IS66_unknown  4172115  4174106
+46                               IS21_259         IS21       ISSen3_IS21_unknown  4175108  4177238
+47                              ISNCY_229        ISNCY                       NaN  4177331  4177993
+48                               IS21_259         IS21       ISSen3_IS21_unknown  4240410  4242477
+49                              ISNCY_229        ISNCY                       NaN  4367071  4368653
+50                                 IS4_84          IS4           ISEc13_IS4_IS50  4916195  4916410
+51                                IS3_461          IS3            ISLad1_IS3_IS3  4922996  4923172
+52                                IS66_46         IS66       ISEc23_IS66_unknown  4925089  4927620
+53                             IS1380_141       IS1380     ISEcp1_IS1380_unknown  4937655  4938777
+54                                IS5_112          IS5               IS5_IS5_IS5  4938926  4940150
+55                                IS3_176          IS3           ISEc24_IS3_IS51  4942385  4943586
+56                                IS3_176          IS3           ISEc24_IS3_IS51  4943654  4944431
+57                                IS1_316          IS1          IS1R_IS1_unknown  4953116  4953883
+58                                IS3_168          IS3            IS629_IS3_IS51  4954028  4954286
+59                                IS66_46         IS66       ISEc23_IS66_unknown  4955955  4957396
+60                               IS66_393         IS66        ISEc8_IS66_unknown  4957255  4958170
+61                                IS21_35         IS21       ISEc12_IS21_unknown  4971829  4974409
+62                                IS3_176          IS3           ISEc24_IS3_IS51  5007358  5008139
+63                               ISL3_158         ISL3       ISKox3_ISL3_unknown  5014358  5016462
+64                               IS21_259         IS21       ISSen3_IS21_unknown  5068718  5069923</code></pre>
+</div>
+</div>
+
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/adimascf\.github\.io\/logbook-IS\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
