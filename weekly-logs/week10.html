@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Week 08: Playing around with minimap2 settings and downloaded bacterial genomes – IS Project Logbook</title>
+<title>Week 10: Tested eris and collapseis in the real data, and tried to compare effect prediction – IS Project Logbook</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -58,7 +58,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -102,6 +102,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
 </head>
@@ -190,9 +193,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#daily-log" id="toc-daily-log" class="nav-link" data-scroll-target="#daily-log">Daily Log</a>
   <ul>
-  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section">15-09-2025</a></li>
-  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1">18-09-2025</a></li>
-  <li><a href="#section-2" id="toc-section-2" class="nav-link" data-scroll-target="#section-2">19-09-2025</a></li>
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section">29-09-2025</a></li>
+  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1">30-09-2025</a>
+  <ul>
+  <li><a href="#tried-run-eris-and-collapseis-on-real-reads-genome-assembly-result" id="toc-tried-run-eris-and-collapseis-on-real-reads-genome-assembly-result" class="nav-link" data-scroll-target="#tried-run-eris-and-collapseis-on-real-reads-genome-assembly-result">Tried run eriS and collapseis on real reads genome assembly result</a></li>
+  </ul></li>
   </ul></li>
   </ul></li>
   </ul>
@@ -203,7 +208,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Week 08: Playing around with minimap2 settings and downloaded bacterial genomes</h1>
+<h1 class="title">Week 10: Tested eris and collapseis in the real data, and tried to compare effect prediction</h1>
 </div>
 
 
@@ -225,75 +230,316 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="daily-log" class="level2">
 <h2 class="anchored" data-anchor-id="daily-log">Daily Log</h2>
 <section id="section" class="level3">
-<h3 class="anchored" data-anchor-id="section">15-09-2025</h3>
+<h3 class="anchored" data-anchor-id="section">29-09-2025</h3>
 <ul>
-<li><p>Weekly project meeting</p></li>
-<li><p>All the IS that eris missed are truncated sequences. I will extract the sequences from the chromosome and play around with minimap2 settings in eris to understand why they were missed. Try to change the preset setting, maybe it is more appropiate</p></li>
-<li><p>For fragmented IS spread across multiple contigs, I wrote a module using a graph traversal approach to collapse them and quantify their copy numbers. It works quite well on some identified IS and can correct both undercounted and overcounted IS from contigs.</p></li>
-<li><p><code>FragGeneScan</code> has better sensitivity, but lower precision compared to <code>pyrodigal</code> on EC958. It is because <code>FragGeneScan</code> can predict on the truncated ORF sequence?</p></li>
-<li><p>Use <a href="https://en.wikipedia.org/wiki/F-score">F1</a> score to include the balance of senisitivity and precision.</p></li>
-<li><p>Dimas will read through <a href="https://doi.org/10.7554/eLife.98300.3">Michael’s paper</a> and download the dataset</p></li>
+<li>Weekly project meeting
+<ul>
+<li>Dimas walk trough graph collapsing algorithm and disccussed about complicated result from <code>pseudoR</code></li>
+<li>Dimas will try to perform comparing ISOSDB with ISfinder, by try to “blast” ISOSDB sequences againts ISfinder, look to answer how similar ar they? what sequneces completetly not similar with ISfinder sequences.</li>
+<li>Dimas will compare effect prediction result between eris output from complete sequence and draft assembly.</li>
+<li>Do not use Eris in hte meantime until changes coompleted by Tom.</li>
+<li>Dimas needs to start writing the report and prepare the poster</li>
+</ul></li>
 </ul>
 </section>
 <section id="section-1" class="level3">
-<h3 class="anchored" data-anchor-id="section-1">18-09-2025</h3>
-<ul>
-<li><p>Tried different preset on <code>minimap2</code> when aligning IS sequences against the input complete chromosome sequence</p>
-<ul>
-<li>preset <code>minimap2</code> default, <code>lr:hq</code>, and <code>asm5</code> still don’t find IS that missed by eris on the complete EC958 sequence. Using <code>sr</code> ( Short-read alignment without splicing), minimap can detect the missed IS</li>
-</ul>
-<div id="fd2aa743" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># convert paf file to bed, for easy checking</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>awk <span class="op">-</span>v OFS<span class="op">=</span><span class="st">"</span><span class="ch">\t</span><span class="st">"</span> <span class="st">'{print $6, $8, $9, $1, $11/$2}'</span> ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>minimap2<span class="op">-</span>preset<span class="op">/</span>sr_chromosome_minimap2.paf <span class="op">|</span> bedtools sort <span class="op">-</span>i <span class="op">-</span> <span class="op">&gt;</span> ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>minimap2<span class="op">-</span>preset<span class="op">/</span>sr_chromosome_minimap2.bed</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># intersect missed IS with sr minimap2 bed file</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>bedtools intersect <span class="op">-</span>a ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>ec958_IS.bed <span class="op">-</span>b eris<span class="op">-</span>outputs<span class="op">/</span>chromosome_fasta.bed <span class="op">-</span>v <span class="op">|</span> bedtools intersect <span class="op">-</span>a <span class="op">-</span> <span class="op">-</span>b ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>minimap2<span class="op">-</span>preset<span class="op">/</span>sr_chromosome_minimap2.bed <span class="op">-</span>wb</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<h3 class="anchored" data-anchor-id="section-1">30-09-2025</h3>
+<section id="tried-run-eris-and-collapseis-on-real-reads-genome-assembly-result" class="level4">
+<h4 class="anchored" data-anchor-id="tried-run-eris-and-collapseis-on-real-reads-genome-assembly-result">Tried run eriS and collapseis on real reads genome assembly result</h4>
+<div id="7ccb3976" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> eris.scan <span class="im">import</span> Scanner</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> eris.io <span class="im">import</span> SeqFile</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># scan IS in the contigs</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> Path(<span class="st">'../../data/ecoli/realfqs-shovill/contigs.gfa'</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> Scanner() <span class="im">as</span> scanner:</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    eris_result <span class="op">=</span> <span class="bu">list</span>(scanner.scan(p))</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>gfa_eris <span class="op">=</span> eris_result[<span class="dv">0</span>]</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># load the genome graph</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>graph_assembly <span class="op">=</span> SeqFile(<span class="st">"../../data/ecoli/realfqs-shovill/contigs.gfa"</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>graph_assembly.close()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="74687ec5" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collapse <span class="im">import</span> collapseis</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>is_eris <span class="op">=</span> collapseis(gfa_eris, graph_assembly)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>HG941718.1  2104183 2104431 truncated at both ends 95% identical to IS609 from  0   +   HG941718.1  2104183 2104431 IS609_IS200/IS605_IS605/1   0.141876
-HG941718.1  2104183 2104431 truncated at both ends 95% identical to IS609 from  0   +   HG941718.1  2104183 2104431 IS609_IS200/IS605_IS605/2   0.141876
-HG941718.1  4943805 4943830 truncated at left end by IS600 95% identical to 0   +   HG941718.1  4943805 4943830 ISBrsa1_IS3_IS3 0.020016</code></pre>
+<pre><code>Looks like the IS contigs graph is circular
+Looks like the IS contigs graph is circular
+Looks like the IS contigs graph is circular
+Looks like the IS contigs graph is circular
+Looks like the IS contigs graph is circular
+Looks like the IS contigs graph is circular
+Looks like the IS contigs graph is circular
+Looks like the IS contigs graph is circular
+Looks like the IS contigs graph is circular
+Looks like the IS contigs graph is circular</code></pre>
 </div>
-</div></li>
-</ul>
-<p>Using preset <code>rs</code>, it detects 2 of 4 missed IS, but with poor quality. It detected IS<em>609</em> in position G941718.1:2104183-2104431 that eris missed, but the coverage is very low (14%) of 664bp query length. Also, detected IS in position HG941718.1:4943805-4943830, but mistakenly identified as IS<em>Brsa1</em> with very low coverage of (2%), when ISfinder hit on IS<em>Ec52</em></p>
-<p>And how many overcalls? intersect <code>minimap2</code> result with “truth” IS coordinates, count how many etries from minimap2 have no overlap:</p>
-<div id="06600c75" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>bedtools intersect <span class="op">-</span>a ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>minimap2<span class="op">-</span>preset<span class="op">/</span>sr_chromosome_minimap2.bed <span class="op">-</span>b ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>ec958_IS.bed <span class="op">-</span>v <span class="op">|</span> wc <span class="op">-</span>l</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="d25bf967" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>is_eris <span class="op">=</span> <span class="bu">dict</span>(<span class="bu">sorted</span>(is_eris.items(), key<span class="op">=</span><span class="kw">lambda</span> x: x[<span class="dv">1</span>][<span class="op">-</span><span class="dv">1</span>], reverse<span class="op">=</span><span class="va">True</span>))</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>total_is <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> is_name, path_copies <span class="kw">in</span> is_eris.items():</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>is_name<span class="sc">}</span><span class="ss"> has </span><span class="sc">{</span>path_copies[<span class="dv">1</span>]<span class="sc">}</span><span class="ss"> copies with collapsed path: </span><span class="sc">{</span><span class="st">" -&gt; "</span><span class="sc">.</span>join(path_copies[<span class="dv">0</span>])<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  total_is <span class="op">+=</span> path_copies[<span class="dv">1</span>]</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(total_is)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>      52</code></pre>
+<pre><code>IS26 has 14 copies with collapsed path: 2421250
+IS15 has 13 copies with collapsed path: 2408206
+IS1A has 5 copies with collapsed path: 2417035 -&gt; 2420454 -&gt; 2421094
+ISEc23 has 4 copies with collapsed path: 2420614 -&gt; 2420442
+ISEc52 has 3 copies with collapsed path: 2410721 -&gt; 2420364
+ISEc12 has 3 copies with collapsed path: 2419454
+ISKpn14 has 2 copies with collapsed path: 1978901
+IS1F has 2 copies with collapsed path: 2059700 -&gt; 1197139 -&gt; 2382508 -&gt; 2380568
+ISEc9 has 2 copies with collapsed path: 2251149 -&gt; 2416999 -&gt; 2404970 -&gt; 2417323
+IS609 has 2 copies with collapsed path: 2261134 -&gt; 1914913 -&gt; 2419940
+IS600 has 2 copies with collapsed path: 2396236
+IS629 has 2 copies with collapsed path: 2402724 -&gt; 2400660 -&gt; 2417355
+ISSfl11 has 2 copies with collapsed path: 2419478 -&gt; 2406896
+ISSd1 has 2 copies with collapsed path: 2409810
+IS1B has 2 copies with collapsed path: 2416801
+ISErsp1 has 2 copies with collapsed path: 2418902
+IS6100 has 2 copies with collapsed path: 2419936
+IS1397 has 1 copies with collapsed path: 1130321 -&gt; 2379064
+ISSfl10 has 1 copies with collapsed path: 1686800
+ISEc8 has 1 copies with collapsed path: 2409674
+IS200C has 1 copies with collapsed path: 2421038 -&gt; 2368124
+IS1X1 has 1 copies with collapsed path: 2368768
+IS1541A has 1 copies with collapsed path: 2370398
+IS1203E has 1 copies with collapsed path: 2380052
+ISEc13 has 1 copies with collapsed path: 2416727
+ISEc22 has 1 copies with collapsed path: 2416987
+ISEc1 has 1 copies with collapsed path: 2418119
+ISCfr4 has 1 copies with collapsed path: 2418565
+ISSen3 has 1 copies with collapsed path: 2418565
+ISEc24 has 1 copies with collapsed path: 2418565
+IS4 has 1 copies with collapsed path: 2418565
+IS5 has 1 copies with collapsed path: 2418768
+IS1S has 1 copies with collapsed path: 2418770
+IS30 has 1 copies with collapsed path: 2418794
+IS1541D has 1 copies with collapsed path: 2418930
+IS3411 has 1 copies with collapsed path: 2419478
+ISKox3 has 1 copies with collapsed path: 2419478
+IS100kyp has 1 copies with collapsed path: 2419762
+ISEc20 has 1 copies with collapsed path: 2419762
+ISEc49 has 1 copies with collapsed path: 2419876
+ISCro1 has 1 copies with collapsed path: 2419960
+IS21 has 1 copies with collapsed path: 2419960
+ISEc38 has 1 copies with collapsed path: 2420170
+ISSen1 has 1 copies with collapsed path: 2420282
+IS682 has 1 copies with collapsed path: 2420316
+IS2 has 1 copies with collapsed path: 2420294
+ISEc83 has 1 copies with collapsed path: 2420294
+ISEc45 has 1 copies with collapsed path: 2420294
+ISEch14 has 1 copies with collapsed path: 2420294
+ISKpn37 has 1 copies with collapsed path: 2420448
+MITEEc1 has 1 copies with collapsed path: 2420624
+ISEc10 has 1 copies with collapsed path: 2420822
+ISKpn42 has 1 copies with collapsed path: 2420822
+ISEc53 has 1 copies with collapsed path: 2421188
+IS621 has 1 copies with collapsed path: 2421274
+102</code></pre>
 </div>
 </div>
-<p>More sensitive, but more prone to positive false.</p>
-<ul>
-<li>Eris map a list of IS nucleotide sequences against query sequence (can be contigs or, in this case, complete chromosome). However, if we treat the other way around. We map the complete sequence against the IS element sequences (as a reference). All four missed IS are identified by minimap2 (using default preset).. 🤔</li>
-</ul>
-<div id="632376f1" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># convert paf file to bed, for easy checking</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>awk <span class="op">-</span>v OFS<span class="op">=</span><span class="st">"</span><span class="ch">\t</span><span class="st">"</span> <span class="st">'{print $1, $3, $4, $6, $11/$7}'</span> ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>minimap2<span class="op">-</span>preset<span class="op">/</span>reversed_chromosome_minimap2.paf <span class="op">|</span> bedtools sort <span class="op">-</span>i <span class="op">-</span> <span class="op">&gt;</span> ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>minimap2<span class="op">-</span>preset<span class="op">/</span>reversed_chromosome_minimap2.bed</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># intersect missed IS with reversed minimap2 bed file</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>bedtools intersect <span class="op">-</span>a ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>ec958_IS.bed <span class="op">-</span>b eris<span class="op">-</span>outputs<span class="op">/</span>chromosome_fasta.bed <span class="op">-</span>v <span class="op">|</span> bedtools intersect <span class="op">-</span>a <span class="op">-</span> <span class="op">-</span>b ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>minimap2<span class="op">-</span>preset<span class="op">/</span>reversed_chromosome_minimap2.bed <span class="op">-</span>wb</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="37842cb6" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>eris_ec958chr <span class="op">=</span> pd.read_csv(<span class="st">"eris-outputs/chromosome_fasta.tsv"</span>, sep<span class="op">=</span><span class="st">"</span><span class="ch">\t</span><span class="st">"</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>eris_ec958chr <span class="op">=</span> eris_ec958chr[eris_ec958chr[<span class="st">'Type'</span>] <span class="op">==</span> <span class="st">"mobile_element"</span>]</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>eris_ec958chr[<span class="st">'Name'</span>].value_counts()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<pre><code>Name
+ISEc12      4
+ISEc23      3
+ISEc49      3
+IS1A        2
+ISEc9       2
+MITEEc1     2
+ISSd1       2
+IS1397      2
+IS200C      2
+ISEc52      2
+IS1F        2
+ISEc8       1
+ISKpn42     1
+ISEc10      1
+IS609       1
+IS629       1
+ISSen10     1
+IS5         1
+IS682       1
+ISCro1      1
+IS21        1
+ISEc13      1
+ISSen1      1
+ISEc22      1
+ISEch14     1
+IS2         1
+ISEc83      1
+ISCfr4      1
+ISSen3      1
+ISEc24      1
+IS4         1
+ISEc1       1
+IS621       1
+ISEc38      1
+ISEc20      1
+IS100kyp    1
+IS1R        1
+ISKpn37     1
+IS1203      1
+ISKox3      1
+IS30        1
+ISEc45      1
+ISEc53      1
+Name: count, dtype: int64</code></pre>
+</div>
+</div>
+<div id="dbb3be1a" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>eris scan ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>plasmid1ec958.fasta <span class="op">&gt;</span> eris<span class="op">-</span>outputs<span class="op">/</span>plasmid1_fasta.tsv</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>eris_ec958pla1 <span class="op">=</span> pd.read_csv(<span class="st">"eris-outputs/plasmid1_fasta.tsv"</span>, sep<span class="op">=</span><span class="st">"</span><span class="ch">\t</span><span class="st">"</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>eris_ec958pla1 <span class="op">=</span> eris_ec958pla1[eris_ec958pla1[<span class="st">'Type'</span>] <span class="op">==</span> <span class="st">"mobile_element"</span>]</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>eris_ec958pla1[<span class="st">'Name'</span>].value_counts()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="5">
+<pre><code>Name
+IS26       5
+IS15       2
+ISEc9      1
+IS1R       1
+IS15DII    1
+IS6100     1
+ISErsp1    1
+IS1A       1
+ISEc23     1
+Name: count, dtype: int64</code></pre>
+</div>
+</div>
+<p>When we compare the result from the draft assembly to the result from full chromosome sequence + plasmid sequence. It successfully find contigs path and correctly predict copy number for several IS elements, such as ISEc23, IS1F, ISSd1, and ISEc8, others are miscounted by 1 margin such as ISEc12, IS609, and ISEc9, others miscounted by big margin such as IS26 and IS15.</p>
+<p>Several contigs that have low coverage againts ISfinder sequences have very high depth, making it overestimated IS copies in total.</p>
+<div id="460483cf" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>eris scan ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>realfqs<span class="op">-</span>shovill<span class="op">/</span>contigs.gfa <span class="op">&gt;</span> eris<span class="op">-</span>outputs<span class="op">/</span>real_assembly_shovill.tsv</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>eris_real_gfa <span class="op">=</span> pd.read_csv(<span class="st">"eris-outputs/real_assembly_shovill.tsv"</span>, sep<span class="op">=</span><span class="st">"</span><span class="ch">\t</span><span class="st">"</span>)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>eris_real_gfa <span class="op">=</span> eris_real_gfa[eris_real_gfa[<span class="st">'Type'</span>] <span class="op">==</span> <span class="st">"mobile_element"</span>]</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>eris_real_gfa[eris_real_gfa[<span class="st">"Name"</span>].isin([<span class="st">"IS26"</span>, <span class="st">"IS15"</span>])]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="6">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Genome</th>
+<th data-quarto-table-cell-role="th">Feature</th>
+<th data-quarto-table-cell-role="th">Type</th>
+<th data-quarto-table-cell-role="th">Contig</th>
+<th data-quarto-table-cell-role="th">Start</th>
+<th data-quarto-table-cell-role="th">End</th>
+<th data-quarto-table-cell-role="th">Strand</th>
+<th data-quarto-table-cell-role="th">Partial</th>
+<th data-quarto-table-cell-role="th">Element</th>
+<th data-quarto-table-cell-role="th">Element_distance</th>
+<th data-quarto-table-cell-role="th">...</th>
+<th data-quarto-table-cell-role="th">Element_effect</th>
+<th data-quarto-table-cell-role="th">Percent_identity</th>
+<th data-quarto-table-cell-role="th">Percent_coverage</th>
+<th data-quarto-table-cell-role="th">Name</th>
+<th data-quarto-table-cell-role="th">Family</th>
+<th data-quarto-table-cell-role="th">Group</th>
+<th data-quarto-table-cell-role="th">Synonyms</th>
+<th data-quarto-table-cell-role="th">Origin</th>
+<th data-quarto-table-cell-role="th">IR</th>
+<th data-quarto-table-cell-role="th">DR</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">67</td>
+<td>contigs</td>
+<td>77253192-4854-4fcd-be16-c4ccf741b2ca</td>
+<td>mobile_element</td>
+<td>2408206</td>
+<td>0</td>
+<td>297</td>
+<td>1</td>
+<td>True</td>
+<td>77253192-4854-4fcd-be16-c4ccf741b2ca</td>
+<td>-</td>
+<td>...</td>
+<td>-</td>
+<td>100.0</td>
+<td>18.021844660194176</td>
+<td>IS15</td>
+<td>IS6</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>Salmonella panama</td>
+<td>14</td>
+<td>8</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">341</td>
+<td>contigs</td>
+<td>a0a43d3f-c122-4d49-9bd0-c43646d0e4f5</td>
+<td>mobile_element</td>
+<td>2421250</td>
+<td>0</td>
+<td>551</td>
+<td>1</td>
+<td>True</td>
+<td>a0a43d3f-c122-4d49-9bd0-c43646d0e4f5</td>
+<td>-</td>
+<td>...</td>
+<td>-</td>
+<td>100.0</td>
+<td>67.19512195121952</td>
+<td>IS26</td>
+<td>IS6</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>Proteus vulgaris</td>
+<td>14</td>
+<td>8</td>
+</tr>
+</tbody>
+</table>
+
+<p>2 rows × 22 columns</p>
+</div>
+</div>
+</div>
+<div id="da543d0c" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>grep <span class="op">-</span>E <span class="st">"IS26(_)?"</span> ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/*</span>.reanotated.bed <span class="co"># reanotated IS element of EC958</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>grep <span class="op">-</span>E <span class="st">"IS15(_)?"</span> ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/*</span>.reanotated.bed <span class="co"># reanotated IS element of EC958</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>HG941718.1  2103782 2104432 truncated at both ends 95% identical to IS609 from  0   +   HG941718.1  2103782 2104432 IS609_IS200/IS605_IS605 0.371854
-HG941718.1  3312822 3313143 truncated by IS30   0   +   HG941718.1  3312822 3315298 ISSd1_IS3_IS3   1.95735
-HG941718.1  4922975 4923150 truncated at right end of IS    0   +   HG941718.1  4922975 4923150 ISLad1_IS3_IS3  0.140112
-HG941718.1  4943671 4944385 truncated at left end by IS600 95% identical to 0   +   HG941718.1  4943671 4944385 ISEc52_IS3_IS3  0.572</code></pre>
+<pre><code>HG941719.1  36288   37108   IS26_1  0   +
+HG941719.1  37108   38748   IS26_2  0   -
+HG941719.1  43434   44254   IS26_3  0   -
+HG941719.1  75316   76136   IS26_4  0   +
+HG941719.1  86143   86963   IS26_5  0   +
+HG941719.1  98044   98864   IS26_6  0   -
+HG941719.1  102449  103269  IS26_7  0   +
+HG941719.1  105455  106275  IS26_8  0   -</code></pre>
 </div>
 </div>
-<ul>
-<li><p>By manually inspection, all copies of two missed IS that we decided as true IS elements, IS<em>609</em> and IS<em>Ec52</em> actually were corercty detected from input draft assembly.</p></li>
-<li><p>IS<em>609</em> has two copies in EC958 where at HG941718.1:2103782-2104446 and HG941718.1:3820313-3821771. The later that eris missed from input chromosome. From draft assembly (contigs), eris originally detected as 3 copies (see week 06), but after we collapse the graphs, it has indeed 2 copies ( see week 07).</p></li>
-<li><p>IS<em>Ec52</em> has three copies at HG941718.1:3558365-3559615, HG941718.1 5007344 5008594, and missed HG941718.1:4943671-4944385. When we give eris draft assembly as an input, 5 cointigs detected to have IS<em>Ec52</em>, and after the contigs is collapsed, it only has 2 copies (issue with nodes that have no indegree or no outdegree)</p></li>
-<li><p>question, can i rewrite IS annotations of EC958 so that each entry has single IS name?</p></li>
-</ul>
+<p>multiple copy of IS26 (cov 67%) elements do exist on the EC958 chrom + plasmid, but IS26 (cov 18%) do not exits.</p>
+<div id="2baa8e54" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>grep <span class="st">"mobile_element"</span> eris<span class="op">-</span>outputs<span class="op">/</span>real_assembly_shovill.tsv <span class="op">|</span> wc <span class="op">-</span>l</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     115</code></pre>
+</div>
+</div>
+<p>in total, eris predicted there 115 contigs that have IS elements on it.</p>
+<p>I think we can make ERIS more stringent by filtering out IS-detected sequences that show very low coverage against ISfinder. In the week 7 logbook, by manual inspection with blast, IS identified sequences that have low (&lt; 50%) coverage relatively also have low identity with ISfinder blast result.</p>
+<p>Also point to note as well, maybe it is too naive we use raw depth and median as proxy of the copy number, maybe some region in the genome just more easy to be sequence, so higher depth there doesn’t necessarily indicate multiple copies in the genome</p>
+
+
 </section>
-<section id="section-2" class="level3">
-<h3 class="anchored" data-anchor-id="section-2">19-09-2025</h3>
-<ul>
-<li>Downloaded assembly and annotation files and Illumina reads data from <a href="https://elifesciences.org/articles/98300#data">Hall M et al.</a></li>
-</ul>
-
-
 </section>
 </section>
 </section>
