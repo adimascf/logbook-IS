@@ -206,11 +206,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#section-2" id="toc-section-2" class="nav-link" data-scroll-target="#section-2">01-10-2025</a>
   <ul>
-  <li><a href="#compared-effect-prediction-between-result-from-full-chrom-and-from-draft-assemblycontigs" id="toc-compared-effect-prediction-between-result-from-full-chrom-and-from-draft-assemblycontigs" class="nav-link" data-scroll-target="#compared-effect-prediction-between-result-from-full-chrom-and-from-draft-assemblycontigs">Compared effect prediction between result from full chrom and from draft assembly/contigs</a>
+  <li><a href="#comparing-effect-prediction-between-result-from-full-chrom-and-from-draft-assemblycontigs" id="toc-comparing-effect-prediction-between-result-from-full-chrom-and-from-draft-assemblycontigs" class="nav-link" data-scroll-target="#comparing-effect-prediction-between-result-from-full-chrom-and-from-draft-assemblycontigs">Comparing effect prediction between result from full chrom and from draft assembly/contigs</a>
   <ul>
   <li><a href="#organised-each-is-name-with-their-corresponding-location-and-effect-prediction" id="toc-organised-each-is-name-with-their-corresponding-location-and-effect-prediction" class="nav-link" data-scroll-target="#organised-each-is-name-with-their-corresponding-location-and-effect-prediction">Organised each IS name with their corresponding location and effect prediction</a></li>
   <li><a href="#compared-them" id="toc-compared-them" class="nav-link" data-scroll-target="#compared-them">Compared them</a></li>
   </ul></li>
+  </ul></li>
+  <li><a href="#section-3" id="toc-section-3" class="nav-link" data-scroll-target="#section-3">03-10–2025</a>
+  <ul>
+  <li><a href="#comparing-isosdb-and-isfinder-sequences" id="toc-comparing-isosdb-and-isfinder-sequences" class="nav-link" data-scroll-target="#comparing-isosdb-and-isfinder-sequences">Comparing ISOSDB and ISfinder sequences</a></li>
   </ul></li>
   </ul></li>
   </ul></li>
@@ -260,7 +264,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="section-1">30-09-2025</h3>
 <section id="tried-run-eris-and-collapseis-on-real-reads-genome-assembly-result" class="level4">
 <h4 class="anchored" data-anchor-id="tried-run-eris-and-collapseis-on-real-reads-genome-assembly-result">Tried run eriS and collapseis on real reads genome assembly result</h4>
-<div id="a63b0879" class="cell" data-execution_count="1">
+<div id="d5102044" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> eris.scan <span class="im">import</span> Scanner</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> eris.io <span class="im">import</span> SeqFile</span>
@@ -276,7 +280,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>graph_assembly <span class="op">=</span> SeqFile(<span class="st">"../../data/ecoli/realfqs-shovill/contigs.gfa"</span>)</span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>graph_assembly.close()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="8d64a2a0" class="cell" data-execution_count="2">
+<div id="ecf743ca" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collapse <span class="im">import</span> collapseis</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>is_eris <span class="op">=</span> collapseis(gfa_eris, graph_assembly)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -292,7 +296,7 @@ Looks like the IS contigs graph is circular
 Looks like the IS contigs graph is circular</code></pre>
 </div>
 </div>
-<div id="ea112942" class="cell" data-scrollable="true" data-execution_count="3">
+<div id="7dcab211" class="cell" data-scrollable="true" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>is_eris <span class="op">=</span> <span class="bu">dict</span>(<span class="bu">sorted</span>(is_eris.items(), key<span class="op">=</span><span class="kw">lambda</span> x: x[<span class="dv">1</span>][<span class="op">-</span><span class="dv">1</span>], reverse<span class="op">=</span><span class="va">True</span>))</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>total_is <span class="op">=</span> <span class="dv">0</span></span>
@@ -306,20 +310,20 @@ Looks like the IS contigs graph is circular</code></pre>
 IS15 has 13 copies with collapsed path: 2408206
 IS1A has 5 copies with collapsed path: 2417035 -&gt; 2420454 -&gt; 2421094
 ISEc23 has 4 copies with collapsed path: 2420614 -&gt; 2420442
-ISEc52 has 3 copies with collapsed path: 2410721 -&gt; 2420364
+ISEc52 has 3 copies with collapsed path: 2410721 -&gt; 2419986
 ISEc12 has 3 copies with collapsed path: 2419454
 ISKpn14 has 2 copies with collapsed path: 1978901
-IS1F has 2 copies with collapsed path: 2059700 -&gt; 1197139 -&gt; 2382508 -&gt; 2380568
-ISEc9 has 2 copies with collapsed path: 2251149 -&gt; 2416999 -&gt; 2404970 -&gt; 2418864
+IS1F has 2 copies with collapsed path: 2059700 -&gt; 1197139 -&gt; 2420654 -&gt; 2380568
+ISEc9 has 2 copies with collapsed path: 2251149 -&gt; 2416999 -&gt; 2404970 -&gt; 2417323
 IS609 has 2 copies with collapsed path: 2261134 -&gt; 1914913 -&gt; 2419940
 IS600 has 2 copies with collapsed path: 2396236
-IS629 has 2 copies with collapsed path: 2402724 -&gt; 2400660 -&gt; 2417357
+IS629 has 2 copies with collapsed path: 2402724 -&gt; 2400660 -&gt; 2417355
 ISSfl11 has 2 copies with collapsed path: 2419478 -&gt; 2406896
 ISSd1 has 2 copies with collapsed path: 2409810
 IS1B has 2 copies with collapsed path: 2416801
 ISErsp1 has 2 copies with collapsed path: 2418902
 IS6100 has 2 copies with collapsed path: 2419936
-IS1397 has 1 copies with collapsed path: 1130321 -&gt; 2379064
+IS1397 has 1 copies with collapsed path: 1130321 -&gt; 2408214
 ISSfl10 has 1 copies with collapsed path: 1686800
 ISEc8 has 1 copies with collapsed path: 2409674
 IS200C has 1 copies with collapsed path: 2421038 -&gt; 2368124
@@ -363,7 +367,7 @@ IS621 has 1 copies with collapsed path: 2421274
 </section>
 <section id="lookup-is-elements-on-the-chromosome" class="level4">
 <h4 class="anchored" data-anchor-id="lookup-is-elements-on-the-chromosome">Lookup IS elements on the chromosome</h4>
-<div id="e7060e26" class="cell" data-execution_count="4">
+<div id="728f8698" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>eris_ec958chr <span class="op">=</span> pd.read_csv(<span class="st">"eris-outputs/chromosome_fasta.tsv"</span>, sep<span class="op">=</span><span class="st">"</span><span class="ch">\t</span><span class="st">"</span>)</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>eris_ec958chr <span class="op">=</span> eris_ec958chr[eris_ec958chr[<span class="st">'Type'</span>] <span class="op">==</span> <span class="st">"mobile_element"</span>]</span>
@@ -419,7 +423,7 @@ Name: count, dtype: int64</code></pre>
 </section>
 <section id="lookup-is-elements-on-the-plasmid" class="level4">
 <h4 class="anchored" data-anchor-id="lookup-is-elements-on-the-plasmid">Lookup IS elements on the plasmid</h4>
-<div id="103bdaf9" class="cell" data-execution_count="5">
+<div id="f451c417" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>eris scan ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>plasmid1ec958.fasta <span class="op">&gt;</span> eris<span class="op">-</span>outputs<span class="op">/</span>plasmid1_fasta.tsv</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>eris_ec958pla1 <span class="op">=</span> pd.read_csv(<span class="st">"eris-outputs/plasmid1_fasta.tsv"</span>, sep<span class="op">=</span><span class="st">"</span><span class="ch">\t</span><span class="st">"</span>)</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>eris_ec958pla1 <span class="op">=</span> eris_ec958pla1[eris_ec958pla1[<span class="st">'Type'</span>] <span class="op">==</span> <span class="st">"mobile_element"</span>]</span>
@@ -440,7 +444,7 @@ Name: count, dtype: int64</code></pre>
 </div>
 <p>When we compare the result from the draft assembly to the result from full chromosome sequence + plasmid sequence. It successfully find contigs path and correctly predict copy number for several IS elements, such as ISEc23, IS1F, ISSd1, and ISEc8, others are miscounted by 1 margin such as ISEc12, IS609, and ISEc9, others miscounted by big margin such as IS26 and IS15.</p>
 <p>Several contigs that have low coverage againts ISfinder sequences have very high depth, making it overestimated IS copies in total.</p>
-<div id="54358bf4" class="cell" data-execution_count="6">
+<div id="fe156ee1" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>eris scan ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>realfqs<span class="op">-</span>shovill<span class="op">/</span>contigs.gfa <span class="op">&gt;</span> eris<span class="op">-</span>outputs<span class="op">/</span>real_assembly_shovill.tsv</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>eris_real_gfa <span class="op">=</span> pd.read_csv(<span class="st">"eris-outputs/real_assembly_shovill.tsv"</span>, sep<span class="op">=</span><span class="st">"</span><span class="ch">\t</span><span class="st">"</span>)</span>
@@ -481,14 +485,14 @@ Name: count, dtype: int64</code></pre>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">67</td>
 <td>contigs</td>
-<td>38025f3f-db30-4729-8a65-24e85627f4bf</td>
+<td>4cbac30c-1d1b-4ad8-98c1-8d8dc912535f</td>
 <td>mobile_element</td>
 <td>2408206</td>
 <td>0</td>
 <td>297</td>
 <td>1</td>
 <td>True</td>
-<td>38025f3f-db30-4729-8a65-24e85627f4bf</td>
+<td>4cbac30c-1d1b-4ad8-98c1-8d8dc912535f</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -505,14 +509,14 @@ Name: count, dtype: int64</code></pre>
 <tr class="even">
 <td data-quarto-table-cell-role="th">341</td>
 <td>contigs</td>
-<td>08b395db-db99-495f-bd98-7c6ba4acfa84</td>
+<td>cbeb56a1-31be-45b5-918e-7ff00de7c79f</td>
 <td>mobile_element</td>
 <td>2421250</td>
 <td>0</td>
 <td>551</td>
 <td>1</td>
 <td>True</td>
-<td>08b395db-db99-495f-bd98-7c6ba4acfa84</td>
+<td>cbeb56a1-31be-45b5-918e-7ff00de7c79f</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -533,7 +537,7 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 </div>
-<div id="6f097e08" class="cell" data-execution_count="7">
+<div id="c50eece4" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>grep <span class="op">-</span>E <span class="st">"IS26(_)?"</span> ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/*</span>.reanotated.bed <span class="co"># reanotated IS elements of EC958</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>grep <span class="op">-</span>E <span class="st">"IS15(_)?"</span> ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/*</span>.reanotated.bed <span class="co"># reanotated IS elements of EC958</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -548,7 +552,7 @@ HG941719.1  105455  106275  IS26_8  0   -</code></pre>
 </div>
 </div>
 <p>multiple copy of IS26 (cov 67%) elements do exist on the EC958 chrom + plasmid, but IS26 (cov 18%) do not exits.</p>
-<div id="3742d74b" class="cell" data-execution_count="8">
+<div id="ca1de028" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>grep <span class="st">"mobile_element"</span> eris<span class="op">-</span>outputs<span class="op">/</span>real_assembly_shovill.tsv <span class="op">|</span> wc <span class="op">-</span>l</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     115</code></pre>
@@ -561,12 +565,12 @@ HG941719.1  105455  106275  IS26_8  0   -</code></pre>
 </section>
 <section id="section-2" class="level3">
 <h3 class="anchored" data-anchor-id="section-2">01-10-2025</h3>
-<section id="compared-effect-prediction-between-result-from-full-chrom-and-from-draft-assemblycontigs" class="level4">
-<h4 class="anchored" data-anchor-id="compared-effect-prediction-between-result-from-full-chrom-and-from-draft-assemblycontigs">Compared effect prediction between result from full chrom and from draft assembly/contigs</h4>
+<section id="comparing-effect-prediction-between-result-from-full-chrom-and-from-draft-assemblycontigs" class="level4">
+<h4 class="anchored" data-anchor-id="comparing-effect-prediction-between-result-from-full-chrom-and-from-draft-assemblycontigs">Comparing effect prediction between result from full chrom and from draft assembly/contigs</h4>
 <p>Since we can’t rely on genomic coordinates to compare the effects of a specific IS element at an exact insertion site, I instead use python <code>sets</code> to compare whether the predicted <code>element_location</code> and <code>element_effect</code> are the same between sources for each element.</p>
 <section id="organised-each-is-name-with-their-corresponding-location-and-effect-prediction" class="level5">
 <h5 class="anchored" data-anchor-id="organised-each-is-name-with-their-corresponding-location-and-effect-prediction">Organised each IS name with their corresponding location and effect prediction</h5>
-<div id="ae49a9f3" class="cell" data-execution_count="9">
+<div id="3a1b106c" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collections <span class="im">import</span> defaultdict</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co"># from chomosome sequence</span></span>
@@ -595,7 +599,7 @@ HG941719.1  105455  106275  IS26_8  0   -</code></pre>
 <span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a>        feature_type <span class="op">=</span> row[<span class="dv">2</span>]</span>
 <span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a>        elements_records_contigs[element].append([element_loc, element_effect, feature_type, isname])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="70eea278" class="cell" data-execution_count="10">
+<div id="7b3f63b6" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># for choromome</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>isname_records_chr <span class="op">=</span> defaultdict(<span class="kw">lambda</span>: defaultdict(<span class="bu">list</span>))</span>
@@ -636,7 +640,7 @@ HG941719.1  105455  106275  IS26_8  0   -</code></pre>
 </section>
 <section id="compared-them" class="level5">
 <h5 class="anchored" data-anchor-id="compared-them">Compared them</h5>
-<div id="2c9b6b62" class="cell" data-execution_count="11">
+<div id="9ab419d6" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"We found </span><span class="sc">{</span><span class="bu">len</span>(isname_records_chr)<span class="sc">}</span><span class="ss"> unique IS names from full chrom sequence input"</span>)</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"We found </span><span class="sc">{</span><span class="bu">len</span>(isname_records_contigs)<span class="sc">}</span><span class="ss"> unique IS names from contigs input"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -645,7 +649,7 @@ We found 49 unique IS names from contigs input</code></pre>
 </div>
 </div>
 <p>An element is considered concordant in the effect prediction if its predicted effects (in python <code>set</code>) are identical between the chromosome and contigs, and discordant otherwise.</p>
-<div id="9fbd52c6" class="cell" data-scrollable="true" data-execution_count="12">
+<div id="026d6d1d" class="cell" data-scrollable="true" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collections <span class="im">import</span> defaultdict</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>check_concordance <span class="op">=</span> defaultdict(<span class="bu">bool</span>)</span>
@@ -669,30 +673,29 @@ We found 49 unique IS names from contigs input</code></pre>
 <span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Compare sets for concordance</span></span>
 <span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a>    check_concordance[ins] <span class="op">=</span> (chr_effects <span class="op">==</span> contig_effects)</span>
 <span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Optional: print details</span></span>
-<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>ins<span class="sc">}</span><span class="ss">:"</span>)</span>
-<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  Chromosome effects: </span><span class="sc">{</span>chr_effects<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  Contig effects    : </span><span class="sc">{</span>contig_effects<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  Concordant        : </span><span class="sc">{</span>check_concordance[ins]<span class="sc">}</span><span class="ch">\n</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>ins<span class="sc">}</span><span class="ss">:"</span>)</span>
+<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  Chromosome effects: </span><span class="sc">{</span>chr_effects<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  Contig effects    : </span><span class="sc">{</span>contig_effects<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  Concordant        : </span><span class="sc">{</span>check_concordance[ins]<span class="sc">}</span><span class="ch">\n</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>ISEch14:
+<pre><code>IS600:
+  Chromosome effects: set()
+  Contig effects    : {('upstream', 'disrupted', 'CDS')}
+  Concordant        : False
+
+ISEc8:
+  Chromosome effects: {('upstream', 'disrupted', 'CDS')}
+  Contig effects    : set()
+  Concordant        : False
+
+ISEc22:
   Chromosome effects: {('downstream', 'disrupted', 'CDS')}
   Contig effects    : set()
   Concordant        : False
 
-IS200C:
-  Chromosome effects: {('upstream', 'disrupted', 'CDS'), ('downstream', 'disrupted', 'CDS')}
-  Contig effects    : {('upstream', 'disrupted', 'CDS')}
-  Concordant        : False
-
-IS2:
+ISEc24:
   Chromosome effects: {('upstream', 'disrupted', 'CDS')}
   Contig effects    : {('upstream', 'disrupted', 'CDS')}
-  Concordant        : True
-
-ISSen3:
-  Chromosome effects: {('upstream', 'disrupted', 'CDS'), ('downstream', 'disrupted', 'CDS')}
-  Contig effects    : {('upstream', 'disrupted', 'CDS'), ('downstream', 'disrupted', 'CDS')}
   Concordant        : True
 
 ISEc10:
@@ -700,104 +703,29 @@ ISEc10:
   Contig effects    : set()
   Concordant        : True
 
-IS1X2:
-  Chromosome effects: set()
-  Contig effects    : set()
+IS609:
+  Chromosome effects: {('downstream', 'disrupted', 'CDS'), ('upstream', 'disrupted', 'CDS')}
+  Contig effects    : {('downstream', 'disrupted', 'CDS'), ('upstream', 'disrupted', 'CDS')}
   Concordant        : True
 
-IS1203:
-  Chromosome effects: set()
-  Contig effects    : set()
-  Concordant        : True
-
-IS3411:
-  Chromosome effects: set()
-  Contig effects    : {('upstream', 'disrupted', 'CDS')}
-  Concordant        : False
-
-ISCfr4:
-  Chromosome effects: {('upstream', 'disrupted', 'CDS')}
-  Contig effects    : {('upstream', 'disrupted', 'CDS')}
-  Concordant        : True
-
-ISEc45:
-  Chromosome effects: set()
-  Contig effects    : set()
-  Concordant        : True
-
-ISSen1:
-  Chromosome effects: {('downstream', 'disrupted', 'CDS')}
-  Contig effects    : {('downstream', 'disrupted', 'CDS')}
-  Concordant        : True
-
-IS4:
-  Chromosome effects: {('upstream', 'disrupted', 'CDS'), ('downstream', 'disrupted', 'CDS')}
-  Contig effects    : {('upstream', 'disrupted', 'CDS'), ('downstream', 'disrupted', 'CDS')}
-  Concordant        : True
-
-IS5:
-  Chromosome effects: set()
-  Contig effects    : set()
-  Concordant        : True
-
-IS1A:
-  Chromosome effects: {('upstream', 'disrupted', 'CDS')}
-  Contig effects    : set()
-  Concordant        : False
-
-ISEc20:
-  Chromosome effects: set()
-  Contig effects    : set()
-  Concordant        : True
-
-IS600:
-  Chromosome effects: set()
-  Contig effects    : {('upstream', 'disrupted', 'CDS')}
-  Concordant        : False
-
-IS21:
-  Chromosome effects: {('upstream', 'disrupted', 'CDS')}
-  Contig effects    : {('upstream', 'disrupted', 'CDS')}
-  Concordant        : True
-
-IS911:
-  Chromosome effects: set()
-  Contig effects    : {('downstream', 'disrupted', 'CDS')}
-  Concordant        : False
-
-ISEc53:
-  Chromosome effects: set()
-  Contig effects    : set()
-  Concordant        : True
-
-IS682:
-  Chromosome effects: {('downstream', 'upregulated', 'CDS')}
-  Contig effects    : set()
-  Concordant        : False
-
-IS1397:
+ISSd1:
   Chromosome effects: {('downstream', 'disrupted', 'CDS'), ('upstream', 'disrupted', 'CDS')}
   Contig effects    : set()
   Concordant        : False
 
-ISEc52:
-  Chromosome effects: {('upstream', 'disrupted', 'CDS'), ('downstream', 'disrupted', 'CDS')}
-  Contig effects    : set()
+IS200C:
+  Chromosome effects: {('downstream', 'disrupted', 'CDS'), ('upstream', 'disrupted', 'CDS')}
+  Contig effects    : {('upstream', 'disrupted', 'CDS')}
   Concordant        : False
 
-ISEc47:
+ISEc43:
+  Chromosome effects: set()
+  Contig effects    : {('downstream', 'disrupted', 'CDS')}
+  Concordant        : False
+
+IS1541D:
   Chromosome effects: set()
   Contig effects    : set()
-  Concordant        : True
-
-ISEc1:
-  Chromosome effects: {('downstream', 'disrupted', 'CDS')}
-  Contig effects    : {('downstream', 'disrupted', 'CDS')}
-  Concordant        : True
-
-ISSen10:
-  Chromosome effects: {('upstream', 'disrupted', 'CDS'), ('downstream', 'disrupted', 'CDS')}
-  Contig effects    : {('upstream', 'disrupted', 'CDS'), ('downstream', 'disrupted', 'CDS')}
   Concordant        : True
 
 ISEc13:
@@ -805,40 +733,10 @@ ISEc13:
   Contig effects    : {('upstream', 'disrupted', 'CDS')}
   Concordant        : False
 
-IS621:
-  Chromosome effects: {('upstream', 'disrupted', 'CDS')}
-  Contig effects    : {('upstream', 'disrupted', 'CDS')}
+ISSen3:
+  Chromosome effects: {('downstream', 'disrupted', 'CDS'), ('upstream', 'disrupted', 'CDS')}
+  Contig effects    : {('downstream', 'disrupted', 'CDS'), ('upstream', 'disrupted', 'CDS')}
   Concordant        : True
-
-IS629:
-  Chromosome effects: {('upstream', 'disrupted', 'CDS')}
-  Contig effects    : set()
-  Concordant        : False
-
-ISEc23:
-  Chromosome effects: {('upstream', 'disrupted', 'CDS'), ('downstream', 'upregulated', 'CDS'), ('downstream', 'disrupted', 'CDS')}
-  Contig effects    : {('downstream', 'disrupted', 'CDS')}
-  Concordant        : False
-
-IS1F:
-  Chromosome effects: {('upstream', 'disrupted', 'CDS')}
-  Contig effects    : set()
-  Concordant        : False
-
-MITEEc1:
-  Chromosome effects: {('upstream', 'disrupted', 'CDS'), ('downstream', 'disrupted', 'CDS')}
-  Contig effects    : {('upstream', 'disrupted', 'CDS'), ('downstream', 'disrupted', 'CDS')}
-  Concordant        : True
-
-ISCro1:
-  Chromosome effects: set()
-  Contig effects    : set()
-  Concordant        : True
-
-ISEch5:
-  Chromosome effects: set()
-  Contig effects    : {('downstream', 'disrupted', 'CDS')}
-  Concordant        : False
 
 ISKpn42:
   Chromosome effects: set()
@@ -850,39 +748,54 @@ ISEc12:
   Contig effects    : set()
   Concordant        : False
 
-IS609:
-  Chromosome effects: {('upstream', 'disrupted', 'CDS'), ('downstream', 'disrupted', 'CDS')}
-  Contig effects    : {('downstream', 'disrupted', 'CDS'), ('upstream', 'disrupted', 'CDS')}
-  Concordant        : True
-
-ISEc83:
-  Chromosome effects: set()
+IS1A:
+  Chromosome effects: {('upstream', 'disrupted', 'CDS')}
   Contig effects    : set()
-  Concordant        : True
-
-ISEc49:
-  Chromosome effects: {('upstream', 'disrupted', 'CDS'), ('downstream', 'disrupted', 'CDS')}
-  Contig effects    : {('upstream', 'disrupted', 'CDS')}
   Concordant        : False
 
-ISKox3:
-  Chromosome effects: set()
+ISEc52:
+  Chromosome effects: {('downstream', 'disrupted', 'CDS'), ('upstream', 'disrupted', 'CDS')}
   Contig effects    : set()
-  Concordant        : True
+  Concordant        : False
 
-ISEc22:
+ISEc1:
   Chromosome effects: {('downstream', 'disrupted', 'CDS')}
-  Contig effects    : set()
-  Concordant        : False
+  Contig effects    : {('downstream', 'disrupted', 'CDS')}
+  Concordant        : True
 
-ISEc43:
+ISEc53:
+  Chromosome effects: set()
+  Contig effects    : set()
+  Concordant        : True
+
+IS100kyp:
+  Chromosome effects: set()
+  Contig effects    : set()
+  Concordant        : True
+
+IS911:
   Chromosome effects: set()
   Contig effects    : {('downstream', 'disrupted', 'CDS')}
   Concordant        : False
 
-ISEc24:
+IS5:
+  Chromosome effects: set()
+  Contig effects    : set()
+  Concordant        : True
+
+IS21:
   Chromosome effects: {('upstream', 'disrupted', 'CDS')}
   Contig effects    : {('upstream', 'disrupted', 'CDS')}
+  Concordant        : True
+
+IS1R:
+  Chromosome effects: {('downstream', 'disrupted', 'CDS'), ('upstream', 'disrupted', 'CDS')}
+  Contig effects    : set()
+  Concordant        : False
+
+IS4:
+  Chromosome effects: {('downstream', 'disrupted', 'CDS'), ('upstream', 'disrupted', 'CDS')}
+  Contig effects    : {('downstream', 'disrupted', 'CDS'), ('upstream', 'disrupted', 'CDS')}
   Concordant        : True
 
 ISEc38:
@@ -890,49 +803,139 @@ ISEc38:
   Contig effects    : set()
   Concordant        : True
 
-ISSd1:
-  Chromosome effects: {('upstream', 'disrupted', 'CDS'), ('downstream', 'disrupted', 'CDS')}
-  Contig effects    : set()
+ISEc49:
+  Chromosome effects: {('downstream', 'disrupted', 'CDS'), ('upstream', 'disrupted', 'CDS')}
+  Contig effects    : {('upstream', 'disrupted', 'CDS')}
   Concordant        : False
 
-IS100kyp:
-  Chromosome effects: set()
-  Contig effects    : set()
+MITEEc1:
+  Chromosome effects: {('downstream', 'disrupted', 'CDS'), ('upstream', 'disrupted', 'CDS')}
+  Contig effects    : {('downstream', 'disrupted', 'CDS'), ('upstream', 'disrupted', 'CDS')}
   Concordant        : True
-
-IS1541D:
-  Chromosome effects: set()
-  Contig effects    : set()
-  Concordant        : True
-
-IS30:
-  Chromosome effects: {('upstream', 'disrupted', 'CDS')}
-  Contig effects    : set()
-  Concordant        : False
-
-IS1R:
-  Chromosome effects: {('upstream', 'disrupted', 'CDS'), ('downstream', 'disrupted', 'CDS')}
-  Contig effects    : set()
-  Concordant        : False
 
 ISEc9:
   Chromosome effects: {('downstream', 'upregulated', 'CDS'), ('upstream', 'disrupted', 'CDS')}
   Contig effects    : {('downstream', 'upregulated', 'CDS'), ('upstream', 'disrupted', 'CDS')}
   Concordant        : True
 
-ISEc8:
+ISCro1:
+  Chromosome effects: set()
+  Contig effects    : set()
+  Concordant        : True
+
+IS682:
+  Chromosome effects: {('downstream', 'upregulated', 'CDS')}
+  Contig effects    : set()
+  Concordant        : False
+
+IS1X2:
+  Chromosome effects: set()
+  Contig effects    : set()
+  Concordant        : True
+
+ISSen10:
+  Chromosome effects: {('downstream', 'disrupted', 'CDS'), ('upstream', 'disrupted', 'CDS')}
+  Contig effects    : {('downstream', 'disrupted', 'CDS'), ('upstream', 'disrupted', 'CDS')}
+  Concordant        : True
+
+ISEc20:
+  Chromosome effects: set()
+  Contig effects    : set()
+  Concordant        : True
+
+IS621:
+  Chromosome effects: {('upstream', 'disrupted', 'CDS')}
+  Contig effects    : {('upstream', 'disrupted', 'CDS')}
+  Concordant        : True
+
+ISEch14:
+  Chromosome effects: {('downstream', 'disrupted', 'CDS')}
+  Contig effects    : set()
+  Concordant        : False
+
+ISCfr4:
+  Chromosome effects: {('upstream', 'disrupted', 'CDS')}
+  Contig effects    : {('upstream', 'disrupted', 'CDS')}
+  Concordant        : True
+
+ISSen1:
+  Chromosome effects: {('downstream', 'disrupted', 'CDS')}
+  Contig effects    : {('downstream', 'disrupted', 'CDS')}
+  Concordant        : True
+
+IS1F:
   Chromosome effects: {('upstream', 'disrupted', 'CDS')}
   Contig effects    : set()
+  Concordant        : False
+
+IS1397:
+  Chromosome effects: {('downstream', 'disrupted', 'CDS'), ('upstream', 'disrupted', 'CDS')}
+  Contig effects    : set()
+  Concordant        : False
+
+IS629:
+  Chromosome effects: {('upstream', 'disrupted', 'CDS')}
+  Contig effects    : set()
+  Concordant        : False
+
+ISKox3:
+  Chromosome effects: set()
+  Contig effects    : set()
+  Concordant        : True
+
+IS3411:
+  Chromosome effects: set()
+  Contig effects    : {('upstream', 'disrupted', 'CDS')}
+  Concordant        : False
+
+ISEch5:
+  Chromosome effects: set()
+  Contig effects    : {('downstream', 'disrupted', 'CDS')}
   Concordant        : False
 
 IS1B:
   Chromosome effects: set()
   Contig effects    : set()
   Concordant        : True
+
+ISEc47:
+  Chromosome effects: set()
+  Contig effects    : set()
+  Concordant        : True
+
+ISEc45:
+  Chromosome effects: set()
+  Contig effects    : set()
+  Concordant        : True
+
+IS2:
+  Chromosome effects: {('upstream', 'disrupted', 'CDS')}
+  Contig effects    : {('upstream', 'disrupted', 'CDS')}
+  Concordant        : True
+
+IS1203:
+  Chromosome effects: set()
+  Contig effects    : set()
+  Concordant        : True
+
+ISEc83:
+  Chromosome effects: set()
+  Contig effects    : set()
+  Concordant        : True
+
+ISEc23:
+  Chromosome effects: {('downstream', 'upregulated', 'CDS'), ('downstream', 'disrupted', 'CDS'), ('upstream', 'disrupted', 'CDS')}
+  Contig effects    : {('downstream', 'disrupted', 'CDS')}
+  Concordant        : False
+
+IS30:
+  Chromosome effects: {('upstream', 'disrupted', 'CDS')}
+  Contig effects    : set()
+  Concordant        : False
 </code></pre>
 </div>
 </div>
-<div id="242b8c44" class="cell" data-execution_count="13">
+<div id="531ce832" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Count True and False</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>count_true <span class="op">=</span> <span class="bu">sum</span>(check_concordance.values())</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>count_false <span class="op">=</span> <span class="bu">sum</span>(<span class="kw">not</span> v <span class="cf">for</span> v <span class="kw">in</span> check_concordance.values())</span>
@@ -942,9 +945,107 @@ IS1B:
 <pre><code>True: 29, False: 22</code></pre>
 </div>
 </div>
-
-
 </section>
+</section>
+</section>
+<section id="section-3" class="level3">
+<h3 class="anchored" data-anchor-id="section-3">03-10–2025</h3>
+<section id="comparing-isosdb-and-isfinder-sequences" class="level4">
+<h4 class="anchored" data-anchor-id="comparing-isosdb-and-isfinder-sequences">Comparing ISOSDB and ISfinder sequences</h4>
+<p>Create blast database for both sources, and blast ISOSDB againts ISfinder, and ISfinder againts ISOSDB. ISOSDB has</p>
+<div id="ac241e2a" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>makeblastdb <span class="op">-</span><span class="kw">in</span> ISOSDB.V3.fna <span class="op">-</span>dbtype nucl <span class="op">-</span>out ISOSDB</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>makeblastdb <span class="op">-</span><span class="kw">in</span> IS.fna <span class="op">-</span>dbtype nucl <span class="op">-</span>out ISfinder</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>blastn <span class="op">-</span>query ISOSDB.V3.fna <span class="op">-</span>db ISfinder <span class="op">-</span>task megablast <span class="op">-</span>outfmt <span class="st">"6 qseqid sseqid pident length qlen slen qstart qend sstart send evalue bitscore qcovs"</span> <span class="op">-</span>evalue <span class="fl">1e-6</span> <span class="op">-</span>max_target_seqs <span class="dv">1</span> <span class="op">-</span>num_threads <span class="dv">8</span> <span class="op">-</span>out isosdb_vs_isfinder.tsv</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>blastn <span class="op">-</span>query IS.fna <span class="op">-</span>db ISOSDB <span class="op">-</span>task megablast <span class="op">-</span>outfmt <span class="st">"6 qseqid sseqid pident length qlen slen qstart qend sstart send evalue bitscore qcovs"</span> <span class="op">-</span>evalue <span class="fl">1e-6</span> <span class="op">-</span>max_target_seqs <span class="dv">1</span> <span class="op">-</span>num_threads <span class="dv">8</span> <span class="op">-</span>out isfinder_vs_isosdb.tsv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Quick summary numbers from BLAST outputs</p>
+<div id="6d87c61c" class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> csv</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collections <span class="im">import</span> defaultdict</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>TOTAL_ISOSDB <span class="op">=</span> <span class="dv">22713</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>TOTAL_ISFINDER <span class="op">=</span> <span class="dv">5970</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> read_best_hits(tsv):</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>    best <span class="op">=</span> {}</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>    rows <span class="op">=</span> []</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> <span class="bu">open</span>(tsv) <span class="im">as</span> fh:</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> r <span class="kw">in</span> csv.reader(fh, delimiter<span class="op">=</span><span class="st">'</span><span class="ch">\t</span><span class="st">'</span>):</span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>            q, s, pident, length, qlen, slen, qstart, qend, sstart, send, evalue, bitscore, qcovs <span class="op">=</span> r</span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>            pident <span class="op">=</span> <span class="bu">float</span>(pident)<span class="op">;</span> qcovs <span class="op">=</span> <span class="bu">float</span>(qcovs)</span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>            best[q] <span class="op">=</span> (s, pident, qcovs)</span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>            rows.append((q,s,pident,qcovs))</span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> best, rows</span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>isosdb_best, isosdb_rows <span class="op">=</span> read_best_hits(<span class="st">'../../data/comparing-db/isosdb_vs_isfinder.tsv'</span>)</span>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a>isfinder_best, isfinder_rows <span class="op">=</span> read_best_hits(<span class="st">'../../data/comparing-db/isfinder_vs_isosdb.tsv'</span>)</span>
+<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a><span class="co">## without threshold</span></span>
+<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a>total1 <span class="op">=</span> <span class="bu">len</span>(isosdb_rows)</span>
+<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a>total2 <span class="op">=</span> <span class="bu">len</span>(isfinder_rows)</span>
+<span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-26"><a href="#cb24-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"=== Without threshold ==="</span>)</span>
+<span id="cb24-27"><a href="#cb24-27" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"ISOSDB -&gt; ISfinder: </span><span class="sc">{</span>total1<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>TOTAL_ISOSDB<span class="sc">}</span><span class="ss"> (</span><span class="sc">{</span><span class="dv">100</span><span class="op">*</span>total1<span class="op">/</span>TOTAL_ISOSDB<span class="sc">:.2f}</span><span class="ss">%)"</span>)</span>
+<span id="cb24-28"><a href="#cb24-28" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"ISfinder -&gt; ISOSDB: </span><span class="sc">{</span>total2<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>TOTAL_ISFINDER<span class="sc">}</span><span class="ss"> (</span><span class="sc">{</span><span class="dv">100</span><span class="op">*</span>total2<span class="op">/</span>TOTAL_ISFINDER<span class="sc">:.2f}</span><span class="ss">%)"</span>)</span>
+<span id="cb24-29"><a href="#cb24-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-30"><a href="#cb24-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-31"><a href="#cb24-31" aria-hidden="true" tabindex="-1"></a><span class="co"># thresholds</span></span>
+<span id="cb24-32"><a href="#cb24-32" aria-hidden="true" tabindex="-1"></a>ID_THRESH <span class="op">=</span> <span class="fl">90.0</span></span>
+<span id="cb24-33"><a href="#cb24-33" aria-hidden="true" tabindex="-1"></a>COV_THRESH <span class="op">=</span> <span class="fl">80.0</span></span>
+<span id="cb24-34"><a href="#cb24-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-35"><a href="#cb24-35" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> count_hits(rows, idt<span class="op">=</span>ID_THRESH, covt<span class="op">=</span>COV_THRESH):</span>
+<span id="cb24-36"><a href="#cb24-36" aria-hidden="true" tabindex="-1"></a>    passed <span class="op">=</span> [r <span class="cf">for</span> r <span class="kw">in</span> rows <span class="cf">if</span> r[<span class="dv">2</span>] <span class="op">&gt;=</span> idt <span class="kw">and</span> r[<span class="dv">3</span>] <span class="op">&gt;=</span> covt]</span>
+<span id="cb24-37"><a href="#cb24-37" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">len</span>(passed), <span class="bu">len</span>(rows), passed</span>
+<span id="cb24-38"><a href="#cb24-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-39"><a href="#cb24-39" aria-hidden="true" tabindex="-1"></a>hits1, total1, passed_rows1 <span class="op">=</span> count_hits(isosdb_rows)</span>
+<span id="cb24-40"><a href="#cb24-40" aria-hidden="true" tabindex="-1"></a>hits2, total2, passed_rows2 <span class="op">=</span> count_hits(isfinder_rows)</span>
+<span id="cb24-41"><a href="#cb24-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-42"><a href="#cb24-42" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">=== With threshold (≥90</span><span class="sc">% i</span><span class="st">dentity, ≥80</span><span class="sc">% c</span><span class="st">overage) ==="</span>)</span>
+<span id="cb24-43"><a href="#cb24-43" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"ISOSDB -&gt; ISfinder: </span><span class="sc">{</span>hits1<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>total1<span class="sc">}</span><span class="ss"> (</span><span class="sc">{</span><span class="dv">100</span><span class="op">*</span>hits1<span class="op">/</span>total1<span class="sc">:.2f}</span><span class="ss">%)"</span>)</span>
+<span id="cb24-44"><a href="#cb24-44" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"ISfinder -&gt; ISOSDB: </span><span class="sc">{</span>hits2<span class="sc">}</span><span class="ss">/</span><span class="sc">{</span>total2<span class="sc">}</span><span class="ss"> (</span><span class="sc">{</span><span class="dv">100</span><span class="op">*</span>hits2<span class="op">/</span>total2<span class="sc">:.2f}</span><span class="ss">%)"</span>)</span>
+<span id="cb24-45"><a href="#cb24-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-46"><a href="#cb24-46" aria-hidden="true" tabindex="-1"></a><span class="co"># Reciprocal Best Hit</span></span>
+<span id="cb24-47"><a href="#cb24-47" aria-hidden="true" tabindex="-1"></a>rbh <span class="op">=</span> []</span>
+<span id="cb24-48"><a href="#cb24-48" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> q, (s, p, c) <span class="kw">in</span> isosdb_best.items():</span>
+<span id="cb24-49"><a href="#cb24-49" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> s <span class="kw">in</span> isfinder_best <span class="kw">and</span> isfinder_best[s][<span class="dv">0</span>] <span class="op">==</span> q:</span>
+<span id="cb24-50"><a href="#cb24-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-51"><a href="#cb24-51" aria-hidden="true" tabindex="-1"></a>        <span class="co"># both are best for each other</span></span>
+<span id="cb24-52"><a href="#cb24-52" aria-hidden="true" tabindex="-1"></a>        rbh.append((q, s, p, c))</span>
+<span id="cb24-53"><a href="#cb24-53" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Reciprocal Best Hit count:"</span>, <span class="bu">len</span>(rbh))</span>
+<span id="cb24-54"><a href="#cb24-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-55"><a href="#cb24-55" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot histogram of percent identity (ISOSDB -&gt; ISfinder)</span></span>
+<span id="cb24-56"><a href="#cb24-56" aria-hidden="true" tabindex="-1"></a>pids <span class="op">=</span> [r[<span class="dv">2</span>] <span class="cf">for</span> r <span class="kw">in</span> isosdb_rows]</span>
+<span id="cb24-57"><a href="#cb24-57" aria-hidden="true" tabindex="-1"></a>plt.figure()</span>
+<span id="cb24-58"><a href="#cb24-58" aria-hidden="true" tabindex="-1"></a>plt.hist(pids, bins<span class="op">=</span><span class="dv">50</span>)</span>
+<span id="cb24-59"><a href="#cb24-59" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Percent identity (ISOSDB vs ISfinder best hit)'</span>)</span>
+<span id="cb24-60"><a href="#cb24-60" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Count'</span>)</span>
+<span id="cb24-61"><a href="#cb24-61" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Distribution of </span><span class="sc">% i</span><span class="st">dentity for ISOSDB ISfinder best hits'</span>)</span>
+<span id="cb24-62"><a href="#cb24-62" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>=== Without threshold ===
+ISOSDB -&gt; ISfinder: 9842/22713 (43.33%)
+ISfinder -&gt; ISOSDB: 3446/5970 (57.72%)
+
+=== With threshold (≥90% identity, ≥80% coverage) ===
+ISOSDB -&gt; ISfinder: 3649/9842 (37.08%)
+ISfinder -&gt; ISOSDB: 2241/3446 (65.03%)
+Reciprocal Best Hit count: 2466</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="week10_files/figure-html/cell-16-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+
+
 </section>
 </section>
 </section>
