@@ -1,5 +1,5 @@
 ---
-title: "Week 08: Playing around with minimap2 setting. Reading the Michael paper and download the their data"
+title: "Week 08: Playing around with minimap2 settings and downloaded bacterial genomes"
 format:
   html:
     toc: true
@@ -11,11 +11,11 @@ editor: visual
 
 ## Daily Log
 
-### 08-09-2025
+### 15-09-2025
 
 -   Weekly project meeting
 
--   All the IS that eris missed are truncated sequences. I will extract the sequences from the chromosome and play around with minimap2 settings in eris to understand why they were missed.
+-   All the IS that eris missed are truncated sequences. I will extract the sequences from the chromosome and play around with minimap2 settings in eris to understand why they were missed. Try to change the preset setting, maybe it is more appropiate
 
 -   For fragmented IS spread across multiple contigs, I wrote a module using a graph traversal approach to collapse them and quantify their copy numbers. It works quite well on some identified IS and can correct both undercounted and overcounted IS from contigs.
 
@@ -24,3 +24,49 @@ editor: visual
 -   Use [F1](https://en.wikipedia.org/wiki/F-score) score to include the balance of senisitivity and precision.
 
 -   Dimas will read through [Michael's paper](https://doi.org/10.7554/eLife.98300.3) and download the dataset
+
+### 18-09-2025
+
+-   Tried different preset on `minimap2` when aligning IS sequences against the input complete chromosome sequence
+
+    -   preset `minimap2` default, `lr:hq`, and `asm5` still don't find IS that missed by eris on the complete EC958 sequence. Using `sr` ( Short-read alignment without splicing), minimap can detect the missed IS
+
+    ```{python}
+    # convert paf file to bed, for easy checking
+    !awk -v OFS="\t" '{print $6, $8, $9, $1, $11/$2}' ../../data/ecoli/minimap2-preset/sr_chromosome_minimap2.paf | bedtools sort -i - > ../../data/ecoli/minimap2-preset/sr_chromosome_minimap2.bed
+
+    # intersect missed IS with sr minimap2 bed file
+    !bedtools intersect -a ../../data/ecoli/ec958_IS.bed -b eris-outputs/chromosome_fasta.bed -v | bedtools intersect -a - -b ../../data/ecoli/minimap2-preset/sr_chromosome_minimap2.bed -wb
+    ```
+
+Using preset `rs`, it detects 2 of 4 missed IS, but with poor quality. It detected IS*609* in position G941718.1:2104183-2104431 that eris missed, but the coverage is very low (14%) of 664bp query length. Also, detected IS in position HG941718.1:4943805-4943830, but mistakenly identified as IS*Brsa1* with very low coverage of (2%), when ISfinder hit on IS*Ec52*
+
+And how many overcalls? intersect `minimap2` result with "truth" IS coordinates, count how many etries from minimap2 have no overlap:
+
+```{python}
+!bedtools intersect -a ../../data/ecoli/minimap2-preset/sr_chromosome_minimap2.bed -b ../../data/ecoli/ec958_IS.bed -v | wc -l
+```
+
+More sensitive, but more prone to positive false.
+
+-   Eris map a list of IS nucleotide sequences against query sequence (can be contigs or, in this case, complete chromosome). However, if we treat the other way around. We map the complete sequence against the IS element sequences (as a reference). All four missed IS are identified by minimap2 (using default preset).. 🤔
+
+```{python}
+# convert paf file to bed, for easy checking
+!awk -v OFS="\t" '{print $1, $3, $4, $6, $11/$7}' ../../data/ecoli/minimap2-preset/reversed_chromosome_minimap2.paf | bedtools sort -i - > ../../data/ecoli/minimap2-preset/reversed_chromosome_minimap2.bed
+
+# intersect missed IS with reversed minimap2 bed file
+!bedtools intersect -a ../../data/ecoli/ec958_IS.bed -b eris-outputs/chromosome_fasta.bed -v | bedtools intersect -a - -b ../../data/ecoli/minimap2-preset/reversed_chromosome_minimap2.bed -wb
+```
+
+-   By manually inspection, all copies of two missed IS that we decided as true IS elements, IS*609* and IS*Ec52* actually were corercty detected from input draft assembly.
+
+-   IS*609* has two copies in EC958 where at HG941718.1:2103782-2104446 and HG941718.1:3820313-3821771. The later that eris missed from input chromosome. From draft assembly (contigs), eris originally detected as 3 copies (see week 06), but after we collapse the graphs, it has indeed 2 copies ( see week 07).
+
+-   IS*Ec52* has three copies at HG941718.1:3558365-3559615, HG941718.1 5007344 5008594, and missed HG941718.1:4943671-4944385. When we give eris draft assembly as an input, 5 cointigs detected to have IS*Ec52*, and after the contigs is collapsed, it only has 2 copies (issue with nodes that have no indegree or no outdegree)
+
+-   question, can i rewrite IS annotations of EC958 so that each entry has single IS name?
+
+### 19-09-2025
+
+-   Downloaded assembly and annotation files and Illumina reads data from [Hall M et al.](https://elifesciences.org/articles/98300#data)

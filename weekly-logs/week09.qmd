@@ -1,0 +1,166 @@
+---
+title: "Week 09: Reannotate IS from EC958, Run PseudoR, and annotated other assemblies data using isescan"
+format:
+  html:
+    toc: true
+    toc-depth: 8
+editor: visual
+---
+
+# Overview
+
+## Daily Log
+
+### 22-09-2025
+
+-   Weekly project meeting
+
+    -   Dimas will reannoate IS from EC958. Adding newly detected IS that are confrimed as true IS. Also, if there are two same IS copies, adding suffix `_1`, `_2`, etc.
+    -   Run pseudoR on EC958 genome, and parse the result in a way that can have ISfinder nomenclature
+    -   Run isescan on the bacterial genome from Hall et all paper, and later run eris. Identify if any additional IS called by eris compared to isescan, and if any IS missed by eris relative to isescan result.
+    -   Use isescan results as the "truthset"
+    -   Compare IS effect prediction (such as upregulated and downregulated) between complete sequence and draft assembly
+
+### 22-09-2025
+
+-   Dimas has rewritten IS annotation of EC958, in a total of 49 IS elements identified in the chromosome sequence. For IS name with multiple copies, each copy is labeled with a suffix `_1`, `_2`, `_3`, and so on.
+
+### 24-09-2025
+
+-   I ran pseudoR with **simulated** EC958 reads using the complete EC958 chromosome as the reference. I also tried using simulated reads with the assembly contigs, and real reads with the complete chromosome. All these runs failed during the post-processing step when making the output. This is similar to issue [#6](https://github.com/joshuakirsch/pseudoR/issues/6). In these runs, some some trimmed reads were mapped with termini of IS elements, but they were all filtered out in post-processing, so no entries were left, and the program gave an error. In other words, I suspect that there were no strong IS insertions detected by `pseudoR` in these cases.
+
+-   I aso tried to change the database to ISfinder sequence, but had no luck as well
+
+-   But when I used **real read** data with the assembly made from it and used ISOSDB, the run was successful. It detected several IS from ISOSDB in the data
+
+```{python}
+#| eval: false
+
+!source pseudoR_single-reference.sh sraList=my-list.txt threads=10 database=/scratch/user/s4897040/pseudoR \
+  dedupe=../data/ecoli958/fastqs/ mode=s reference=../outputs/spades-isolates/contigs.fasta \
+  read1_ending=_1.fastq.gz read2_ending=_2.fastq.gz IR_database=/scratch/user/s4897040/pseudoR
+```
+
+-   I tried to compare IS from ISOSDB that were detected by pseudoR with ISFinder. Since the authors mentioned that they use homology with ISFinder sequences (not exact matches) as one of their criteria when they building the ISOSDB, I also searched them using BLAST.
+
+```{python}
+#| eval: false
+
+# build ISfinder database (for blast)
+!makeblastdb -dbtype nucl -in IS.fna
+```
+
+```{python}
+#| eval: false
+
+# extract only the IS name field from the report
+!tail +2  ../../data/ecoli/pseudoR-outputs/pseudoR_output.contig.tsv | cut -f 2 > ../../data/ecoli/pseudoR-outputs/list_isosdb_names.txt
+
+# pull out the sequences from ISOSDB by IS name or header
+!seqkit grep -n -f ../../data/ecoli/pseudoR-outputs/list_isosdb_names.txt ../../ISOSDB.V3.fna -o ../../data/ecoli/pseudoR-outputs/SRR5194982_pseudoR_ISOSDB.fna
+
+# blast ISOSDB sequence query to ISfinder, select only the max hit per query sequence
+!blastn -query ../../data/ecoli/pseudoR-outputs/SRR5194982_pseudoR_ISOSDB.fna -db ../../eris/src/eris/data/IS.fna -outfmt 6 -evalue 1e-3 -max_target_seqs 1 -out SRR5194982_blast_ISOSDB_ISfinder.txt
+```
+
+```{python}
+import pandas as pd
+
+isosdb = pd.read_csv("../../data/ecoli/pseudoR-outputs/pseudoR_output.contig.tsv", sep="\t")
+
+isosdb_blast = pd.read_csv("../SRR5194982_blast_ISOSDB_ISfinder.tsv",
+sep="\t", header=None,
+names=["IS", "ISfinder name", "identity", "alignment length", "mismatches", "gap opens", "q. start", "q. end", "s. start", "s. end", "evalue", "bit score"])
+
+# Keep only the first occurrence of each IS, get the highest hit and lowest e value
+isosdb_blast_uniq = isosdb_blast.drop_duplicates(subset=["IS"], keep="first")
+
+# left join
+isosdb_isfinder = pd.merge(isosdb, isosdb_blast_uniq, on="IS", how="left")
+isosdb_isfinder[["IS", "ISfinder name", "contig", "Insertion_Position", "identity"]]
+```
+
+`pseudoR` detected IS in the EC958 much lower than `eris` and `isescan`. With one position seems to be inserted by different IS elements?
+
+Let's check NODE_3 contigs from `eris`
+
+```{python}
+!eris scan ../../data/ecoli/spades-isolates/contigs.fasta > eris-outputs/result_fasta_isolate.tsv
+
+eris = pd.read_csv("eris-outputs/result_fasta_isolate.tsv", sep="\t")
+eris[eris["Contig"] == "NODE_3_length_282336_cov_84.584237"]
+```
+
+`eris` did not detect any IS elements in the NODE_3 contig. Those IS detected by `pseudoR` probably don't exist in the ISfinder database and probably missed during assembly. When `pseudoR` is given these reads and complete sequence as the reference, it didn't detect any IS elements.
+
+After reread the pipeline method described by the author on the paper and his clarification regarding undetected IS [here](https://github.com/joshuakirsch/pseudoR/issues/9), it appears that pseudoR is primarily intended to detect the movement of IS elements, such as novel insertions, excisions, or differences in insertion sites between samples and a reference, rather than to simply identify the presence of IS elements in a genome.
+
+![](pictures/pseudoR-pipeline.png)
+
+### 25-09-2025
+
+-   Run `isescan` on asssemblies data from [Hall et al](https://elifesciences.org/articles/98300).
+
+```{python}
+#| eval: false
+
+ssubmit -m 64g -t 1d isescan-more "ls ../data/more-bacteria/assemblies/ncbi_dataset/data/*/*.fna | parallel -j 4 isescan.py --seqfile {} --output isescan --nthread 2" -- -c 12
+```
+
+-   Also, because the outputs from `isescan` doesnt give us the IS name, I need to extrarct the sequences detected as IS elements and map them into ISfinder, using blast?
+
+```{python}
+#| eval: false
+
+# get the fasta generated by isescan to have sequence identifiers by their IS cluster
+!awk '/^>/{print ">" $2; next} {print}' ../../data/ecoli/isescan-outputs/chromosome/EC958.fasta.is.fna > ../../data/ecoli/isescan-outputs/chromosome/EC958.fasta.is.cluster.fna
+
+# blast isescan IS query to ISfinder, select only the max hit per query sequence
+!blastn -query ../../data/ecoli/isescan-outputs/chromosome/EC958.fasta.is.cluster.fna -db ../../eris/src/eris/data/IS.fna -outfmt 6 -evalue 1e-3 -max_target_seqs 1 -out EC958_blast_isescan_ISfinder.txt
+```
+
+```{python}
+import pandas as pd
+
+isescan = pd.read_csv("../../data/ecoli/isescan-outputs/chromosome/EC958.fasta.tsv", sep="\t")
+
+isescan_blast = pd.read_csv("EC958_blast_isescan_ISfinder.txt",
+sep="\t", header=None,
+names=["cluster", "ISfinder name", "identity", "alignment length", "mismatches", "gap opens", "q. start", "q. end", "s. start", "s. end", "evalue", "bit score"])
+
+# Keep only the first occurrence of each IS, get the highest hit and lowest e value
+isescan_blast_uniq = isescan_blast.drop_duplicates(subset=["cluster"], keep="first")
+
+# left join
+isescan_isfinder = pd.merge(isescan, isescan_blast_uniq, on="cluster", how="left")
+print(isescan_isfinder[["cluster", "family", "ISfinder name", "isBegin", "isEnd"]].to_string())
+```
+
+## 26-09-2025
+
+### Compare IS effect prediction
+
+What approach, in a reproducible way, we can use to compare `Element_effect` (and `Effect_location`) prediction from bertween full chromosome sequence and draft assembly/contigs? - because we can't rely on the genomic coordinates, can we focus on the number? such as:
+
+-   Count how many `Element_location` and `Element_Effect` type between two sources
+-   We can group the IS and count what is the `Element_location` and `Element_effect`
+
+```{python}
+#| eval: false
+
+{"IS256": {
+    "intragenic": {"disrupted": 2, "upregulated": 1},
+    "upstream":   {"disrupted": 1}
+    }
+}
+```
+
+And compare is this representative enough to compare each insertion effect between the two sources?
+
+-   Can we have gene annotation from each gene? and compare the whether the effect is identical for each gene between two sources?
+
+```{python}
+#| eval: false
+
+("gene", "IS_name", "Element_location", "Element_effect")
+```

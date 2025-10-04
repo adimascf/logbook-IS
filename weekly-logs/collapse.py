@@ -6,16 +6,19 @@ from eris.seq import Record
 from eris.scan import ScannerResult
 
 
-
-# Create functions to get the boundaries of an IS in a group of contigs,
-# in other words, search for start and end contigs from a given IS name
-
-# get end node
-def get_end_node(contigs: list, outdegree: dict, indegree: dict) -> str:
+def get_end_node(contigs: list[str], outdegree: dict, indegree: dict) -> str:
     """
     Search a node/contig that has no outging edge to IS identified contigs.
-    """
 
+    A contig is considered an end if it has no outgoing edges to other IS contigs
+    (checked up to 2 level), but still has  at least one incoming edge.
+    If none is found, the graph is assumed circular and the first contig is returned.
+
+    :params contigs: A list of contigs of an identified IS
+    :param outdegree: Dictionary mapping each node to its outgoing edges
+    :param indegree: Dictionary mapping each node to its incoming edges.
+    :return: the end contig ID
+    """
     # check whether a node has outgoing edge to the same IS node
     # False, if the node has no outgiong edges to IS contigs,
     # at least two level searching.
@@ -52,6 +55,14 @@ def get_end_node(contigs: list, outdegree: dict, indegree: dict) -> str:
 def get_start_node(contigs: list, indegree: dict) -> str:
     """
     Search a node/contig that has no outging edge to IS identified contigs.
+
+    A contig is considered a start if it has no incoming edges from other IS contigs 
+    (checked up to 2 levels). If no such node is found, the graph is assumed circular and the first 
+    contig is returned.
+
+    :params contigs: A list of contigs of an identified IS
+    :param indegree: Dictionary mapping each node to its incoming edges.
+    :return: the start contig ID
     """
 
     fr_is = {node: False for node in contigs}
@@ -83,7 +94,11 @@ def get_start_node(contigs: list, indegree: dict) -> str:
     return contigs[0] # just pick the first node
 
 def get_indegree(graph: Graph):
-    "Get indegree edges"
+    """
+    Create dictionary to stored indegree edges for each node
+
+    :params graph: Graph object from eris
+    """
     indegree = defaultdict(set)
     for _, edges in graph.adj.items():
         for edge in edges:
@@ -93,10 +108,19 @@ def get_indegree(graph: Graph):
 # find a shortest path from start to end contigs
 def find_path(graph: Graph, start: str, end: str, depth_records: dict,
               is_with_contigs: dict,
-              is_name: str, median_depth) -> tuple[list[str], int]:
+              is_name: str, median_depth: float) -> tuple[list[str], int]:
     """
     Using BFS implementation, find a shortest path from start to end node,
     also quantify the copies of the elements.
+
+    :params graph: Graph object from eris
+    :params start: a start node of the IS contigs
+    :params end: an end node of the IS contigs
+    :params depth_record: record for the depth of each node in the genome graph
+    :params is_with_contigs: a key of IS name with value of a list of the corresponding contigs in the graph
+    :params is_name: the IS name
+    :params median_depth: the median depth of overal nodes in the genome graph
+    :return: the give IS path in the genome graph and its copy number prediction
     """
 
     path = []
@@ -141,7 +165,7 @@ def find_path(graph: Graph, start: str, end: str, depth_records: dict,
 
             # or this node has outgoing edegs to the IS node(s)
             else:
-                for neighbor_edge in graph.adj.get(neighbor):
+                for neighbor_edge in graph.adj.get(neighbor, []):
                     if neighbor_edge.to in check_contigs:
                         if depth_records[neighbor] > deepest:
                             to_traverse = neighbor
@@ -188,7 +212,7 @@ def collapseis(eris_result: ScannerResult,
         if isinstance(entry, Edge):
             gemome_edges.append(entry)
         elif isinstance(entry, Record):
-            node_depth[entry.id] = entry.qualifiers[0].value
+            node_depth[entry.id] = entry.qualifiers[0].value # assuming depth info at 0 qualifiers or first field of the tag
     genome_graph.close()
 
     # create directed graph
@@ -200,7 +224,7 @@ def collapseis(eris_result: ScannerResult,
     indegree_graph = get_indegree(genome_graph)
 
     # calculate the median
-    median_depth = median_depth = median(list(node_depth.values()))
+    median_depth = median(list(node_depth.values()))
 
     for is_name, is_contigs in is_with_contigs.items():
 

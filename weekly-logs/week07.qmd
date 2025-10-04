@@ -80,7 +80,7 @@ IS elements that seem to be true are:
 -   **HG941718.1 3360526 3362935 ISEc10**: 100% coverage 99% identity with ISEch10 on ISfinder
 -   **HG941718.1 4175107 4177238 IS21**: 100% coverage and 99% identitiy with IS21, E value 0.
 
-Orther IS identified sequences have low (<50%) coverage and low identity on the ISfinder blast result.
+Orther IS identified sequences have low (\<50%) coverage and low identity on the ISfinder blast result.
 
 ### 11-09-2025
 
@@ -240,6 +240,12 @@ for is_name, path_copies in is_eris.items():
 
 print(total_is)
 ```
+
+```{python}
+dict(is_eris)
+```
+
+**Note**: collapseis extract the depth of each node is from `entry.qualifiers[0]` or assuming the depth records is stored at the first field of qualifiers or tag. I think better approach is if we can get depth, length, and other by the tag it is written there. like DP for depth, KC for kmer count.
 
 ##### test on mason assembly result
 

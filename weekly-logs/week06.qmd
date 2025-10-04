@@ -28,6 +28,7 @@ editor: visual
 ### 02-09-2025
 
 #### identify IS in complete chromosome
+
 ##### Eris
 
 ```{python}
@@ -68,6 +69,7 @@ How many IS entries from chromosome EC958 overlap with Eris identified IS (from 
 37 of 41 entries overlap with Eris. Some entries have overlap with more than one IS from Eris.
 
 The entries that have no overlap:
+
 ```{python}
 !bedtools intersect -a ../../data/ecoli/ec958_IS.bed -b eris-outputs/chromosome_fasta.bed -v
 ```
@@ -79,6 +81,7 @@ There are 20 IS identified by Eris that have no overlaps with (the last column r
 ```
 
 ##### Isescan
+
 ```{python}
 #| eval: false
 !isescan.py --seqfile ec958.fasta --output outputs/isescan/ --nthread 2
@@ -113,6 +116,7 @@ How many IS entries from chromosome EC958 overlap with Isescan identified IS (fr
 37 of 41 entries overlap with Isescan. Some entries have overlap with more than one IS.
 
 The entries that have no overlap:
+
 ```{python}
 !bedtools intersect -a ../../data/ecoli/ec958_IS.bed -b ../../data/ecoli/isescan-outputs/chromosome/EC958.fasta.bed -v
 ```
@@ -122,6 +126,7 @@ Although it has the same number of IS that are missed with Eris, but the entires
 ### 05-09-2025
 
 #### Simulated illumina reads from only the EC985 chromosome sequence
+
 -   Started to simulate Illumina reads from the chromosme sequence only using [art_modern](https://github.com/YU-Zhejian/art_modern)
 
 ```{bash}
@@ -141,13 +146,13 @@ gzip EC958.read2.fq
 
 ```
 
-#####   Performed genome assembly using [shovill](https://github.com/tseemann/shovill)
+##### Performed genome assembly using [shovill](https://github.com/tseemann/shovill)
 
 ```{bash}
 shovill --outdir shovill-outputs/ --R1 ../data/ecoli958/fastqs-art-simulated/EC958.read1.fq.gz --R2 ../data/ecoli958/fastqs-art-simulated/EC958.read2.fq.gz
 ```
 
-#####  Scan IS using eris from contigs
+##### Scan IS using eris from contigs
 
 ```{bash}
 #| eval: false
@@ -160,8 +165,7 @@ eris scan ../shovill-outputs/contigs.gfa > eris-outputs /eris_gfa_shovill_sim.ts
 !grep "mobile_element" eris-outputs/eris_gfa_shovill_sim.tsv | wc -l
 ```
 
-by using niave counting, eris from gfa and fasta have the same number identified IS.
-But the number of IS from both files are detected 49 IS more.. are some IS detected more than one?
+by using niave counting, eris from gfa and fasta have the same number identified IS. But the number of IS from both files are detected 49 IS more.. are some IS detected more than one?
 
 ```{python}
 import pandas as pd
@@ -176,11 +180,13 @@ eris_chr["Name"].value_counts()
 ```
 
 What are IS name identified from contigs, and how many each of them identified by Eris?
+
 ```{python}
 eris_sv_sim["Name"].value_counts()
 ```
 
 IS1397 is found 6 times from contigs files, whereas it's found only 2 in complete chromosome.
+
 ```{python}
 isnames_eris_sv_sim = eris_sv_sim["Name"].value_counts().index.tolist()
 isnames_eris_chr = eris_chr["Name"].value_counts().index.tolist()
@@ -204,8 +210,7 @@ eris_sv_sim[eris_sv_sim["Name"] == "IS1397"]
 eris_chr[eris_chr["Name"] == "IS1397"]
 ```
 
-Two copies IS1397 elements in the genome are fragmented into six contigs, and all of them is identified separetely by Eris:
-![IS1397 elements are fragmented into contigs](pictures/IS1397.png)
+Two copies IS1397 elements in the genome are fragmented into six contigs, and all of them is identified separetely by Eris: ![IS1397 elements are fragmented into contigs](pictures/IS1397.png)
 
 ```{python}
 eris_sv_sim[eris_sv_sim["Name"] == "ISEc52"]
@@ -219,9 +224,7 @@ eris_sv_sim[eris_sv_sim["Name"] == "ISEc12"]
 eris_chr[eris_chr["Name"] == "ISEc52"]
 ```
 
-Two copies ISEc52 elements in the genome are fragmented into five contigs, and all of them is identified separetely by Eris:
-![one IS1397 copy is fragmented into three contigs](pictures/ISEc52-all.png)
-
+Two copies ISEc52 elements in the genome are fragmented into five contigs, and all of them is identified separetely by Eris: ![one IS1397 copy is fragmented into three contigs](pictures/ISEc52-all.png)
 
 ```{python}
 eris_sv_sim[eris_sv_sim["Name"] == "IS200C"]
@@ -235,11 +238,10 @@ eris_chr[eris_chr["Name"] == "IS200C"]
 eris_sv_sim[eris_sv_sim["Name"] == "IS1541D"]
 ```
 
-#####  Scan IS using isescan from contigs
+##### Scan IS using isescan from contigs
 
 ```{python}
 !tail +2 ../../data/ecoli/isescan-outputs/shovill-outputs/contigs.fa.tsv | wc -l
 ```
 
 Similar to eris, isescan also detected more IS elements than expected, about twice the actual number (41 plus one misterious IS)
-

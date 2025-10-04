@@ -165,6 +165,32 @@ with open("../../data/ecoli/ec958.gb", "r") as file:
 ```
 
 ```{python}
+# get IS features only from the genbank file, and convert it into bed file
+import re, os
+
+try:
+    os.remove("../../data/ecoli/pec958_IS.bed")
+except FileNotFoundError:
+    pass
+
+pattern = r"(\d+)\.\.(\d+)"
+
+with open("../../data/ecoli/pEC958.gb", "r") as file:
+    lines = file.readlines()
+    for i, line in enumerate(lines):
+        if "LOCUS" in line:
+            chromosome = line.split()[1] + ".1"
+        if "mobile_element" in line.split():
+            region = re.search(pattern, line)
+            start, end = region.group().split("..")
+            orientation = "-" if "complement" in line else "+"
+            name = lines[i+1].split("=")[1]
+            name = name.replace('"', '').replace(";", "").strip()
+            with open("../../data/ecoli/pec958_IS.bed", "a") as output:
+                output.write(f"{chromosome}\t{int(start)-1}\t{end}\t{name}\t{0}\t{orientation}\n")
+```
+
+```{python}
 pd.set_option('display.max_rows', None)
 genome_is_bed = pd.read_csv("../../data/ecoli/ec958_IS.bed", sep="\t", header=None)
 

@@ -1,0 +1,327 @@
+---
+title: "Week 10: Tested eris and collapseis in the real data, and tried to compare effect prediction"
+format:
+  html:
+    toc: true
+    toc-depth: 8
+editor: visual
+---
+
+# Overview
+
+## Daily Log
+
+### 29-09-2025
+
+-   Weekly project meeting
+    -   Dimas walk trough graph collapsing algorithm and disccussed about complicated result from `pseudoR`
+    -   Dimas will try to perform comparing ISOSDB with ISfinder, by try to "blast" ISOSDB sequences againts ISfinder, look to answer how similar ar they? what sequneces completetly not similar with ISfinder sequences.
+    -   Dimas will compare effect prediction result between eris output from complete sequence and draft assembly.
+    -   Do not use Eris in hte meantime until changes coompleted by Tom.
+    -   Dimas needs to start writing the report and prepare the poster
+
+### 30-09-2025
+
+#### Tried run eriS and collapseis on real reads genome assembly result
+
+```{python}
+from pathlib import Path
+from eris.scan import Scanner
+from eris.io import SeqFile
+
+# scan IS in the contigs
+p = Path('../../data/ecoli/realfqs-shovill/contigs.gfa')
+with Scanner() as scanner:
+    eris_result = list(scanner.scan(p))
+
+gfa_eris = eris_result[0]
+
+# load the genome graph
+graph_assembly = SeqFile("../../data/ecoli/realfqs-shovill/contigs.gfa")
+graph_assembly.close()
+```
+
+```{python}
+from collapse import collapseis
+is_eris = collapseis(gfa_eris, graph_assembly)
+```
+
+```{python}
+#| scrollable: true
+#| code-fold: false
+
+is_eris = dict(sorted(is_eris.items(), key=lambda x: x[1][-1], reverse=True))
+
+total_is = 0
+for is_name, path_copies in is_eris.items():
+  print(f"{is_name} has {path_copies[1]} copies with collapsed path: {" -> ".join(path_copies[0])}")
+  total_is += path_copies[1]
+
+print(total_is)
+```
+
+#### Lookup IS elements on the chromosome
+
+```{python}
+import pandas as pd
+eris_ec958chr = pd.read_csv("eris-outputs/chromosome_fasta.tsv", sep="\t")
+eris_ec958chr = eris_ec958chr[eris_ec958chr['Type'] == "mobile_element"]
+eris_ec958chr['Name'].value_counts()
+```
+
+#### Lookup IS elements on the plasmid
+
+```{python}
+!eris scan ../../data/ecoli/plasmid1ec958.fasta > eris-outputs/plasmid1_fasta.tsv
+eris_ec958pla1 = pd.read_csv("eris-outputs/plasmid1_fasta.tsv", sep="\t")
+eris_ec958pla1 = eris_ec958pla1[eris_ec958pla1['Type'] == "mobile_element"]
+eris_ec958pla1['Name'].value_counts()
+```
+
+When we compare the result from the draft assembly to the result from full chromosome sequence + plasmid sequence. It successfully find contigs path and correctly predict copy number for several IS elements, such as ISEc23, IS1F, ISSd1, and ISEc8, others are miscounted by 1 margin such as ISEc12, IS609, and ISEc9, others miscounted by big margin such as IS26 and IS15.
+
+Several contigs that have low coverage againts ISfinder sequences have very high depth, making it overestimated IS copies in total.
+
+```{python}
+!eris scan ../../data/ecoli/realfqs-shovill/contigs.gfa > eris-outputs/real_assembly_shovill.tsv
+
+eris_real_gfa = pd.read_csv("eris-outputs/real_assembly_shovill.tsv", sep="\t")
+eris_real_gfa = eris_real_gfa[eris_real_gfa['Type'] == "mobile_element"]
+eris_real_gfa[eris_real_gfa["Name"].isin(["IS26", "IS15"])]
+```
+
+```{python}
+!grep -E "IS26(_)?" ../../data/ecoli/*.reanotated.bed # reanotated IS elements of EC958
+!grep -E "IS15(_)?" ../../data/ecoli/*.reanotated.bed # reanotated IS elements of EC958
+```
+
+multiple copy of IS26 (cov 67%) elements do exist on the EC958 chrom + plasmid, but IS26 (cov 18%) do not exits.
+
+```{python}
+!grep "mobile_element" eris-outputs/real_assembly_shovill.tsv | wc -l
+```
+
+in total, eris predicted there 115 contigs that have IS elements on it.
+
+I think we can make ERIS more stringent by filtering out IS-detected sequences that show very low coverage against ISfinder. In the week 7 logbook, by manual inspection with blast, IS identified sequences that have low (\< 50%) coverage relatively also have low identity with ISfinder blast result.
+
+Also point to note as well, maybe it is too naive we use raw depth and median as proxy of the copy number, maybe some region in the genome just more easy to be sequence, so higher depth there doesn’t necessarily indicate multiple copies in the genome.
+
+### 01-10-2025
+
+#### Comparing effect prediction between result from full chrom and from draft assembly/contigs
+
+Since we can’t rely on genomic coordinates to compare the effects of a specific IS element at an exact insertion site, I instead use python `sets` to compare whether the predicted `element_location` and `element_effect` are the same between sources for each element.
+
+##### Organised each IS name with their corresponding location and effect prediction
+
+```{python}
+from collections import defaultdict
+
+# from chomosome sequence
+elements_records_chr = defaultdict(list)
+
+with open("eris-outputs/chromosome_fasta.tsv", "r") as file:
+    for row in file.readlines()[1:]:
+        row = row.split("\t")
+        element = row[8]
+        element_loc = row[10]
+        element_effect = row[12]
+        isname = row[15]
+        feature_type = row[2]
+        elements_records_chr[element].append([element_loc, element_effect, feature_type, isname])
+
+# from contigs
+elements_records_contigs = defaultdict(list)
+
+with open("eris-outputs/eris_gfa_shovill_sim.tsv", "r") as file:
+    for row in file.readlines()[1:]:
+        row = row.split("\t")
+        element = row[8]
+        element_loc = row[10]
+        element_effect = row[12]
+        isname = row[15]
+        feature_type = row[2]
+        elements_records_contigs[element].append([element_loc, element_effect, feature_type, isname])
+```
+
+```{python}
+# for choromome
+
+isname_records_chr = defaultdict(lambda: defaultdict(list))
+# sort in a way that IS name row come first for each element
+for k, v in elements_records_chr.items():
+    elements_records_chr[k] = sorted(v, key=lambda x: x[0])
+
+for element, records in elements_records_chr.items():
+    isname = None
+    for i, rec in enumerate(records):
+        if rec[3] not in ('None', '-'):
+            isname = rec[3]
+        if i > 0:
+            element_loc = rec[0]
+            element_effect = rec[1]
+            feature_type = rec[2]
+
+            isname_records_chr[isname][element].append([element_loc, element_effect, feature_type])
+
+
+isname_records_contigs = defaultdict(lambda: defaultdict(list))
+# sort in a way that IS name row come first for each element
+for k, v in elements_records_contigs.items():
+    elements_records_contigs[k] = sorted(v, key=lambda x: x[0])
+
+for element, records in elements_records_contigs.items():
+    isname = None
+    for i, rec in enumerate(records):
+        if rec[3] not in ('None', '-'):
+            isname = rec[3]
+        if i > 0:
+            element_loc = rec[0]
+            element_effect = rec[1]
+            feature_type = rec[2]
+
+            isname_records_contigs[isname][element].append([element_loc, element_effect, feature_type])
+
+```
+
+##### Compared them
+
+```{python}
+print(f"We found {len(isname_records_chr)} unique IS names from full chrom sequence input")
+print(f"We found {len(isname_records_contigs)} unique IS names from contigs input")
+```
+
+An element is considered concordant in the effect prediction if its predicted effects (in python `set`) are identical between the chromosome and contigs, and discordant otherwise.
+
+```{python}
+#| scrollable: true
+#| code-fold: false
+
+from collections import defaultdict
+
+check_concordance = defaultdict(bool)
+
+# Combine all insertion names from chromosome and contigs
+all_insertions = set(isname_records_chr) | set(isname_records_contigs)
+
+for ins in all_insertions:
+    # Get records for chromosome and contigs, defaulting to empty dict if missing
+    chr_records = isname_records_chr.get(ins, {})
+    contig_records = isname_records_contigs.get(ins, {})
+
+    # Flatten the nested lists of effects
+    flat_chr = [item for sublist in chr_records.values() for item in sublist]
+    flat_contig = [item for sublist in contig_records.values() for item in sublist]
+
+    # Keep only effects where the second field is meaningful
+    chr_effects = {tuple(item) for item in flat_chr if item[1] != '-'}
+    contig_effects = {tuple(item) for item in flat_contig if item[1] != '-'}
+
+    # Compare sets for concordance
+    check_concordance[ins] = (chr_effects == contig_effects)
+
+    print(f"{ins}:")
+    print(f"  Chromosome effects: {chr_effects}")
+    print(f"  Contig effects    : {contig_effects}")
+    print(f"  Concordant        : {check_concordance[ins]}\n")
+```
+
+```{python}
+# Count True and False
+count_true = sum(check_concordance.values())
+count_false = sum(not v for v in check_concordance.values())
+
+print(f"True: {count_true}, False: {count_false}")
+```
+
+### 03-10--2025
+
+#### Comparing ISOSDB and ISfinder sequences
+
+Create blast database for both sources, and blast ISOSDB againts ISfinder, and ISfinder againts ISOSDB. ISOSDB has 
+
+```{python}
+#| eval: false
+
+makeblastdb -in ISOSDB.V3.fna -dbtype nucl -out ISOSDB
+makeblastdb -in IS.fna -dbtype nucl -out ISfinder
+
+
+blastn -query ISOSDB.V3.fna -db ISfinder -task megablast -outfmt "6 qseqid sseqid pident length qlen slen qstart qend sstart send evalue bitscore qcovs" -evalue 1e-6 -max_target_seqs 1 -num_threads 8 -out isosdb_vs_isfinder.tsv
+
+blastn -query IS.fna -db ISOSDB -task megablast -outfmt "6 qseqid sseqid pident length qlen slen qstart qend sstart send evalue bitscore qcovs" -evalue 1e-6 -max_target_seqs 1 -num_threads 8 -out isfinder_vs_isosdb.tsv
+
+```
+
+Quick summary numbers from BLAST outputs
+```{python}
+import csv
+from collections import defaultdict
+import matplotlib.pyplot as plt
+
+TOTAL_ISOSDB = 22713
+TOTAL_ISFINDER = 5970
+
+def read_best_hits(tsv):
+    best = {}
+    rows = []
+    with open(tsv) as fh:
+        for r in csv.reader(fh, delimiter='\t'):
+            q, s, pident, length, qlen, slen, qstart, qend, sstart, send, evalue, bitscore, qcovs = r
+            pident = float(pident); qcovs = float(qcovs)
+            best[q] = (s, pident, qcovs)
+            rows.append((q,s,pident,qcovs))
+    return best, rows
+
+isosdb_best, isosdb_rows = read_best_hits('../../data/comparing-db/isosdb_vs_isfinder.tsv')
+isfinder_best, isfinder_rows = read_best_hits('../../data/comparing-db/isfinder_vs_isosdb.tsv')
+
+## without threshold
+total1 = len(isosdb_rows)
+total2 = len(isfinder_rows)
+
+print("=== Without threshold ===")
+print(f"ISOSDB -> ISfinder: {total1}/{TOTAL_ISOSDB} ({100*total1/TOTAL_ISOSDB:.2f}%)")
+print(f"ISfinder -> ISOSDB: {total2}/{TOTAL_ISFINDER} ({100*total2/TOTAL_ISFINDER:.2f}%)")
+
+
+# thresholds
+ID_THRESH = 90.0
+COV_THRESH = 80.0
+
+def count_hits(rows, idt=ID_THRESH, covt=COV_THRESH):
+    passed = [r for r in rows if r[2] >= idt and r[3] >= covt]
+    return len(passed), len(rows), passed
+
+hits1, total1, passed_rows1 = count_hits(isosdb_rows)
+hits2, total2, passed_rows2 = count_hits(isfinder_rows)
+
+print("\n=== With threshold (≥90% identity, ≥80% coverage) ===")
+print(f"ISOSDB -> ISfinder: {hits1}/{total1} ({100*hits1/total1:.2f}%)")
+print(f"ISfinder -> ISOSDB: {hits2}/{total2} ({100*hits2/total2:.2f}%)")
+
+# Reciprocal Best Hit
+
+# sequence A (in ISOSDN) → best hit is sequence B (in ISfinder).
+# sequence B (in ISfinder) → best hit is sequence A (in ISOSDB).
+# A–B is an RBH pair.
+
+rbh = []
+for q, (s, p, c) in isosdb_best.items():
+    if s in isfinder_best and isfinder_best[s][0] == q:
+
+        # both are best for each other
+        rbh.append((q, s, p, c))
+print("Reciprocal Best Hit count:", len(rbh))
+
+# Plot histogram of percent identity (ISOSDB -> ISfinder)
+pids = [r[2] for r in isosdb_rows]
+plt.figure()
+plt.hist(pids, bins=50)
+plt.xlabel('Percent identity (ISOSDB vs ISfinder best hit)')
+plt.ylabel('Count')
+plt.title('Distribution of % identity for ISOSDB ISfinder best hits')
+plt.show()
+
+```
