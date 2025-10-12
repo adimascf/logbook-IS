@@ -250,7 +250,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>preset <code>minimap2</code> default, <code>lr:hq</code>, and <code>asm5</code> still don’t find IS that missed by eris on the complete EC958 sequence. Using <code>sr</code> ( Short-read alignment without splicing), minimap can detect the missed IS</li>
 </ul>
-<div id="75f5b9f0" class="cell" data-execution_count="1">
+<div id="0f0fee68" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># convert paf file to bed, for easy checking</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>awk <span class="op">-</span>v OFS<span class="op">=</span><span class="st">"</span><span class="ch">\t</span><span class="st">"</span> <span class="st">'{print $6, $8, $9, $1, $11/$2}'</span> ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>minimap2<span class="op">-</span>preset<span class="op">/</span>sr_chromosome_minimap2.paf <span class="op">|</span> bedtools sort <span class="op">-</span>i <span class="op">-</span> <span class="op">&gt;</span> ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>minimap2<span class="op">-</span>preset<span class="op">/</span>sr_chromosome_minimap2.bed</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -265,7 +265,7 @@ HG941718.1  4943805 4943830 truncated at left end by IS600 95% identical to 0   
 </ul>
 <p>Using preset <code>rs</code>, it detects 2 of 4 missed IS, but with poor quality. It detected IS<em>609</em> in position G941718.1:2104183-2104431 that eris missed, but the coverage is very low (14%) of 664bp query length. Also, detected IS in position HG941718.1:4943805-4943830, but mistakenly identified as IS<em>Brsa1</em> with very low coverage of (2%), when ISfinder hit on IS<em>Ec52</em></p>
 <p>And how many overcalls? intersect <code>minimap2</code> result with “truth” IS coordinates, count how many etries from minimap2 have no overlap:</p>
-<div id="cec9d9a5" class="cell" data-execution_count="2">
+<div id="f5e0c111" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>bedtools intersect <span class="op">-</span>a ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>minimap2<span class="op">-</span>preset<span class="op">/</span>sr_chromosome_minimap2.bed <span class="op">-</span>b ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>ec958_IS.bed <span class="op">-</span>v <span class="op">|</span> wc <span class="op">-</span>l</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      52</code></pre>
@@ -275,7 +275,7 @@ HG941718.1  4943805 4943830 truncated at left end by IS600 95% identical to 0   
 <ul>
 <li>Eris map a list of IS nucleotide sequences against query sequence (can be contigs or, in this case, complete chromosome). However, if we treat the other way around. We map the complete sequence against the IS element sequences (as a reference). All four missed IS are identified by minimap2 (using default preset).. 🤔</li>
 </ul>
-<div id="e595e5f7" class="cell" data-execution_count="3">
+<div id="2d8b5b4b" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># convert paf file to bed, for easy checking</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>awk <span class="op">-</span>v OFS<span class="op">=</span><span class="st">"</span><span class="ch">\t</span><span class="st">"</span> <span class="st">'{print $1, $3, $4, $6, $11/$7}'</span> ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>minimap2<span class="op">-</span>preset<span class="op">/</span>reversed_chromosome_minimap2.paf <span class="op">|</span> bedtools sort <span class="op">-</span>i <span class="op">-</span> <span class="op">&gt;</span> ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>minimap2<span class="op">-</span>preset<span class="op">/</span>reversed_chromosome_minimap2.bed</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
