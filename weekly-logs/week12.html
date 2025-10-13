@@ -167,6 +167,7 @@ ul.task-list li input[type="checkbox"] {
   <ul>
   <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a>
   <ul>
+  <li><a href="#literature-review-on-is-elements-week-01-and-week-02" id="toc-literature-review-on-is-elements-week-01-and-week-02" class="nav-link" data-scroll-target="#literature-review-on-is-elements-week-01-and-week-02">Literature review on IS elements (week 01 and week 02)</a></li>
   <li><a href="#understand-eris-codebase-week-04" id="toc-understand-eris-codebase-week-04" class="nav-link" data-scroll-target="#understand-eris-codebase-week-04">Understand eris codebase (week 04)</a></li>
   <li><a href="#run-eris-on-the-draft-assembly-of-ec958-week-05" id="toc-run-eris-on-the-draft-assembly-of-ec958-week-05" class="nav-link" data-scroll-target="#run-eris-on-the-draft-assembly-of-ec958-week-05">Run eris on the draft assembly of EC958 (week 05)</a></li>
   <li><a href="#run-eris-on-the-simmulated-draft-assembly-of-ec958-week-06" id="toc-run-eris-on-the-simmulated-draft-assembly-of-ec958-week-06" class="nav-link" data-scroll-target="#run-eris-on-the-simmulated-draft-assembly-of-ec958-week-06">Run eris on the “simmulated” draft assembly of EC958 (week 06)</a></li>
@@ -175,7 +176,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#pyrodigal-vs-fraggenescan-week-07" id="toc-pyrodigal-vs-fraggenescan-week-07" class="nav-link" data-scroll-target="#pyrodigal-vs-fraggenescan-week-07">Pyrodigal vs FragGeneScan (week 07)</a></li>
   <li><a href="#minimap2-configuration-for-eris-week-08" id="toc-minimap2-configuration-for-eris-week-08" class="nav-link" data-scroll-target="#minimap2-configuration-for-eris-week-08">minimap2 configuration for eris (week 08)</a></li>
   <li><a href="#made-improvement-of-ec958-is-annotation-week-09" id="toc-made-improvement-of-ec958-is-annotation-week-09" class="nav-link" data-scroll-target="#made-improvement-of-ec958-is-annotation-week-09">Made improvement of EC958 IS annotation (week 09)</a></li>
-  <li><a href="#tested-the-assemb-ly-result-on-pseudor-week-09" id="toc-tested-the-assemb-ly-result-on-pseudor-week-09" class="nav-link" data-scroll-target="#tested-the-assemb-ly-result-on-pseudor-week-09">Tested the assemb ly result on pseudoR (week 09)</a></li>
+  <li><a href="#tested-the-assembly-result-on-pseudor-week-09" id="toc-tested-the-assembly-result-on-pseudor-week-09" class="nav-link" data-scroll-target="#tested-the-assembly-result-on-pseudor-week-09">Tested the assembly result on pseudoR (week 09)</a></li>
   <li><a href="#tested-graph-collapsing-on-the-real-dataset-week-10" id="toc-tested-graph-collapsing-on-the-real-dataset-week-10" class="nav-link" data-scroll-target="#tested-graph-collapsing-on-the-real-dataset-week-10">Tested graph collapsing on the real dataset (week 10)</a></li>
   <li><a href="#made-comaprison-of-cds-and-is-relationship-from-eris-against-the-truth-week-11" id="toc-made-comaprison-of-cds-and-is-relationship-from-eris-against-the-truth-week-11" class="nav-link" data-scroll-target="#made-comaprison-of-cds-and-is-relationship-from-eris-against-the-truth-week-11">Made comaprison of CDS and IS relationship from eris against the truth (week 11)</a></li>
   </ul></li>
@@ -210,6 +211,21 @@ ul.task-list li input[type="checkbox"] {
 <p>This I summarised the work that I has done for couple weeks</p>
 <section id="summary" class="level2">
 <h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<section id="literature-review-on-is-elements-week-01-and-week-02" class="level3">
+<h3 class="anchored" data-anchor-id="literature-review-on-is-elements-week-01-and-week-02">Literature review on IS elements (week 01 and week 02)</h3>
+<p>Inserion sequences (IS) are small, simple transposable DNA element, that can move (“transpose”) within a genome. - Size: typically 0.7 - 2.5 Kb - Main function: They carry no genes other than transposase, the enzyme that catalise their movement - Abundance: &gt; 4000 IS types have been currated and identified (<a href="https://isfinder.biotoul.fr/">ISfinder</a>). Using more computational methods, <a href="https://doi.org/10.1016/j.chom.2024.03.005">Kirsch et al (2024)</a> found 22,713 unique IS, and stored at ISOSDB. <em>These difference will be discussed in the week 10 and 11</em>. - Role: key drivers of bacterial genome evolution, rearrangements, horizontal gene transfer (HGT), and adaptation, especially under stress or antibiotic exposure.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="pictures/IS_structure.png" class="img-fluid figure-img"></p>
+<figcaption>Structure of a typical IS element</figcaption>
+</figure>
+</div>
+<p>They move in different ways: - Cut-and-paste: the IS is removed from one site and inserted into another. - Copy-and-paste: a new copy is made and inserted elsewhere, leaving the original behind. - Copy-out–paste-in: the IS forms a circular intermediate before inserting into a new site.</p>
+<p>An IS element typically contains: - Transposase gene (tnp): ORF responsible for cutting and joining DNA. Common catalytic motif: DDE (Asp–Asp–Glu) or DEDD, defining major IS families. - Inverted Repeats (IR): Shor (10-40 Kb) (sometimes imperfect) inverted complementary sequences at bot ends making IS boundaries. - Target Site Duplication (TSD): Short direct repeats (3-14 Kb) generated when IS integrates into the genome</p>
+<p>IS elements are grouped into families based on: - Transposase motifs (e.g.&nbsp;DDE, HUH) - Structure and organization (single or multiple ORFs) - IR type and TSD length - Transposition mechanism (cut-and-paste or copy-and-paste)</p>
+<p>Examples of families: - IS1, IS3, IS4, IS6, IS26, IS630, IS911 - IS26 is notable for spreading antibiotic resistance genes and reorganizing genomes via cointegrate formation.</p>
+<p>IS elements can impact nearby genes by: - Disrupting coding sequences, turning functional genes into psedogenes or unfunctional genes - Bringing their own promoters, which can upregulate (sometimes anibiotic resistance) genes, such as ISAba1 increasing OXA and ampC expression in <em>Acinetobacter baumannii</em>. - Interupting regulatory genes, leading to overexpression of the downstream genes, as seen when IS21 disrupts mexR in Pseudomonas aeruginosa - Promoter read-through, where the IS and nearby genes are co transcribed, increasing gene expression.</p>
+</section>
 <section id="understand-eris-codebase-week-04" class="level3">
 <h3 class="anchored" data-anchor-id="understand-eris-codebase-week-04">Understand eris codebase (week 04)</h3>
 <p>Eris is written on python with the mindset of portability and use few dependencies also has robust and easy to use API. Eris scan IS elements in the given sequence in fasta or gfa format in following steps:</p>
@@ -316,8 +332,8 @@ ul.task-list li input[type="checkbox"] {
 <li>Dimas has rewritten IS annotation of EC958, in a total of 49 IS elements identified in the chromosome sequence. For IS name with multiple copies, each copy is labeled with a suffix _1, _2, _3, and so on.</li>
 </ul>
 </section>
-<section id="tested-the-assemb-ly-result-on-pseudor-week-09" class="level3">
-<h3 class="anchored" data-anchor-id="tested-the-assemb-ly-result-on-pseudor-week-09">Tested the assemb ly result on pseudoR (week 09)</h3>
+<section id="tested-the-assembly-result-on-pseudor-week-09" class="level3">
+<h3 class="anchored" data-anchor-id="tested-the-assembly-result-on-pseudor-week-09">Tested the assembly result on pseudoR (week 09)</h3>
 <ul>
 <li><a href="https://github.com/joshuakirsch/pseudoR"><code>pseudoR</code></a> gives different result of IS detection than <code>eris</code> and <code>isescan</code>.</li>
 <li>This tool requires the user to give the fastq reads and also reference genomoe. It will look where the moving insertion event happening throughout the genome</li>
