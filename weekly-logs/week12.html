@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Week 08: Playing around with minimap2 settings and downloaded bacterial genomes – IS Project Logbook</title>
+<title>Week 12: Compiling the work that I have done so far for the poster creation – IS Project Logbook</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,41 +19,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -196,11 +161,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a>
   <ul>
-  <li><a href="#daily-log" id="toc-daily-log" class="nav-link" data-scroll-target="#daily-log">Daily Log</a>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a>
   <ul>
-  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section">15-09-2025</a></li>
-  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1">18-09-2025</a></li>
-  <li><a href="#section-2" id="toc-section-2" class="nav-link" data-scroll-target="#section-2">19-09-2025</a></li>
+  <li><a href="#understand-eris-codebase-week-04" id="toc-understand-eris-codebase-week-04" class="nav-link" data-scroll-target="#understand-eris-codebase-week-04">Understand eris codebase (week 04)</a></li>
+  <li><a href="#run-eris-on-the-draft-assembly-of-ec958-week-05" id="toc-run-eris-on-the-draft-assembly-of-ec958-week-05" class="nav-link" data-scroll-target="#run-eris-on-the-draft-assembly-of-ec958-week-05">Run eris on the draft assembly of EC958 (week 05)</a></li>
+  <li><a href="#run-eris-on-the-simmulated-draft-assembly-of-ec958-week-06" id="toc-run-eris-on-the-simmulated-draft-assembly-of-ec958-week-06" class="nav-link" data-scroll-target="#run-eris-on-the-simmulated-draft-assembly-of-ec958-week-06">Run eris on the “simmulated” draft assembly of EC958 (week 06)</a></li>
+  <li><a href="#reannotated-the-ec958-is-elements-week-07" id="toc-reannotated-the-ec958-is-elements-week-07" class="nav-link" data-scroll-target="#reannotated-the-ec958-is-elements-week-07">Reannotated the EC958 IS elements (week 07)</a></li>
+  <li><a href="#collapse-the-is-graph-week-07" id="toc-collapse-the-is-graph-week-07" class="nav-link" data-scroll-target="#collapse-the-is-graph-week-07">Collapse the IS graph (week 07)</a></li>
+  <li><a href="#pyrodigal-vs-fraggenescan-week-07" id="toc-pyrodigal-vs-fraggenescan-week-07" class="nav-link" data-scroll-target="#pyrodigal-vs-fraggenescan-week-07">Pyrodigal vs FragGeneScan (week 07)</a></li>
+  <li><a href="#minimap2-configuration-for-eris-week-08" id="toc-minimap2-configuration-for-eris-week-08" class="nav-link" data-scroll-target="#minimap2-configuration-for-eris-week-08">minimap2 configuration for eris (week 08)</a></li>
+  <li><a href="#made-improvement-of-ec958-is-annotation-week-09" id="toc-made-improvement-of-ec958-is-annotation-week-09" class="nav-link" data-scroll-target="#made-improvement-of-ec958-is-annotation-week-09">Made improvement of EC958 IS annotation (week 09)</a></li>
+  <li><a href="#tested-the-assemb-ly-result-on-pseudor-week-09" id="toc-tested-the-assemb-ly-result-on-pseudor-week-09" class="nav-link" data-scroll-target="#tested-the-assemb-ly-result-on-pseudor-week-09">Tested the assemb ly result on pseudoR (week 09)</a></li>
+  <li><a href="#tested-graph-collapsing-on-the-real-dataset-week-10" id="toc-tested-graph-collapsing-on-the-real-dataset-week-10" class="nav-link" data-scroll-target="#tested-graph-collapsing-on-the-real-dataset-week-10">Tested graph collapsing on the real dataset (week 10)</a></li>
+  <li><a href="#made-comaprison-of-cds-and-is-relationship-from-eris-against-the-truth-week-11" id="toc-made-comaprison-of-cds-and-is-relationship-from-eris-against-the-truth-week-11" class="nav-link" data-scroll-target="#made-comaprison-of-cds-and-is-relationship-from-eris-against-the-truth-week-11">Made comaprison of CDS and IS relationship from eris against the truth (week 11)</a></li>
   </ul></li>
   </ul></li>
   </ul>
@@ -211,7 +184,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Week 08: Playing around with minimap2 settings and downloaded bacterial genomes</h1>
+<h1 class="title">Week 12: Compiling the work that I have done so far for the poster creation</h1>
 </div>
 
 
@@ -230,75 +203,141 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="overview" class="level1">
 <h1>Overview</h1>
-<section id="daily-log" class="level2">
-<h2 class="anchored" data-anchor-id="daily-log">Daily Log</h2>
-<section id="section" class="level3">
-<h3 class="anchored" data-anchor-id="section">15-09-2025</h3>
+<p>This I summarised the work that I has done for couple weeks</p>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<section id="understand-eris-codebase-week-04" class="level3">
+<h3 class="anchored" data-anchor-id="understand-eris-codebase-week-04">Understand eris codebase (week 04)</h3>
+<p>Eris is written on python with the mindset of portability and use few dependencies also has robust and easy to use API. Eris scan IS elements in the given sequence in fasta or gfa format in following steps:</p>
 <ul>
-<li><p>Weekly project meeting</p></li>
-<li><p>All the IS that eris missed are truncated sequences. I will extract the sequences from the chromosome and play around with minimap2 settings in eris to understand why they were missed. Try to change the preset setting, maybe it is more appropiate</p></li>
-<li><p>For fragmented IS spread across multiple contigs, I wrote a module using a graph traversal approach to collapse them and quantify their copy numbers. It works quite well on some identified IS and can correct both undercounted and overcounted IS from contigs.</p></li>
-<li><p><code>FragGeneScan</code> has better sensitivity, but lower precision compared to <code>pyrodigal</code> on EC958. It is because <code>FragGeneScan</code> can predict on the truncated ORF sequence?</p></li>
-<li><p>Use <a href="https://en.wikipedia.org/wiki/F-score">F1</a> score to include the balance of senisitivity and precision.</p></li>
-<li><p>Dimas will read through <a href="https://doi.org/10.7554/eLife.98300.3">Michael’s paper</a> and download the dataset</p></li>
+<li>Eris scan pipeline, using minimap2 at core, will align IS elementt sequence from ISfinder database against the input sequence, and can accept contigs or full sequence</li>
+<li>The resulted alignment then sorted and culled to get high scoring query in that region, eris then will tag IS element as “mobile_element”</li>
+<li>Eris also will predict CDS using pyrodigal</li>
+<li>Eris search the promoters in the sequence using regular expression, then convert the sequence into feature graph to represent the correlartion CDS, IS element, and promoter</li>
+<li>We imolemented breadth first seach (BFS) to find the CDS that either part of the element (inside) or adjacent of the IS elements</li>
+<li>Eris reports the location of IS with resepct of each CDS (downsteam, upstream, flanking, and insdie), and based on that, it predict the raltive effect of the IS element to CDS feature</li>
 </ul>
 </section>
-<section id="section-1" class="level3">
-<h3 class="anchored" data-anchor-id="section-1">18-09-2025</h3>
+<section id="run-eris-on-the-draft-assembly-of-ec958-week-05" class="level3">
+<h3 class="anchored" data-anchor-id="run-eris-on-the-draft-assembly-of-ec958-week-05">Run eris on the draft assembly of EC958 (week 05)</h3>
 <ul>
-<li><p>Tried different preset on <code>minimap2</code> when aligning IS sequences against the input complete chromosome sequence</p>
-<ul>
-<li>preset <code>minimap2</code> default, <code>lr:hq</code>, and <code>asm5</code> still don’t find IS that missed by eris on the complete EC958 sequence. Using <code>sr</code> ( Short-read alignment without splicing), minimap can detect the missed IS</li>
-</ul>
-<div id="82693f58" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># convert paf file to bed, for easy checking</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>awk <span class="op">-</span>v OFS<span class="op">=</span><span class="st">"</span><span class="ch">\t</span><span class="st">"</span> <span class="st">'{print $6, $8, $9, $1, $11/$2}'</span> ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>minimap2<span class="op">-</span>preset<span class="op">/</span>sr_chromosome_minimap2.paf <span class="op">|</span> bedtools sort <span class="op">-</span>i <span class="op">-</span> <span class="op">&gt;</span> ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>minimap2<span class="op">-</span>preset<span class="op">/</span>sr_chromosome_minimap2.bed</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># intersect missed IS with sr minimap2 bed file</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>bedtools intersect <span class="op">-</span>a ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>ec958_IS.bed <span class="op">-</span>b eris<span class="op">-</span>outputs<span class="op">/</span>chromosome_fasta.bed <span class="op">-</span>v <span class="op">|</span> bedtools intersect <span class="op">-</span>a <span class="op">-</span> <span class="op">-</span>b ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>minimap2<span class="op">-</span>preset<span class="op">/</span>sr_chromosome_minimap2.bed <span class="op">-</span>wb</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>HG941718.1  2104183 2104431 truncated at both ends 95% identical to IS609 from  0   +   HG941718.1  2104183 2104431 IS609_IS200/IS605_IS605/1   0.141876
-HG941718.1  2104183 2104431 truncated at both ends 95% identical to IS609 from  0   +   HG941718.1  2104183 2104431 IS609_IS200/IS605_IS605/2   0.141876
-HG941718.1  4943805 4943830 truncated at left end by IS600 95% identical to 0   +   HG941718.1  4943805 4943830 ISBrsa1_IS3_IS3 0.020016</code></pre>
-</div>
-</div></li>
-</ul>
-<p>Using preset <code>rs</code>, it detects 2 of 4 missed IS, but with poor quality. It detected IS<em>609</em> in position G941718.1:2104183-2104431 that eris missed, but the coverage is very low (14%) of 664bp query length. Also, detected IS in position HG941718.1:4943805-4943830, but mistakenly identified as IS<em>Brsa1</em> with very low coverage of (2%), when ISfinder hit on IS<em>Ec52</em></p>
-<p>And how many overcalls? intersect <code>minimap2</code> result with “truth” IS coordinates, count how many etries from minimap2 have no overlap:</p>
-<div id="55e5d429" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>bedtools intersect <span class="op">-</span>a ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>minimap2<span class="op">-</span>preset<span class="op">/</span>sr_chromosome_minimap2.bed <span class="op">-</span>b ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>ec958_IS.bed <span class="op">-</span>v <span class="op">|</span> wc <span class="op">-</span>l</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>      52</code></pre>
-</div>
-</div>
-<p>More sensitive, but more prone to positive false.</p>
-<ul>
-<li>Eris map a list of IS nucleotide sequences against query sequence (can be contigs or, in this case, complete chromosome). However, if we treat the other way around. We map the complete sequence against the IS element sequences (as a reference). All four missed IS are identified by minimap2 (using default preset).. 🤔</li>
-</ul>
-<div id="c988adcd" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># convert paf file to bed, for easy checking</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>awk <span class="op">-</span>v OFS<span class="op">=</span><span class="st">"</span><span class="ch">\t</span><span class="st">"</span> <span class="st">'{print $1, $3, $4, $6, $11/$7}'</span> ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>minimap2<span class="op">-</span>preset<span class="op">/</span>reversed_chromosome_minimap2.paf <span class="op">|</span> bedtools sort <span class="op">-</span>i <span class="op">-</span> <span class="op">&gt;</span> ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>minimap2<span class="op">-</span>preset<span class="op">/</span>reversed_chromosome_minimap2.bed</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># intersect missed IS with reversed minimap2 bed file</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>bedtools intersect <span class="op">-</span>a ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>ec958_IS.bed <span class="op">-</span>b eris<span class="op">-</span>outputs<span class="op">/</span>chromosome_fasta.bed <span class="op">-</span>v <span class="op">|</span> bedtools intersect <span class="op">-</span>a <span class="op">-</span> <span class="op">-</span>b ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>minimap2<span class="op">-</span>preset<span class="op">/</span>reversed_chromosome_minimap2.bed <span class="op">-</span>wb</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>HG941718.1  2103782 2104432 truncated at both ends 95% identical to IS609 from  0   +   HG941718.1  2103782 2104432 IS609_IS200/IS605_IS605 0.371854
-HG941718.1  3312822 3313143 truncated by IS30   0   +   HG941718.1  3312822 3315298 ISSd1_IS3_IS3   1.95735
-HG941718.1  4922975 4923150 truncated at right end of IS    0   +   HG941718.1  4922975 4923150 ISLad1_IS3_IS3  0.140112
-HG941718.1  4943671 4944385 truncated at left end by IS600 95% identical to 0   +   HG941718.1  4943671 4944385 ISEc52_IS3_IS3  0.572</code></pre>
-</div>
-</div>
-<ul>
-<li><p>By manually inspection, all copies of two missed IS that we decided as true IS elements, IS<em>609</em> and IS<em>Ec52</em> actually were corercty detected from input draft assembly.</p></li>
-<li><p>IS<em>609</em> has two copies in EC958 where at HG941718.1:2103782-2104446 and HG941718.1:3820313-3821771. The later that eris missed from input chromosome. From draft assembly (contigs), eris originally detected as 3 copies (see week 06), but after we collapse the graphs, it has indeed 2 copies ( see week 07).</p></li>
-<li><p>IS<em>Ec52</em> has three copies at HG941718.1:3558365-3559615, HG941718.1 5007344 5008594, and missed HG941718.1:4943671-4944385. When we give eris draft assembly as an input, 5 cointigs detected to have IS<em>Ec52</em>, and after the contigs is collapsed, it only has 2 copies (issue with nodes that have no indegree or no outdegree)</p></li>
-<li><p>question, can i rewrite IS annotations of EC958 so that each entry has single IS name?</p></li>
+<li><p>Downloaded the fastq of EC958 from <a href="https://www.ebi.ac.uk/ena/browser/view/SRR5194982">SRR5194982</a>, and assembled it using <a href="https://github.com/ablab/spades">SPades</a>, and appied it to <code>eris scan</code> pipeline. I tried to give eris input of both contigs fasta and graph GFA. I also ran <a href="https://github.com/xiezhq/ISEScan"><code>isescan</code></a> to the same dataset for a little comparison.</p></li>
+<li><p>I also downloaded full chromosome of EC958 and the genebank file of EC958 with the IS annotations on it. I extract the IS element and convert it to bed file. These two files will be treated as the ground truth IS elements inside the isolate.</p></li>
+<li><p>There are, originally, 41 IS elements inside EC958 chromosome (this will change). 12 IS annotated from EC958 plasmid sequence.</p></li>
+<li><p>Eris found 139 IS elements from the GFA file and and 66 from the fasta file of SPades. More IS detected here because, the resulted assembly also consist of plasmid and the GFA file has more because it still has the overlap sequence so it might appear the redundant calling</p></li>
+<li><p>Isescan also report more IS element form the resulted assembly, 58 and 77 from fasta and GFA, respectively.</p></li>
 </ul>
 </section>
-<section id="section-2" class="level3">
-<h3 class="anchored" data-anchor-id="section-2">19-09-2025</h3>
+<section id="run-eris-on-the-simmulated-draft-assembly-of-ec958-week-06" class="level3">
+<h3 class="anchored" data-anchor-id="run-eris-on-the-simmulated-draft-assembly-of-ec958-week-06">Run eris on the “simmulated” draft assembly of EC958 (week 06)</h3>
 <ul>
-<li>Downloaded assembly and annotation files and Illumina reads data from <a href="https://elifesciences.org/articles/98300#data">Hall M et al.</a></li>
+<li><p>Eris identified 58 (37 predicted IS intersect with truth IS) IS elements in the complete chromosome, also missed four IS elements:</p>
+<ul>
+<li>After inspection, we found:
+<ul>
+<li>two of four missed IS are very short IS, and have relatively low identitity</li>
+<li>overcall results from Eris mostly because it called very short IS in the chromosome</li>
+</ul></li>
+</ul></li>
+<li><p>Isescan detected 65 IS elements in the EC958 chromosome</p></li>
+<li><p>I simulated illumina paired end fastq of EC958 chromosome using <a href="https://github.com/YU-Zhejian/art_modern"><code>art_illumina</code></a>. We use this simulation reads so that the resulted assembly will consist of chromosome and also make sure this data come from single cell (clone), reduce the nose from different genetic composition.</p></li>
+<li><p>Using <code>shovill</code>, bacterial genome assembler, I assembled the simulated reads.</p></li>
+<li><p>Eris detected 90 IS elements both from GFA and fasta files of simulated assembly</p></li>
+<li><p>On the draft assembly result, one IS element can split into multiple contigs, and both eris and isescan detect that one IS element separately across the corresponding contig, making the count inflated</p></li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="pictures/IS1397.png" class="img-fluid figure-img"></p>
+<figcaption>IS1397</figcaption>
+</figure>
+</div>
+<p>For instance this IS element: IS1397</p>
+<p>Two copies of IS1397 are fragmented into six IS identifeid contigs, make the call double. We further confirm that node in the middle also consist of frgamented IS1397 element.</p>
+<p>This fragmented IS also found in the mason simulated fastq, and also found in the real fastq assembly.</p>
+</section>
+<section id="reannotated-the-ec958-is-elements-week-07" class="level3">
+<h3 class="anchored" data-anchor-id="reannotated-the-ec958-is-elements-week-07">Reannotated the EC958 IS elements (week 07)</h3>
+<ul>
+<li>From manual curration on the ISfinder website, we include MITEEc1, IS1397, IS100kyp, ISKox3, ISEch14, ISEc10, IS21 elements as true IS on the EC958</li>
+</ul>
+</section>
+<section id="collapse-the-is-graph-week-07" class="level3">
+<h3 class="anchored" data-anchor-id="collapse-the-is-graph-week-07">Collapse the IS graph (week 07)</h3>
+<ul>
+<li><p>By graph traversal logic, fragmented IS sequnces (nodes in the graph) can be collapsed and the IS copies can be quantified by their contig depths relative to the median depth</p></li>
+<li><p>This approach will help eris find path of fragmented IS and collapse them into one path, also can make more accurate prediction on the how many IS copies in the given input draft assembly</p></li>
+<li><p>For example:</p></li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="pictures/IS1397.png" class="img-fluid figure-img"></p>
+<figcaption>IS1397</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="pictures/collapsed_IS397.png" class="img-fluid figure-img"></p>
+<figcaption>Collapesd IS1397</figcaption>
+</figure>
+</div>
+</section>
+<section id="pyrodigal-vs-fraggenescan-week-07" class="level3">
+<h3 class="anchored" data-anchor-id="pyrodigal-vs-fraggenescan-week-07">Pyrodigal vs FragGeneScan (week 07)</h3>
+<ul>
+<li>FragGeneScan metrics:
+<ul>
+<li>Precision (How many predicted ORF are true): 0.897</li>
+<li>Sensitivity (How many true ORF are recovered): 0.99</li>
+</ul></li>
+<li>Pyrodigal metrics:
+<ul>
+<li>Precision (How many predicted ORF are true): 0.992 = Sensitivity (How many true ORF are recovered): 0.961</li>
+</ul></li>
+</ul>
+<p><code>FragGeneScanRs</code> detected more ORFs than <code>Pyrodgial</code>. It is more sensitive than <code>Pyrodgial</code>, but has lower precision score.</p>
+</section>
+<section id="minimap2-configuration-for-eris-week-08" class="level3">
+<h3 class="anchored" data-anchor-id="minimap2-configuration-for-eris-week-08">minimap2 configuration for eris (week 08)</h3>
+<ul>
+<li>minimap2 missed four IS using the default settings and setup to map IS elements against the genome sequence</li>
+<li>With other preset, minimap2 also failed to detect all IS in the genome</li>
+<li>However, we can detect all IS elements in the genome with the setup mapping the genome sequence to ISfinder sequence</li>
+<li>Heng Li approves this <a href="https://github.com/lh3/minimap2/issues/1322">here</a></li>
+<li>With the help of copilot, we think that by use the ISfinder as the reference, minimap2 will index all list of IS elements and query sequence from the genome will be search against all the IS sequence, this will make sensitivity increased</li>
+</ul>
+</section>
+<section id="made-improvement-of-ec958-is-annotation-week-09" class="level3">
+<h3 class="anchored" data-anchor-id="made-improvement-of-ec958-is-annotation-week-09">Made improvement of EC958 IS annotation (week 09)</h3>
+<ul>
+<li>Dimas has rewritten IS annotation of EC958, in a total of 49 IS elements identified in the chromosome sequence. For IS name with multiple copies, each copy is labeled with a suffix _1, _2, _3, and so on.</li>
+</ul>
+</section>
+<section id="tested-the-assemb-ly-result-on-pseudor-week-09" class="level3">
+<h3 class="anchored" data-anchor-id="tested-the-assemb-ly-result-on-pseudor-week-09">Tested the assemb ly result on pseudoR (week 09)</h3>
+<ul>
+<li><a href="https://github.com/joshuakirsch/pseudoR"><code>pseudoR</code></a> gives different result of IS detection than <code>eris</code> and <code>isescan</code>.</li>
+<li>This tool requires the user to give the fastq reads and also reference genomoe. It will look where the moving insertion event happening throughout the genome</li>
+<li>Using real fastq and EC958 chromosome as the reference, it detected IS in the contigs where it was n ot detected by <code>eris</code> and <code>isescan</code>.</li>
+</ul>
+</section>
+<section id="tested-graph-collapsing-on-the-real-dataset-week-10" class="level3">
+<h3 class="anchored" data-anchor-id="tested-graph-collapsing-on-the-real-dataset-week-10">Tested graph collapsing on the real dataset (week 10)</h3>
+<ul>
+<li>It successfully find contigs path and correctly predict copy number for several IS elements, such as ISEc23, IS1F, ISSd1, and ISEc8, others are miscounted by 1 margin such as ISEc12, IS609, and ISEc9, others miscounted by big margin such as IS26 and IS15.</li>
+<li>Several contigs that have low coverage againts ISfinder sequences have very high depth, making it overestimated IS copies in total. Most of them are IS elements from the plasmid</li>
+</ul>
+</section>
+<section id="made-comaprison-of-cds-and-is-relationship-from-eris-against-the-truth-week-11" class="level3">
+<h3 class="anchored" data-anchor-id="made-comaprison-of-cds-and-is-relationship-from-eris-against-the-truth-week-11">Made comaprison of CDS and IS relationship from eris against the truth (week 11)</h3>
+<ul>
+<li>The main goal is: to identify which CDS may be impacted by IS elements (as predicted by Eris from GFA) and to evaluate how similar these predictions are to the truth annotation, particularly in terms of the IS element locations relative to the chromosome sequence.</li>
+</ul>
+<p><strong>Using mapping approach</strong> - The CDS predicted by eris are extracted and mapped them to the chromosome sequence - From there we can assess how well eris (without complete sequence information) predict the IS element location relative to the CDS - All the exracted predicted CDS from gfa file were succesfully mapped to the reference sequence uniquely. - All those sequences intersect with at least small fraction with known/truth CDS (they mostly are actually CDS). This can confrom that most of CDS predicted by eris are correct. - Most of the time, eris correctly predicted the CDS are inside the IS - Most of the time, eris incorrectly predicted between downstream and upstream, confised between two - Most of the time eris correctly predicted the corresponding IS for each predicted CDS</p>
+<p><strong>using clustering approach</strong></p>
+<ul>
+<li>The extract CDS sequences from predicted eris combined with all truht CDS sequences are ran to the mmseq2 clustering</li>
+<li>55 cluster consited of both source of CDS sequences, and 118 cluster that consist only the CDS from eris.</li>
+<li>So it means that, 55 CDS are indded correct CDS based on the ground truth from the annotation</li>
 </ul>
 
 
