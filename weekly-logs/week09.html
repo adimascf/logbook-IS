@@ -179,6 +179,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="dropdown-item" href="../weekly-logs/week11.html">
  <span class="dropdown-text">Week 11</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="../weekly-logs/week12.html">
+ <span class="dropdown-text">Week 12</span></a>
+  </li>  
     </ul>
   </li>
 </ul>
@@ -266,7 +270,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>I aso tried to change the database to ISfinder sequence, but had no luck as well</p></li>
 <li><p>But when I used <strong>real read</strong> data with the assembly made from it and used ISOSDB, the run was successful. It detected several IS from ISOSDB in the data</p></li>
 </ul>
-<div id="9d8ce2ce" class="cell" data-execution_count="1">
+<div id="09433dd8" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>source pseudoR_single<span class="op">-</span>reference.sh sraList<span class="op">=</span>my<span class="op">-</span><span class="bu">list</span>.txt threads<span class="op">=</span><span class="dv">10</span> database<span class="op">=/</span>scratch<span class="op">/</span>user<span class="op">/</span>s4897040<span class="op">/</span>pseudoR <span class="op">\</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  dedupe<span class="op">=</span>..<span class="op">/</span>data<span class="op">/</span>ecoli958<span class="op">/</span>fastqs<span class="op">/</span> mode<span class="op">=</span>s reference<span class="op">=</span>..<span class="op">/</span>outputs<span class="op">/</span>spades<span class="op">-</span>isolates<span class="op">/</span>contigs.fasta <span class="op">\</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  read1_ending<span class="op">=</span>_1.fastq.gz read2_ending<span class="op">=</span>_2.fastq.gz IR_database<span class="op">=/</span>scratch<span class="op">/</span>user<span class="op">/</span>s4897040<span class="op">/</span>pseudoR</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -274,11 +278,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>I tried to compare IS from ISOSDB that were detected by pseudoR with ISFinder. Since the authors mentioned that they use homology with ISFinder sequences (not exact matches) as one of their criteria when they building the ISOSDB, I also searched them using BLAST.</li>
 </ul>
-<div id="58cd72e5" class="cell" data-execution_count="2">
+<div id="4bb5aecd" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># build ISfinder database (for blast)</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>makeblastdb <span class="op">-</span>dbtype nucl <span class="op">-</span><span class="kw">in</span> IS.fna</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="5b0346c4" class="cell" data-execution_count="3">
+<div id="514841ed" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># extract only the IS name field from the report</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>tail <span class="op">+</span><span class="dv">2</span>  ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>pseudoR<span class="op">-</span>outputs<span class="op">/</span>pseudoR_output.contig.tsv <span class="op">|</span> cut <span class="op">-</span>f <span class="dv">2</span> <span class="op">&gt;</span> ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>pseudoR<span class="op">-</span>outputs<span class="op">/</span>list_isosdb_names.txt</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -288,7 +292,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># blast ISOSDB sequence query to ISfinder, select only the max hit per query sequence</span></span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>blastn <span class="op">-</span>query ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>pseudoR<span class="op">-</span>outputs<span class="op">/</span>SRR5194982_pseudoR_ISOSDB.fna <span class="op">-</span>db ..<span class="op">/</span>..<span class="op">/</span>eris<span class="op">/</span>src<span class="op">/</span>eris<span class="op">/</span>data<span class="op">/</span>IS.fna <span class="op">-</span>outfmt <span class="dv">6</span> <span class="op">-</span>evalue <span class="fl">1e-3</span> <span class="op">-</span>max_target_seqs <span class="dv">1</span> <span class="op">-</span>out SRR5194982_blast_ISOSDB_ISfinder.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="c33e5142" class="cell" data-execution_count="4">
+<div id="df85bb97" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>isosdb <span class="op">=</span> pd.read_csv(<span class="st">"../../data/ecoli/pseudoR-outputs/pseudoR_output.contig.tsv"</span>, sep<span class="op">=</span><span class="st">"</span><span class="ch">\t</span><span class="st">"</span>)</span>
@@ -423,7 +427,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p><code>pseudoR</code> detected IS in the EC958 much lower than <code>eris</code> and <code>isescan</code>. With one position seems to be inserted by different IS elements?</p>
 <p>Let’s check NODE_3 contigs from <code>eris</code></p>
-<div id="d70381f2" class="cell" data-execution_count="5">
+<div id="e5532ca2" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>eris scan ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>spades<span class="op">-</span>isolates<span class="op">/</span>contigs.fasta <span class="op">&gt;</span> eris<span class="op">-</span>outputs<span class="op">/</span>result_fasta_isolate.tsv</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>eris <span class="op">=</span> pd.read_csv(<span class="st">"eris-outputs/result_fasta_isolate.tsv"</span>, sep<span class="op">=</span><span class="st">"</span><span class="ch">\t</span><span class="st">"</span>)</span>
@@ -476,20 +480,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>Run <code>isescan</code> on asssemblies data from <a href="https://elifesciences.org/articles/98300">Hall et al</a>.</li>
 </ul>
-<div id="5234abfe" class="cell" data-execution_count="6">
+<div id="06ec7e0f" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>ssubmit <span class="op">-</span>m <span class="dv">64</span><span class="er">g</span> <span class="op">-</span>t <span class="dv">1</span><span class="er">d</span> isescan<span class="op">-</span>more <span class="st">"ls ../data/more-bacteria/assemblies/ncbi_dataset/data/*/*.fna | parallel -j 4 isescan.py --seqfile </span><span class="sc">{}</span><span class="st"> --output isescan --nthread 2"</span> <span class="op">--</span> <span class="op">-</span>c <span class="dv">12</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li>Also, because the outputs from <code>isescan</code> doesnt give us the IS name, I need to extrarct the sequences detected as IS elements and map them into ISfinder, using blast?</li>
 </ul>
-<div id="3abab8f1" class="cell" data-execution_count="7">
+<div id="915c4815" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get the fasta generated by isescan to have sequence identifiers by their IS cluster</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>awk <span class="st">'/^&gt;/{print "&gt;" $2; next} </span><span class="sc">{print}</span><span class="st">'</span> ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>isescan<span class="op">-</span>outputs<span class="op">/</span>chromosome<span class="op">/</span>EC958.fasta.<span class="kw">is</span>.fna <span class="op">&gt;</span> ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>isescan<span class="op">-</span>outputs<span class="op">/</span>chromosome<span class="op">/</span>EC958.fasta.<span class="kw">is</span>.cluster.fna</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># blast isescan IS query to ISfinder, select only the max hit per query sequence</span></span>
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>blastn <span class="op">-</span>query ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>isescan<span class="op">-</span>outputs<span class="op">/</span>chromosome<span class="op">/</span>EC958.fasta.<span class="kw">is</span>.cluster.fna <span class="op">-</span>db ..<span class="op">/</span>..<span class="op">/</span>eris<span class="op">/</span>src<span class="op">/</span>eris<span class="op">/</span>data<span class="op">/</span>IS.fna <span class="op">-</span>outfmt <span class="dv">6</span> <span class="op">-</span>evalue <span class="fl">1e-3</span> <span class="op">-</span>max_target_seqs <span class="dv">1</span> <span class="op">-</span>out EC958_blast_isescan_ISfinder.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="bee71892" class="cell" data-execution_count="8">
+<div id="7e62ca7b" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>isescan <span class="op">=</span> pd.read_csv(<span class="st">"../../data/ecoli/isescan-outputs/chromosome/EC958.fasta.tsv"</span>, sep<span class="op">=</span><span class="st">"</span><span class="ch">\t</span><span class="st">"</span>)</span>
@@ -584,7 +588,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Count how many <code>Element_location</code> and <code>Element_Effect</code> type between two sources</li>
 <li>We can group the IS and count what is the <code>Element_location</code> and <code>Element_effect</code></li>
 </ul>
-<div id="68381eae" class="cell" data-execution_count="9">
+<div id="0438d7fc" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>{<span class="st">"IS256"</span>: {</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"intragenic"</span>: {<span class="st">"disrupted"</span>: <span class="dv">2</span>, <span class="st">"upregulated"</span>: <span class="dv">1</span>},</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"upstream"</span>:   {<span class="st">"disrupted"</span>: <span class="dv">1</span>}</span>
@@ -595,7 +599,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>Can we have gene annotation from each gene? and compare the whether the effect is identical for each gene between two sources?</li>
 </ul>
-<div id="21d99d74" class="cell" data-execution_count="10">
+<div id="a2be04de" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>(<span class="st">"gene"</span>, <span class="st">"IS_name"</span>, <span class="st">"Element_location"</span>, <span class="st">"Element_effect"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
