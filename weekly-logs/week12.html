@@ -210,7 +210,7 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="overview" class="level1">
 <h1>Overview</h1>
-<p>This I summarised the work that I has done for couple weeks</p>
+<p>This week I summarised the work that I has done on the project so far</p>
 <section id="summary" class="level2">
 <h2 class="anchored" data-anchor-id="summary">Summary</h2>
 <section id="literature-review-on-is-elements-week-01-and-week-02" class="level3">
@@ -262,7 +262,7 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="playing-around-with-assemly-graph-week-03" class="level3">
 <h3 class="anchored" data-anchor-id="playing-around-with-assemly-graph-week-03">Playing around with assemly graph (week 03)</h3>
-<p>WGS using short read sequencing presents challenges for IS detection, as multiple copies of IS in different locations represent repeats that are longer than the read length. An assembly algorithm, such as de Brujin graph, collapse these repeats into a single path, resulting in multiple branches entering and exiting the node. This branching leads to fragmentation of the assembly into contigs, which are contiguous sequences corresponding to non branching paths in the graph.</p>
+<p>WGS using short read sequencing presents challenges for IS detection, as multiple copies of IS in different locations represent repeats that are longer than the read length. An assembly algorithm, such as de Brujin graph, collapse these repeats into a single path, resulting in multiple branches entering and exiting the node. This branching leads to fragmentation of the assembly into contigs</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="pictures/collapsed_repeat.png" class="img-fluid figure-img"></p>
@@ -272,13 +272,14 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="understand-eris-codebase-week-04" class="level3">
 <h3 class="anchored" data-anchor-id="understand-eris-codebase-week-04">Understand eris codebase (week 04)</h3>
-<p>Eris is written on python with the mindset of portability and use few dependencies also has robust and easy to use API. Eris scan IS elements in the given sequence in fasta or gfa format in following steps:</p>
+<p>Eris is written in Python with a focus on portability and minimal dependencies, while providing a robust and user-friendly API. It scans for IS elements in input sequences provided in FASTA or GFA format through the following steps:</p>
 <ul>
 <li>Eris scan pipeline, using minimap2 at core, will align IS elementt sequence from ISfinder database against the input sequence, and can accept contigs or full sequence</li>
 <li>The resulted alignment then sorted and culled to get high scoring query in that region, eris then will tag IS element as “mobile_element”</li>
 <li>Eris also will predict CDS using pyrodigal</li>
-<li>Eris search the promoters in the sequence using regular expression, then convert the sequence into feature graph to represent the correlartion CDS, IS element, and promoter</li>
-<li>We imolemented breadth first seach (BFS) to find the CDS that either part of the element (inside) or adjacent of the IS elements</li>
+<li>Eris search the promoters in the sequence using regular expression,</li>
+<li>It then convert the sequence into feature graph to represent the correlartion CDS, IS element, and promoter</li>
+<li>We implemented breadth first seach (BFS) to find the CDS that either part of the element (inside) or adjacent of the IS elements</li>
 <li>Eris reports the location of IS with resepct of each CDS (downsteam, upstream, flanking, and insdie), and based on that, it predict the raltive effect of the IS element to CDS feature</li>
 </ul>
 </section>
@@ -289,7 +290,7 @@ ul.task-list li input[type="checkbox"] {
 <li><p>I also downloaded full chromosome of EC958 and the genebank file of EC958 with the IS annotations on it. I extract the IS element and convert it to bed file. These two files will be treated as the ground truth IS elements inside the isolate.</p></li>
 <li><p>There are, originally, 41 IS elements inside EC958 chromosome (this will change). 12 IS annotated from EC958 plasmid sequence.</p></li>
 <li><p>Eris found 139 IS elements from the GFA file and and 66 from the fasta file of SPades. More IS detected here because, the resulted assembly also consist of plasmid and the GFA file has more because it still has the overlap sequence so it might appear the redundant calling</p></li>
-<li><p>Isescan also report more IS element form the resulted assembly, 58 and 77 from fasta and GFA, respectively.</p></li>
+<li><p><code>Isescan</code> also report more IS element form the resulted assembly, 58 and 77 from fasta and GFA, respectively.</p></li>
 </ul>
 </section>
 <section id="run-eris-on-the-simmulated-draft-assembly-of-ec958-week-06" class="level3">
@@ -316,8 +317,8 @@ ul.task-list li input[type="checkbox"] {
 </figure>
 </div>
 <p>For instance this IS element: IS1397</p>
-<p>Two copies of IS1397 are fragmented into six IS identifeid contigs, make the call double. We further confirm that node in the middle also consist of frgamented IS1397 element.</p>
-<p>This fragmented IS also found in the mason simulated fastq, and also found in the real fastq assembly.</p>
+<p>Two copies of IS1397 are fragmented into six IS identifeid contigs, make the call trippled. We further confirm that node in the middle also consist of frgamented IS1397 element.</p>
+<p>This fragmented IS also found in the <code>mason</code> simulated fastq, and also found in the real fastq assembly.</p>
 </section>
 <section id="reannotated-the-ec958-is-elements-week-07" class="level3">
 <h3 class="anchored" data-anchor-id="reannotated-the-ec958-is-elements-week-07">Reannotated the EC958 IS elements (week 07)</h3>
@@ -335,7 +336,7 @@ ul.task-list li input[type="checkbox"] {
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="pictures/IS1397.png" class="img-fluid figure-img"></p>
-<figcaption>IS1397</figcaption>
+<figcaption>Fragmented IS1397 element</figcaption>
 </figure>
 </div>
 <div class="quarto-figure quarto-figure-center">
@@ -393,7 +394,7 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="made-comparison-isfinder-against-isosdb-week-11" class="level3">
 <h3 class="anchored" data-anchor-id="made-comparison-isfinder-against-isosdb-week-11">Made comparison ISfinder against ISOSDB (week 11)</h3>
-<div id="25e51f76" class="cell" data-execution_count="1">
+<div id="ff78e053" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -420,14 +421,29 @@ Clusters only ISfinder: 2483</code></pre>
 <li>The CDS predicted by eris are extracted and mapped them to the chromosome sequence</li>
 <li>From there we can assess how well eris (without complete sequence information) predict the IS element location relative to the CDS</li>
 <li>All the exracted predicted CDS from gfa file were succesfully mapped to the reference sequence uniquely.</li>
-<li>All those sequences intersect with at least small fraction with known/truth CDS (they mostly are actually CDS). This can confrom that most of CDS predicted by eris are correct.</li>
+<li>All those sequences intersect with at least small fraction with known/truth CDS (they mostly are actually CDS). This can confirm that most of CDS predicted by eris are correct.</li>
 <li>Most of the time, eris correctly predicted the CDS are inside the IS</li>
-<li>Most of the time, eris incorrectly predicted between downstream and upstream, confised between two</li>
+<li>Most of the time, eris incorrectly predicted between downstream and upstream, seems to be confused between two</li>
 <li>Most of the time eris correctly predicted the corresponding IS for each predicted CDS</li>
 </ul>
 <p><strong>using clustering approach</strong></p>
+<div id="ab3e510e" class="cell" data-execution_count="2">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="week12_files/figure-html/cell-3-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>There are 4918 clusters
+Clusters with both TRUTH and predicted: 55
+Clusters only TRUTH: 4745
+Clusters only predicted: 118</code></pre>
+</div>
+</div>
 <ul>
-<li>The extract CDS sequences from predicted eris combined with all truht CDS sequences are ran to the mmseq2 clustering</li>
+<li>The extract CDS sequences from predicted eris combined with all truth CDS sequences are ran to the <code>mmseq2</code> clustering</li>
 <li>55 cluster consited of both source of CDS sequences, and 118 cluster that consist only the CDS from eris.</li>
 <li>So it means that, 55 CDS are indded correct CDS based on the ground truth from the annotation</li>
 </ul>
