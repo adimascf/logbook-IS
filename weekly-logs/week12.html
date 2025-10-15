@@ -168,6 +168,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a>
   <ul>
   <li><a href="#literature-review-on-is-elements-week-01-and-week-02" id="toc-literature-review-on-is-elements-week-01-and-week-02" class="nav-link" data-scroll-target="#literature-review-on-is-elements-week-01-and-week-02">Literature review on IS elements (week 01 and week 02)</a></li>
+  <li><a href="#playing-around-with-assemly-graph-week-03" id="toc-playing-around-with-assemly-graph-week-03" class="nav-link" data-scroll-target="#playing-around-with-assemly-graph-week-03">Playing around with assemly graph (week 03)</a></li>
   <li><a href="#understand-eris-codebase-week-04" id="toc-understand-eris-codebase-week-04" class="nav-link" data-scroll-target="#understand-eris-codebase-week-04">Understand eris codebase (week 04)</a></li>
   <li><a href="#run-eris-on-the-draft-assembly-of-ec958-week-05" id="toc-run-eris-on-the-draft-assembly-of-ec958-week-05" class="nav-link" data-scroll-target="#run-eris-on-the-draft-assembly-of-ec958-week-05">Run eris on the draft assembly of EC958 (week 05)</a></li>
   <li><a href="#run-eris-on-the-simmulated-draft-assembly-of-ec958-week-06" id="toc-run-eris-on-the-simmulated-draft-assembly-of-ec958-week-06" class="nav-link" data-scroll-target="#run-eris-on-the-simmulated-draft-assembly-of-ec958-week-06">Run eris on the “simmulated” draft assembly of EC958 (week 06)</a></li>
@@ -178,6 +179,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#made-improvement-of-ec958-is-annotation-week-09" id="toc-made-improvement-of-ec958-is-annotation-week-09" class="nav-link" data-scroll-target="#made-improvement-of-ec958-is-annotation-week-09">Made improvement of EC958 IS annotation (week 09)</a></li>
   <li><a href="#tested-the-assembly-result-on-pseudor-week-09" id="toc-tested-the-assembly-result-on-pseudor-week-09" class="nav-link" data-scroll-target="#tested-the-assembly-result-on-pseudor-week-09">Tested the assembly result on pseudoR (week 09)</a></li>
   <li><a href="#tested-graph-collapsing-on-the-real-dataset-week-10" id="toc-tested-graph-collapsing-on-the-real-dataset-week-10" class="nav-link" data-scroll-target="#tested-graph-collapsing-on-the-real-dataset-week-10">Tested graph collapsing on the real dataset (week 10)</a></li>
+  <li><a href="#made-comparison-isfinder-against-isosdb-week-11" id="toc-made-comparison-isfinder-against-isosdb-week-11" class="nav-link" data-scroll-target="#made-comparison-isfinder-against-isosdb-week-11">Made comparison ISfinder against ISOSDB (week 11)</a></li>
   <li><a href="#made-comaprison-of-cds-and-is-relationship-from-eris-against-the-truth-week-11" id="toc-made-comaprison-of-cds-and-is-relationship-from-eris-against-the-truth-week-11" class="nav-link" data-scroll-target="#made-comaprison-of-cds-and-is-relationship-from-eris-against-the-truth-week-11">Made comaprison of CDS and IS relationship from eris against the truth (week 11)</a></li>
   </ul></li>
   </ul></li>
@@ -257,6 +259,16 @@ ul.task-list li input[type="checkbox"] {
 <li>Interupting regulatory genes, leading to overexpression of the downstream genes, as seen when IS21 disrupts mexR in Pseudomonas aeruginosa</li>
 <li>Promoter read-through, where the IS and nearby genes are co transcribed, increasing gene expression.</li>
 </ul>
+</section>
+<section id="playing-around-with-assemly-graph-week-03" class="level3">
+<h3 class="anchored" data-anchor-id="playing-around-with-assemly-graph-week-03">Playing around with assemly graph (week 03)</h3>
+<p>WGS using short read sequencing presents challenges for IS detection, as multiple copies of IS in different locations represent repeats that are longer than the read length. An assembly algorithm, such as de Brujin graph, collapse these repeats into a single path, resulting in multiple branches entering and exiting the node. This branching leads to fragmentation of the assembly into contigs, which are contiguous sequences corresponding to non branching paths in the graph.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="pictures/collapsed_repeat.png" class="img-fluid figure-img"></p>
+<figcaption>Collapsed repeat caused by a 768 bp insertion sequence (IS) in a de Bruijn graph</figcaption>
+</figure>
+</div>
 </section>
 <section id="understand-eris-codebase-week-04" class="level3">
 <h3 class="anchored" data-anchor-id="understand-eris-codebase-week-04">Understand eris codebase (week 04)</h3>
@@ -379,12 +391,40 @@ ul.task-list li input[type="checkbox"] {
 <li>Several contigs that have low coverage againts ISfinder sequences have very high depth, making it overestimated IS copies in total. Most of them are IS elements from the plasmid</li>
 </ul>
 </section>
+<section id="made-comparison-isfinder-against-isosdb-week-11" class="level3">
+<h3 class="anchored" data-anchor-id="made-comparison-isfinder-against-isosdb-week-11">Made comparison ISfinder against ISOSDB (week 11)</h3>
+<div id="25e51f76" class="cell" data-execution_count="1">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="week12_files/figure-html/cell-2-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>There are 16655 clusters
+Clusters with both ISOSDB and ISfinder: 1775
+Clusters only ISOSDB: 12397
+Clusters only ISfinder: 2483</code></pre>
+</div>
+</div>
+<p>Most clusters come from ISOSDB, while a smaller portion overlaps with the manually curated ISfinder.</p>
+</section>
 <section id="made-comaprison-of-cds-and-is-relationship-from-eris-against-the-truth-week-11" class="level3">
 <h3 class="anchored" data-anchor-id="made-comaprison-of-cds-and-is-relationship-from-eris-against-the-truth-week-11">Made comaprison of CDS and IS relationship from eris against the truth (week 11)</h3>
 <ul>
 <li>The main goal is: to identify which CDS may be impacted by IS elements (as predicted by Eris from GFA) and to evaluate how similar these predictions are to the truth annotation, particularly in terms of the IS element locations relative to the chromosome sequence.</li>
 </ul>
-<p><strong>Using mapping approach</strong> - The CDS predicted by eris are extracted and mapped them to the chromosome sequence - From there we can assess how well eris (without complete sequence information) predict the IS element location relative to the CDS - All the exracted predicted CDS from gfa file were succesfully mapped to the reference sequence uniquely. - All those sequences intersect with at least small fraction with known/truth CDS (they mostly are actually CDS). This can confrom that most of CDS predicted by eris are correct. - Most of the time, eris correctly predicted the CDS are inside the IS - Most of the time, eris incorrectly predicted between downstream and upstream, confised between two - Most of the time eris correctly predicted the corresponding IS for each predicted CDS</p>
+<p><strong>Using mapping approach</strong></p>
+<ul>
+<li>The CDS predicted by eris are extracted and mapped them to the chromosome sequence</li>
+<li>From there we can assess how well eris (without complete sequence information) predict the IS element location relative to the CDS</li>
+<li>All the exracted predicted CDS from gfa file were succesfully mapped to the reference sequence uniquely.</li>
+<li>All those sequences intersect with at least small fraction with known/truth CDS (they mostly are actually CDS). This can confrom that most of CDS predicted by eris are correct.</li>
+<li>Most of the time, eris correctly predicted the CDS are inside the IS</li>
+<li>Most of the time, eris incorrectly predicted between downstream and upstream, confised between two</li>
+<li>Most of the time eris correctly predicted the corresponding IS for each predicted CDS</li>
+</ul>
 <p><strong>using clustering approach</strong></p>
 <ul>
 <li>The extract CDS sequences from predicted eris combined with all truht CDS sequences are ran to the mmseq2 clustering</li>
