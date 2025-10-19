@@ -285,7 +285,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>From there, we can answer the <strong>concordance</strong> of the IS elements and CDS relationship predicted from GFA to truth CDS IS truth annotation from chromosome, right?</li>
 </ul>
 <p>Read the result from eris, and thenn extract CDS information including the corresponding IS that might be impacted, location, strand, .</p>
-<div id="aed7d5ed" class="cell" data-execution_count="1">
+<div id="6a9fee1b" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collections <span class="im">import</span> defaultdict</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>is_elements <span class="op">=</span> defaultdict(<span class="bu">str</span>)</span>
@@ -314,7 +314,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p><strong>Extract CDS sequence from Eris</strong></p>
 <p>Identify CDS sequence that may be imacted by insertion from Eris, and extract the coding sequence from the gfa file</p>
-<div id="a3e4bf94" class="cell" data-execution_count="2">
+<div id="7495fc28" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> eris.io <span class="im">import</span> SeqFile</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> eris.seq <span class="im">import</span> Record</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -325,7 +325,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="bu">isinstance</span>(entry, Record):</span>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    nodes_seq[entry.<span class="bu">id</span>] <span class="op">=</span> entry.seq</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="0968b112" class="cell" data-execution_count="3">
+<div id="9691a285" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> write_fasta(seqname: <span class="bu">str</span>, sequence: <span class="bu">str</span>) <span class="op">-&gt;</span> <span class="bu">str</span>:</span>
@@ -349,7 +349,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    result <span class="op">+=</span> complement[b]</span>
 <span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> result[::<span class="op">-</span><span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="57d070a6" class="cell" data-execution_count="4">
+<div id="ba4ee84f" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re, os</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
@@ -372,7 +372,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>    output.write(fasta)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Compare predicted CDS (from GFA) to “truth” CDS (from NCBI chromosome)</p>
-<div id="ab078932" class="cell" data-execution_count="5">
+<div id="7eb6e0ec" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>wc <span class="op">-</span>l ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>EC958_genomic_sorted.cds.edit.bed <span class="co"># this is cds bed file from NCBI</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>grep <span class="st">"^&gt;"</span> cds_gfa_shovill_is.fna <span class="op">|</span> wc <span class="op">-</span>l</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -384,24 +384,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Let’s search where those 183 cds located in the genome, and are the location with respect of insertion elements similar or no</p>
 <p>First, i think we can just map the <strong>predicted cds (from eris)</strong>.. and look where are they, relative to the chromosome, then we can look whether there are annotated IS near them, right? 🤔</p>
 <p><strong>map cds from eris to chromosome, using minimap:</strong></p>
-<div id="61b58d83" class="cell" data-execution_count="6">
+<div id="3e977e97" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># using preset short read, because cds sequences are short</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>minimap2 <span class="op">-</span>x sr ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>EC958.fasta cds_gfa_shovill_is.fna <span class="op">&gt;</span> cds_is_to_chrom.paf</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[M::mm_idx_gen::0.076*1.14] collected minimizers
-[M::mm_idx_gen::0.090*1.40] sorted minimizers
-[M::main::0.090*1.40] loaded/built the index for 1 target sequence(s)
-[M::mm_mapopt_update::0.090*1.40] mid_occ = 1000
+<pre><code>[M::mm_idx_gen::0.074*1.13] collected minimizers
+[M::mm_idx_gen::0.087*1.41] sorted minimizers
+[M::main::0.087*1.41] loaded/built the index for 1 target sequence(s)
+[M::mm_mapopt_update::0.088*1.40] mid_occ = 1000
 [M::mm_idx_stat] kmer size: 21; skip: 11; is_hpc: 0; #seq: 1
-[M::mm_idx_stat::0.096*1.38] distinct minimizers: 834905 (98.89% are singletons); average occurrences: 1.020; average spacing: 6.000; total length: 5109767
-[M::worker_pipeline::0.098*1.41] mapped 183 sequences
+[M::mm_idx_stat::0.093*1.38] distinct minimizers: 834905 (98.89% are singletons); average occurrences: 1.020; average spacing: 6.000; total length: 5109767
+[M::worker_pipeline::0.096*1.41] mapped 183 sequences
 [M::main] Version: 2.30-r1287
 [M::main] CMD: minimap2 -x sr ../../data/ecoli/EC958.fasta cds_gfa_shovill_is.fna
-[M::main] Real time: 0.101 sec; CPU: 0.141 sec; Peak RSS: 0.076 GB</code></pre>
+[M::main] Real time: 0.098 sec; CPU: 0.138 sec; Peak RSS: 0.078 GB</code></pre>
 </div>
 </div>
 <p>how many cds from eris were successfully mapped to chrom sequence?</p>
-<div id="f69c036d" class="cell" data-execution_count="7">
+<div id="9f807021" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>wc <span class="op">-</span>l cds_is_to_chrom.paf</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>cut <span class="op">-</span>f <span class="dv">1</span> cds_is_to_chrom.paf  <span class="op">|</span> sort <span class="op">|</span> uniq <span class="op">|</span> wc <span class="op">-</span>l <span class="co"># couint by feature ID from eris</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -411,7 +411,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>all of them, and each of them is mapped uniqely..</p>
 <p>extract the location information, where are they realtive to the chromosome coordinate and also corresponding eris information (make a bed file)</p>
-<div id="1c06c268" class="cell" data-execution_count="8">
+<div id="7f239edd" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 4th field is for query name (cds and coresponding insertion info from eris)</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 5th field is for alignment score from minimap</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 6th strand info from minimap2</span></span>
@@ -422,14 +422,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>add flank at both ends for each entries (to allow intersection occurs), and instersect them again with IS locations (reanotatated truth). Add flank so that we know how close the cds (predicted from gfa) to the IS elements (from truth chromosome) are</li>
 <li>save into file for checking similarty on the location, strandness, and we can assess how well eris predict the location</li>
 </ul>
-<div id="e4d26ed5" class="cell" data-execution_count="9">
+<div id="830f6972" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># sort the entry</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>bedtools sort <span class="op">-</span>i cds_is_to_chrom.bed <span class="op">&gt;</span> cds_is_to_chrom.<span class="bu">sorted</span>.bed</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># intersect them with known cds, with at least 50% fraction</span></span>
 <span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>bedtools intersect <span class="op">-</span>a cds_is_to_chrom.<span class="bu">sorted</span>.bed <span class="op">-</span>b ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>EC958_genomic_sorted.cds.edit.bed <span class="op">-</span>f <span class="fl">0.5</span> <span class="op">-</span>wa <span class="op">|</span> bedtools slop <span class="op">-</span>i <span class="op">-</span> <span class="op">-</span>g ec958.genome.size <span class="op">-</span>b <span class="dv">1000</span> <span class="op">|</span> bedtools intersect <span class="op">-</span>a <span class="op">-</span> <span class="op">-</span>b ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>ec958_IS.reannotated.<span class="bu">sorted</span>.bed <span class="op">-</span>wa <span class="op">-</span>wb <span class="op">&gt;</span> cds_gfa_intersect_IS_truth.bed</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="da4945cc" class="cell" data-execution_count="10">
+<div id="431bf572" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>cut <span class="op">-</span>f <span class="dv">4</span> cds_gfa_intersect_IS_truth.bed <span class="op">|</span> sort <span class="op">|</span> uniq <span class="op">|</span> wc <span class="op">-</span>l</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     125</code></pre>
@@ -459,7 +459,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>Flanking: CDS adjacent to IS element in the different contigs (here, i assessed as not part of IS)</p></li>
 </ul>
 <p>All of those condition, we checked with the chromosome info (eris only had contigs info when it predicted)</p>
-<div id="81744f34" class="cell" data-execution_count="11">
+<div id="3bd0afd8" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collections <span class="im">import</span> defaultdict</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> assess_eris_location_report(file_path: <span class="bu">str</span>) <span class="op">-&gt;</span> <span class="bu">tuple</span>:</span>
@@ -541,140 +541,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb15-79"><a href="#cb15-79" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-80"><a href="#cb15-80" aria-hidden="true" tabindex="-1"></a>true, false, tot, cds_elements <span class="op">=</span> assess_eris_location_report(<span class="st">"cds_gfa_intersect_IS_truth.bed"</span>)</span>
 <span id="cb15-81"><a href="#cb15-81" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-82"><a href="#cb15-82" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ele, val <span class="kw">in</span> cds_elements.items():</span>
-<span id="cb15-83"><a href="#cb15-83" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(ele, val)</span>
+<span id="cb15-82"><a href="#cb15-82" aria-hidden="true" tabindex="-1"></a><span class="co"># for ele, val in cds_elements.items():</span></span>
+<span id="cb15-83"><a href="#cb15-83" aria-hidden="true" tabindex="-1"></a><span class="co">#     print(ele, val)</span></span>
 <span id="cb15-84"><a href="#cb15-84" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-85"><a href="#cb15-85" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Total CDS: </span><span class="sc">{</span>tot<span class="sc">}</span><span class="ss">"</span>)</span>
 <span id="cb15-86"><a href="#cb15-86" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Correct assignments: </span><span class="sc">{</span>true<span class="sc">}</span><span class="ss">"</span>)</span>
 <span id="cb15-87"><a href="#cb15-87" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Incorrect assignments: </span><span class="sc">{</span>false<span class="sc">}</span><span class="ss">"</span>)</span>
 <span id="cb15-88"><a href="#cb15-88" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Accuracy: </span><span class="sc">{</span>true <span class="op">/</span> tot<span class="sc">:.2%}</span><span class="ch">\n</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>1244700_00882|1244700|-|inside|same_strand|ISEc23 True
-1244700_00883|1244700|-|inside|same_strand|ISEc23 True
-1244816_01151|1244816|-|inside|same_strand|ISEc23 True
-1176191_00082|1176191|-|flanking|opposite_strand|ISEc23 False
-1245002_02024|1245002|disrupted|upstream|same_strand|ISCfr4 True
-1245002_02025|1245002|-|inside|same_strand|ISCfr4 True
-1245002_02026|1245002|-|downstream|same_strand|ISCfr4 True
-1245002_02031|1245002|-|inside|opposite_strand|ISSen3 False
-1244912_01169|1244912|-|flanking|same_strand|ISEc12 True
-1245096_04606|1245096|-|inside|same_strand|ISEc1 True
-1015060_00032|1015060|-|inside|same_strand|IS1397 True
-1208211_00117|1208211|-|flanking|opposite_strand|IS1397 False
-1234872_00176|1234872|-|inside|same_strand|IS1397 True
-1241248_00251|1241248|-|inside|same_strand|IS1397 True
-1244764_01147|1244764|-|inside|same_strand|IS609 True
-832167_00019|832167|-|flanking|opposite_strand|IS609 False
-1244458_00450|1244458|disrupted|upstream|opposite_strand|IS609 False
-1244458_00486|1244458|-|flanking|same_strand|IS1397 True
-1244458_00449|1244458|-|inside|same_strand|IS609 False
-1244160_00403|1244160|-|inside|same_strand|IS1397 True
-1208964_00119|1208964|-|inside|same_strand|IS1397 True
-1216050_00137|1216050|-|inside|same_strand|IS1397 True
-1241248_00250|1241248|-|inside|opposite_strand|IS1397 True
-1244664_00858|1244664|-|flanking|same_strand|IS1397 False
-1244018_00385|1244018|-|downstream|same_strand|IS200C True
-1221552_00145|1221552|-|inside|same_strand|IS200C True
-1241860_00257|1241860|-|flanking|opposite_strand|IS200C False
-1244910_01167|1244910|disrupted|upstream|same_strand|IS200C True
-1245062_04536|1245062|-|downstream|opposite_strand|ISEc38 True
-1244402_00441|1244402|-|inside|same_strand|IS100kyp True
-1244402_00440|1244402|-|inside|same_strand|IS100kyp True
-1244402_00445|1244402|-|upstream|same_strand|ISEc20 False
-1116087_00050|1116087|-|inside|same_strand|ISEc23 True
-1240840_00244|1240840|-|flanking|opposite_strand|ISEc12 True
-1221552_00144|1221552|-|inside|same_strand|IS200C True
-1245038_03183|1245038|-|flanking|opposite_strand|IS1A False
-1245136_04886|1245136|-|flanking|same_strand|IS1A False
-1245136_04885|1245136|-|inside|opposite_strand|IS1B False
-1245046_03736|1245046|-|flanking|opposite_strand|IS1A True
-1245022_02114|1245022|disrupted|downstream|same_strand|MITEEc1 True
-1245022_02113|1245022|disrupted|upstream|same_strand|MITEEc1 True
-1171599_00078|1171599|-|inside|same_strand|IS1A True
-1245138_04887|1245138|-|flanking|same_strand|IS1A False
-1236016_00186|1236016|-|flanking|opposite_strand|IS1A True
-1208153_00116|1208153|-|inside|same_strand|IS1A True
-1244936_01278|1244936|-|flanking|opposite_strand|IS1A True
-1244936_01276|1244936|-|downstream|opposite_strand|IS1203 True
-1244936_01275|1244936|-|inside|same_strand|IS1203 True
-1244936_01274|1244936|-|inside|same_strand|IS1203 True
-1243600_00315|1243600|-|inside|same_strand|IS600 False
-1243600_00328|1243600|-|inside|same_strand|IS3411 False
-1245106_04649|1245106|-|flanking|same_strand|IS1F False
-1243600_00316|1243600|disrupted|upstream|same_strand|IS600 False
-1243600_00327|1243600|-|inside|same_strand|ISKox3 True
-1242602_00264|1242602|-|inside|same_strand|IS30 True
-1242602_00265|1242602|-|flanking|opposite_strand|IS600 False
-1244674_00860|1244674|-|inside|same_strand|IS682 False
-1244674_00861|1244674|-|inside|same_strand|IS682 False
-1244674_00862|1244674|-|inside|same_strand|IS682 False
-1244674_00878|1244674|-|upstream|opposite_strand|ISEc45 False
-1244674_00874|1244674|-|downstream|same_strand|IS2 True
-1244674_00873|1244674|-|inside|same_strand|IS2 True
-1244674_00872|1244674|-|inside|same_strand|IS2 True
-1244674_00871|1244674|disrupted|upstream|same_strand|IS2 True
-1244674_00863|1244674|-|upstream|opposite_strand|IS682 True
-1244674_00879|1244674|-|inside|same_strand|ISEch14 False
-1244674_00880|1244674|-|inside|same_strand|ISEch14 False
-1125059_00056|1125059|-|inside|same_strand|ISEc8 False
-1240608_00243|1240608|-|inside|same_strand|ISEc22 True
-1243212_00271|1243212|-|flanking|same_strand|ISEc22 True
-1244994_01721|1244994|-|upstream|same_strand|ISKpn42 False
-1244994_01722|1244994|-|inside|same_strand|ISKpn42 False
-1244994_01723|1244994|-|inside|same_strand|ISEc10 True
-1244994_01724|1244994|-|inside|same_strand|ISEc10 True
-1244994_01725|1244994|-|downstream|same_strand|ISEc10 True
-1244434_00447|1244434|-|inside|same_strand|ISEc52 True
-1206755_00112|1206755|-|upstream|opposite_strand|IS600 False
-1245082_04546|1245082|-|inside|same_strand|ISEc52 True
-1245080_04545|1245080|-|inside|same_strand|ISEc52 True
-1244570_00584|1244570|disrupted|downstream|opposite_strand|IS609 True
-1244764_01146|1244764|disrupted|upstream|same_strand|IS609 True
-1244706_00887|1244706|-|inside|same_strand|IS1F True
-1202947_00109|1202947|-|inside|same_strand|IS1X2 False
-1215098_00134|1215098|-|inside|same_strand|IS1F True
-1236482_00188|1236482|-|inside|same_strand|IS1F True
-1245106_04640|1245106|disrupted|downstream|same_strand|ISSen10 True
-1245106_04639|1245106|-|inside|same_strand|ISSen10 True
-1245106_04638|1245106|disrupted|upstream|same_strand|ISSen10 True
-1002621_00031|1002621|-|flanking|opposite_strand|IS3411 False
-1244656_00832|1244656|disrupted|upstream|opposite_strand|IS3411 False
-1244656_00833|1244656|-|inside|same_strand|ISEc43 False
-1244656_00844|1244656|-|inside|same_strand|ISCro1 True
-1244656_00843|1244656|-|upstream|opposite_strand|ISCro1 False
-1244656_00845|1244656|-|inside|same_strand|ISCro1 True
-1244656_00846|1244656|-|inside|same_strand|ISCro1 True
-1244656_00837|1244656|disrupted|upstream|same_strand|ISEc49 False
-1245118_04670|1245118|-|flanking|opposite_strand|ISEc23 True
-1244700_00884|1244700|-|inside|same_strand|ISEc23 True
-1159225_00072|1159225|-|inside|same_strand|ISEc23 True
-1245048_03750|1245048|-|flanking|opposite_strand|ISSd1 False
-1245048_03746|1245048|-|inside|same_strand|ISEc9 True
-1245048_03748|1245048|upregulated|downstream|same_strand|ISEc9 False
-1243758_00330|1243758|-|inside|same_strand|ISSd1 False
-976171_00026|976171|-|flanking|same_strand|IS600 True
-1228204_00159|1228204|-|inside|same_strand|IS600 True
-1206755_00111|1206755|-|inside|same_strand|IS600 True
-1243586_00314|1243586|-|inside|same_strand|ISEc52 False
-1158833_00071|1158833|-|inside|same_strand|IS1F True
-1244320_00406|1244320|-|downstream|opposite_strand|ISEc8 True
-1244320_00405|1244320|-|inside|same_strand|ISEc8 True
-1244320_00407|1244320|-|inside|same_strand|IS1F False
-1244320_00408|1244320|-|flanking|opposite_strand|IS1X2 False
-1234604_00174|1234604|-|inside|same_strand|ISEc8 True
-1235120_00177|1235120|-|flanking|opposite_strand|ISEc8 False
-1236644_00191|1236644|-|inside|same_strand|ISEc8 True
-1236644_00190|1236644|-|inside|same_strand|ISEc8 True
-1236644_00189|1236644|-|inside|same_strand|ISEc8 True
-1244742_00933|1244742|-|inside|same_strand|ISEc12 True
-1244742_00934|1244742|-|inside|same_strand|ISEc12 True
-1245024_02247|1245024|-|downstream|same_strand|IS911 False
-1245024_02220|1245024|-|upstream|same_strand|ISSen1 True
-1245024_02221|1245024|disrupted|downstream|same_strand|ISSen1 True
-1244890_01166|1244890|-|flanking|same_strand|IS1F False
-1244638_00699|1244638|-|inside|same_strand|ISEc53 True
-1244638_00698|1244638|-|inside|same_strand|ISEc53 True
-Total CDS: 125
+<pre><code>Total CDS: 125
 Correct assignments: 82
 Incorrect assignments: 43
 Accuracy: 65.60%
@@ -683,7 +558,7 @@ Accuracy: 65.60%
 </div>
 <p>But wait, check also chromosome result of eris, and compare it with truth annotation. We don’t need to map them back to genome reference, because it should be in the same genomic coordinate.</p>
 <p>From eris result from chromosme, filter CDS entries with all the information about it, and convert them into bed file.</p>
-<div id="47256b78" class="cell" data-execution_count="12">
+<div id="7374ac4f" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re, os</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collections <span class="im">import</span> defaultdict</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -727,7 +602,7 @@ Accuracy: 65.60%
 <span id="cb17-41"><a href="#cb17-41" aria-hidden="true" tabindex="-1"></a>    bed.write(<span class="ss">f"</span><span class="sc">{</span>chromosome<span class="sc">}</span><span class="ch">\t</span><span class="sc">{</span><span class="bu">int</span>(start)<span class="op">-</span><span class="dv">1</span><span class="sc">}</span><span class="ch">\t</span><span class="sc">{</span>end<span class="sc">}</span><span class="ch">\t</span><span class="sc">{</span>name<span class="sc">}</span><span class="ch">\t</span><span class="sc">{</span><span class="dv">0</span><span class="sc">}</span><span class="ch">\t</span><span class="sc">{</span>strand<span class="sc">}</span><span class="ch">\n</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Sort them, and send them to series of intersection step like above</p>
-<div id="27d82a0e" class="cell" data-execution_count="13">
+<div id="65632404" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># sort the entry</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>bedtools sort <span class="op">-</span>i chromosome_cds_eris.bed <span class="op">&gt;</span> chromosome_cds_eris.<span class="bu">sorted</span>.bed</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -740,178 +615,21 @@ Accuracy: 65.60%
 </div>
 </div>
 <p>Asses eris location report</p>
-<div id="df43dd5e" class="cell" data-execution_count="14">
+<div id="ef4be9de" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>true, false, tot, cds_elements <span class="op">=</span> assess_eris_location_report(<span class="st">"cds_chrom_intersect_IS_truth.bed"</span>)</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ele, val <span class="kw">in</span> cds_elements.items():</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(ele, val)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co"># for ele, val in cds_elements.items():</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="co">#     print(ele, val)</span></span>
 <span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Total CDS: </span><span class="sc">{</span>tot<span class="sc">}</span><span class="ss">"</span>)</span>
 <span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Correct assignments: </span><span class="sc">{</span>true<span class="sc">}</span><span class="ss">"</span>)</span>
 <span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Incorrect assignments: </span><span class="sc">{</span>false<span class="sc">}</span><span class="ss">"</span>)</span>
 <span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Accuracy: </span><span class="sc">{</span>true <span class="op">/</span> tot<span class="sc">:.2%}</span><span class="ch">\n</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>HG941718.1_00204|HG941718.1|disrupted|upstream|opposite_strand|ISEc23 True
-HG941718.1_00205|HG941718.1|-|inside|same_strand|ISEc23 True
-HG941718.1_00206|HG941718.1|-|inside|same_strand|ISEc23 True
-HG941718.1_00207|HG941718.1|-|inside|same_strand|ISEc23 True
-HG941718.1_00208|HG941718.1|disrupted|downstream|opposite_strand|ISEc23 True
-HG941718.1_00735|HG941718.1|disrupted|donwstream|opposite_strand|MITEEc1 False
-HG941718.1_00736|HG941718.1|disrupted|upstream|opposite_strand|MITEEc1 True
-HG941718.1_01300|HG941718.1|disrupted|donwstream|same_strand|ISCfr4 False
-HG941718.1_01301|HG941718.1|-|inside|same_strand|ISCfr4 True
-HG941718.1_01302|HG941718.1|-|upstream|same_strand|ISCfr4 False
-HG941718.1_01307|HG941718.1|-|inside|opposite_strand|ISSen3 False
-HG941718.1_01309|HG941718.1|-|inside|same_strand|ISEc24 True
-HG941718.1_01310|HG941718.1|-|inside|same_strand|ISEc24 True
-HG941718.1_01311|HG941718.1|disrupted|downstream|same_strand|ISEc24 False
-HG941718.1_01353|HG941718.1|disrupted|upstream|same_strand|IS4 False
-HG941718.1_01354|HG941718.1|disrupted|downstream|same_strand|IS4 False
-HG941718.1_01422|HG941718.1|disrupted|donwstream|same_strand|ISEc12 False
-HG941718.1_01423|HG941718.1|-|inside|same_strand|ISEc12 True
-HG941718.1_01424|HG941718.1|-|inside|same_strand|ISEc12 True
-HG941718.1_01425|HG941718.1|-|downstream|opposite_strand|ISEc12 True
-HG941718.1_01570|HG941718.1|-|upstream|opposite_strand|ISEc1 True
-HG941718.1_01571|HG941718.1|-|inside|same_strand|ISEc1 True
-HG941718.1_01572|HG941718.1|disrupted|downstream|opposite_strand|ISEc1 True
-HG941718.1_01906|HG941718.1|disrupted|donwstream|same_strand|IS621 False
-HG941718.1_01907|HG941718.1|-|inside|same_strand|IS1397 True
-HG941718.1_01908|HG941718.1|-|inside|same_strand|IS1397 True
-HG941718.1_01909|HG941718.1|upregulated|downstream|same_strand|IS1397 False
-HG941718.1_02069|HG941718.1|disrupted|donwstream|opposite_strand|IS1397 False
-HG941718.1_02070|HG941718.1|-|inside|same_strand|IS1397 True
-HG941718.1_02071|HG941718.1|-|inside|same_strand|IS1397 True
-HG941718.1_02072|HG941718.1|-|upstream|opposite_strand|IS1397 True
-HG941718.1_02076|HG941718.1|disrupted|upstream|same_strand|IS200C False
-HG941718.1_02077|HG941718.1|-|inside|same_strand|IS200C True
-HG941718.1_02078|HG941718.1|disrupted|downstream|same_strand|IS200C False
-HG941718.1_02166|HG941718.1|-|donwstream|opposite_strand|ISEc38 False
-HG941718.1_02167|HG941718.1|-|inside|same_strand|ISEc38 True
-HG941718.1_02168|HG941718.1|-|downstream|same_strand|ISEc38 False
-HG941718.1_02171|HG941718.1|-|donwstream|same_strand|ISEc20 False
-HG941718.1_02172|HG941718.1|-|inside|same_strand|ISEc20 True
-HG941718.1_02173|HG941718.1|-|upstream|same_strand|ISEc20 False
-HG941718.1_02174|HG941718.1|-|donwstream|opposite_strand|IS100kyp False
-HG941718.1_02175|HG941718.1|-|inside|same_strand|IS100kyp True
-HG941718.1_02176|HG941718.1|-|inside|same_strand|IS100kyp True
-HG941718.1_02184|HG941718.1|disrupted|donwstream|same_strand|ISEc23 False
-HG941718.1_02185|HG941718.1|-|inside|same_strand|ISEc23 True
-HG941718.1_02186|HG941718.1|-|inside|same_strand|ISEc23 True
-HG941718.1_02187|HG941718.1|-|inside|same_strand|ISEc23 True
-HG941718.1_02188|HG941718.1|disrupted|upstream|same_strand|ISEc23 False
-HG941718.1_02191|HG941718.1|disrupted|donwstream|same_strand|ISEc12 False
-HG941718.1_02192|HG941718.1|-|inside|same_strand|ISEc12 True
-HG941718.1_02193|HG941718.1|-|inside|same_strand|ISEc12 True
-HG941718.1_02194|HG941718.1|disrupted|upstream|same_strand|ISEc12 False
-HG941718.1_02209|HG941718.1|disrupted|donwstream|opposite_strand|IS200C False
-HG941718.1_02210|HG941718.1|-|inside|same_strand|IS200C True
-HG941718.1_02211|HG941718.1|disrupted|downstream|same_strand|IS200C False
-HG941718.1_02299|HG941718.1|disrupted|upstream|same_strand|IS1R False
-HG941718.1_02300|HG941718.1|-|inside|same_strand|IS1R False
-HG941718.1_02301|HG941718.1|-|inside|same_strand|IS1R False
-HG941718.1_02302|HG941718.1|disrupted|downstream|same_strand|IS1R False
-HG941718.1_02937|HG941718.1|disrupted|donwstream|same_strand|ISEc12 False
-HG941718.1_02938|HG941718.1|-|inside|same_strand|ISEc12 True
-HG941718.1_02939|HG941718.1|-|inside|same_strand|ISEc12 True
-HG941718.1_02940|HG941718.1|disrupted|upstream|same_strand|ISEc12 False
-HG941718.1_03041|HG941718.1|disrupted|upstream|same_strand|MITEEc1 False
-HG941718.1_03042|HG941718.1|disrupted|downstream|same_strand|MITEEc1 False
-HG941718.1_03091|HG941718.1|-|donwstream|same_strand|IS1A False
-HG941718.1_03092|HG941718.1|-|inside|same_strand|IS1A True
-HG941718.1_03093|HG941718.1|-|inside|same_strand|IS1A True
-HG941718.1_03094|HG941718.1|-|downstream|opposite_strand|IS1A True
-HG941718.1_03095|HG941718.1|-|inside|same_strand|IS1A True
-HG941718.1_03096|HG941718.1|-|inside|same_strand|IS1A True
-HG941718.1_03097|HG941718.1|disrupted|downstream|same_strand|IS1A False
-HG941718.1_03099|HG941718.1|-|donwstream|opposite_strand|IS1203 False
-HG941718.1_03100|HG941718.1|-|inside|same_strand|IS1203 True
-HG941718.1_03101|HG941718.1|-|inside|same_strand|IS1203 True
-HG941718.1_03102|HG941718.1|-|inside|same_strand|ISKox3 True
-HG941718.1_03103|HG941718.1|-|upstream|opposite_strand|ISKox3 True
-HG941718.1_03114|HG941718.1|disrupted|donwstream|same_strand|IS30 False
-HG941718.1_03115|HG941718.1|-|inside|same_strand|IS30 True
-HG941718.1_03116|HG941718.1|-|inside|same_strand|ISSd1 True
-HG941718.1_03117|HG941718.1|disrupted|upstream|same_strand|ISSd1 False
-HG941718.1_03118|HG941718.1|-|inside|same_strand|ISEch14 True
-HG941718.1_03119|HG941718.1|-|inside|same_strand|ISEch14 True
-HG941718.1_03120|HG941718.1|disrupted|downstream|opposite_strand|ISEch14 True
-HG941718.1_03124|HG941718.1|-|downstream|opposite_strand|ISEc83 False
-HG941718.1_03125|HG941718.1|-|inside|same_strand|IS2 True
-HG941718.1_03126|HG941718.1|-|inside|same_strand|IS2 True
-HG941718.1_03127|HG941718.1|disrupted|downstream|same_strand|IS2 False
-HG941718.1_03135|HG941718.1|-|upstream|opposite_strand|IS682 True
-HG941718.1_03136|HG941718.1|-|inside|same_strand|IS682 True
-HG941718.1_03137|HG941718.1|-|inside|same_strand|IS682 True
-HG941718.1_03138|HG941718.1|-|inside|same_strand|IS682 False
-HG941718.1_03139|HG941718.1|disrupted|upstream|same_strand|IS682 False
-HG941718.1_03140|HG941718.1|disrupted|downstream|opposite_strand|ISEc22 True
-HG941718.1_03161|HG941718.1|-|donwstream|same_strand|ISKpn42 False
-HG941718.1_03162|HG941718.1|-|inside|same_strand|ISKpn42 False
-HG941718.1_03163|HG941718.1|-|inside|same_strand|ISEc10 True
-HG941718.1_03164|HG941718.1|-|inside|same_strand|ISEc10 True
-HG941718.1_03165|HG941718.1|-|upstream|same_strand|ISEc10 False
-HG941718.1_03341|HG941718.1|disrupted|upstream|opposite_strand|ISEc52 True
-HG941718.1_03342|HG941718.1|-|inside|same_strand|ISEc52 True
-HG941718.1_03343|HG941718.1|-|inside|same_strand|ISEc52 True
-HG941718.1_03344|HG941718.1|disrupted|downstream|opposite_strand|ISEc52 True
-HG941718.1_03613|HG941718.1|disrupted|donwstream|opposite_strand|IS609 False
-HG941718.1_03614|HG941718.1|-|inside|same_strand|IS609 True
-HG941718.1_03615|HG941718.1|upregulated|downstream|same_strand|IS609 False
-HG941718.1_03891|HG941718.1|-|donwstream|opposite_strand|IS1F False
-HG941718.1_03892|HG941718.1|-|inside|same_strand|IS1F True
-HG941718.1_03893|HG941718.1|disrupted|downstream|same_strand|IS1F False
-HG941718.1_03901|HG941718.1|disrupted|upstream|same_strand|ISSen10 False
-HG941718.1_03902|HG941718.1|-|inside|same_strand|ISSen10 True
-HG941718.1_03903|HG941718.1|disrupted|downstream|same_strand|ISSen10 False
-HG941718.1_03904|HG941718.1|-|inside|same_strand|IS629 False
-HG941718.1_03905|HG941718.1|-|inside|same_strand|IS629 True
-HG941718.1_03906|HG941718.1|disrupted|upstream|opposite_strand|IS629 True
-HG941718.1_03907|HG941718.1|disrupted|donwstream|opposite_strand|ISEc49 False
-HG941718.1_03908|HG941718.1|-|inside|same_strand|ISEc49 False
-HG941718.1_03917|HG941718.1|-|upstream|opposite_strand|ISCro1 True
-HG941718.1_03918|HG941718.1|-|inside|same_strand|ISCro1 True
-HG941718.1_03919|HG941718.1|-|inside|same_strand|ISCro1 True
-HG941718.1_03920|HG941718.1|-|inside|same_strand|ISCro1 True
-HG941718.1_03921|HG941718.1|-|downstream|opposite_strand|ISCro1 True
-HG941718.1_03922|HG941718.1|-|inside|same_strand|IS21 True
-HG941718.1_03923|HG941718.1|-|inside|same_strand|IS21 True
-HG941718.1_03924|HG941718.1|upregulated|downstream|same_strand|IS21 False
-HG941718.1_04596|HG941718.1|-|upstream|opposite_strand|ISEc23 True
-HG941718.1_04597|HG941718.1|-|inside|same_strand|ISEc23 True
-HG941718.1_04598|HG941718.1|-|inside|same_strand|ISEc23 True
-HG941718.1_04599|HG941718.1|-|inside|same_strand|ISEc23 True
-HG941718.1_04600|HG941718.1|-|downstream|opposite_strand|ISEc23 True
-HG941718.1_04608|HG941718.1|disrupted|upstream|opposite_strand|ISEc9 True
-HG941718.1_04609|HG941718.1|-|inside|same_strand|ISEc9 True
-HG941718.1_04610|HG941718.1|-|inside|same_strand|IS5 True
-HG941718.1_04611|HG941718.1|disrupted|upstream|same_strand|ISEc9 False
-HG941718.1_04612|HG941718.1|disrupted|upstream|same_strand|ISSd1 False
-HG941718.1_04613|HG941718.1|-|inside|same_strand|ISSd1 False
-HG941718.1_04614|HG941718.1|-|inside|same_strand|ISSd1 False
-HG941718.1_04615|HG941718.1|disrupted|upstream|opposite_strand|ISSd1 False
-HG941718.1_04624|HG941718.1|-|upstream|opposite_strand|IS1F True
-HG941718.1_04625|HG941718.1|-|inside|same_strand|IS1F True
-HG941718.1_04626|HG941718.1|-|upstream|same_strand|IS1F False
-HG941718.1_04627|HG941718.1|-|inside|same_strand|ISEc8 True
-HG941718.1_04628|HG941718.1|-|inside|same_strand|ISEc8 True
-HG941718.1_04629|HG941718.1|-|inside|same_strand|ISEc8 True
-HG941718.1_04644|HG941718.1|disrupted|donwstream|same_strand|ISEc12 False
-HG941718.1_04645|HG941718.1|-|inside|same_strand|ISEc12 True
-HG941718.1_04646|HG941718.1|-|inside|same_strand|ISEc12 True
-HG941718.1_04647|HG941718.1|-|upstream|same_strand|ISEc12 False
-HG941718.1_04651|HG941718.1|-|donwstream|same_strand|ISSen1 False
-HG941718.1_04652|HG941718.1|disrupted|upstream|same_strand|ISSen1 False
-HG941718.1_04678|HG941718.1|-|upstream|same_strand|ISEc52 False
-HG941718.1_04679|HG941718.1|-|inside|same_strand|ISEc52 True
-HG941718.1_04680|HG941718.1|-|inside|same_strand|ISEc52 True
-HG941718.1_04681|HG941718.1|disrupted|upstream|opposite_strand|ISEc52 True
-HG941718.1_04686|HG941718.1|-|inside|same_strand|ISEc53 True
-HG941718.1_04687|HG941718.1|-|inside|same_strand|ISEc53 True
-HG941718.1_04688|HG941718.1|-|upstream|opposite_strand|ISEc53 True
-Total CDS: 157
-Correct assignments: 92
-Incorrect assignments: 65
-Accuracy: 58.60%
+<pre><code>Total CDS: 157
+Correct assignments: 139
+Incorrect assignments: 18
+Accuracy: 88.54%
 </code></pre>
 </div>
 </div>
@@ -1001,12 +719,12 @@ Accuracy: 58.60%
 <section id="using-clustering-mmseq2" class="level4">
 <h4 class="anchored" data-anchor-id="using-clustering-mmseq2">Using clustering MMSEQ2</h4>
 <p><strong>cluster the ISfinder and ISOSDB using mmseqs2</strong></p>
-<div id="2acc1ec7" class="cell" data-execution_count="15">
+<div id="42f98b36" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>cat ..<span class="op">/</span>..<span class="op">/</span>ISOSDB.V3.fna ..<span class="op">/</span>..<span class="op">/</span>eris<span class="op">/</span>src<span class="op">/</span>eris<span class="op">/</span>data<span class="op">/</span>IS.fna <span class="op">&gt;</span> combined_ISOSDB_ISfinder.fna</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>mmseqs easy<span class="op">-</span>cluster combined_ISOSDB_ISfinder.fna clusterIS tmp <span class="op">--</span><span class="bu">min</span><span class="op">-</span>seq<span class="op">-</span><span class="bu">id</span> <span class="fl">0.8</span> <span class="op">-</span>c <span class="fl">0.8</span> <span class="op">-</span>s <span class="dv">7</span> <span class="op">--</span>threads <span class="dv">4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><strong>Look for the intersections</strong></p>
-<div id="72995f45" class="cell" data-execution_count="16">
+<div id="b2f9fea0" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collections <span class="im">import</span> defaultdict</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>clusters <span class="op">=</span> defaultdict(<span class="bu">list</span>)</span>
@@ -1078,16 +796,16 @@ Clusters only ISfinder: 2483</code></pre>
 <section id="extract-cds-sequence-from-complete-chromosome" class="level5">
 <h5 class="anchored" data-anchor-id="extract-cds-sequence-from-complete-chromosome">Extract CDS sequence from complete chromosome</h5>
 <p>we can use seqkit to extract sequence from fasta format</p>
-<div id="31ed9ce6" class="cell" data-execution_count="17">
+<div id="8d796ce4" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>seqkit subseq <span class="op">--</span>bed ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>EC958_genomic_sorted.cds.edit.bed ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>EC958.fasta <span class="op">&gt;</span> cds_chrom_all.fna</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>combine with predicted CDS from eris, and run clustering using mmseq2 again. The predcited CDS sequence is expected to be intersected with the the truth CDS</p>
-<div id="cabfa277" class="cell" data-execution_count="18">
+<div id="890276c9" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>cat cds_chrom_all.fna cds_gfa_shovill_is.fna <span class="op">&gt;</span> combined_cds_alltruth_eris.fna</span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>mmseqs easy<span class="op">-</span>cluster combined_cds_alltruth_eris.fna clusterCDSall tmp <span class="op">--</span><span class="bu">min</span><span class="op">-</span>seq<span class="op">-</span><span class="bu">id</span> <span class="fl">0.8</span> <span class="op">-</span>c <span class="fl">0.8</span> <span class="op">-</span>s <span class="dv">7</span> <span class="op">--</span>threads <span class="dv">4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="d9644f72" class="cell" data-execution_count="19">
+<div id="00b8c1dd" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collections <span class="im">import</span> defaultdict</span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>clusters <span class="op">=</span> defaultdict(<span class="bu">list</span>)</span>
@@ -1157,7 +875,7 @@ Clusters only predicted: 118</code></pre>
 </div>
 </div>
 <p>print cluster that have intersection from both:</p>
-<div id="1b162de8" class="cell" data-execution_count="20">
+<div id="4b0f1d04" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>i <span class="op">=</span> <span class="dv">1</span></span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> clust, mem <span class="kw">in</span> clusters.items():</span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  has_hg <span class="op">=</span> <span class="bu">any</span>(e.startswith(<span class="st">"HG"</span>) <span class="cf">for</span> e <span class="kw">in</span> mem)</span>
@@ -1224,7 +942,7 @@ Cluster 55: ['1245118_04678|1245118|-|downstream|opposite_strand|ISEc13\n', 'HG9
 </div>
 </div>
 <p>Tried to filter first the truth CDS region that near to insertion elemeent, extraxt the sequence and then combined with predicted CDS from eris, tehn run clustering.</p>
-<div id="0cbfae16" class="cell" data-execution_count="21">
+<div id="16791bb8" class="cell" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>grep <span class="st">"^HG941718</span><span class="er">\</span><span class="st">.1"</span> ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>EC958_genomic_sorted.cds.edit.bed <span class="op">|</span> bedtools slop <span class="op">-</span>i <span class="op">-</span> <span class="op">-</span>g ec958.genome.size <span class="op">-</span>b <span class="dv">100000</span> <span class="op">|</span> bedtools intersect <span class="op">-</span>a <span class="op">-</span> <span class="op">-</span>b ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>ec958_IS.reannotated.<span class="bu">sorted</span>.bed <span class="op">&gt;</span> temp</span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>seqkit subseq <span class="op">--</span>bed temp ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>EC958.fasta <span class="op">&gt;</span> cds_truth_with_is_intersect.fna</span>
@@ -1235,7 +953,7 @@ Cluster 55: ['1245118_04678|1245118|-|downstream|opposite_strand|ISEc13\n', 'HG9
 <span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>mmseqs easy<span class="op">-</span>cluster combined_cds_truth_eris.fna clusterCDS tmp <span class="op">--</span><span class="bu">min</span><span class="op">-</span>seq<span class="op">-</span><span class="bu">id</span> <span class="fl">0.8</span> <span class="op">-</span>c <span class="fl">0.8</span> <span class="op">-</span>s <span class="dv">7</span> <span class="op">--</span>threads <span class="dv">4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="5c59b89c" class="cell" data-execution_count="22">
+<div id="04b36288" class="cell" data-execution_count="22">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collections <span class="im">import</span> defaultdict</span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>clusters <span class="op">=</span> defaultdict(<span class="bu">list</span>)</span>
@@ -1308,7 +1026,7 @@ Clusters only predicted: 159</code></pre>
 <section id="run-eris-with-annotation-file" class="level5">
 <h5 class="anchored" data-anchor-id="run-eris-with-annotation-file">Run eris with annotation file</h5>
 <p>Prepare the annotation file in bed file with something like this tat eris will accept it:</p>
-<div id="f73519f3" class="cell" data-execution_count="23">
+<div id="ee163ed3" class="cell" data-execution_count="23">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>awk <span class="st">'BEGIN{OFS="</span><span class="ch">\t</span><span class="st">"} {$7="."; $8="CDS"; $9="0"; $10="ID=" $4 ";source=genbank"; print $0}'</span>  ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>EC958_genomic_sorted.cds.edit.bed <span class="op">&gt;</span> ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>EC958.bed</span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>head <span class="op">-</span>n <span class="dv">5</span> ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>EC958.bed</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1319,20 +1037,20 @@ HG941720.1  624 1332    cds-WP_001296720.1  .   +   .   CDS 0   ID=cds-WP_001296
 HG941719.1  627 933 cds-WP_001159868.1  .   +   .   CDS 0   ID=cds-WP_001159868.1;source=genbank</code></pre>
 </div>
 </div>
-<div id="c33b4822" class="cell" data-execution_count="24">
+<div id="398156f0" class="cell" data-execution_count="24">
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>eris scan ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>EC958.fasta <span class="op">-</span>a ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>EC958.bed <span class="op">&gt;</span> eris<span class="op">-</span>outputs<span class="op">/</span>eris_anot.tsv</span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>head <span class="op">-</span>n <span class="dv">10</span> eris<span class="op">-</span>outputs<span class="op">/</span>eris_anot.tsv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Genome  Feature Type    Contig  Start   End Strand  Partial Element Element_distance    Element_location    Element_strand  Element_effect  Percent_identity    Percent_coverage    Name    Family  Group   Synonyms    Origin  IR  DR
-EC958   cds-EC958_RS01070   CDS HG941718.1  233363  233726  -1  False   7fa0f88c-cc70-449e-a445-334d459d0fca    1bp upstream    opposite strand disrupted   -   -   None    -   -   -   -   -   -
-EC958   7fa0f88c-cc70-449e-a445-334d459d0fca    mobile_element  HG941718.1  233727  236259  1   False   7fa0f88c-cc70-449e-a445-334d459d0fca    -   -   -   -   99.96050552922591   100.0   ISEc23  IS66        None    Escherichia coli    20/24   8
-EC958   cds-WP_000422741.1  CDS HG941718.1  233812  234238  1   False   7fa0f88c-cc70-449e-a445-334d459d0fca    -   inside  same strand -   -   -   None    -   -   -   -   -   -
-EC958   cds-WP_000624722.1  CDS HG941718.1  234234  234585  1   False   7fa0f88c-cc70-449e-a445-334d459d0fca    -   inside  same strand -   -   -   None    -   -   -   -   -   -
-EC958   7fa0f88c-cc70-449e-a445-334d459d0fca_promoter_1 regulatory  HG941718.1  234579  234610  1   False   7fa0f88c-cc70-449e-a445-334d459d0fca    -   inside  -   -   -   -   -   -   -   -   -   -   -
-EC958   cds-WP_000080195.1  CDS HG941718.1  234615  236229  1   False   7fa0f88c-cc70-449e-a445-334d459d0fca    -   inside  same strand -   -   -   None    -   -   -   -   -   -
-EC958   cds-EC958_RS01090   CDS HG941718.1  236260  236728  -1  False   7fa0f88c-cc70-449e-a445-334d459d0fca    1bp downstream  opposite strand disrupted   -   -   None    -   -   -   -   -   -
-EC958   cds-WP_001036491.1  CDS HG941718.1  813465  814899  1   False   ea76eba5-44a5-4f91-8e84-5883e7e76b0f    3bp donwstream  opposite strand disrupted   -   -   None    -   -   -   -   -   -
-EC958   ea76eba5-44a5-4f91-8e84-5883e7e76b0f    mobile_element  HG941718.1  814902  815025  -1  False   ea76eba5-44a5-4f91-8e84-5883e7e76b0f    -   -   -   -   96.7479674796748    100.0   MITEEc1 IS630       None    Escherichia coli    18/23   2</code></pre>
+EC958   cds-EC958_RS01070   CDS HG941718.1  233363  233726  -1  False   ddb08292-d96f-4ddc-8ebe-87f98f3d8093    1bp upstream    opposite strand disrupted   -   -   None    -   -   -   -   -   -
+EC958   ddb08292-d96f-4ddc-8ebe-87f98f3d8093    mobile_element  HG941718.1  233727  236259  1   False   ddb08292-d96f-4ddc-8ebe-87f98f3d8093    -   -   -   -   99.96050552922591   100.0   ISEc23  IS66        None    Escherichia coli    20/24   8
+EC958   cds-WP_000422741.1  CDS HG941718.1  233812  234238  1   False   ddb08292-d96f-4ddc-8ebe-87f98f3d8093    -   inside  same strand -   -   -   None    -   -   -   -   -   -
+EC958   cds-WP_000624722.1  CDS HG941718.1  234234  234585  1   False   ddb08292-d96f-4ddc-8ebe-87f98f3d8093    -   inside  same strand -   -   -   None    -   -   -   -   -   -
+EC958   ddb08292-d96f-4ddc-8ebe-87f98f3d8093_promoter_1 regulatory  HG941718.1  234579  234610  1   False   ddb08292-d96f-4ddc-8ebe-87f98f3d8093    -   inside  -   -   -   -   -   -   -   -   -   -   -
+EC958   cds-WP_000080195.1  CDS HG941718.1  234615  236229  1   False   ddb08292-d96f-4ddc-8ebe-87f98f3d8093    -   inside  same strand -   -   -   None    -   -   -   -   -   -
+EC958   cds-EC958_RS01090   CDS HG941718.1  236260  236728  -1  False   ddb08292-d96f-4ddc-8ebe-87f98f3d8093    1bp downstream  opposite strand disrupted   -   -   None    -   -   -   -   -   -
+EC958   cds-WP_001036491.1  CDS HG941718.1  813465  814899  1   False   ff9221c7-1b57-4937-bcc7-22bc2a8674c8    3bp downstream  opposite strand disrupted   -   -   None    -   -   -   -   -   -
+EC958   ff9221c7-1b57-4937-bcc7-22bc2a8674c8    mobile_element  HG941718.1  814902  815025  -1  False   ff9221c7-1b57-4937-bcc7-22bc2a8674c8    -   -   -   -   96.7479674796748    100.0   MITEEc1 IS630       None    Escherichia coli    18/23   2</code></pre>
 </div>
 </div>
 
