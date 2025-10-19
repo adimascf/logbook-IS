@@ -253,7 +253,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <ul>
 <li>Weekly project meeting
 <ul>
-<li>Tom has pushed changes of eris</li>
+<li>Tom is making changes of eris</li>
 <li>We can try making ground truth of predicted genes, and manually looking</li>
 <li>Cluster the sequences from ISOSDB and ISfinder, see how many or much intersection between those two</li>
 <li>Dimas needs to start drafting the poster and report, focus on EC958</li>
@@ -285,7 +285,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>From there, we can answer the <strong>concordance</strong> of the IS elements and CDS relationship predicted from GFA to truth CDS IS truth annotation from chromosome, right?</li>
 </ul>
 <p>Read the result from eris, and thenn extract CDS information including the corresponding IS that might be impacted, location, strand, .</p>
-<div id="43c23e85" class="cell" data-execution_count="1">
+<div id="aed7d5ed" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collections <span class="im">import</span> defaultdict</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>is_elements <span class="op">=</span> defaultdict(<span class="bu">str</span>)</span>
@@ -314,7 +314,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p><strong>Extract CDS sequence from Eris</strong></p>
 <p>Identify CDS sequence that may be imacted by insertion from Eris, and extract the coding sequence from the gfa file</p>
-<div id="09010baf" class="cell" data-execution_count="2">
+<div id="a3e4bf94" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> eris.io <span class="im">import</span> SeqFile</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> eris.seq <span class="im">import</span> Record</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -325,10 +325,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="bu">isinstance</span>(entry, Record):</span>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    nodes_seq[entry.<span class="bu">id</span>] <span class="op">=</span> entry.seq</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="474beef1" class="cell" data-execution_count="3">
+<div id="0968b112" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> writeFasta(seqname: <span class="bu">str</span>, sequence: <span class="bu">str</span>) <span class="op">-&gt;</span> <span class="bu">str</span>:</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> write_fasta(seqname: <span class="bu">str</span>, sequence: <span class="bu">str</span>) <span class="op">-&gt;</span> <span class="bu">str</span>:</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="co">"""Write one sequence in FASTA format to a string and return it. This will split the sequence per 60 bp per line.</span></span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">  """</span></span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
@@ -349,7 +349,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    result <span class="op">+=</span> complement[b]</span>
 <span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> result[::<span class="op">-</span><span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="870d4db7" class="cell" data-execution_count="4">
+<div id="57d070a6" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re, os</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
@@ -367,12 +367,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>  start, end <span class="op">=</span> <span class="bu">int</span>(info[<span class="dv">1</span>]), <span class="bu">int</span>(info[<span class="dv">2</span>])</span>
 <span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>  subseq <span class="op">=</span> <span class="bu">str</span>(seq[start:end])</span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>  fasta <span class="op">=</span> writeFasta(name, subseq)</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>  fasta <span class="op">=</span> write_fasta(name, subseq)</span>
 <span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>  <span class="cf">with</span> <span class="bu">open</span>(<span class="st">"cds_gfa_shovill_is.fna"</span>, <span class="st">"a"</span>) <span class="im">as</span> output:</span>
 <span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>    output.write(fasta)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Compare predicted CDS (from GFA) to “truth” CDS (from NCBI chromosome)</p>
-<div id="63817319" class="cell" data-execution_count="5">
+<div id="ab078932" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>wc <span class="op">-</span>l ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>EC958_genomic_sorted.cds.edit.bed <span class="co"># this is cds bed file from NCBI</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>grep <span class="st">"^&gt;"</span> cds_gfa_shovill_is.fna <span class="op">|</span> wc <span class="op">-</span>l</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -384,26 +384,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Let’s search where those 183 cds located in the genome, and are the location with respect of insertion elements similar or no</p>
 <p>First, i think we can just map the <strong>predicted cds (from eris)</strong>.. and look where are they, relative to the chromosome, then we can look whether there are annotated IS near them, right? 🤔</p>
 <p><strong>map cds from eris to chromosome, using minimap:</strong></p>
-<div id="301323e0" class="cell" data-execution_count="6">
+<div id="61b58d83" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># using preset short read, because cds sequences are short</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>minimap2 <span class="op">-</span>x sr ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>EC958.fasta cds_gfa_shovill_is.fna <span class="op">&gt;</span> cds_is_to_chrom.paf</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[M::mm_idx_gen::0.072*1.10] collected minimizers
-[M::mm_idx_gen::0.085*1.38] sorted minimizers
-[M::main::0.085*1.38] loaded/built the index for 1 target sequence(s)
-[M::mm_mapopt_update::0.085*1.38] mid_occ = 1000
+<pre><code>[M::mm_idx_gen::0.076*1.14] collected minimizers
+[M::mm_idx_gen::0.090*1.40] sorted minimizers
+[M::main::0.090*1.40] loaded/built the index for 1 target sequence(s)
+[M::mm_mapopt_update::0.090*1.40] mid_occ = 1000
 [M::mm_idx_stat] kmer size: 21; skip: 11; is_hpc: 0; #seq: 1
-[M::mm_idx_stat::0.091*1.36] distinct minimizers: 834905 (98.89% are singletons); average occurrences: 1.020; average spacing: 6.000; total length: 5109767
-[M::worker_pipeline::0.093*1.39] mapped 183 sequences
+[M::mm_idx_stat::0.096*1.38] distinct minimizers: 834905 (98.89% are singletons); average occurrences: 1.020; average spacing: 6.000; total length: 5109767
+[M::worker_pipeline::0.098*1.41] mapped 183 sequences
 [M::main] Version: 2.30-r1287
 [M::main] CMD: minimap2 -x sr ../../data/ecoli/EC958.fasta cds_gfa_shovill_is.fna
-[M::main] Real time: 0.097 sec; CPU: 0.133 sec; Peak RSS: 0.076 GB</code></pre>
+[M::main] Real time: 0.101 sec; CPU: 0.141 sec; Peak RSS: 0.076 GB</code></pre>
 </div>
 </div>
 <p>how many cds from eris were successfully mapped to chrom sequence?</p>
-<div id="5af4ce64" class="cell" data-execution_count="7">
+<div id="f69c036d" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>wc <span class="op">-</span>l cds_is_to_chrom.paf</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>cut <span class="op">-</span>f <span class="dv">1</span> cds_is_to_chrom.paf  <span class="op">|</span> sort <span class="op">|</span> uniq <span class="op">|</span> wc <span class="op">-</span>l</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>cut <span class="op">-</span>f <span class="dv">1</span> cds_is_to_chrom.paf  <span class="op">|</span> sort <span class="op">|</span> uniq <span class="op">|</span> wc <span class="op">-</span>l <span class="co"># couint by feature ID from eris</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     183 cds_is_to_chrom.paf
      183</code></pre>
@@ -411,7 +411,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>all of them, and each of them is mapped uniqely..</p>
 <p>extract the location information, where are they realtive to the chromosome coordinate and also corresponding eris information (make a bed file)</p>
-<div id="63f5c960" class="cell" data-execution_count="8">
+<div id="1c06c268" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 4th field is for query name (cds and coresponding insertion info from eris)</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 5th field is for alignment score from minimap</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 6th strand info from minimap2</span></span>
@@ -419,17 +419,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <ul>
 <li>look intersection between mapped cds here with cds coordinate from the truth (ncbi),</li>
-<li>add flank at both ends for each entries (to allow intersection happens), and instersect them again with IS locations (reanotatated truth). Add flank so that we know how close the cds (predicted from gfa) to the IS elements (from truth chromosome) are</li>
+<li>add flank at both ends for each entries (to allow intersection occurs), and instersect them again with IS locations (reanotatated truth). Add flank so that we know how close the cds (predicted from gfa) to the IS elements (from truth chromosome) are</li>
 <li>save into file for checking similarty on the location, strandness, and we can assess how well eris predict the location</li>
 </ul>
-<div id="44fd37d5" class="cell" data-execution_count="9">
+<div id="e4d26ed5" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># sort the entry</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>bedtools sort <span class="op">-</span>i cds_is_to_chrom.bed <span class="op">&gt;</span> cds_is_to_chrom.<span class="bu">sorted</span>.bed</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># intersect them with known cds, with at least 50% fraction</span></span>
 <span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>bedtools intersect <span class="op">-</span>a cds_is_to_chrom.<span class="bu">sorted</span>.bed <span class="op">-</span>b ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>EC958_genomic_sorted.cds.edit.bed <span class="op">-</span>f <span class="fl">0.5</span> <span class="op">-</span>wa <span class="op">|</span> bedtools slop <span class="op">-</span>i <span class="op">-</span> <span class="op">-</span>g ec958.genome.size <span class="op">-</span>b <span class="dv">1000</span> <span class="op">|</span> bedtools intersect <span class="op">-</span>a <span class="op">-</span> <span class="op">-</span>b ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>ec958_IS.reannotated.<span class="bu">sorted</span>.bed <span class="op">-</span>wa <span class="op">-</span>wb <span class="op">&gt;</span> cds_gfa_intersect_IS_truth.bed</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="373894b5" class="cell" data-execution_count="10">
+<div id="da4945cc" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>cut <span class="op">-</span>f <span class="dv">4</span> cds_gfa_intersect_IS_truth.bed <span class="op">|</span> sort <span class="op">|</span> uniq <span class="op">|</span> wc <span class="op">-</span>l</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     125</code></pre>
@@ -449,112 +449,115 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <figcaption>Little overlap with truth CDS</figcaption>
 </figure>
 </div>
-<p>Check on the assignment of element location relative to the CDS. We assess the report come from eris using the ground truth IS and full chromosome.</p>
+<p>Check on the assignment of element location relative to the CDS. We assess the report come from eris using the ground truth IS on complete chromosome.</p>
 <p>Eris defines <strong>element_location</strong> as: <strong>Signifies the relative location of the Element from the current context</strong>.</p>
 <p>So I can check if:</p>
 <ul>
 <li><p>Inside: the predicted CDS is part of truth IS</p></li>
-<li><p>Downstream: the predicted CDS has IS element at its downstream (after the cds)</p></li>
-<li><p>Upstream: the predicted CDS has IS element at its upstream (after the cds)</p></li>
-<li><p>Flanking: the predicted CDS has an IS element overlapping it, but not fully inside.</p></li>
+<li><p>Downstream: the predicted CDS at the downstream of IS element</p></li>
+<li><p>Upstream: the predicted CDS appear at the upstream of IS element</p></li>
+<li><p>Flanking: CDS adjacent to IS element in the different contigs (here, i assessed as not part of IS)</p></li>
 </ul>
 <p>All of those condition, we checked with the chromosome info (eris only had contigs info when it predicted)</p>
-<div id="2b7a8e04" class="cell" data-execution_count="11">
+<div id="81744f34" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collections <span class="im">import</span> defaultdict</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>cds_elements <span class="op">=</span> defaultdict(<span class="bu">str</span>)</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"cds_gfa_intersect_IS_truth.bed"</span>) <span class="im">as</span> entries:</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  entries <span class="op">=</span> entries.readlines()</span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> entry <span class="kw">in</span> entries:</span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    entry <span class="op">=</span> entry.split(<span class="st">"</span><span class="ch">\t</span><span class="st">"</span>)</span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    cds_start <span class="op">=</span> <span class="bu">int</span>(entry[<span class="dv">1</span>]) <span class="op">+</span> <span class="dv">1000</span></span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>    cds_end <span class="op">=</span> <span class="bu">int</span>(entry[<span class="dv">2</span>]) <span class="op">-</span> <span class="dv">1000</span></span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>    is_start <span class="op">=</span> <span class="bu">int</span>(entry[<span class="dv">7</span>])</span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>    is_end <span class="op">=</span> <span class="bu">int</span>(entry[<span class="dv">8</span>])</span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>    predicted_location <span class="op">=</span> entry[<span class="dv">3</span>].split(<span class="st">"|"</span>)[<span class="dv">3</span>]</span>
-<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>    is_precited <span class="op">=</span> entry[<span class="dv">3</span>].split(<span class="st">"|"</span>)[<span class="op">-</span><span class="dv">1</span>]</span>
-<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>    is_truth <span class="op">=</span> entry[<span class="dv">9</span>]</span>
-<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>    predicted_cds_strand <span class="op">=</span> entry[<span class="dv">5</span>]</span>
-<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>    is_strand <span class="op">=</span> entry[<span class="op">-</span><span class="dv">1</span>]</span>
-<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>    length_cds <span class="op">=</span> cds_end <span class="op">-</span> cds_start</span>
-<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>    <span class="co"># inside</span></span>
-<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> predicted_location <span class="op">==</span> <span class="st">"inside"</span>:</span>
-<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> entry[<span class="dv">3</span>] <span class="kw">not</span> <span class="kw">in</span> cds_elements:</span>
-<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a>        cds_elements[entry[<span class="dv">3</span>]] <span class="op">=</span> <span class="st">"False"</span></span>
-<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> is_precited <span class="op">==</span> is_truth.split(<span class="st">"_"</span>)[<span class="dv">0</span>]:</span>
-<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> cds_start <span class="op">&gt;=</span> is_start <span class="kw">and</span> cds_end <span class="op">&lt;=</span> is_end: <span class="co"># part of the IS hit</span></span>
-<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a>          cds_elements[entry[<span class="dv">3</span>]] <span class="op">=</span> <span class="st">"True"</span></span>
-<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a>          <span class="cf">continue</span></span>
-<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-29"><a href="#cb15-29" aria-hidden="true" tabindex="-1"></a>    <span class="co"># downstream</span></span>
-<span id="cb15-30"><a href="#cb15-30" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> predicted_location <span class="op">==</span> <span class="st">"downstream"</span>:</span>
-<span id="cb15-31"><a href="#cb15-31" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> entry[<span class="dv">3</span>] <span class="kw">not</span> <span class="kw">in</span> cds_elements:</span>
-<span id="cb15-32"><a href="#cb15-32" aria-hidden="true" tabindex="-1"></a>        cds_elements[entry[<span class="dv">3</span>]] <span class="op">=</span> <span class="st">"False"</span></span>
-<span id="cb15-33"><a href="#cb15-33" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> predicted_cds_strand <span class="op">==</span> <span class="st">"+"</span>:</span>
-<span id="cb15-34"><a href="#cb15-34" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> is_precited <span class="op">==</span> is_truth.split(<span class="st">"_"</span>)[<span class="dv">0</span>]:</span>
-<span id="cb15-35"><a href="#cb15-35" aria-hidden="true" tabindex="-1"></a>          check <span class="op">=</span> <span class="bu">max</span>(<span class="dv">0</span>, cds_end <span class="op">-</span> is_start)</span>
-<span id="cb15-36"><a href="#cb15-36" aria-hidden="true" tabindex="-1"></a>          <span class="cf">if</span> check <span class="op">/</span> length_cds <span class="op">&lt;</span> <span class="fl">0.8</span>:</span>
-<span id="cb15-37"><a href="#cb15-37" aria-hidden="true" tabindex="-1"></a>            cds_elements[entry[<span class="dv">3</span>]] <span class="op">=</span> <span class="st">"True"</span></span>
-<span id="cb15-38"><a href="#cb15-38" aria-hidden="true" tabindex="-1"></a>            <span class="cf">continue</span></span>
-<span id="cb15-39"><a href="#cb15-39" aria-hidden="true" tabindex="-1"></a>      <span class="cf">elif</span> predicted_cds_strand <span class="op">==</span> <span class="st">"-"</span>:</span>
-<span id="cb15-40"><a href="#cb15-40" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> is_precited <span class="op">==</span> is_truth.split(<span class="st">"_"</span>)[<span class="dv">0</span>]:</span>
-<span id="cb15-41"><a href="#cb15-41" aria-hidden="true" tabindex="-1"></a>          check <span class="op">=</span> <span class="bu">max</span>(<span class="dv">0</span>, is_end <span class="op">-</span> cds_start)</span>
-<span id="cb15-42"><a href="#cb15-42" aria-hidden="true" tabindex="-1"></a>          <span class="cf">if</span> check <span class="op">/</span> length_cds <span class="op">&lt;</span> <span class="fl">0.8</span>:</span>
-<span id="cb15-43"><a href="#cb15-43" aria-hidden="true" tabindex="-1"></a>              cds_elements[entry[<span class="dv">3</span>]] <span class="op">=</span> <span class="st">"True"</span></span>
-<span id="cb15-44"><a href="#cb15-44" aria-hidden="true" tabindex="-1"></a>              <span class="cf">continue</span></span>
-<span id="cb15-45"><a href="#cb15-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-46"><a href="#cb15-46" aria-hidden="true" tabindex="-1"></a>    <span class="co"># upstream</span></span>
-<span id="cb15-47"><a href="#cb15-47" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> predicted_location <span class="op">==</span> <span class="st">"upstream"</span>:</span>
-<span id="cb15-48"><a href="#cb15-48" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> entry[<span class="dv">3</span>] <span class="kw">not</span> <span class="kw">in</span> cds_elements:</span>
-<span id="cb15-49"><a href="#cb15-49" aria-hidden="true" tabindex="-1"></a>        cds_elements[entry[<span class="dv">3</span>]] <span class="op">=</span> <span class="st">"False"</span></span>
-<span id="cb15-50"><a href="#cb15-50" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> predicted_cds_strand <span class="op">==</span> <span class="st">"+"</span>:</span>
-<span id="cb15-51"><a href="#cb15-51" aria-hidden="true" tabindex="-1"></a>          <span class="cf">if</span> is_precited <span class="op">==</span> is_truth.split(<span class="st">"_"</span>)[<span class="dv">0</span>]:</span>
-<span id="cb15-52"><a href="#cb15-52" aria-hidden="true" tabindex="-1"></a>            check <span class="op">=</span> <span class="bu">max</span>(<span class="dv">0</span>, is_end <span class="op">-</span> cds_start)</span>
-<span id="cb15-53"><a href="#cb15-53" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> check <span class="op">/</span> length_cds <span class="op">&lt;</span> <span class="fl">0.8</span>:</span>
-<span id="cb15-54"><a href="#cb15-54" aria-hidden="true" tabindex="-1"></a>                cds_elements[entry[<span class="dv">3</span>]] <span class="op">=</span> <span class="st">"True"</span></span>
-<span id="cb15-55"><a href="#cb15-55" aria-hidden="true" tabindex="-1"></a>                <span class="cf">continue</span></span>
-<span id="cb15-56"><a href="#cb15-56" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-57"><a href="#cb15-57" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elif</span> predicted_cds_strand <span class="op">==</span> <span class="st">"-"</span>:</span>
-<span id="cb15-58"><a href="#cb15-58" aria-hidden="true" tabindex="-1"></a>          <span class="cf">if</span> is_precited <span class="op">==</span> is_truth.split(<span class="st">"_"</span>)[<span class="dv">0</span>]:</span>
-<span id="cb15-59"><a href="#cb15-59" aria-hidden="true" tabindex="-1"></a>            check <span class="op">=</span> <span class="bu">max</span>(<span class="dv">0</span>, cds_end <span class="op">-</span> is_start)</span>
-<span id="cb15-60"><a href="#cb15-60" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> check <span class="op">/</span> length_cds <span class="op">&lt;</span> <span class="fl">0.8</span>:</span>
-<span id="cb15-61"><a href="#cb15-61" aria-hidden="true" tabindex="-1"></a>                cds_elements[entry[<span class="dv">3</span>]] <span class="op">=</span> <span class="st">"True"</span></span>
-<span id="cb15-62"><a href="#cb15-62" aria-hidden="true" tabindex="-1"></a>                <span class="cf">continue</span></span>
-<span id="cb15-63"><a href="#cb15-63" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-64"><a href="#cb15-64" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> predicted_location <span class="op">==</span> <span class="st">"flanking"</span>:</span>
-<span id="cb15-65"><a href="#cb15-65" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span> entry[<span class="dv">3</span>] <span class="kw">not</span> <span class="kw">in</span> cds_elements:</span>
-<span id="cb15-66"><a href="#cb15-66" aria-hidden="true" tabindex="-1"></a>        cds_elements[entry[<span class="dv">3</span>]] <span class="op">=</span> <span class="st">"False"</span></span>
-<span id="cb15-67"><a href="#cb15-67" aria-hidden="true" tabindex="-1"></a>    overlap <span class="op">=</span> <span class="bu">max</span>(<span class="dv">0</span>, <span class="bu">min</span>(cds_end, is_end) <span class="op">-</span> <span class="bu">max</span>(cds_start, is_start))</span>
-<span id="cb15-68"><a href="#cb15-68" aria-hidden="true" tabindex="-1"></a>    overlap_fraction <span class="op">=</span> overlap <span class="op">/</span> length_cds</span>
-<span id="cb15-69"><a href="#cb15-69" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> is_precited <span class="op">==</span> is_truth.split(<span class="st">"_"</span>)[<span class="dv">0</span>]:</span>
-<span id="cb15-70"><a href="#cb15-70" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="fl">0.8</span> <span class="op">&lt;=</span> overlap_fraction <span class="op">&lt;</span> <span class="dv">1</span>:</span>
-<span id="cb15-71"><a href="#cb15-71" aria-hidden="true" tabindex="-1"></a>            cds_elements[entry[<span class="dv">3</span>]] <span class="op">=</span> <span class="st">"True"</span></span>
-<span id="cb15-72"><a href="#cb15-72" aria-hidden="true" tabindex="-1"></a>            <span class="cf">continue</span></span>
-<span id="cb15-73"><a href="#cb15-73" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-74"><a href="#cb15-74" aria-hidden="true" tabindex="-1"></a>true_count <span class="op">=</span> <span class="bu">sum</span>(<span class="dv">1</span> <span class="cf">for</span> v <span class="kw">in</span> cds_elements.values() <span class="cf">if</span> v <span class="op">==</span> <span class="st">"True"</span>)</span>
-<span id="cb15-75"><a href="#cb15-75" aria-hidden="true" tabindex="-1"></a>false_count <span class="op">=</span> <span class="bu">sum</span>(<span class="dv">1</span> <span class="cf">for</span> v <span class="kw">in</span> cds_elements.values() <span class="cf">if</span> v <span class="op">==</span> <span class="st">"False"</span>)</span>
-<span id="cb15-76"><a href="#cb15-76" aria-hidden="true" tabindex="-1"></a>total <span class="op">=</span> <span class="bu">len</span>(cds_elements)</span>
-<span id="cb15-77"><a href="#cb15-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> assess_eris_location_report(file_path: <span class="bu">str</span>) <span class="op">-&gt;</span> <span class="bu">tuple</span>:</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co">    Asses how similar the assignment of element location is.</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co">    Compare predicted location from eris to actual location with information</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="co">    from IS annotation and gene anotation.</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="co">    file_path (str): path to output file of</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="co">                     bedtools intersect -a &lt;flank cds&gt; -b &lt;IS truth&gt; -wa -wb</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>    cds_elements <span class="op">=</span> defaultdict(<span class="bu">str</span>)</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> <span class="bu">open</span>(file_path) <span class="im">as</span> fh:</span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> line <span class="kw">in</span> fh:</span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>            entry <span class="op">=</span> line.strip().split(<span class="st">"</span><span class="ch">\t</span><span class="st">"</span>)</span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>            cds_start <span class="op">=</span> <span class="bu">int</span>(entry[<span class="dv">1</span>]) <span class="op">+</span> <span class="dv">1000</span></span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>            cds_end   <span class="op">=</span> <span class="bu">int</span>(entry[<span class="dv">2</span>]) <span class="op">-</span> <span class="dv">1000</span></span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>            is_start  <span class="op">=</span> <span class="bu">int</span>(entry[<span class="dv">7</span>])</span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a>            is_end    <span class="op">=</span> <span class="bu">int</span>(entry[<span class="dv">8</span>])</span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a>            predicted_location <span class="op">=</span> entry[<span class="dv">3</span>].split(<span class="st">"|"</span>)[<span class="dv">3</span>]</span>
+<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a>            is_predicted <span class="op">=</span> entry[<span class="dv">3</span>].split(<span class="st">"|"</span>)[<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a>            is_truth     <span class="op">=</span> entry[<span class="dv">9</span>].split(<span class="st">"_"</span>)[<span class="dv">0</span>]</span>
+<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a>            predicted_cds_strand <span class="op">=</span> entry[<span class="dv">5</span>]  <span class="co"># + / -</span></span>
+<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a>            is_strand <span class="op">=</span> entry[<span class="op">-</span><span class="dv">1</span>]            <span class="co"># + / -</span></span>
+<span id="cb15-29"><a href="#cb15-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-30"><a href="#cb15-30" aria-hidden="true" tabindex="-1"></a>            key <span class="op">=</span> entry[<span class="dv">3</span>]</span>
+<span id="cb15-31"><a href="#cb15-31" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> key <span class="kw">not</span> <span class="kw">in</span> cds_elements:</span>
+<span id="cb15-32"><a href="#cb15-32" aria-hidden="true" tabindex="-1"></a>                cds_elements[key] <span class="op">=</span> <span class="st">"False"</span></span>
+<span id="cb15-33"><a href="#cb15-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-34"><a href="#cb15-34" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Skip if IS names do not match</span></span>
+<span id="cb15-35"><a href="#cb15-35" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> is_predicted <span class="op">!=</span> is_truth:</span>
+<span id="cb15-36"><a href="#cb15-36" aria-hidden="true" tabindex="-1"></a>                <span class="cf">continue</span></span>
+<span id="cb15-37"><a href="#cb15-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-38"><a href="#cb15-38" aria-hidden="true" tabindex="-1"></a>            length_cds <span class="op">=</span> cds_end <span class="op">-</span> cds_start</span>
+<span id="cb15-39"><a href="#cb15-39" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> length_cds <span class="op">&lt;=</span> <span class="dv">0</span>:</span>
+<span id="cb15-40"><a href="#cb15-40" aria-hidden="true" tabindex="-1"></a>                <span class="cf">continue</span></span>
+<span id="cb15-41"><a href="#cb15-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-42"><a href="#cb15-42" aria-hidden="true" tabindex="-1"></a>            <span class="co"># inside</span></span>
+<span id="cb15-43"><a href="#cb15-43" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> predicted_location <span class="op">==</span> <span class="st">"inside"</span>:</span>
+<span id="cb15-44"><a href="#cb15-44" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> cds_start <span class="op">&gt;=</span> is_start <span class="kw">and</span> cds_end <span class="op">&lt;=</span> is_end:</span>
+<span id="cb15-45"><a href="#cb15-45" aria-hidden="true" tabindex="-1"></a>                    cds_elements[key] <span class="op">=</span> <span class="st">"True"</span></span>
+<span id="cb15-46"><a href="#cb15-46" aria-hidden="true" tabindex="-1"></a>                <span class="cf">continue</span></span>
+<span id="cb15-47"><a href="#cb15-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-48"><a href="#cb15-48" aria-hidden="true" tabindex="-1"></a>            <span class="co"># flanking</span></span>
+<span id="cb15-49"><a href="#cb15-49" aria-hidden="true" tabindex="-1"></a>            <span class="cf">elif</span> predicted_location <span class="op">==</span> <span class="st">"flanking"</span>:</span>
+<span id="cb15-50"><a href="#cb15-50" aria-hidden="true" tabindex="-1"></a>                inside <span class="op">=</span> (cds_start <span class="op">&gt;=</span> is_start <span class="kw">and</span> cds_end <span class="op">&lt;=</span> is_end)</span>
+<span id="cb15-51"><a href="#cb15-51" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> <span class="kw">not</span> inside:</span>
+<span id="cb15-52"><a href="#cb15-52" aria-hidden="true" tabindex="-1"></a>                    cds_elements[key] <span class="op">=</span> <span class="st">"True"</span></span>
+<span id="cb15-53"><a href="#cb15-53" aria-hidden="true" tabindex="-1"></a>                <span class="cf">continue</span></span>
+<span id="cb15-54"><a href="#cb15-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-55"><a href="#cb15-55" aria-hidden="true" tabindex="-1"></a>            <span class="co"># upstream and downstream</span></span>
+<span id="cb15-56"><a href="#cb15-56" aria-hidden="true" tabindex="-1"></a>            <span class="cf">elif</span> predicted_location <span class="kw">in</span> (<span class="st">"upstream"</span>, <span class="st">"downstream"</span>):</span>
+<span id="cb15-57"><a href="#cb15-57" aria-hidden="true" tabindex="-1"></a>                <span class="co"># Determine expected location based on position and strand</span></span>
+<span id="cb15-58"><a href="#cb15-58" aria-hidden="true" tabindex="-1"></a>                cds_before_is <span class="op">=</span> cds_start <span class="op">&lt;</span> is_start</span>
+<span id="cb15-59"><a href="#cb15-59" aria-hidden="true" tabindex="-1"></a>                is_forward <span class="op">=</span> (is_strand <span class="op">==</span> <span class="st">"+"</span>)</span>
+<span id="cb15-60"><a href="#cb15-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-61"><a href="#cb15-61" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> cds_before_is:</span>
+<span id="cb15-62"><a href="#cb15-62" aria-hidden="true" tabindex="-1"></a>                    expected_location <span class="op">=</span> <span class="st">"upstream"</span> <span class="cf">if</span> is_forward <span class="cf">else</span> <span class="st">"downstream"</span></span>
+<span id="cb15-63"><a href="#cb15-63" aria-hidden="true" tabindex="-1"></a>                <span class="cf">else</span>:</span>
+<span id="cb15-64"><a href="#cb15-64" aria-hidden="true" tabindex="-1"></a>                    expected_location <span class="op">=</span> <span class="st">"downstream"</span> <span class="cf">if</span> is_forward <span class="cf">else</span> <span class="st">"upstream"</span></span>
+<span id="cb15-65"><a href="#cb15-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-66"><a href="#cb15-66" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> predicted_location <span class="op">==</span> expected_location:</span>
+<span id="cb15-67"><a href="#cb15-67" aria-hidden="true" tabindex="-1"></a>                    cds_elements[key] <span class="op">=</span> <span class="st">"True"</span></span>
+<span id="cb15-68"><a href="#cb15-68" aria-hidden="true" tabindex="-1"></a>                <span class="cf">else</span>:</span>
+<span id="cb15-69"><a href="#cb15-69" aria-hidden="true" tabindex="-1"></a>                    cds_elements[key] <span class="op">=</span> <span class="st">"False"</span></span>
+<span id="cb15-70"><a href="#cb15-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-71"><a href="#cb15-71" aria-hidden="true" tabindex="-1"></a>                <span class="cf">continue</span></span>
+<span id="cb15-72"><a href="#cb15-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-73"><a href="#cb15-73" aria-hidden="true" tabindex="-1"></a>    true_count <span class="op">=</span> <span class="bu">sum</span>(v <span class="op">==</span> <span class="st">"True"</span> <span class="cf">for</span> v <span class="kw">in</span> cds_elements.values())</span>
+<span id="cb15-74"><a href="#cb15-74" aria-hidden="true" tabindex="-1"></a>    false_count <span class="op">=</span> <span class="bu">sum</span>(v <span class="op">==</span> <span class="st">"False"</span> <span class="cf">for</span> v <span class="kw">in</span> cds_elements.values())</span>
+<span id="cb15-75"><a href="#cb15-75" aria-hidden="true" tabindex="-1"></a>    total <span class="op">=</span> <span class="bu">len</span>(cds_elements)</span>
+<span id="cb15-76"><a href="#cb15-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-77"><a href="#cb15-77" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> true_count, false_count, total, cds_elements</span>
 <span id="cb15-78"><a href="#cb15-78" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-79"><a href="#cb15-79" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ele, val <span class="kw">in</span> cds_elements.items():</span>
-<span id="cb15-80"><a href="#cb15-80" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(ele, val)</span>
+<span id="cb15-79"><a href="#cb15-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-80"><a href="#cb15-80" aria-hidden="true" tabindex="-1"></a>true, false, tot, cds_elements <span class="op">=</span> assess_eris_location_report(<span class="st">"cds_gfa_intersect_IS_truth.bed"</span>)</span>
 <span id="cb15-81"><a href="#cb15-81" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-82"><a href="#cb15-82" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Total CDS: </span><span class="sc">{</span>total<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb15-83"><a href="#cb15-83" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Correct assignments: </span><span class="sc">{</span>true_count<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb15-84"><a href="#cb15-84" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Incorrect assignments: </span><span class="sc">{</span>false_count<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb15-85"><a href="#cb15-85" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Accuracy: </span><span class="sc">{</span>true_count <span class="op">/</span> total<span class="sc">:.2%}</span><span class="ch">\n</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb15-82"><a href="#cb15-82" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ele, val <span class="kw">in</span> cds_elements.items():</span>
+<span id="cb15-83"><a href="#cb15-83" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(ele, val)</span>
+<span id="cb15-84"><a href="#cb15-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-85"><a href="#cb15-85" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Total CDS: </span><span class="sc">{</span>tot<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb15-86"><a href="#cb15-86" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Correct assignments: </span><span class="sc">{</span>true<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb15-87"><a href="#cb15-87" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Incorrect assignments: </span><span class="sc">{</span>false<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb15-88"><a href="#cb15-88" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Accuracy: </span><span class="sc">{</span>true <span class="op">/</span> tot<span class="sc">:.2%}</span><span class="ch">\n</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>1244700_00882|1244700|-|inside|same_strand|ISEc23 True
 1244700_00883|1244700|-|inside|same_strand|ISEc23 True
 1244816_01151|1244816|-|inside|same_strand|ISEc23 True
 1176191_00082|1176191|-|flanking|opposite_strand|ISEc23 False
-1245002_02024|1245002|disrupted|upstream|same_strand|ISCfr4 False
+1245002_02024|1245002|disrupted|upstream|same_strand|ISCfr4 True
 1245002_02025|1245002|-|inside|same_strand|ISCfr4 True
-1245002_02026|1245002|-|downstream|same_strand|ISCfr4 False
+1245002_02026|1245002|-|downstream|same_strand|ISCfr4 True
 1245002_02031|1245002|-|inside|opposite_strand|ISSen3 False
-1244912_01169|1244912|-|flanking|same_strand|ISEc12 False
+1244912_01169|1244912|-|flanking|same_strand|ISEc12 True
 1245096_04606|1245096|-|inside|same_strand|ISEc1 True
 1015060_00032|1015060|-|inside|same_strand|IS1397 True
 1208211_00117|1208211|-|flanking|opposite_strand|IS1397 False
@@ -562,36 +565,36 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 1241248_00251|1241248|-|inside|same_strand|IS1397 True
 1244764_01147|1244764|-|inside|same_strand|IS609 True
 832167_00019|832167|-|flanking|opposite_strand|IS609 False
-1244458_00450|1244458|disrupted|upstream|opposite_strand|IS609 True
-1244458_00486|1244458|-|flanking|same_strand|IS1397 False
+1244458_00450|1244458|disrupted|upstream|opposite_strand|IS609 False
+1244458_00486|1244458|-|flanking|same_strand|IS1397 True
 1244458_00449|1244458|-|inside|same_strand|IS609 False
 1244160_00403|1244160|-|inside|same_strand|IS1397 True
 1208964_00119|1208964|-|inside|same_strand|IS1397 True
 1216050_00137|1216050|-|inside|same_strand|IS1397 True
 1241248_00250|1241248|-|inside|opposite_strand|IS1397 True
 1244664_00858|1244664|-|flanking|same_strand|IS1397 False
-1244018_00385|1244018|-|downstream|same_strand|IS200C False
+1244018_00385|1244018|-|downstream|same_strand|IS200C True
 1221552_00145|1221552|-|inside|same_strand|IS200C True
 1241860_00257|1241860|-|flanking|opposite_strand|IS200C False
-1244910_01167|1244910|disrupted|upstream|same_strand|IS200C False
+1244910_01167|1244910|disrupted|upstream|same_strand|IS200C True
 1245062_04536|1245062|-|downstream|opposite_strand|ISEc38 True
 1244402_00441|1244402|-|inside|same_strand|IS100kyp True
 1244402_00440|1244402|-|inside|same_strand|IS100kyp True
 1244402_00445|1244402|-|upstream|same_strand|ISEc20 False
 1116087_00050|1116087|-|inside|same_strand|ISEc23 True
-1240840_00244|1240840|-|flanking|opposite_strand|ISEc12 False
+1240840_00244|1240840|-|flanking|opposite_strand|ISEc12 True
 1221552_00144|1221552|-|inside|same_strand|IS200C True
 1245038_03183|1245038|-|flanking|opposite_strand|IS1A False
 1245136_04886|1245136|-|flanking|same_strand|IS1A False
 1245136_04885|1245136|-|inside|opposite_strand|IS1B False
-1245046_03736|1245046|-|flanking|opposite_strand|IS1A False
-1245022_02114|1245022|disrupted|downstream|same_strand|MITEEc1 False
-1245022_02113|1245022|disrupted|upstream|same_strand|MITEEc1 False
+1245046_03736|1245046|-|flanking|opposite_strand|IS1A True
+1245022_02114|1245022|disrupted|downstream|same_strand|MITEEc1 True
+1245022_02113|1245022|disrupted|upstream|same_strand|MITEEc1 True
 1171599_00078|1171599|-|inside|same_strand|IS1A True
 1245138_04887|1245138|-|flanking|same_strand|IS1A False
-1236016_00186|1236016|-|flanking|opposite_strand|IS1A False
+1236016_00186|1236016|-|flanking|opposite_strand|IS1A True
 1208153_00116|1208153|-|inside|same_strand|IS1A True
-1244936_01278|1244936|-|flanking|opposite_strand|IS1A False
+1244936_01278|1244936|-|flanking|opposite_strand|IS1A True
 1244936_01276|1244936|-|downstream|opposite_strand|IS1203 True
 1244936_01275|1244936|-|inside|same_strand|IS1203 True
 1244936_01274|1244936|-|inside|same_strand|IS1203 True
@@ -606,10 +609,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 1244674_00861|1244674|-|inside|same_strand|IS682 False
 1244674_00862|1244674|-|inside|same_strand|IS682 False
 1244674_00878|1244674|-|upstream|opposite_strand|ISEc45 False
-1244674_00874|1244674|-|downstream|same_strand|IS2 False
+1244674_00874|1244674|-|downstream|same_strand|IS2 True
 1244674_00873|1244674|-|inside|same_strand|IS2 True
 1244674_00872|1244674|-|inside|same_strand|IS2 True
-1244674_00871|1244674|disrupted|upstream|same_strand|IS2 False
+1244674_00871|1244674|disrupted|upstream|same_strand|IS2 True
 1244674_00863|1244674|-|upstream|opposite_strand|IS682 True
 1244674_00879|1244674|-|inside|same_strand|ISEch14 False
 1244674_00880|1244674|-|inside|same_strand|ISEch14 False
@@ -620,20 +623,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 1244994_01722|1244994|-|inside|same_strand|ISKpn42 False
 1244994_01723|1244994|-|inside|same_strand|ISEc10 True
 1244994_01724|1244994|-|inside|same_strand|ISEc10 True
-1244994_01725|1244994|-|downstream|same_strand|ISEc10 False
+1244994_01725|1244994|-|downstream|same_strand|ISEc10 True
 1244434_00447|1244434|-|inside|same_strand|ISEc52 True
 1206755_00112|1206755|-|upstream|opposite_strand|IS600 False
 1245082_04546|1245082|-|inside|same_strand|ISEc52 True
 1245080_04545|1245080|-|inside|same_strand|ISEc52 True
 1244570_00584|1244570|disrupted|downstream|opposite_strand|IS609 True
-1244764_01146|1244764|disrupted|upstream|same_strand|IS609 False
+1244764_01146|1244764|disrupted|upstream|same_strand|IS609 True
 1244706_00887|1244706|-|inside|same_strand|IS1F True
 1202947_00109|1202947|-|inside|same_strand|IS1X2 False
 1215098_00134|1215098|-|inside|same_strand|IS1F True
 1236482_00188|1236482|-|inside|same_strand|IS1F True
-1245106_04640|1245106|disrupted|downstream|same_strand|ISSen10 False
+1245106_04640|1245106|disrupted|downstream|same_strand|ISSen10 True
 1245106_04639|1245106|-|inside|same_strand|ISSen10 True
-1245106_04638|1245106|disrupted|upstream|same_strand|ISSen10 False
+1245106_04638|1245106|disrupted|upstream|same_strand|ISSen10 True
 1002621_00031|1002621|-|flanking|opposite_strand|IS3411 False
 1244656_00832|1244656|disrupted|upstream|opposite_strand|IS3411 False
 1244656_00833|1244656|-|inside|same_strand|ISEc43 False
@@ -642,14 +645,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 1244656_00845|1244656|-|inside|same_strand|ISCro1 True
 1244656_00846|1244656|-|inside|same_strand|ISCro1 True
 1244656_00837|1244656|disrupted|upstream|same_strand|ISEc49 False
-1245118_04670|1245118|-|flanking|opposite_strand|ISEc23 False
+1245118_04670|1245118|-|flanking|opposite_strand|ISEc23 True
 1244700_00884|1244700|-|inside|same_strand|ISEc23 True
 1159225_00072|1159225|-|inside|same_strand|ISEc23 True
 1245048_03750|1245048|-|flanking|opposite_strand|ISSd1 False
 1245048_03746|1245048|-|inside|same_strand|ISEc9 True
 1245048_03748|1245048|upregulated|downstream|same_strand|ISEc9 False
 1243758_00330|1243758|-|inside|same_strand|ISSd1 False
-976171_00026|976171|-|flanking|same_strand|IS600 False
+976171_00026|976171|-|flanking|same_strand|IS600 True
 1228204_00159|1228204|-|inside|same_strand|IS600 True
 1206755_00111|1206755|-|inside|same_strand|IS600 True
 1243586_00314|1243586|-|inside|same_strand|ISEc52 False
@@ -666,110 +669,330 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 1244742_00933|1244742|-|inside|same_strand|ISEc12 True
 1244742_00934|1244742|-|inside|same_strand|ISEc12 True
 1245024_02247|1245024|-|downstream|same_strand|IS911 False
-1245024_02220|1245024|-|upstream|same_strand|ISSen1 False
-1245024_02221|1245024|disrupted|downstream|same_strand|ISSen1 False
+1245024_02220|1245024|-|upstream|same_strand|ISSen1 True
+1245024_02221|1245024|disrupted|downstream|same_strand|ISSen1 True
 1244890_01166|1244890|-|flanking|same_strand|IS1F False
 1244638_00699|1244638|-|inside|same_strand|ISEc53 True
 1244638_00698|1244638|-|inside|same_strand|ISEc53 True
 Total CDS: 125
-Correct assignments: 61
-Incorrect assignments: 64
-Accuracy: 48.80%
+Correct assignments: 82
+Incorrect assignments: 43
+Accuracy: 65.60%
 </code></pre>
 </div>
 </div>
-<p>We look closer, most of the incorrect assigments mistakenly assigned downstream location to upstream location, and vice versa.</p>
+<p>But wait, check also chromosome result of eris, and compare it with truth annotation. We don’t need to map them back to genome reference, because it should be in the same genomic coordinate.</p>
+<p>From eris result from chromosme, filter CDS entries with all the information about it, and convert them into bed file.</p>
+<div id="47256b78" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re, os</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collections <span class="im">import</span> defaultdict</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    os.remove(<span class="st">"chromosome_cds_eris.bed"</span>)</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> <span class="pp">FileNotFoundError</span>:</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">pass</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>is_elements <span class="op">=</span> defaultdict(<span class="bu">str</span>)</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>cds_features <span class="op">=</span> defaultdict(<span class="bu">list</span>)</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"eris-outputs/chromosome_fasta.tsv"</span>) <span class="im">as</span> output:</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>  head <span class="op">=</span> output.readline()</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>  rows <span class="op">=</span> output.readlines()</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> r <span class="kw">in</span> rows:</span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>    row <span class="op">=</span> r.split(<span class="st">"</span><span class="ch">\t</span><span class="st">"</span>)</span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> row[<span class="dv">2</span>] <span class="op">==</span> <span class="st">"mobile_element"</span>:</span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>      is_elements[row[<span class="dv">1</span>]] <span class="op">=</span> row[<span class="dv">15</span>]</span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> r <span class="kw">in</span> rows:</span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>    row <span class="op">=</span> r.split(<span class="st">"</span><span class="ch">\t</span><span class="st">"</span>)</span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> row[<span class="dv">2</span>] <span class="op">==</span> <span class="st">"CDS"</span>:</span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>      contig <span class="op">=</span> row[<span class="dv">3</span>]</span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a>      start <span class="op">=</span> row[<span class="dv">4</span>]</span>
+<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a>      end <span class="op">=</span> row[<span class="dv">5</span>]</span>
+<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a>      seq_strand <span class="op">=</span> row[<span class="dv">6</span>]</span>
+<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a>      effect <span class="op">=</span> row[<span class="dv">12</span>]</span>
+<span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a>      location <span class="op">=</span> row[<span class="dv">10</span>]</span>
+<span id="cb17-29"><a href="#cb17-29" aria-hidden="true" tabindex="-1"></a>      strand <span class="op">=</span> row[<span class="dv">11</span>].replace(<span class="st">" "</span>, <span class="st">"_"</span>)</span>
+<span id="cb17-30"><a href="#cb17-30" aria-hidden="true" tabindex="-1"></a>      is_name <span class="op">=</span> is_elements[row[<span class="dv">8</span>]]</span>
+<span id="cb17-31"><a href="#cb17-31" aria-hidden="true" tabindex="-1"></a>      cds_features[row[<span class="dv">1</span>]]<span class="op">=</span> [contig, start, end, seq_strand, effect, location, strand, is_name]</span>
+<span id="cb17-32"><a href="#cb17-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-33"><a href="#cb17-33" aria-hidden="true" tabindex="-1"></a><span class="co"># create bed file</span></span>
+<span id="cb17-34"><a href="#cb17-34" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name, values <span class="kw">in</span> cds_features.items():</span>
+<span id="cb17-35"><a href="#cb17-35" aria-hidden="true" tabindex="-1"></a>  chromosome <span class="op">=</span> values[<span class="dv">0</span>]</span>
+<span id="cb17-36"><a href="#cb17-36" aria-hidden="true" tabindex="-1"></a>  start <span class="op">=</span> values[<span class="dv">1</span>]</span>
+<span id="cb17-37"><a href="#cb17-37" aria-hidden="true" tabindex="-1"></a>  end <span class="op">=</span> values[<span class="dv">2</span>]</span>
+<span id="cb17-38"><a href="#cb17-38" aria-hidden="true" tabindex="-1"></a>  strand <span class="op">=</span> <span class="st">"+"</span> <span class="cf">if</span> values[<span class="dv">3</span>] <span class="op">==</span> <span class="st">"1"</span> <span class="cf">else</span> <span class="st">"-"</span></span>
+<span id="cb17-39"><a href="#cb17-39" aria-hidden="true" tabindex="-1"></a>  name <span class="op">=</span> <span class="st">"|"</span>.join([name, values[<span class="dv">0</span>], values[<span class="dv">4</span>], values[<span class="dv">5</span>], values[<span class="dv">6</span>], values[<span class="dv">7</span>]])</span>
+<span id="cb17-40"><a href="#cb17-40" aria-hidden="true" tabindex="-1"></a>  <span class="cf">with</span> <span class="bu">open</span>(<span class="st">"chromosome_cds_eris.bed"</span>, <span class="st">"a"</span>) <span class="im">as</span> bed:</span>
+<span id="cb17-41"><a href="#cb17-41" aria-hidden="true" tabindex="-1"></a>    bed.write(<span class="ss">f"</span><span class="sc">{</span>chromosome<span class="sc">}</span><span class="ch">\t</span><span class="sc">{</span><span class="bu">int</span>(start)<span class="op">-</span><span class="dv">1</span><span class="sc">}</span><span class="ch">\t</span><span class="sc">{</span>end<span class="sc">}</span><span class="ch">\t</span><span class="sc">{</span>name<span class="sc">}</span><span class="ch">\t</span><span class="sc">{</span><span class="dv">0</span><span class="sc">}</span><span class="ch">\t</span><span class="sc">{</span>strand<span class="sc">}</span><span class="ch">\n</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Sort them, and send them to series of intersection step like above</p>
+<div id="27d82a0e" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># sort the entry</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>bedtools sort <span class="op">-</span>i chromosome_cds_eris.bed <span class="op">&gt;</span> chromosome_cds_eris.<span class="bu">sorted</span>.bed</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co"># intersect them with known cds, with at least 50% fraction</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>bedtools intersect <span class="op">-</span>a chromosome_cds_eris.<span class="bu">sorted</span>.bed <span class="op">-</span>b ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>EC958_genomic_sorted.cds.edit.bed <span class="op">-</span>f <span class="fl">0.5</span> <span class="op">-</span>wa <span class="op">|</span> bedtools slop <span class="op">-</span>i <span class="op">-</span> <span class="op">-</span>g ec958.genome.size <span class="op">-</span>b <span class="dv">1000</span> <span class="op">|</span> bedtools intersect <span class="op">-</span>a <span class="op">-</span> <span class="op">-</span>b ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>ec958_IS.reannotated.<span class="bu">sorted</span>.bed <span class="op">-</span>wa <span class="op">-</span>wb <span class="op">&gt;</span> cds_chrom_intersect_IS_truth.bed</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>cut <span class="op">-</span>f <span class="dv">4</span> cds_chrom_intersect_IS_truth.bed <span class="op">|</span> sort <span class="op">|</span> uniq <span class="op">|</span> wc <span class="op">-</span>l</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     157</code></pre>
+</div>
+</div>
+<p>Asses eris location report</p>
+<div id="df43dd5e" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>true, false, tot, cds_elements <span class="op">=</span> assess_eris_location_report(<span class="st">"cds_chrom_intersect_IS_truth.bed"</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ele, val <span class="kw">in</span> cds_elements.items():</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(ele, val)</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Total CDS: </span><span class="sc">{</span>tot<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Correct assignments: </span><span class="sc">{</span>true<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Incorrect assignments: </span><span class="sc">{</span>false<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Accuracy: </span><span class="sc">{</span>true <span class="op">/</span> tot<span class="sc">:.2%}</span><span class="ch">\n</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>HG941718.1_00204|HG941718.1|disrupted|upstream|opposite_strand|ISEc23 True
+HG941718.1_00205|HG941718.1|-|inside|same_strand|ISEc23 True
+HG941718.1_00206|HG941718.1|-|inside|same_strand|ISEc23 True
+HG941718.1_00207|HG941718.1|-|inside|same_strand|ISEc23 True
+HG941718.1_00208|HG941718.1|disrupted|downstream|opposite_strand|ISEc23 True
+HG941718.1_00735|HG941718.1|disrupted|donwstream|opposite_strand|MITEEc1 False
+HG941718.1_00736|HG941718.1|disrupted|upstream|opposite_strand|MITEEc1 True
+HG941718.1_01300|HG941718.1|disrupted|donwstream|same_strand|ISCfr4 False
+HG941718.1_01301|HG941718.1|-|inside|same_strand|ISCfr4 True
+HG941718.1_01302|HG941718.1|-|upstream|same_strand|ISCfr4 False
+HG941718.1_01307|HG941718.1|-|inside|opposite_strand|ISSen3 False
+HG941718.1_01309|HG941718.1|-|inside|same_strand|ISEc24 True
+HG941718.1_01310|HG941718.1|-|inside|same_strand|ISEc24 True
+HG941718.1_01311|HG941718.1|disrupted|downstream|same_strand|ISEc24 False
+HG941718.1_01353|HG941718.1|disrupted|upstream|same_strand|IS4 False
+HG941718.1_01354|HG941718.1|disrupted|downstream|same_strand|IS4 False
+HG941718.1_01422|HG941718.1|disrupted|donwstream|same_strand|ISEc12 False
+HG941718.1_01423|HG941718.1|-|inside|same_strand|ISEc12 True
+HG941718.1_01424|HG941718.1|-|inside|same_strand|ISEc12 True
+HG941718.1_01425|HG941718.1|-|downstream|opposite_strand|ISEc12 True
+HG941718.1_01570|HG941718.1|-|upstream|opposite_strand|ISEc1 True
+HG941718.1_01571|HG941718.1|-|inside|same_strand|ISEc1 True
+HG941718.1_01572|HG941718.1|disrupted|downstream|opposite_strand|ISEc1 True
+HG941718.1_01906|HG941718.1|disrupted|donwstream|same_strand|IS621 False
+HG941718.1_01907|HG941718.1|-|inside|same_strand|IS1397 True
+HG941718.1_01908|HG941718.1|-|inside|same_strand|IS1397 True
+HG941718.1_01909|HG941718.1|upregulated|downstream|same_strand|IS1397 False
+HG941718.1_02069|HG941718.1|disrupted|donwstream|opposite_strand|IS1397 False
+HG941718.1_02070|HG941718.1|-|inside|same_strand|IS1397 True
+HG941718.1_02071|HG941718.1|-|inside|same_strand|IS1397 True
+HG941718.1_02072|HG941718.1|-|upstream|opposite_strand|IS1397 True
+HG941718.1_02076|HG941718.1|disrupted|upstream|same_strand|IS200C False
+HG941718.1_02077|HG941718.1|-|inside|same_strand|IS200C True
+HG941718.1_02078|HG941718.1|disrupted|downstream|same_strand|IS200C False
+HG941718.1_02166|HG941718.1|-|donwstream|opposite_strand|ISEc38 False
+HG941718.1_02167|HG941718.1|-|inside|same_strand|ISEc38 True
+HG941718.1_02168|HG941718.1|-|downstream|same_strand|ISEc38 False
+HG941718.1_02171|HG941718.1|-|donwstream|same_strand|ISEc20 False
+HG941718.1_02172|HG941718.1|-|inside|same_strand|ISEc20 True
+HG941718.1_02173|HG941718.1|-|upstream|same_strand|ISEc20 False
+HG941718.1_02174|HG941718.1|-|donwstream|opposite_strand|IS100kyp False
+HG941718.1_02175|HG941718.1|-|inside|same_strand|IS100kyp True
+HG941718.1_02176|HG941718.1|-|inside|same_strand|IS100kyp True
+HG941718.1_02184|HG941718.1|disrupted|donwstream|same_strand|ISEc23 False
+HG941718.1_02185|HG941718.1|-|inside|same_strand|ISEc23 True
+HG941718.1_02186|HG941718.1|-|inside|same_strand|ISEc23 True
+HG941718.1_02187|HG941718.1|-|inside|same_strand|ISEc23 True
+HG941718.1_02188|HG941718.1|disrupted|upstream|same_strand|ISEc23 False
+HG941718.1_02191|HG941718.1|disrupted|donwstream|same_strand|ISEc12 False
+HG941718.1_02192|HG941718.1|-|inside|same_strand|ISEc12 True
+HG941718.1_02193|HG941718.1|-|inside|same_strand|ISEc12 True
+HG941718.1_02194|HG941718.1|disrupted|upstream|same_strand|ISEc12 False
+HG941718.1_02209|HG941718.1|disrupted|donwstream|opposite_strand|IS200C False
+HG941718.1_02210|HG941718.1|-|inside|same_strand|IS200C True
+HG941718.1_02211|HG941718.1|disrupted|downstream|same_strand|IS200C False
+HG941718.1_02299|HG941718.1|disrupted|upstream|same_strand|IS1R False
+HG941718.1_02300|HG941718.1|-|inside|same_strand|IS1R False
+HG941718.1_02301|HG941718.1|-|inside|same_strand|IS1R False
+HG941718.1_02302|HG941718.1|disrupted|downstream|same_strand|IS1R False
+HG941718.1_02937|HG941718.1|disrupted|donwstream|same_strand|ISEc12 False
+HG941718.1_02938|HG941718.1|-|inside|same_strand|ISEc12 True
+HG941718.1_02939|HG941718.1|-|inside|same_strand|ISEc12 True
+HG941718.1_02940|HG941718.1|disrupted|upstream|same_strand|ISEc12 False
+HG941718.1_03041|HG941718.1|disrupted|upstream|same_strand|MITEEc1 False
+HG941718.1_03042|HG941718.1|disrupted|downstream|same_strand|MITEEc1 False
+HG941718.1_03091|HG941718.1|-|donwstream|same_strand|IS1A False
+HG941718.1_03092|HG941718.1|-|inside|same_strand|IS1A True
+HG941718.1_03093|HG941718.1|-|inside|same_strand|IS1A True
+HG941718.1_03094|HG941718.1|-|downstream|opposite_strand|IS1A True
+HG941718.1_03095|HG941718.1|-|inside|same_strand|IS1A True
+HG941718.1_03096|HG941718.1|-|inside|same_strand|IS1A True
+HG941718.1_03097|HG941718.1|disrupted|downstream|same_strand|IS1A False
+HG941718.1_03099|HG941718.1|-|donwstream|opposite_strand|IS1203 False
+HG941718.1_03100|HG941718.1|-|inside|same_strand|IS1203 True
+HG941718.1_03101|HG941718.1|-|inside|same_strand|IS1203 True
+HG941718.1_03102|HG941718.1|-|inside|same_strand|ISKox3 True
+HG941718.1_03103|HG941718.1|-|upstream|opposite_strand|ISKox3 True
+HG941718.1_03114|HG941718.1|disrupted|donwstream|same_strand|IS30 False
+HG941718.1_03115|HG941718.1|-|inside|same_strand|IS30 True
+HG941718.1_03116|HG941718.1|-|inside|same_strand|ISSd1 True
+HG941718.1_03117|HG941718.1|disrupted|upstream|same_strand|ISSd1 False
+HG941718.1_03118|HG941718.1|-|inside|same_strand|ISEch14 True
+HG941718.1_03119|HG941718.1|-|inside|same_strand|ISEch14 True
+HG941718.1_03120|HG941718.1|disrupted|downstream|opposite_strand|ISEch14 True
+HG941718.1_03124|HG941718.1|-|downstream|opposite_strand|ISEc83 False
+HG941718.1_03125|HG941718.1|-|inside|same_strand|IS2 True
+HG941718.1_03126|HG941718.1|-|inside|same_strand|IS2 True
+HG941718.1_03127|HG941718.1|disrupted|downstream|same_strand|IS2 False
+HG941718.1_03135|HG941718.1|-|upstream|opposite_strand|IS682 True
+HG941718.1_03136|HG941718.1|-|inside|same_strand|IS682 True
+HG941718.1_03137|HG941718.1|-|inside|same_strand|IS682 True
+HG941718.1_03138|HG941718.1|-|inside|same_strand|IS682 False
+HG941718.1_03139|HG941718.1|disrupted|upstream|same_strand|IS682 False
+HG941718.1_03140|HG941718.1|disrupted|downstream|opposite_strand|ISEc22 True
+HG941718.1_03161|HG941718.1|-|donwstream|same_strand|ISKpn42 False
+HG941718.1_03162|HG941718.1|-|inside|same_strand|ISKpn42 False
+HG941718.1_03163|HG941718.1|-|inside|same_strand|ISEc10 True
+HG941718.1_03164|HG941718.1|-|inside|same_strand|ISEc10 True
+HG941718.1_03165|HG941718.1|-|upstream|same_strand|ISEc10 False
+HG941718.1_03341|HG941718.1|disrupted|upstream|opposite_strand|ISEc52 True
+HG941718.1_03342|HG941718.1|-|inside|same_strand|ISEc52 True
+HG941718.1_03343|HG941718.1|-|inside|same_strand|ISEc52 True
+HG941718.1_03344|HG941718.1|disrupted|downstream|opposite_strand|ISEc52 True
+HG941718.1_03613|HG941718.1|disrupted|donwstream|opposite_strand|IS609 False
+HG941718.1_03614|HG941718.1|-|inside|same_strand|IS609 True
+HG941718.1_03615|HG941718.1|upregulated|downstream|same_strand|IS609 False
+HG941718.1_03891|HG941718.1|-|donwstream|opposite_strand|IS1F False
+HG941718.1_03892|HG941718.1|-|inside|same_strand|IS1F True
+HG941718.1_03893|HG941718.1|disrupted|downstream|same_strand|IS1F False
+HG941718.1_03901|HG941718.1|disrupted|upstream|same_strand|ISSen10 False
+HG941718.1_03902|HG941718.1|-|inside|same_strand|ISSen10 True
+HG941718.1_03903|HG941718.1|disrupted|downstream|same_strand|ISSen10 False
+HG941718.1_03904|HG941718.1|-|inside|same_strand|IS629 False
+HG941718.1_03905|HG941718.1|-|inside|same_strand|IS629 True
+HG941718.1_03906|HG941718.1|disrupted|upstream|opposite_strand|IS629 True
+HG941718.1_03907|HG941718.1|disrupted|donwstream|opposite_strand|ISEc49 False
+HG941718.1_03908|HG941718.1|-|inside|same_strand|ISEc49 False
+HG941718.1_03917|HG941718.1|-|upstream|opposite_strand|ISCro1 True
+HG941718.1_03918|HG941718.1|-|inside|same_strand|ISCro1 True
+HG941718.1_03919|HG941718.1|-|inside|same_strand|ISCro1 True
+HG941718.1_03920|HG941718.1|-|inside|same_strand|ISCro1 True
+HG941718.1_03921|HG941718.1|-|downstream|opposite_strand|ISCro1 True
+HG941718.1_03922|HG941718.1|-|inside|same_strand|IS21 True
+HG941718.1_03923|HG941718.1|-|inside|same_strand|IS21 True
+HG941718.1_03924|HG941718.1|upregulated|downstream|same_strand|IS21 False
+HG941718.1_04596|HG941718.1|-|upstream|opposite_strand|ISEc23 True
+HG941718.1_04597|HG941718.1|-|inside|same_strand|ISEc23 True
+HG941718.1_04598|HG941718.1|-|inside|same_strand|ISEc23 True
+HG941718.1_04599|HG941718.1|-|inside|same_strand|ISEc23 True
+HG941718.1_04600|HG941718.1|-|downstream|opposite_strand|ISEc23 True
+HG941718.1_04608|HG941718.1|disrupted|upstream|opposite_strand|ISEc9 True
+HG941718.1_04609|HG941718.1|-|inside|same_strand|ISEc9 True
+HG941718.1_04610|HG941718.1|-|inside|same_strand|IS5 True
+HG941718.1_04611|HG941718.1|disrupted|upstream|same_strand|ISEc9 False
+HG941718.1_04612|HG941718.1|disrupted|upstream|same_strand|ISSd1 False
+HG941718.1_04613|HG941718.1|-|inside|same_strand|ISSd1 False
+HG941718.1_04614|HG941718.1|-|inside|same_strand|ISSd1 False
+HG941718.1_04615|HG941718.1|disrupted|upstream|opposite_strand|ISSd1 False
+HG941718.1_04624|HG941718.1|-|upstream|opposite_strand|IS1F True
+HG941718.1_04625|HG941718.1|-|inside|same_strand|IS1F True
+HG941718.1_04626|HG941718.1|-|upstream|same_strand|IS1F False
+HG941718.1_04627|HG941718.1|-|inside|same_strand|ISEc8 True
+HG941718.1_04628|HG941718.1|-|inside|same_strand|ISEc8 True
+HG941718.1_04629|HG941718.1|-|inside|same_strand|ISEc8 True
+HG941718.1_04644|HG941718.1|disrupted|donwstream|same_strand|ISEc12 False
+HG941718.1_04645|HG941718.1|-|inside|same_strand|ISEc12 True
+HG941718.1_04646|HG941718.1|-|inside|same_strand|ISEc12 True
+HG941718.1_04647|HG941718.1|-|upstream|same_strand|ISEc12 False
+HG941718.1_04651|HG941718.1|-|donwstream|same_strand|ISSen1 False
+HG941718.1_04652|HG941718.1|disrupted|upstream|same_strand|ISSen1 False
+HG941718.1_04678|HG941718.1|-|upstream|same_strand|ISEc52 False
+HG941718.1_04679|HG941718.1|-|inside|same_strand|ISEc52 True
+HG941718.1_04680|HG941718.1|-|inside|same_strand|ISEc52 True
+HG941718.1_04681|HG941718.1|disrupted|upstream|opposite_strand|ISEc52 True
+HG941718.1_04686|HG941718.1|-|inside|same_strand|ISEc53 True
+HG941718.1_04687|HG941718.1|-|inside|same_strand|ISEc53 True
+HG941718.1_04688|HG941718.1|-|upstream|opposite_strand|ISEc53 True
+Total CDS: 157
+Correct assignments: 92
+Incorrect assignments: 65
+Accuracy: 58.60%
+</code></pre>
+</div>
+</div>
+<p>That python code above is indeed very confusing, and i am also not very sure if that is good approach to get perfomance metrics. Etiher way, if we look at several screenshots from IGV below:</p>
+<p><strong>Coorect location assignment from Eris</strong></p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="pictures/IS200C_wrong.png" class="img-fluid figure-img"></p>
-<figcaption>IS200C</figcaption>
+<p><img src="pictures/IS609_correct.png" class="img-fluid figure-img"></p>
+<figcaption>CDS at the downstream of IS<em>609</em></figcaption>
 </figure>
 </div>
-<p><em>1244910_01167</em> has IS element IS200C at its downstream, and <em>1244018_00385</em> has IS element IS200C at its upstream</p>
-<p>but eris says: 1244910_01167|1244910|disrupted|upstream|same_strand|IS200C False 1244018_00385|1244018|-|downstream|same_strand|IS200C False</p>
-<p>CDS <em>1244910_01167</em> has IS element IS200C at its upstream, <em>1244018_00385</em> has IS element IS200C at its downstream.</p>
+<p>Eris correctly found CDS at the downstream IS<em>609</em> element. And because the proximity is close enough (150bp), and the CDS has either abnormal start codon or stop codon in translation, eris reported the element effect as the CDS is disrupted by the element.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="pictures/ISEc9_upr.png" class="img-fluid figure-img"></p>
-<figcaption>ISEc9</figcaption>
+<p><img src="pictures/ISSen10_correct.png" class="img-fluid figure-img"></p>
+<figcaption>CDS at the downstream of IS<em>Sen10</em></figcaption>
 </figure>
 </div>
-<p>the ISEc9 lies at the upstream of the CDS, but eris predicted at downstream.</p>
-<p>1245048_03748|1245048|upregulated|downstream|same_strand|ISEc9 False</p>
+<p>Eris correctly found CDS at the downstream IS<em>Sen10</em> element. And reported the effect prediction, similar like previous scenario.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="pictures/ISCfr4_dist_wrong.png" class="img-fluid figure-img"></p>
-<figcaption>ISCfr4</figcaption>
+<p><img src="pictures/IS200C_correct.png" class="img-fluid figure-img"></p>
+<figcaption>CDS at the upstream of IS<em>200C</em></figcaption>
 </figure>
 </div>
-<p>Eris predicted: 1245002_02024|1245002|disrupted|upstream|same_strand|ISCfr4 False 1245002_02025|1245002|-|inside|same_strand|ISCfr4 True 1245002_02026|1245002|-|downstream|same_strand|ISCfr4 False</p>
-<p>but: ISCfr4 lies at downstream of 1245002_02024, and it is at upstream 1245002_02026</p>
+<p>Eris correctly found CDS at the upstream IS<em>200C</em> element.Interestingly, In the mapped result from GFA, actually the distance between these two features is more than 150 bp, but in the result from chromosome, it is inside 150 bp threshold. In both data input, eris reported the effect as CDS is disrupted.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="pictures/ISEc53_no.png" class="img-fluid figure-img"></p>
-<figcaption>ISEc53</figcaption>
+<p><img src="pictures/ISEc10_correct.png" class="img-fluid figure-img"></p>
+<figcaption>CDS found at the downstream of IS<em>Ec10</em></figcaption>
 </figure>
 </div>
-<p>Eris predicted ISEc53 at the downstream of the CDS, but it is at its upstream</p>
+<p>Eris correctly found CDS at the downstream IS<em>Ec10</em> element. And because the proximity is far (more than 150bp), eris didn’t report the effect prediction.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="pictures/ISSen10.png" class="img-fluid figure-img"></p>
-<figcaption>ISSen10</figcaption>
+<p><img src="pictures/ISEc8_correct.png" class="img-fluid figure-img"></p>
+<figcaption>CDS found at the downstream of IS<em>Ec8</em></figcaption>
 </figure>
 </div>
-<p>Eris predicted ISSen10 at the upstream of the CDS 1245106_04638, but it is at downstrem of it.</p>
+<p>Eris correctly found CDS at the downstream IS<em>Ec8</em> element. Although the distance between CDS and the element is very close, the translasion of CDS is normal. So, eris didn’t report the effect prediction.</p>
+<p><strong>Incorrect assignment by eris</strong> Most of the incorrect assignments come from overcalling by Eris. In these cases, Eris predicts a CDS as disrupted even though there is no actual IS at that location.</p>
+<p>Example:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="pictures/IS2_confusing.png" class="img-fluid figure-img"></p>
-<figcaption>IS2</figcaption>
+<p><img src="pictures/IS621_none_wrong.png" class="img-fluid figure-img"></p>
+<figcaption>IS<em>621</em></figcaption>
 </figure>
 </div>
-<p>Eris also predicted wrong here. It should be: IS2 lies at the downstream of 1244674_00871 and at the upstream of 1244674_00874</p>
-<p><strong>Several correct assignments by Eris here</strong>:</p>
+<p>There is no IS<em>621</em> in the EC958 chromosome.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="pictures/ISEc38_correct.png" class="img-fluid figure-img"></p>
-<figcaption>ISEc38</figcaption>
+<p><img src="pictures/ISEc49_none_wrong.png" class="img-fluid figure-img"></p>
+<figcaption>IS<em>Ec49</em></figcaption>
 </figure>
 </div>
-<p>1245062_04536|1245062|-|downstream|opposite_strand|ISEc38 True</p>
-<p>ISEc38 element is at the downstream of CDS 1245062_04536</p>
+<p>There is no IS<em>Ec49</em> in around that location in the EC958 chromosomoe</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="pictures/ISEc8_true.png" class="img-fluid figure-img"></p>
-<figcaption>ISEc8</figcaption>
+<p><img src="pictures/GFA_wrong_chrom_correct.png" class="img-fluid figure-img"></p>
+<figcaption>misplaced CDS by eris in IS<em>Ech14</em></figcaption>
 </figure>
 </div>
-<p>1244320_00406|1244320|-|downstream|opposite_strand|ISEc8 True</p>
-<p>ISEc8 lies at the downstream of CDS 1244320_00406</p>
+<p>Eris incorectly assign element location from GFA, but correctly assigned it on the chromosome.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="pictures/IS609_corr_in.png" class="img-fluid figure-img"></p>
-<figcaption>IS609</figcaption>
+<p><img src="pictures/ISEc8_flanking_wrong.png" class="img-fluid figure-img"></p>
+<figcaption>misplaced CDS by eris in the IS<em>Ec8</em></figcaption>
 </figure>
 </div>
-<p>1244570_00584|1244570|disrupted|downstream|opposite_strand|IS609 True</p>
-<p>Correct as the IS609 elements appear at the downstream of 1244570_00584</p>
-<p>Check the entries that don’t pass intersection with IS, in theory they should not be reported for the insertion effect (because the proximity more than 150), no?</p>
-<p><img src="pictures/ISEc1_far.png" class="img-fluid" alt="ISEc1"> Eris still predicted CDS 1245096_04607 will be disrupted, although it far from the nearest IS element ISec1 (&gt;150 bp) in the full chromosome</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="pictures/MITEEc1.png" class="img-fluid figure-img"></p>
-<figcaption>MITEEc1</figcaption>
-</figure>
-</div>
-<p>Eris the detec IS that don’t exist in truth, so they don’t overlap</p>
+<p>Again, Eris incorectly assign element location from GFA, but correctly assigned it on the chromosome.</p>
 <p><strong>Summary</strong></p>
 <ul>
-<li>All the exracted predicted CDS from gfa file were succesfully mapped to the reference sequence uniquely.</li>
-<li>All those sequences intersect with at least small fraction with known/truth CDS (they mostly are actually CDS)</li>
-<li>Based on the checking using IGV and phython cod above, I can say:
+<li>All predicted CDS extracted from the GFA file were successfully and uniquely mapped to the reference genome.</li>
+<li>Each of these predicted CDS overlaps at least partially with a known (truth) CDS, indicating they are indeed real coding sequences.</li>
+<li>Based on mapping approach, my python code above, and manual inspection in the IGV, I think, I can safely say:
 <ul>
-<li>Most of the time, eris correctly predicted the CDS are inside the IS</li>
-<li>Most of the time, eris incorrectly predicted between downstream and upstream, confised between two</li>
-<li>Most of the time eris correctly predicted the corresponding IS for each predicted CDS</li>
+<li>Eris correctly predicts the CDS location relative to IS elements in most cases.</li>
+<li>The accuracy of both location assignment and effect prediction is higher when using the complete chromosome as input (which is expected).</li>
+<li>The GFA-based predictions have lower accuracy, largely due to the inherent complexity and fragmentation of draft assemblies.</li>
+<li>Most misassignments of element_location are caused by overcalling of IS elements by Eris, rather than incorrect interpretation of true insertions.</li>
 </ul></li>
-<li>Some CDS that dont intersect with truth IS because their IS are overcalled by eris</li>
 </ul>
 </section>
 </section>
@@ -778,71 +1001,71 @@ Accuracy: 48.80%
 <section id="using-clustering-mmseq2" class="level4">
 <h4 class="anchored" data-anchor-id="using-clustering-mmseq2">Using clustering MMSEQ2</h4>
 <p><strong>cluster the ISfinder and ISOSDB using mmseqs2</strong></p>
-<div id="371e031a" class="cell" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>cat ..<span class="op">/</span>..<span class="op">/</span>ISOSDB.V3.fna ..<span class="op">/</span>..<span class="op">/</span>eris<span class="op">/</span>src<span class="op">/</span>eris<span class="op">/</span>data<span class="op">/</span>IS.fna <span class="op">&gt;</span> combined_ISOSDB_ISfinder.fna</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>mmseqs easy<span class="op">-</span>cluster combined_ISOSDB_ISfinder.fna clusterIS tmp <span class="op">--</span><span class="bu">min</span><span class="op">-</span>seq<span class="op">-</span><span class="bu">id</span> <span class="fl">0.8</span> <span class="op">-</span>c <span class="fl">0.8</span> <span class="op">-</span>s <span class="dv">7</span> <span class="op">--</span>threads <span class="dv">4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="2acc1ec7" class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>cat ..<span class="op">/</span>..<span class="op">/</span>ISOSDB.V3.fna ..<span class="op">/</span>..<span class="op">/</span>eris<span class="op">/</span>src<span class="op">/</span>eris<span class="op">/</span>data<span class="op">/</span>IS.fna <span class="op">&gt;</span> combined_ISOSDB_ISfinder.fna</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>mmseqs easy<span class="op">-</span>cluster combined_ISOSDB_ISfinder.fna clusterIS tmp <span class="op">--</span><span class="bu">min</span><span class="op">-</span>seq<span class="op">-</span><span class="bu">id</span> <span class="fl">0.8</span> <span class="op">-</span>c <span class="fl">0.8</span> <span class="op">-</span>s <span class="dv">7</span> <span class="op">--</span>threads <span class="dv">4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><strong>Look for the intersections</strong></p>
-<div id="add283a0" class="cell" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collections <span class="im">import</span> defaultdict</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>clusters <span class="op">=</span> defaultdict(<span class="bu">list</span>)</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"clusterIS_cluster.tsv"</span>) <span class="im">as</span> entries:</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> entry <span class="kw">in</span> entries.readlines():</span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    cluster, member <span class="op">=</span> entry.split(<span class="st">"</span><span class="ch">\t</span><span class="st">"</span>)</span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    clusters[cluster].append(member)</span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"There are </span><span class="sc">{</span><span class="bu">len</span>(clusters)<span class="sc">}</span><span class="ss"> clusters"</span>)</span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="co"># classify clusters</span></span>
-<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>isosdb_only <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>isfinder_only <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>both <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>isosdb_clusters <span class="op">=</span> []</span>
-<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>isfinder_clusters <span class="op">=</span> []</span>
-<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>both_clusters <span class="op">=</span> []</span>
-<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> cluster_id, members <span class="kw">in</span> clusters.items():</span>
-<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>    has_isosdb <span class="op">=</span> <span class="bu">any</span>(m.startswith(<span class="st">"ISOSDB"</span>) <span class="cf">for</span> m <span class="kw">in</span> members)</span>
-<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>    has_isfinder <span class="op">=</span> <span class="bu">any</span>(<span class="kw">not</span> m.startswith(<span class="st">"ISOSDB"</span>) <span class="cf">for</span> m <span class="kw">in</span> members)</span>
-<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> has_isosdb <span class="kw">and</span> has_isfinder:</span>
-<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a>        both <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a>        both_clusters.append(cluster_id)</span>
-<span id="cb18-28"><a href="#cb18-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> has_isosdb:</span>
-<span id="cb18-29"><a href="#cb18-29" aria-hidden="true" tabindex="-1"></a>        isosdb_only <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb18-30"><a href="#cb18-30" aria-hidden="true" tabindex="-1"></a>        isosdb_clusters.append(cluster_id)</span>
-<span id="cb18-31"><a href="#cb18-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> has_isfinder:</span>
-<span id="cb18-32"><a href="#cb18-32" aria-hidden="true" tabindex="-1"></a>        isfinder_only <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb18-33"><a href="#cb18-33" aria-hidden="true" tabindex="-1"></a>        isfinder_clusters.append(cluster_id)</span>
-<span id="cb18-34"><a href="#cb18-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-35"><a href="#cb18-35" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb18-36"><a href="#cb18-36" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib_venn <span class="im">import</span> venn2</span>
-<span id="cb18-37"><a href="#cb18-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-38"><a href="#cb18-38" aria-hidden="true" tabindex="-1"></a><span class="co"># sizes</span></span>
-<span id="cb18-39"><a href="#cb18-39" aria-hidden="true" tabindex="-1"></a>only_isosdb <span class="op">=</span> <span class="bu">len</span>(isosdb_clusters)</span>
-<span id="cb18-40"><a href="#cb18-40" aria-hidden="true" tabindex="-1"></a>only_isfinder <span class="op">=</span> <span class="bu">len</span>(isfinder_clusters)</span>
-<span id="cb18-41"><a href="#cb18-41" aria-hidden="true" tabindex="-1"></a>overlap <span class="op">=</span> <span class="bu">len</span>(both_clusters)</span>
-<span id="cb18-42"><a href="#cb18-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-43"><a href="#cb18-43" aria-hidden="true" tabindex="-1"></a><span class="co"># Venn diagram</span></span>
-<span id="cb18-44"><a href="#cb18-44" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">5</span>,<span class="dv">5</span>))</span>
-<span id="cb18-45"><a href="#cb18-45" aria-hidden="true" tabindex="-1"></a>venn2(subsets<span class="op">=</span>(only_isosdb, only_isfinder, overlap), </span>
-<span id="cb18-46"><a href="#cb18-46" aria-hidden="true" tabindex="-1"></a>      set_labels<span class="op">=</span>(<span class="st">"ISOSDB"</span>, <span class="st">"isfinder DB"</span>))</span>
-<span id="cb18-47"><a href="#cb18-47" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Cluster overlap"</span>)</span>
-<span id="cb18-48"><a href="#cb18-48" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb18-49"><a href="#cb18-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-50"><a href="#cb18-50" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Clusters with both ISOSDB and ISfinder:"</span>, both)</span>
-<span id="cb18-51"><a href="#cb18-51" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Clusters only ISOSDB:"</span>, isosdb_only)</span>
-<span id="cb18-52"><a href="#cb18-52" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Clusters only ISfinder:"</span>, isfinder_only)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="72995f45" class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collections <span class="im">import</span> defaultdict</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>clusters <span class="op">=</span> defaultdict(<span class="bu">list</span>)</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"clusterIS_cluster.tsv"</span>) <span class="im">as</span> entries:</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> entry <span class="kw">in</span> entries.readlines():</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>    cluster, member <span class="op">=</span> entry.split(<span class="st">"</span><span class="ch">\t</span><span class="st">"</span>)</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>    clusters[cluster].append(member)</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"There are </span><span class="sc">{</span><span class="bu">len</span>(clusters)<span class="sc">}</span><span class="ss"> clusters"</span>)</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a><span class="co"># classify clusters</span></span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>isosdb_only <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>isfinder_only <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>both <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>isosdb_clusters <span class="op">=</span> []</span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a>isfinder_clusters <span class="op">=</span> []</span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a>both_clusters <span class="op">=</span> []</span>
+<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> cluster_id, members <span class="kw">in</span> clusters.items():</span>
+<span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a>    has_isosdb <span class="op">=</span> <span class="bu">any</span>(m.startswith(<span class="st">"ISOSDB"</span>) <span class="cf">for</span> m <span class="kw">in</span> members)</span>
+<span id="cb23-23"><a href="#cb23-23" aria-hidden="true" tabindex="-1"></a>    has_isfinder <span class="op">=</span> <span class="bu">any</span>(<span class="kw">not</span> m.startswith(<span class="st">"ISOSDB"</span>) <span class="cf">for</span> m <span class="kw">in</span> members)</span>
+<span id="cb23-24"><a href="#cb23-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-25"><a href="#cb23-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> has_isosdb <span class="kw">and</span> has_isfinder:</span>
+<span id="cb23-26"><a href="#cb23-26" aria-hidden="true" tabindex="-1"></a>        both <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb23-27"><a href="#cb23-27" aria-hidden="true" tabindex="-1"></a>        both_clusters.append(cluster_id)</span>
+<span id="cb23-28"><a href="#cb23-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> has_isosdb:</span>
+<span id="cb23-29"><a href="#cb23-29" aria-hidden="true" tabindex="-1"></a>        isosdb_only <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb23-30"><a href="#cb23-30" aria-hidden="true" tabindex="-1"></a>        isosdb_clusters.append(cluster_id)</span>
+<span id="cb23-31"><a href="#cb23-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> has_isfinder:</span>
+<span id="cb23-32"><a href="#cb23-32" aria-hidden="true" tabindex="-1"></a>        isfinder_only <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb23-33"><a href="#cb23-33" aria-hidden="true" tabindex="-1"></a>        isfinder_clusters.append(cluster_id)</span>
+<span id="cb23-34"><a href="#cb23-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-35"><a href="#cb23-35" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb23-36"><a href="#cb23-36" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib_venn <span class="im">import</span> venn2</span>
+<span id="cb23-37"><a href="#cb23-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-38"><a href="#cb23-38" aria-hidden="true" tabindex="-1"></a><span class="co"># sizes</span></span>
+<span id="cb23-39"><a href="#cb23-39" aria-hidden="true" tabindex="-1"></a>only_isosdb <span class="op">=</span> <span class="bu">len</span>(isosdb_clusters)</span>
+<span id="cb23-40"><a href="#cb23-40" aria-hidden="true" tabindex="-1"></a>only_isfinder <span class="op">=</span> <span class="bu">len</span>(isfinder_clusters)</span>
+<span id="cb23-41"><a href="#cb23-41" aria-hidden="true" tabindex="-1"></a>overlap <span class="op">=</span> <span class="bu">len</span>(both_clusters)</span>
+<span id="cb23-42"><a href="#cb23-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-43"><a href="#cb23-43" aria-hidden="true" tabindex="-1"></a><span class="co"># Venn diagram</span></span>
+<span id="cb23-44"><a href="#cb23-44" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">5</span>,<span class="dv">5</span>))</span>
+<span id="cb23-45"><a href="#cb23-45" aria-hidden="true" tabindex="-1"></a>venn2(subsets<span class="op">=</span>(only_isosdb, only_isfinder, overlap), </span>
+<span id="cb23-46"><a href="#cb23-46" aria-hidden="true" tabindex="-1"></a>      set_labels<span class="op">=</span>(<span class="st">"ISOSDB"</span>, <span class="st">"isfinder DB"</span>))</span>
+<span id="cb23-47"><a href="#cb23-47" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Cluster overlap"</span>)</span>
+<span id="cb23-48"><a href="#cb23-48" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb23-49"><a href="#cb23-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-50"><a href="#cb23-50" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Clusters with both ISOSDB and ISfinder:"</span>, both)</span>
+<span id="cb23-51"><a href="#cb23-51" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Clusters only ISOSDB:"</span>, isosdb_only)</span>
+<span id="cb23-52"><a href="#cb23-52" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Clusters only ISfinder:"</span>, isfinder_only)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>There are 16655 clusters</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="week11_files/figure-html/cell-14-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="week11_files/figure-html/cell-17-output-2.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -855,75 +1078,75 @@ Clusters only ISfinder: 2483</code></pre>
 <section id="extract-cds-sequence-from-complete-chromosome" class="level5">
 <h5 class="anchored" data-anchor-id="extract-cds-sequence-from-complete-chromosome">Extract CDS sequence from complete chromosome</h5>
 <p>we can use seqkit to extract sequence from fasta format</p>
-<div id="ee4ec296" class="cell" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>seqkit subseq <span class="op">--</span>bed ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>EC958_genomic_sorted.cds.edit.bed ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>EC958.fasta <span class="op">&gt;</span> cds_chrom_all.fna</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="31ed9ce6" class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>seqkit subseq <span class="op">--</span>bed ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>EC958_genomic_sorted.cds.edit.bed ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>EC958.fasta <span class="op">&gt;</span> cds_chrom_all.fna</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>combine with predicted CDS from eris, and run clustering using mmseq2 again. The predcited CDS sequence is expected to be intersected with the the truth CDS</p>
-<div id="8445dc07" class="cell" data-execution_count="15">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>cat cds_chrom_all.fna cds_gfa_shovill_is.fna <span class="op">&gt;</span> combined_cds_alltruth_eris.fna</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>mmseqs easy<span class="op">-</span>cluster combined_cds_alltruth_eris.fna clusterCDSall tmp <span class="op">--</span><span class="bu">min</span><span class="op">-</span>seq<span class="op">-</span><span class="bu">id</span> <span class="fl">0.8</span> <span class="op">-</span>c <span class="fl">0.8</span> <span class="op">-</span>s <span class="dv">7</span> <span class="op">--</span>threads <span class="dv">4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cabfa277" class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>cat cds_chrom_all.fna cds_gfa_shovill_is.fna <span class="op">&gt;</span> combined_cds_alltruth_eris.fna</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>mmseqs easy<span class="op">-</span>cluster combined_cds_alltruth_eris.fna clusterCDSall tmp <span class="op">--</span><span class="bu">min</span><span class="op">-</span>seq<span class="op">-</span><span class="bu">id</span> <span class="fl">0.8</span> <span class="op">-</span>c <span class="fl">0.8</span> <span class="op">-</span>s <span class="dv">7</span> <span class="op">--</span>threads <span class="dv">4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="c817ba5f" class="cell" data-execution_count="16">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collections <span class="im">import</span> defaultdict</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>clusters <span class="op">=</span> defaultdict(<span class="bu">list</span>)</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"clusterCDSall_cluster.tsv"</span>) <span class="im">as</span> entries:</span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> entry <span class="kw">in</span> entries.readlines():</span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>    cluster, member <span class="op">=</span> entry.split(<span class="st">"</span><span class="ch">\t</span><span class="st">"</span>)</span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>    clusters[cluster].append(member)</span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"There are </span><span class="sc">{</span><span class="bu">len</span>(clusters)<span class="sc">}</span><span class="ss"> clusters"</span>)</span>
-<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a><span class="co"># classify clusters</span></span>
-<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>truth_only <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>predicted_only <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>both <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>truth_clusters <span class="op">=</span> []</span>
-<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a>predicted_clusters <span class="op">=</span> []</span>
-<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a>both_clusters <span class="op">=</span> []</span>
-<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> cluster_id, members <span class="kw">in</span> clusters.items():</span>
-<span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a>    has_truth <span class="op">=</span> <span class="bu">any</span>(m.startswith(<span class="st">"HG941718.1"</span>) <span class="cf">for</span> m <span class="kw">in</span> members)</span>
-<span id="cb23-23"><a href="#cb23-23" aria-hidden="true" tabindex="-1"></a>    has_predicted <span class="op">=</span> <span class="bu">any</span>(<span class="kw">not</span> m.startswith(<span class="st">"HG941718.1"</span>) <span class="cf">for</span> m <span class="kw">in</span> members)</span>
-<span id="cb23-24"><a href="#cb23-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-25"><a href="#cb23-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> has_truth <span class="kw">and</span> has_predicted:</span>
-<span id="cb23-26"><a href="#cb23-26" aria-hidden="true" tabindex="-1"></a>        both <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb23-27"><a href="#cb23-27" aria-hidden="true" tabindex="-1"></a>        both_clusters.append(cluster_id)</span>
-<span id="cb23-28"><a href="#cb23-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> has_truth:</span>
-<span id="cb23-29"><a href="#cb23-29" aria-hidden="true" tabindex="-1"></a>        truth_only <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb23-30"><a href="#cb23-30" aria-hidden="true" tabindex="-1"></a>        truth_clusters.append(cluster_id)</span>
-<span id="cb23-31"><a href="#cb23-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> has_predicted:</span>
-<span id="cb23-32"><a href="#cb23-32" aria-hidden="true" tabindex="-1"></a>        predicted_only <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb23-33"><a href="#cb23-33" aria-hidden="true" tabindex="-1"></a>        predicted_clusters.append(cluster_id)</span>
-<span id="cb23-34"><a href="#cb23-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-35"><a href="#cb23-35" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb23-36"><a href="#cb23-36" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib_venn <span class="im">import</span> venn2</span>
-<span id="cb23-37"><a href="#cb23-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-38"><a href="#cb23-38" aria-hidden="true" tabindex="-1"></a><span class="co"># sizes</span></span>
-<span id="cb23-39"><a href="#cb23-39" aria-hidden="true" tabindex="-1"></a>only_truth <span class="op">=</span> <span class="bu">len</span>(truth_clusters)</span>
-<span id="cb23-40"><a href="#cb23-40" aria-hidden="true" tabindex="-1"></a>only_predicted <span class="op">=</span> <span class="bu">len</span>(predicted_clusters)</span>
-<span id="cb23-41"><a href="#cb23-41" aria-hidden="true" tabindex="-1"></a>overlap <span class="op">=</span> <span class="bu">len</span>(both_clusters)</span>
-<span id="cb23-42"><a href="#cb23-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-43"><a href="#cb23-43" aria-hidden="true" tabindex="-1"></a><span class="co"># Venn diagram</span></span>
-<span id="cb23-44"><a href="#cb23-44" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">5</span>,<span class="dv">5</span>))</span>
-<span id="cb23-45"><a href="#cb23-45" aria-hidden="true" tabindex="-1"></a>venn2(subsets<span class="op">=</span>(only_truth, only_predicted, overlap),</span>
-<span id="cb23-46"><a href="#cb23-46" aria-hidden="true" tabindex="-1"></a>      set_labels<span class="op">=</span>(<span class="st">"TRUTH"</span>, <span class="st">"predicted CDS"</span>))</span>
-<span id="cb23-47"><a href="#cb23-47" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Cluster overlap"</span>)</span>
-<span id="cb23-48"><a href="#cb23-48" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb23-49"><a href="#cb23-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-50"><a href="#cb23-50" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Clusters with both TRUTH and predicted:"</span>, both)</span>
-<span id="cb23-51"><a href="#cb23-51" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Clusters only TRUTH:"</span>, truth_only)</span>
-<span id="cb23-52"><a href="#cb23-52" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Clusters only predicted:"</span>, predicted_only)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="d9644f72" class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collections <span class="im">import</span> defaultdict</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>clusters <span class="op">=</span> defaultdict(<span class="bu">list</span>)</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"clusterCDSall_cluster.tsv"</span>) <span class="im">as</span> entries:</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> entry <span class="kw">in</span> entries.readlines():</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>    cluster, member <span class="op">=</span> entry.split(<span class="st">"</span><span class="ch">\t</span><span class="st">"</span>)</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>    clusters[cluster].append(member)</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"There are </span><span class="sc">{</span><span class="bu">len</span>(clusters)<span class="sc">}</span><span class="ss"> clusters"</span>)</span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a><span class="co"># classify clusters</span></span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>truth_only <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>predicted_only <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>both <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a>truth_clusters <span class="op">=</span> []</span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a>predicted_clusters <span class="op">=</span> []</span>
+<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a>both_clusters <span class="op">=</span> []</span>
+<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-21"><a href="#cb28-21" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> cluster_id, members <span class="kw">in</span> clusters.items():</span>
+<span id="cb28-22"><a href="#cb28-22" aria-hidden="true" tabindex="-1"></a>    has_truth <span class="op">=</span> <span class="bu">any</span>(m.startswith(<span class="st">"HG941718.1"</span>) <span class="cf">for</span> m <span class="kw">in</span> members)</span>
+<span id="cb28-23"><a href="#cb28-23" aria-hidden="true" tabindex="-1"></a>    has_predicted <span class="op">=</span> <span class="bu">any</span>(<span class="kw">not</span> m.startswith(<span class="st">"HG941718.1"</span>) <span class="cf">for</span> m <span class="kw">in</span> members)</span>
+<span id="cb28-24"><a href="#cb28-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-25"><a href="#cb28-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> has_truth <span class="kw">and</span> has_predicted:</span>
+<span id="cb28-26"><a href="#cb28-26" aria-hidden="true" tabindex="-1"></a>        both <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb28-27"><a href="#cb28-27" aria-hidden="true" tabindex="-1"></a>        both_clusters.append(cluster_id)</span>
+<span id="cb28-28"><a href="#cb28-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> has_truth:</span>
+<span id="cb28-29"><a href="#cb28-29" aria-hidden="true" tabindex="-1"></a>        truth_only <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb28-30"><a href="#cb28-30" aria-hidden="true" tabindex="-1"></a>        truth_clusters.append(cluster_id)</span>
+<span id="cb28-31"><a href="#cb28-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> has_predicted:</span>
+<span id="cb28-32"><a href="#cb28-32" aria-hidden="true" tabindex="-1"></a>        predicted_only <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb28-33"><a href="#cb28-33" aria-hidden="true" tabindex="-1"></a>        predicted_clusters.append(cluster_id)</span>
+<span id="cb28-34"><a href="#cb28-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-35"><a href="#cb28-35" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb28-36"><a href="#cb28-36" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib_venn <span class="im">import</span> venn2</span>
+<span id="cb28-37"><a href="#cb28-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-38"><a href="#cb28-38" aria-hidden="true" tabindex="-1"></a><span class="co"># sizes</span></span>
+<span id="cb28-39"><a href="#cb28-39" aria-hidden="true" tabindex="-1"></a>only_truth <span class="op">=</span> <span class="bu">len</span>(truth_clusters)</span>
+<span id="cb28-40"><a href="#cb28-40" aria-hidden="true" tabindex="-1"></a>only_predicted <span class="op">=</span> <span class="bu">len</span>(predicted_clusters)</span>
+<span id="cb28-41"><a href="#cb28-41" aria-hidden="true" tabindex="-1"></a>overlap <span class="op">=</span> <span class="bu">len</span>(both_clusters)</span>
+<span id="cb28-42"><a href="#cb28-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-43"><a href="#cb28-43" aria-hidden="true" tabindex="-1"></a><span class="co"># Venn diagram</span></span>
+<span id="cb28-44"><a href="#cb28-44" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">5</span>,<span class="dv">5</span>))</span>
+<span id="cb28-45"><a href="#cb28-45" aria-hidden="true" tabindex="-1"></a>venn2(subsets<span class="op">=</span>(only_truth, only_predicted, overlap),</span>
+<span id="cb28-46"><a href="#cb28-46" aria-hidden="true" tabindex="-1"></a>      set_labels<span class="op">=</span>(<span class="st">"TRUTH"</span>, <span class="st">"predicted CDS"</span>))</span>
+<span id="cb28-47"><a href="#cb28-47" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Cluster overlap"</span>)</span>
+<span id="cb28-48"><a href="#cb28-48" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb28-49"><a href="#cb28-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-50"><a href="#cb28-50" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Clusters with both TRUTH and predicted:"</span>, both)</span>
+<span id="cb28-51"><a href="#cb28-51" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Clusters only TRUTH:"</span>, truth_only)</span>
+<span id="cb28-52"><a href="#cb28-52" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Clusters only predicted:"</span>, predicted_only)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>There are 4918 clusters</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="week11_files/figure-html/cell-17-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="week11_files/figure-html/cell-20-output-2.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -934,14 +1157,14 @@ Clusters only predicted: 118</code></pre>
 </div>
 </div>
 <p>print cluster that have intersection from both:</p>
-<div id="7a6410ba" class="cell" data-execution_count="17">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>i <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> clust, mem <span class="kw">in</span> clusters.items():</span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  has_hg <span class="op">=</span> <span class="bu">any</span>(e.startswith(<span class="st">"HG"</span>) <span class="cf">for</span> e <span class="kw">in</span> mem)</span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  has_non_hg <span class="op">=</span> <span class="bu">any</span>(<span class="kw">not</span> e.startswith(<span class="st">"HG"</span>) <span class="cf">for</span> e <span class="kw">in</span> mem)</span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> has_hg <span class="kw">and</span> has_non_hg:</span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Cluster </span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>mem<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>    i <span class="op">+=</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="1b162de8" class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>i <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> clust, mem <span class="kw">in</span> clusters.items():</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  has_hg <span class="op">=</span> <span class="bu">any</span>(e.startswith(<span class="st">"HG"</span>) <span class="cf">for</span> e <span class="kw">in</span> mem)</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  has_non_hg <span class="op">=</span> <span class="bu">any</span>(<span class="kw">not</span> e.startswith(<span class="st">"HG"</span>) <span class="cf">for</span> e <span class="kw">in</span> mem)</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> has_hg <span class="kw">and</span> has_non_hg:</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Cluster </span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>mem<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>    i <span class="op">+=</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Cluster 1: ['HG941718.1_233813-234238:+\n', 'HG941718.1_2265919-2266344:+\n', 'HG941718.1_3334643-3335068:+\n', 'HG941718.1_4925174-4925599:+\n', '1244700_00882|1244700|-|inside|same_strand|ISEc23\n']
 Cluster 2: ['HG941718.1_234235-234585:+\n', 'HG941718.1_2266341-2266691:+\n', 'HG941718.1_3335065-3335415:+\n', 'HG941718.1_4925596-4925946:+\n', '1244700_00883|1244700|-|inside|same_strand|ISEc23\n']
@@ -1001,77 +1224,77 @@ Cluster 55: ['1245118_04678|1245118|-|downstream|opposite_strand|ISEc13\n', 'HG9
 </div>
 </div>
 <p>Tried to filter first the truth CDS region that near to insertion elemeent, extraxt the sequence and then combined with predicted CDS from eris, tehn run clustering.</p>
-<div id="90dbd5c4" class="cell" data-execution_count="18">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>grep <span class="st">"^HG941718</span><span class="er">\</span><span class="st">.1"</span> ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>EC958_genomic_sorted.cds.edit.bed <span class="op">|</span> bedtools slop <span class="op">-</span>i <span class="op">-</span> <span class="op">-</span>g ec958.genome.size <span class="op">-</span>b <span class="dv">100000</span> <span class="op">|</span> bedtools intersect <span class="op">-</span>a <span class="op">-</span> <span class="op">-</span>b ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>ec958_IS.reannotated.<span class="bu">sorted</span>.bed <span class="op">&gt;</span> temp</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>seqkit subseq <span class="op">--</span>bed temp ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>EC958.fasta <span class="op">&gt;</span> cds_truth_with_is_intersect.fna</span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>rm temp</span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>cat cds_truth_with_is_intersect.fna cds_gfa_shovill_is.fna <span class="op">&gt;</span> combined_cds_truth_eris.fna</span>
-<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>mmseqs easy<span class="op">-</span>cluster combined_cds_truth_eris.fna clusterCDS tmp <span class="op">--</span><span class="bu">min</span><span class="op">-</span>seq<span class="op">-</span><span class="bu">id</span> <span class="fl">0.8</span> <span class="op">-</span>c <span class="fl">0.8</span> <span class="op">-</span>s <span class="dv">7</span> <span class="op">--</span>threads <span class="dv">4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="0cbfae16" class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>grep <span class="st">"^HG941718</span><span class="er">\</span><span class="st">.1"</span> ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>EC958_genomic_sorted.cds.edit.bed <span class="op">|</span> bedtools slop <span class="op">-</span>i <span class="op">-</span> <span class="op">-</span>g ec958.genome.size <span class="op">-</span>b <span class="dv">100000</span> <span class="op">|</span> bedtools intersect <span class="op">-</span>a <span class="op">-</span> <span class="op">-</span>b ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>ec958_IS.reannotated.<span class="bu">sorted</span>.bed <span class="op">&gt;</span> temp</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>seqkit subseq <span class="op">--</span>bed temp ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>EC958.fasta <span class="op">&gt;</span> cds_truth_with_is_intersect.fna</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>rm temp</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>cat cds_truth_with_is_intersect.fna cds_gfa_shovill_is.fna <span class="op">&gt;</span> combined_cds_truth_eris.fna</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>mmseqs easy<span class="op">-</span>cluster combined_cds_truth_eris.fna clusterCDS tmp <span class="op">--</span><span class="bu">min</span><span class="op">-</span>seq<span class="op">-</span><span class="bu">id</span> <span class="fl">0.8</span> <span class="op">-</span>c <span class="fl">0.8</span> <span class="op">-</span>s <span class="dv">7</span> <span class="op">--</span>threads <span class="dv">4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="c858a459" class="cell" data-execution_count="19">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collections <span class="im">import</span> defaultdict</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>clusters <span class="op">=</span> defaultdict(<span class="bu">list</span>)</span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"clusterCDS_cluster.tsv"</span>) <span class="im">as</span> entries:</span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> entry <span class="kw">in</span> entries.readlines():</span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>    cluster, member <span class="op">=</span> entry.split(<span class="st">"</span><span class="ch">\t</span><span class="st">"</span>)</span>
-<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>    clusters[cluster].append(member)</span>
-<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"There are </span><span class="sc">{</span><span class="bu">len</span>(clusters)<span class="sc">}</span><span class="ss"> clusters"</span>)</span>
-<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a><span class="co"># classify clusters</span></span>
-<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>truth_only <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>predicted_only <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>both <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a>truth_clusters <span class="op">=</span> []</span>
-<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a>predicted_clusters <span class="op">=</span> []</span>
-<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a>both_clusters <span class="op">=</span> []</span>
-<span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-21"><a href="#cb29-21" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> cluster_id, members <span class="kw">in</span> clusters.items():</span>
-<span id="cb29-22"><a href="#cb29-22" aria-hidden="true" tabindex="-1"></a>    has_truth <span class="op">=</span> <span class="bu">any</span>(m.startswith(<span class="st">"HG941718.1"</span>) <span class="cf">for</span> m <span class="kw">in</span> members)</span>
-<span id="cb29-23"><a href="#cb29-23" aria-hidden="true" tabindex="-1"></a>    has_predicted <span class="op">=</span> <span class="bu">any</span>(<span class="kw">not</span> m.startswith(<span class="st">"HG941718.1"</span>) <span class="cf">for</span> m <span class="kw">in</span> members)</span>
-<span id="cb29-24"><a href="#cb29-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-25"><a href="#cb29-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> has_truth <span class="kw">and</span> has_predicted:</span>
-<span id="cb29-26"><a href="#cb29-26" aria-hidden="true" tabindex="-1"></a>        both <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb29-27"><a href="#cb29-27" aria-hidden="true" tabindex="-1"></a>        both_clusters.append(cluster_id)</span>
-<span id="cb29-28"><a href="#cb29-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> has_truth:</span>
-<span id="cb29-29"><a href="#cb29-29" aria-hidden="true" tabindex="-1"></a>        truth_only <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb29-30"><a href="#cb29-30" aria-hidden="true" tabindex="-1"></a>        truth_clusters.append(cluster_id)</span>
-<span id="cb29-31"><a href="#cb29-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> has_predicted:</span>
-<span id="cb29-32"><a href="#cb29-32" aria-hidden="true" tabindex="-1"></a>        predicted_only <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb29-33"><a href="#cb29-33" aria-hidden="true" tabindex="-1"></a>        predicted_clusters.append(cluster_id)</span>
-<span id="cb29-34"><a href="#cb29-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-35"><a href="#cb29-35" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb29-36"><a href="#cb29-36" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib_venn <span class="im">import</span> venn2</span>
-<span id="cb29-37"><a href="#cb29-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-38"><a href="#cb29-38" aria-hidden="true" tabindex="-1"></a><span class="co"># sizes</span></span>
-<span id="cb29-39"><a href="#cb29-39" aria-hidden="true" tabindex="-1"></a>only_truth <span class="op">=</span> <span class="bu">len</span>(truth_clusters)</span>
-<span id="cb29-40"><a href="#cb29-40" aria-hidden="true" tabindex="-1"></a>only_predicted <span class="op">=</span> <span class="bu">len</span>(predicted_clusters)</span>
-<span id="cb29-41"><a href="#cb29-41" aria-hidden="true" tabindex="-1"></a>overlap <span class="op">=</span> <span class="bu">len</span>(both_clusters)</span>
-<span id="cb29-42"><a href="#cb29-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-43"><a href="#cb29-43" aria-hidden="true" tabindex="-1"></a><span class="co"># Venn diagram</span></span>
-<span id="cb29-44"><a href="#cb29-44" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">5</span>,<span class="dv">5</span>))</span>
-<span id="cb29-45"><a href="#cb29-45" aria-hidden="true" tabindex="-1"></a>venn2(subsets<span class="op">=</span>(only_truth, only_predicted, overlap),</span>
-<span id="cb29-46"><a href="#cb29-46" aria-hidden="true" tabindex="-1"></a>      set_labels<span class="op">=</span>(<span class="st">"TRUTH"</span>, <span class="st">"predicted CDS"</span>))</span>
-<span id="cb29-47"><a href="#cb29-47" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Cluster overlap"</span>)</span>
-<span id="cb29-48"><a href="#cb29-48" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb29-49"><a href="#cb29-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-50"><a href="#cb29-50" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Clusters with both TRUTH and predicted:"</span>, both)</span>
-<span id="cb29-51"><a href="#cb29-51" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Clusters only TRUTH:"</span>, truth_only)</span>
-<span id="cb29-52"><a href="#cb29-52" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Clusters only predicted:"</span>, predicted_only)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="5c59b89c" class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collections <span class="im">import</span> defaultdict</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>clusters <span class="op">=</span> defaultdict(<span class="bu">list</span>)</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"clusterCDS_cluster.tsv"</span>) <span class="im">as</span> entries:</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> entry <span class="kw">in</span> entries.readlines():</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>    cluster, member <span class="op">=</span> entry.split(<span class="st">"</span><span class="ch">\t</span><span class="st">"</span>)</span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>    clusters[cluster].append(member)</span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"There are </span><span class="sc">{</span><span class="bu">len</span>(clusters)<span class="sc">}</span><span class="ss"> clusters"</span>)</span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a><span class="co"># classify clusters</span></span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>truth_only <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a>predicted_only <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a>both <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-17"><a href="#cb34-17" aria-hidden="true" tabindex="-1"></a>truth_clusters <span class="op">=</span> []</span>
+<span id="cb34-18"><a href="#cb34-18" aria-hidden="true" tabindex="-1"></a>predicted_clusters <span class="op">=</span> []</span>
+<span id="cb34-19"><a href="#cb34-19" aria-hidden="true" tabindex="-1"></a>both_clusters <span class="op">=</span> []</span>
+<span id="cb34-20"><a href="#cb34-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-21"><a href="#cb34-21" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> cluster_id, members <span class="kw">in</span> clusters.items():</span>
+<span id="cb34-22"><a href="#cb34-22" aria-hidden="true" tabindex="-1"></a>    has_truth <span class="op">=</span> <span class="bu">any</span>(m.startswith(<span class="st">"HG941718.1"</span>) <span class="cf">for</span> m <span class="kw">in</span> members)</span>
+<span id="cb34-23"><a href="#cb34-23" aria-hidden="true" tabindex="-1"></a>    has_predicted <span class="op">=</span> <span class="bu">any</span>(<span class="kw">not</span> m.startswith(<span class="st">"HG941718.1"</span>) <span class="cf">for</span> m <span class="kw">in</span> members)</span>
+<span id="cb34-24"><a href="#cb34-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-25"><a href="#cb34-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> has_truth <span class="kw">and</span> has_predicted:</span>
+<span id="cb34-26"><a href="#cb34-26" aria-hidden="true" tabindex="-1"></a>        both <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb34-27"><a href="#cb34-27" aria-hidden="true" tabindex="-1"></a>        both_clusters.append(cluster_id)</span>
+<span id="cb34-28"><a href="#cb34-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> has_truth:</span>
+<span id="cb34-29"><a href="#cb34-29" aria-hidden="true" tabindex="-1"></a>        truth_only <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb34-30"><a href="#cb34-30" aria-hidden="true" tabindex="-1"></a>        truth_clusters.append(cluster_id)</span>
+<span id="cb34-31"><a href="#cb34-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> has_predicted:</span>
+<span id="cb34-32"><a href="#cb34-32" aria-hidden="true" tabindex="-1"></a>        predicted_only <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb34-33"><a href="#cb34-33" aria-hidden="true" tabindex="-1"></a>        predicted_clusters.append(cluster_id)</span>
+<span id="cb34-34"><a href="#cb34-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-35"><a href="#cb34-35" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb34-36"><a href="#cb34-36" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib_venn <span class="im">import</span> venn2</span>
+<span id="cb34-37"><a href="#cb34-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-38"><a href="#cb34-38" aria-hidden="true" tabindex="-1"></a><span class="co"># sizes</span></span>
+<span id="cb34-39"><a href="#cb34-39" aria-hidden="true" tabindex="-1"></a>only_truth <span class="op">=</span> <span class="bu">len</span>(truth_clusters)</span>
+<span id="cb34-40"><a href="#cb34-40" aria-hidden="true" tabindex="-1"></a>only_predicted <span class="op">=</span> <span class="bu">len</span>(predicted_clusters)</span>
+<span id="cb34-41"><a href="#cb34-41" aria-hidden="true" tabindex="-1"></a>overlap <span class="op">=</span> <span class="bu">len</span>(both_clusters)</span>
+<span id="cb34-42"><a href="#cb34-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-43"><a href="#cb34-43" aria-hidden="true" tabindex="-1"></a><span class="co"># Venn diagram</span></span>
+<span id="cb34-44"><a href="#cb34-44" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">5</span>,<span class="dv">5</span>))</span>
+<span id="cb34-45"><a href="#cb34-45" aria-hidden="true" tabindex="-1"></a>venn2(subsets<span class="op">=</span>(only_truth, only_predicted, overlap),</span>
+<span id="cb34-46"><a href="#cb34-46" aria-hidden="true" tabindex="-1"></a>      set_labels<span class="op">=</span>(<span class="st">"TRUTH"</span>, <span class="st">"predicted CDS"</span>))</span>
+<span id="cb34-47"><a href="#cb34-47" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Cluster overlap"</span>)</span>
+<span id="cb34-48"><a href="#cb34-48" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb34-49"><a href="#cb34-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-50"><a href="#cb34-50" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Clusters with both TRUTH and predicted:"</span>, both)</span>
+<span id="cb34-51"><a href="#cb34-51" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Clusters only TRUTH:"</span>, truth_only)</span>
+<span id="cb34-52"><a href="#cb34-52" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Clusters only predicted:"</span>, predicted_only)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>There are 300 clusters</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="week11_files/figure-html/cell-20-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="week11_files/figure-html/cell-23-output-2.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -1085,9 +1308,9 @@ Clusters only predicted: 159</code></pre>
 <section id="run-eris-with-annotation-file" class="level5">
 <h5 class="anchored" data-anchor-id="run-eris-with-annotation-file">Run eris with annotation file</h5>
 <p>Prepare the annotation file in bed file with something like this tat eris will accept it:</p>
-<div id="ad57a76f" class="cell" data-execution_count="20">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>awk <span class="st">'BEGIN{OFS="</span><span class="ch">\t</span><span class="st">"} {$7="."; $8="CDS"; $9="0"; $10="ID=" $4 ";source=genbank"; print $0}'</span>  ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>EC958_genomic_sorted.cds.edit.bed <span class="op">&gt;</span> ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>EC958.bed</span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>head <span class="op">-</span>n <span class="dv">5</span> ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>EC958.bed</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="f73519f3" class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>awk <span class="st">'BEGIN{OFS="</span><span class="ch">\t</span><span class="st">"} {$7="."; $8="CDS"; $9="0"; $10="ID=" $4 ";source=genbank"; print $0}'</span>  ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>EC958_genomic_sorted.cds.edit.bed <span class="op">&gt;</span> ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>EC958.bed</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>head <span class="op">-</span>n <span class="dv">5</span> ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>EC958.bed</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>HG941718.1  189 255 cds-WP_001386572.1  .   +   .   CDS 0   ID=cds-WP_001386572.1;source=genbank
 HG941718.1  336 2799    cds-WP_001264707.1  .   +   .   CDS 0   ID=cds-WP_001264707.1;source=genbank
@@ -1096,20 +1319,20 @@ HG941720.1  624 1332    cds-WP_001296720.1  .   +   .   CDS 0   ID=cds-WP_001296
 HG941719.1  627 933 cds-WP_001159868.1  .   +   .   CDS 0   ID=cds-WP_001159868.1;source=genbank</code></pre>
 </div>
 </div>
-<div id="11e69897" class="cell" data-execution_count="21">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>eris scan ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>EC958.fasta <span class="op">-</span>a ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>EC958.bed <span class="op">&gt;</span> eris<span class="op">-</span>outputs<span class="op">/</span>eris_anot.tsv</span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>head <span class="op">-</span>n <span class="dv">10</span> eris<span class="op">-</span>outputs<span class="op">/</span>eris_anot.tsv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="c33b4822" class="cell" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>eris scan ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>EC958.fasta <span class="op">-</span>a ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>EC958.bed <span class="op">&gt;</span> eris<span class="op">-</span>outputs<span class="op">/</span>eris_anot.tsv</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>head <span class="op">-</span>n <span class="dv">10</span> eris<span class="op">-</span>outputs<span class="op">/</span>eris_anot.tsv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Genome  Feature Type    Contig  Start   End Strand  Partial Element Element_distance    Element_location    Element_strand  Element_effect  Percent_identity    Percent_coverage    Name    Family  Group   Synonyms    Origin  IR  DR
-EC958   cds-EC958_RS01070   CDS HG941718.1  233363  233726  -1  False   1a6e7506-c413-44ef-9d50-2afe363df577    1bp upstream    opposite strand disrupted   -   -   None    -   -   -   -   -   -
-EC958   1a6e7506-c413-44ef-9d50-2afe363df577    mobile_element  HG941718.1  233727  236259  1   False   1a6e7506-c413-44ef-9d50-2afe363df577    -   -   -   -   99.96050552922591   100.0   ISEc23  IS66        None    Escherichia coli    20/24   8
-EC958   cds-WP_000422741.1  CDS HG941718.1  233812  234238  1   False   1a6e7506-c413-44ef-9d50-2afe363df577    -   inside  same strand -   -   -   None    -   -   -   -   -   -
-EC958   cds-WP_000624722.1  CDS HG941718.1  234234  234585  1   False   1a6e7506-c413-44ef-9d50-2afe363df577    -   inside  same strand -   -   -   None    -   -   -   -   -   -
-EC958   1a6e7506-c413-44ef-9d50-2afe363df577_promoter_1 regulatory  HG941718.1  234579  234610  1   False   1a6e7506-c413-44ef-9d50-2afe363df577    -   inside  -   -   -   -   -   -   -   -   -   -   -
-EC958   cds-WP_000080195.1  CDS HG941718.1  234615  236229  1   False   1a6e7506-c413-44ef-9d50-2afe363df577    -   inside  same strand -   -   -   None    -   -   -   -   -   -
-EC958   cds-EC958_RS01090   CDS HG941718.1  236260  236728  -1  False   1a6e7506-c413-44ef-9d50-2afe363df577    1bp downstream  opposite strand disrupted   -   -   None    -   -   -   -   -   -
-EC958   cds-WP_001036491.1  CDS HG941718.1  813465  814899  1   False   55b5c5f0-aeb4-4f57-98cc-083ead30d177    3bp downstream  opposite strand disrupted   -   -   None    -   -   -   -   -   -
-EC958   55b5c5f0-aeb4-4f57-98cc-083ead30d177    mobile_element  HG941718.1  814902  815025  -1  False   55b5c5f0-aeb4-4f57-98cc-083ead30d177    -   -   -   -   96.7479674796748    100.0   MITEEc1 IS630       None    Escherichia coli    18/23   2</code></pre>
+EC958   cds-EC958_RS01070   CDS HG941718.1  233363  233726  -1  False   7fa0f88c-cc70-449e-a445-334d459d0fca    1bp upstream    opposite strand disrupted   -   -   None    -   -   -   -   -   -
+EC958   7fa0f88c-cc70-449e-a445-334d459d0fca    mobile_element  HG941718.1  233727  236259  1   False   7fa0f88c-cc70-449e-a445-334d459d0fca    -   -   -   -   99.96050552922591   100.0   ISEc23  IS66        None    Escherichia coli    20/24   8
+EC958   cds-WP_000422741.1  CDS HG941718.1  233812  234238  1   False   7fa0f88c-cc70-449e-a445-334d459d0fca    -   inside  same strand -   -   -   None    -   -   -   -   -   -
+EC958   cds-WP_000624722.1  CDS HG941718.1  234234  234585  1   False   7fa0f88c-cc70-449e-a445-334d459d0fca    -   inside  same strand -   -   -   None    -   -   -   -   -   -
+EC958   7fa0f88c-cc70-449e-a445-334d459d0fca_promoter_1 regulatory  HG941718.1  234579  234610  1   False   7fa0f88c-cc70-449e-a445-334d459d0fca    -   inside  -   -   -   -   -   -   -   -   -   -   -
+EC958   cds-WP_000080195.1  CDS HG941718.1  234615  236229  1   False   7fa0f88c-cc70-449e-a445-334d459d0fca    -   inside  same strand -   -   -   None    -   -   -   -   -   -
+EC958   cds-EC958_RS01090   CDS HG941718.1  236260  236728  -1  False   7fa0f88c-cc70-449e-a445-334d459d0fca    1bp downstream  opposite strand disrupted   -   -   None    -   -   -   -   -   -
+EC958   cds-WP_001036491.1  CDS HG941718.1  813465  814899  1   False   ea76eba5-44a5-4f91-8e84-5883e7e76b0f    3bp donwstream  opposite strand disrupted   -   -   None    -   -   -   -   -   -
+EC958   ea76eba5-44a5-4f91-8e84-5883e7e76b0f    mobile_element  HG941718.1  814902  815025  -1  False   ea76eba5-44a5-4f91-8e84-5883e7e76b0f    -   -   -   -   96.7479674796748    100.0   MITEEc1 IS630       None    Escherichia coli    18/23   2</code></pre>
 </div>
 </div>
 

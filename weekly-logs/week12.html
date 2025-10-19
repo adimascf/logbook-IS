@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -181,6 +216,20 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#tested-graph-collapsing-on-the-real-dataset-week-10" id="toc-tested-graph-collapsing-on-the-real-dataset-week-10" class="nav-link" data-scroll-target="#tested-graph-collapsing-on-the-real-dataset-week-10">Tested graph collapsing on the real dataset (week 10)</a></li>
   <li><a href="#made-comparison-isfinder-against-isosdb-week-11" id="toc-made-comparison-isfinder-against-isosdb-week-11" class="nav-link" data-scroll-target="#made-comparison-isfinder-against-isosdb-week-11">Made comparison ISfinder against ISOSDB (week 11)</a></li>
   <li><a href="#made-comaprison-of-cds-and-is-relationship-from-eris-against-the-truth-week-11" id="toc-made-comaprison-of-cds-and-is-relationship-from-eris-against-the-truth-week-11" class="nav-link" data-scroll-target="#made-comaprison-of-cds-and-is-relationship-from-eris-against-the-truth-week-11">Made comaprison of CDS and IS relationship from eris against the truth (week 11)</a></li>
+  <li><a href="#made-comparison-of-difference-eris-results" id="toc-made-comparison-of-difference-eris-results" class="nav-link" data-scroll-target="#made-comparison-of-difference-eris-results">Made comparison of difference eris results</a>
+  <ul>
+  <li><a href="#check-the-is-names-and-is-their-copies---the-simple-one" id="toc-check-the-is-names-and-is-their-copies---the-simple-one" class="nav-link" data-scroll-target="#check-the-is-names-and-is-their-copies---the-simple-one">Check The IS names and is their copies - the simple one</a>
+  <ul>
+  <li><a href="#ground-truth-is-annotation" id="toc-ground-truth-is-annotation" class="nav-link" data-scroll-target="#ground-truth-is-annotation">Ground truth IS annotation</a></li>
+  <li><a href="#complete-chromosome" id="toc-complete-chromosome" class="nav-link" data-scroll-target="#complete-chromosome">Complete chromosome</a></li>
+  <li><a href="#draft-assembly" id="toc-draft-assembly" class="nav-link" data-scroll-target="#draft-assembly">Draft assembly</a></li>
+  <li><a href="#draft-assembly-with-graph-collapsing" id="toc-draft-assembly-with-graph-collapsing" class="nav-link" data-scroll-target="#draft-assembly-with-graph-collapsing">Draft assembly with graph collapsing</a></li>
+  <li><a href="#isescan-in-chromosome" id="toc-isescan-in-chromosome" class="nav-link" data-scroll-target="#isescan-in-chromosome">Isescan in chromosome</a></li>
+  <li><a href="#isescan-in-draft-assembly" id="toc-isescan-in-draft-assembly" class="nav-link" data-scroll-target="#isescan-in-draft-assembly">Isescan in draft assembly</a></li>
+  <li><a href="#lets-make-pretty-graph" id="toc-lets-make-pretty-graph" class="nav-link" data-scroll-target="#lets-make-pretty-graph">Let’s make pretty graph</a></li>
+  </ul></li>
+  <li><a href="#check-the-coordinate-for-each-identified-is-element---the-hard-one" id="toc-check-the-coordinate-for-each-identified-is-element---the-hard-one" class="nav-link" data-scroll-target="#check-the-coordinate-for-each-identified-is-element---the-hard-one">Check the coordinate for each identified IS element - the hard one</a></li>
+  </ul></li>
   </ul></li>
   </ul></li>
   </ul>
@@ -272,7 +321,7 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="understand-eris-codebase-week-04" class="level3">
 <h3 class="anchored" data-anchor-id="understand-eris-codebase-week-04">Understand eris codebase (week 04)</h3>
-<p>Eris is written in Python with a focus on portability and minimal dependencies, while providing a robust and user-friendly API. It scans for IS elements in input sequences provided in FASTA or GFA format through the following steps:</p>
+<p>Eris is a Python package that detects insertion sequence (IS) elements in bacterial genomes and quantifies how they affect nearby genes. Designed for both command-line users and developers, Eris combines a robust API with lightweight dependencies and seamless installation. It scans for IS elements in input sequences provided in FASTA or GFA format through the following steps:</p>
 <ul>
 <li>Eris scan pipeline, using minimap2 at core, will align IS elementt sequence from ISfinder database against the input sequence, and can accept contigs or full sequence</li>
 <li>The resulted alignment then sorted and culled to get high scoring query in that region, eris then will tag IS element as “mobile_element”</li>
@@ -394,7 +443,7 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="made-comparison-isfinder-against-isosdb-week-11" class="level3">
 <h3 class="anchored" data-anchor-id="made-comparison-isfinder-against-isosdb-week-11">Made comparison ISfinder against ISOSDB (week 11)</h3>
-<div id="2d976574" class="cell" data-execution_count="1">
+<div id="32c8acb8" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -427,7 +476,7 @@ Clusters only ISfinder: 2483</code></pre>
 <li>Most of the time eris correctly predicted the corresponding IS for each predicted CDS</li>
 </ul>
 <p><strong>using clustering approach</strong></p>
-<div id="9bddad0f" class="cell" data-execution_count="2">
+<div id="e9029ad1" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -447,8 +496,489 @@ Clusters only predicted: 118</code></pre>
 <li>55 cluster consited of both source of CDS sequences, and 118 cluster that consist only the CDS from eris.</li>
 <li>So it means that, 55 CDS are indded correct CDS based on the ground truth from the annotation</li>
 </ul>
+</section>
+<section id="made-comparison-of-difference-eris-results" class="level3">
+<h3 class="anchored" data-anchor-id="made-comparison-of-difference-eris-results">Made comparison of difference eris results</h3>
+<p>Made comparison on the eris result from full chromosome, draft, and compare it with the truth:</p>
+<section id="check-the-is-names-and-is-their-copies---the-simple-one" class="level4">
+<h4 class="anchored" data-anchor-id="check-the-is-names-and-is-their-copies---the-simple-one">Check The IS names and is their copies - the simple one</h4>
+<p><strong>This is how I calculate the TP, FN, FP:</strong></p>
+<div id="9438bed9" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collections <span class="im">import</span> defaultdict</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> calculate_is_metrics(truth_is_copies: <span class="bu">dict</span>[<span class="bu">str</span>, <span class="bu">int</span>],</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>                        predicted_is_copies: <span class="bu">dict</span>[<span class="bu">str</span>, <span class="bu">int</span>]) <span class="op">-&gt;</span> <span class="bu">tuple</span>[<span class="bu">dict</span>, <span class="bu">list</span>]:</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">    Calculate assessment metrics based on identified IS names and their copies</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">    against the truth annotation</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Combine all unique IS name keys</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    all_is_names <span class="op">=</span> <span class="bu">set</span>(truth_is_copies.keys()) <span class="op">|</span> <span class="bu">set</span>(predicted_is_copies.keys())</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Initialize total counts</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    TP_total <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    FP_total <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    FN_total <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Data structure for figure generation (per IS name results)</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    results <span class="op">=</span> defaultdict(<span class="kw">lambda</span>: {<span class="st">'Truth'</span>: <span class="dv">0</span>, <span class="st">'Predicted'</span>: <span class="dv">0</span>, <span class="st">'TP'</span>: <span class="dv">0</span>, <span class="st">'FP'</span>: <span class="dv">0</span>, <span class="st">'FN'</span>: <span class="dv">0</span>, <span class="st">'Difference'</span>: <span class="dv">0</span>})</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Calculate TP, FP, FN for each IS name</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>    <span class="co"># This calculation doesn't consider the location in the genome</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> is_name <span class="kw">in</span> <span class="bu">sorted</span>(all_is_names):</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>        <span class="co"># If IS name doesn't appear in the truth, give it 0 count</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>        T_c <span class="op">=</span> truth_is_copies.get(is_name, <span class="dv">0</span>)</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>        <span class="co"># If IS name doesn't appear in the prediction, give it 0 count</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>        P_c <span class="op">=</span> predicted_is_copies.get(is_name, <span class="dv">0</span>)</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>        <span class="co"># True Positives (TP): minimum of True and Predicted counts</span></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>        TP_i <span class="op">=</span> <span class="bu">min</span>(T_c, P_c)</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>        <span class="co"># False Positives (FP): overcall</span></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>        FP_i <span class="op">=</span> <span class="bu">max</span>(<span class="dv">0</span>, P_c <span class="op">-</span> T_c)</span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>        <span class="co"># False Negatives (FN): undercall/missed</span></span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>        FN_i <span class="op">=</span> <span class="bu">max</span>(<span class="dv">0</span>, T_c <span class="op">-</span> P_c)</span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Accumulate totals</span></span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>        TP_total <span class="op">+=</span> TP_i</span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>        FP_total <span class="op">+=</span> FP_i</span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>        FN_total <span class="op">+=</span> FN_i</span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Store per name results</span></span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>        results[is_name][<span class="st">'Truth'</span>] <span class="op">=</span> T_c</span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>        results[is_name][<span class="st">'Predicted'</span>] <span class="op">=</span> P_c</span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>        results[is_name][<span class="st">'TP'</span>] <span class="op">=</span> TP_i</span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>        results[is_name][<span class="st">'FP'</span>] <span class="op">=</span> FP_i</span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>        results[is_name][<span class="st">'FN'</span>] <span class="op">=</span> FN_i</span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a>        results[is_name][<span class="st">'Difference'</span>] <span class="op">=</span> P_c <span class="op">-</span> T_c</span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> results, [TP_total, FP_total, FN_total]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="ground-truth-is-annotation" class="level5">
+<h5 class="anchored" data-anchor-id="ground-truth-is-annotation">Ground truth IS annotation</h5>
+<div id="ce7c8662" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>is_counts_gff <span class="op">=</span> {}</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"../../data/ecoli/ec958_IS.reannotated.sorted.bed"</span>) <span class="im">as</span> output:</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    rows <span class="op">=</span> output.readlines()</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> r <span class="kw">in</span> rows:</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>        row <span class="op">=</span> r.split(<span class="st">"</span><span class="ch">\t</span><span class="st">"</span>)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>        is_name <span class="op">=</span> row[<span class="dv">3</span>].split(<span class="st">"_"</span>)[<span class="dv">0</span>]</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> is_name <span class="kw">not</span> <span class="kw">in</span> is_counts_gff:</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>            is_counts_gff[is_name] <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>            is_counts_gff[is_name] <span class="op">+=</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="complete-chromosome" class="level5">
+<h5 class="anchored" data-anchor-id="complete-chromosome">Complete chromosome</h5>
+<div id="5f4c1003" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>is_counts_chr <span class="op">=</span> {}</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"eris-outputs/chromosome_fasta.tsv"</span>) <span class="im">as</span> output:</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    head <span class="op">=</span> output.readline()</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    rows <span class="op">=</span> output.readlines()</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> r <span class="kw">in</span> rows:</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>        row <span class="op">=</span> r.split(<span class="st">"</span><span class="ch">\t</span><span class="st">"</span>)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> row[<span class="dv">2</span>] <span class="op">==</span> <span class="st">"mobile_element"</span>:</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> row[<span class="dv">15</span>] <span class="kw">not</span> <span class="kw">in</span> is_counts_chr:</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>                is_counts_chr[row[<span class="dv">15</span>]] <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span>:</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>                is_counts_chr[row[<span class="dv">15</span>]] <span class="op">+=</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="dc828f66" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>chromosome_metrics <span class="op">=</span> calculate_is_metrics(is_counts_gff, is_counts_chr)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>result_all, chrom_metrics <span class="op">=</span> chromosome_metrics</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>TP_total, FP_total, FN_total <span class="op">=</span> chrom_metrics</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate overall metrics</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>precision <span class="op">=</span> TP_total <span class="op">/</span> (TP_total <span class="op">+</span> FP_total) <span class="cf">if</span> (TP_total <span class="op">+</span> FP_total) <span class="op">&gt;</span> <span class="dv">0</span> <span class="cf">else</span> <span class="dv">0</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>recall <span class="op">=</span> TP_total <span class="op">/</span> (TP_total <span class="op">+</span> FN_total) <span class="cf">if</span> (TP_total <span class="op">+</span> FN_total) <span class="op">&gt;</span> <span class="dv">0</span> <span class="cf">else</span> <span class="dv">0</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>f1_score <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> (precision <span class="op">*</span> recall) <span class="op">/</span> (precision <span class="op">+</span> recall) <span class="cf">if</span> (precision <span class="op">+</span> recall) <span class="op">&gt;</span> <span class="dv">0</span> <span class="cf">else</span> <span class="dv">0</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Total True Positives (TP): </span><span class="sc">{</span>TP_total<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Total False Positives (FP): </span><span class="sc">{</span>FP_total<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Total False Negatives (FN): </span><span class="sc">{</span>FN_total<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"-"</span> <span class="op">*</span> <span class="dv">30</span>)</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Precision: </span><span class="sc">{</span>precision<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Recall (Sensitivity): </span><span class="sc">{</span>recall<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"F1-Score: </span><span class="sc">{</span>f1_score<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Total True Positives (TP): 45
+Total False Positives (FP): 13
+Total False Negatives (FN): 4
+------------------------------
+Precision: 0.78
+Recall (Sensitivity): 0.92
+F1-Score: 0.84</code></pre>
+</div>
+</div>
+</section>
+<section id="draft-assembly" class="level5">
+<h5 class="anchored" data-anchor-id="draft-assembly">Draft assembly</h5>
+<div id="9d76cc6d" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>is_counts_gfa <span class="op">=</span> {}</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"eris-outputs/eris_gfa_shovill_sim.tsv"</span>) <span class="im">as</span> output:</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    head <span class="op">=</span> output.readline()</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    rows <span class="op">=</span> output.readlines()</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> r <span class="kw">in</span> rows:</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>        row <span class="op">=</span> r.split(<span class="st">"</span><span class="ch">\t</span><span class="st">"</span>)</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> row[<span class="dv">2</span>] <span class="op">==</span> <span class="st">"mobile_element"</span>:</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> row[<span class="dv">15</span>] <span class="kw">not</span> <span class="kw">in</span> is_counts_gfa:</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>                is_counts_gfa[row[<span class="dv">15</span>]] <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span>:</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>                is_counts_gfa[row[<span class="dv">15</span>]] <span class="op">+=</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="5a54d6da" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>draft_assembly_metrics <span class="op">=</span> calculate_is_metrics(is_counts_gff, is_counts_gfa)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>result_all, draft_metrics <span class="op">=</span> draft_assembly_metrics</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>TP_total, FP_total, FN_total <span class="op">=</span> draft_metrics</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate overall metrics</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>precision <span class="op">=</span> TP_total <span class="op">/</span> (TP_total <span class="op">+</span> FP_total) <span class="cf">if</span> (TP_total <span class="op">+</span> FP_total) <span class="op">&gt;</span> <span class="dv">0</span> <span class="cf">else</span> <span class="dv">0</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>recall <span class="op">=</span> TP_total <span class="op">/</span> (TP_total <span class="op">+</span> FN_total) <span class="cf">if</span> (TP_total <span class="op">+</span> FN_total) <span class="op">&gt;</span> <span class="dv">0</span> <span class="cf">else</span> <span class="dv">0</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>f1_score <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> (precision <span class="op">*</span> recall) <span class="op">/</span> (precision <span class="op">+</span> recall) <span class="cf">if</span> (precision <span class="op">+</span> recall) <span class="op">&gt;</span> <span class="dv">0</span> <span class="cf">else</span> <span class="dv">0</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Total True Positives (TP): </span><span class="sc">{</span>TP_total<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Total False Positives (FP): </span><span class="sc">{</span>FP_total<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Total False Negatives (FN): </span><span class="sc">{</span>FN_total<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"-"</span> <span class="op">*</span> <span class="dv">30</span>)</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Precision: </span><span class="sc">{</span>precision<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Recall (Sensitivity): </span><span class="sc">{</span>recall<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"F1-Score: </span><span class="sc">{</span>f1_score<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Total True Positives (TP): 45
+Total False Positives (FP): 45
+Total False Negatives (FN): 4
+------------------------------
+Precision: 0.50
+Recall (Sensitivity): 0.92
+F1-Score: 0.65</code></pre>
+</div>
+</div>
+</section>
+<section id="draft-assembly-with-graph-collapsing" class="level5">
+<h5 class="anchored" data-anchor-id="draft-assembly-with-graph-collapsing">Draft assembly with graph collapsing</h5>
+<div id="b4e7bab0" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> eris.scan <span class="im">import</span> Scanner</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> eris.io <span class="im">import</span> SeqFile</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collapse <span class="im">import</span> collapseis</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co"># scan IS in the contigs</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> Path(<span class="st">'../../data/ecoli/assembly-simulated/shovill-outputs/contigs.gfa'</span>)</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> Scanner() <span class="im">as</span> scanner:</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    eris_result <span class="op">=</span> <span class="bu">list</span>(scanner.scan(p))</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>gfa_eris <span class="op">=</span> eris_result[<span class="dv">0</span>]</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="co"># load the genome graph</span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>graph_assembly <span class="op">=</span> SeqFile(<span class="st">"../../data/ecoli/assembly-simulated/shovill-outputs/contigs.gfa"</span>)</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>graph_assembly.close()</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>is_eris <span class="op">=</span> collapseis(gfa_eris, graph_assembly)</span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>is_counts_gfa_collapsed <span class="op">=</span> {}</span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> is_name, value <span class="kw">in</span> is_eris.items():</span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>    is_counts_gfa_collapsed[is_name] <span class="op">=</span> value[<span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Looks like the IS contigs graph is circular
+Looks like the IS contigs graph is circular
+Looks like the IS contigs graph is circular
+Looks like the IS contigs graph is circular
+Looks like the IS contigs graph is circular</code></pre>
+</div>
+</div>
+<div id="a15895ff" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>draft_assembly_collapsed_metrics <span class="op">=</span> calculate_is_metrics(is_counts_gff, is_counts_gfa_collapsed)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>result_all, collapse_metrics <span class="op">=</span> draft_assembly_collapsed_metrics</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>TP_total, FP_total, FN_total <span class="op">=</span> collapse_metrics</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate overall metrics</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>precision <span class="op">=</span> TP_total <span class="op">/</span> (TP_total <span class="op">+</span> FP_total) <span class="cf">if</span> (TP_total <span class="op">+</span> FP_total) <span class="op">&gt;</span> <span class="dv">0</span> <span class="cf">else</span> <span class="dv">0</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>recall <span class="op">=</span> TP_total <span class="op">/</span> (TP_total <span class="op">+</span> FN_total) <span class="cf">if</span> (TP_total <span class="op">+</span> FN_total) <span class="op">&gt;</span> <span class="dv">0</span> <span class="cf">else</span> <span class="dv">0</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>f1_score <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> (precision <span class="op">*</span> recall) <span class="op">/</span> (precision <span class="op">+</span> recall) <span class="cf">if</span> (precision <span class="op">+</span> recall) <span class="op">&gt;</span> <span class="dv">0</span> <span class="cf">else</span> <span class="dv">0</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Total True Positives (TP): </span><span class="sc">{</span>TP_total<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Total False Positives (FP): </span><span class="sc">{</span>FP_total<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Total False Negatives (FN): </span><span class="sc">{</span>FN_total<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"-"</span> <span class="op">*</span> <span class="dv">30</span>)</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Precision: </span><span class="sc">{</span>precision<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Recall (Sensitivity): </span><span class="sc">{</span>recall<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"F1-Score: </span><span class="sc">{</span>f1_score<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Total True Positives (TP): 47
+Total False Positives (FP): 21
+Total False Negatives (FN): 2
+------------------------------
+Precision: 0.69
+Recall (Sensitivity): 0.96
+F1-Score: 0.80</code></pre>
+</div>
+</div>
+</section>
+<section id="isescan-in-chromosome" class="level5">
+<h5 class="anchored" data-anchor-id="isescan-in-chromosome">Isescan in chromosome</h5>
+<p>Because we don’t get IS name from <code>isescan</code>, I extracted the sequence and blast them into ISfinder database to get IS name. Note: I don’t include novel IS element detected by <code>isescan</code> in the calculation.</p>
+<div id="16bc9abc" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get the fasta generated by isescan to have sequence identifiers by their IS cluster</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>awk <span class="st">'/^&gt;/{print "&gt;" $2; next} </span><span class="sc">{print}</span><span class="st">'</span> ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>isescan<span class="op">-</span>outputs<span class="op">/</span>chromosome<span class="op">/</span>EC958.fasta.<span class="kw">is</span>.fna <span class="op">&gt;</span> ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>isescan<span class="op">-</span>outputs<span class="op">/</span>chromosome<span class="op">/</span>EC958.fasta.<span class="kw">is</span>.cluster.fna</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co"># blast isescan IS query to ISfinder, select only the max hit per query sequence</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>blastn <span class="op">-</span>query ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>isescan<span class="op">-</span>outputs<span class="op">/</span>chromosome<span class="op">/</span>EC958.fasta.<span class="kw">is</span>.cluster.fna <span class="op">-</span>db ..<span class="op">/</span>..<span class="op">/</span>eris<span class="op">/</span>src<span class="op">/</span>eris<span class="op">/</span>data<span class="op">/</span>IS.fna <span class="op">-</span>outfmt <span class="dv">6</span> <span class="op">-</span>evalue <span class="fl">1e-3</span> <span class="op">-</span>max_target_seqs <span class="dv">5</span> <span class="op">-</span>out EC958_blast_isescan_ISfinder.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="398b6260" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>isescan <span class="op">=</span> pd.read_csv(<span class="st">"../../data/ecoli/isescan-outputs/chromosome/EC958.fasta.tsv"</span>, sep<span class="op">=</span><span class="st">"</span><span class="ch">\t</span><span class="st">"</span>)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>isescan_blast <span class="op">=</span> pd.read_csv(<span class="st">"EC958_blast_isescan_ISfinder.txt"</span>,</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>sep<span class="op">=</span><span class="st">"</span><span class="ch">\t</span><span class="st">"</span>, header<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>names<span class="op">=</span>[<span class="st">"cluster"</span>, <span class="st">"ISfinder name"</span>, <span class="st">"identity"</span>, <span class="st">"alignment length"</span>, <span class="st">"mismatches"</span>, <span class="st">"gap opens"</span>, <span class="st">"q. start"</span>, <span class="st">"q. end"</span>, <span class="st">"s. start"</span>, <span class="st">"s. end"</span>, <span class="st">"evalue"</span>, <span class="st">"bit score"</span>])</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Keep only the first occurrence of each IS, get the highest hit and lowest e value</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>isescan_blast_uniq <span class="op">=</span> isescan_blast.drop_duplicates(subset<span class="op">=</span>[<span class="st">"cluster"</span>], keep<span class="op">=</span><span class="st">"first"</span>)</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="co"># left join</span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>isescan_isfinder <span class="op">=</span> pd.merge(isescan, isescan_blast_uniq, on<span class="op">=</span><span class="st">"cluster"</span>, how<span class="op">=</span><span class="st">"left"</span>)</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>isescan_isfinder <span class="op">=</span> isescan_isfinder[isescan_isfinder[<span class="st">"family"</span>] <span class="op">!=</span> <span class="st">"new"</span>]</span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>isescan_isfinder[<span class="st">"ISfinder name"</span>] <span class="op">=</span> isescan_isfinder[<span class="st">"ISfinder name"</span>].fillna(<span class="st">"None_"</span>)</span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>isescan_isfinder[<span class="st">"ISfinder short"</span>] <span class="op">=</span> isescan_isfinder[<span class="st">"ISfinder name"</span>].<span class="bu">apply</span>(</span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>    <span class="kw">lambda</span> x: x.split(<span class="st">"_"</span>)[<span class="dv">0</span>]</span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>isescan_chrom_counts <span class="op">=</span> isescan_isfinder[<span class="st">"ISfinder short"</span>].value_counts().to_dict()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="ce191a21" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>isescan_chrom <span class="op">=</span> calculate_is_metrics(is_counts_gff, isescan_chrom_counts)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>result_all, isescan_chrom_metrics <span class="op">=</span> isescan_chrom</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>TP_total, FP_total, FN_total <span class="op">=</span> isescan_chrom_metrics</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate overall metrics</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>precision <span class="op">=</span> TP_total <span class="op">/</span> (TP_total <span class="op">+</span> FP_total) <span class="cf">if</span> (TP_total <span class="op">+</span> FP_total) <span class="op">&gt;</span> <span class="dv">0</span> <span class="cf">else</span> <span class="dv">0</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>recall <span class="op">=</span> TP_total <span class="op">/</span> (TP_total <span class="op">+</span> FN_total) <span class="cf">if</span> (TP_total <span class="op">+</span> FN_total) <span class="op">&gt;</span> <span class="dv">0</span> <span class="cf">else</span> <span class="dv">0</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>f1_score <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> (precision <span class="op">*</span> recall) <span class="op">/</span> (precision <span class="op">+</span> recall) <span class="cf">if</span> (precision <span class="op">+</span> recall) <span class="op">&gt;</span> <span class="dv">0</span> <span class="cf">else</span> <span class="dv">0</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Total True Positives (TP): </span><span class="sc">{</span>TP_total<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Total False Positives (FP): </span><span class="sc">{</span>FP_total<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Total False Negatives (FN): </span><span class="sc">{</span>FN_total<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"-"</span> <span class="op">*</span> <span class="dv">30</span>)</span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Precision: </span><span class="sc">{</span>precision<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Recall (Sensitivity): </span><span class="sc">{</span>recall<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"F1-Score: </span><span class="sc">{</span>f1_score<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Total True Positives (TP): 26
+Total False Positives (FP): 38
+Total False Negatives (FN): 23
+------------------------------
+Precision: 0.41
+Recall (Sensitivity): 0.53
+F1-Score: 0.46</code></pre>
+</div>
+</div>
+</section>
+<section id="isescan-in-draft-assembly" class="level5">
+<h5 class="anchored" data-anchor-id="isescan-in-draft-assembly">Isescan in draft assembly</h5>
+<div id="fae7fb08" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>awk <span class="st">'/^&gt;/{print "&gt;" $2; next} </span><span class="sc">{print}</span><span class="st">'</span> ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>isescan<span class="op">-</span>outputs<span class="op">/</span>shovill<span class="op">-</span>outputs<span class="op">/</span>contigs.fa.<span class="kw">is</span>.fna <span class="op">&gt;</span> ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>isescan<span class="op">-</span>outputs<span class="op">/</span>shovill<span class="op">-</span>outputs<span class="op">/</span>contigs.fa.<span class="kw">is</span>.cluster.fna</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>blastn <span class="op">-</span>query ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>isescan<span class="op">-</span>outputs<span class="op">/</span>shovill<span class="op">-</span>outputs<span class="op">/</span>contigs.fa.<span class="kw">is</span>.cluster.fna <span class="op">-</span>db ..<span class="op">/</span>..<span class="op">/</span>eris<span class="op">/</span>src<span class="op">/</span>eris<span class="op">/</span>data<span class="op">/</span>IS.fna <span class="op">-</span>outfmt <span class="dv">6</span> <span class="op">-</span>evalue <span class="fl">1e-3</span> <span class="op">-</span>max_target_seqs <span class="dv">5</span> <span class="op">-</span>out shovill_blast_isescan_ISfinder.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="c203d321" class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>isescan <span class="op">=</span> pd.read_csv(<span class="st">"../../data/ecoli/isescan-outputs/shovill-outputs/contigs.fa.tsv"</span>, sep<span class="op">=</span><span class="st">"</span><span class="ch">\t</span><span class="st">"</span>)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>isescan_blast <span class="op">=</span> pd.read_csv(<span class="st">"shovill_blast_isescan_ISfinder.txt"</span>,</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>sep<span class="op">=</span><span class="st">"</span><span class="ch">\t</span><span class="st">"</span>, header<span class="op">=</span><span class="va">None</span>,</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>names<span class="op">=</span>[<span class="st">"cluster"</span>, <span class="st">"ISfinder name"</span>, <span class="st">"identity"</span>, <span class="st">"alignment length"</span>, <span class="st">"mismatches"</span>, <span class="st">"gap opens"</span>, <span class="st">"q. start"</span>, <span class="st">"q. end"</span>, <span class="st">"s. start"</span>, <span class="st">"s. end"</span>, <span class="st">"evalue"</span>, <span class="st">"bit score"</span>])</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Keep only the first occurrence of each IS, get the highest hit and lowest e value</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>isescan_blast_uniq <span class="op">=</span> isescan_blast.drop_duplicates(subset<span class="op">=</span>[<span class="st">"cluster"</span>], keep<span class="op">=</span><span class="st">"first"</span>)</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a><span class="co"># left join</span></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>isescan_isfinder <span class="op">=</span> pd.merge(isescan, isescan_blast_uniq, on<span class="op">=</span><span class="st">"cluster"</span>, how<span class="op">=</span><span class="st">"left"</span>)</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>isescan_isfinder <span class="op">=</span> isescan_isfinder[isescan_isfinder[<span class="st">"family"</span>] <span class="op">!=</span> <span class="st">"new"</span>]</span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>isescan_isfinder[<span class="st">"ISfinder name"</span>] <span class="op">=</span> isescan_isfinder[<span class="st">"ISfinder name"</span>].fillna(<span class="st">"None_"</span>)</span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>isescan_isfinder[<span class="st">"ISfinder short"</span>] <span class="op">=</span> isescan_isfinder[<span class="st">"ISfinder name"</span>].<span class="bu">apply</span>(</span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>    <span class="kw">lambda</span> x: x.split(<span class="st">"_"</span>)[<span class="dv">0</span>]</span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>isescan_shovill_counts <span class="op">=</span> isescan_isfinder[<span class="st">"ISfinder short"</span>].value_counts().to_dict()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="1c76d0ec" class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>isescan_shovill <span class="op">=</span> calculate_is_metrics(is_counts_gff, isescan_shovill_counts)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>result_all, isescan_shovill_metrics <span class="op">=</span> isescan_shovill</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>TP_total, FP_total, FN_total <span class="op">=</span> isescan_shovill_metrics</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate overall metrics</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>precision <span class="op">=</span> TP_total <span class="op">/</span> (TP_total <span class="op">+</span> FP_total) <span class="cf">if</span> (TP_total <span class="op">+</span> FP_total) <span class="op">&gt;</span> <span class="dv">0</span> <span class="cf">else</span> <span class="dv">0</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>recall <span class="op">=</span> TP_total <span class="op">/</span> (TP_total <span class="op">+</span> FN_total) <span class="cf">if</span> (TP_total <span class="op">+</span> FN_total) <span class="op">&gt;</span> <span class="dv">0</span> <span class="cf">else</span> <span class="dv">0</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>f1_score <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> (precision <span class="op">*</span> recall) <span class="op">/</span> (precision <span class="op">+</span> recall) <span class="cf">if</span> (precision <span class="op">+</span> recall) <span class="op">&gt;</span> <span class="dv">0</span> <span class="cf">else</span> <span class="dv">0</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Total True Positives (TP): </span><span class="sc">{</span>TP_total<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Total False Positives (FP): </span><span class="sc">{</span>FP_total<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Total False Negatives (FN): </span><span class="sc">{</span>FN_total<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"-"</span> <span class="op">*</span> <span class="dv">30</span>)</span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Precision: </span><span class="sc">{</span>precision<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Recall (Sensitivity): </span><span class="sc">{</span>recall<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"F1-Score: </span><span class="sc">{</span>f1_score<span class="sc">:.2f}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Total True Positives (TP): 21
+Total False Positives (FP): 67
+Total False Negatives (FN): 28
+------------------------------
+Precision: 0.24
+Recall (Sensitivity): 0.43
+F1-Score: 0.31</code></pre>
+</div>
+</div>
+</section>
+<section id="lets-make-pretty-graph" class="level5">
+<h5 class="anchored" data-anchor-id="lets-make-pretty-graph">Let’s make pretty graph</h5>
+<pre class="{r}"><code>#| eval: true
+#| echo: false
+
+library(tidyverse)
+library(ggplot2)
+library(patchwork)
+
+df &lt;- data.frame(
+    scenario = c(
+    "Eris Chromosome\n",
+    "Eris Draft Assembly\n",
+    "Eris Draft Assembly + \nGraph Collapsing "
+    ),
+    Precision = c(0.78, 0.50, 0.69),
+    Recall = c(0.92, 0.92, 0.96),
+    F1 = c(0.84, 0.65, 0.80))
+
+df_long &lt;- df %&gt;%
+    pivot_longer(cols = c(Precision, Recall, F1),
+    names_to = "Metric",
+    values_to = "value")
+
+ggplot(df_long, aes(x = Metric, y = value, fill = Metric)) +
+    geom_col(position = "dodge", width = 0.9) +
+    facet_wrap(~ scenario) +
+    coord_cartesian(ylim = c(0.3, 1)) +
+    theme_classic() +
+    labs(title = "Precision, Recall, and F1 for Different Scenarios",
+    y = "Score",
+    x = "") +
+    theme(
+    plot.background = element_rect(fill = "transparent", color = NA),
+    plot.title = element_text(size = 20, face = "bold"),
+    axis.text.x = element_blank(),      # remove x-axis labels (tick labels)
+    axis.ticks.x = element_blank(),     # remove x-axis ticks
+    axis.text.y = element_text(size = 14),
+    axis.title.y = element_text(size = 16),
+    strip.text = element_text(size = 16, face = "bold"),
+    legend.title = element_text(size = 16, face = "bold"),
+    legend.text = element_text(size = 14)
+  )
+</code></pre>
+<p>Questions: - Do we still trust the truth annotation here? For the simplicity, ye I still trust it - Since most possible IS names are absent in the genome, do i need to include TN and accruacy metics?</p>
+</section>
+</section>
+<section id="check-the-coordinate-for-each-identified-is-element---the-hard-one" class="level4">
+<h4 class="anchored" data-anchor-id="check-the-coordinate-for-each-identified-is-element---the-hard-one">Check the coordinate for each identified IS element - the hard one</h4>
+<p>Extract the whole contigs that consist of IS element inside, and map them in to reference genome. Then we can extract the coordinate.. then we can intersect it!</p>
+<div id="c01279cc" class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> eris.io <span class="im">import</span> SeqFile</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> eris.seq <span class="im">import</span> Record</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>the_gfa <span class="op">=</span> SeqFile(<span class="st">"../../data/ecoli/assembly-simulated/shovill-outputs/contigs.gfa"</span>)</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>nodes_seq <span class="op">=</span> defaultdict(<span class="bu">str</span>)</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> entry <span class="kw">in</span> the_gfa:</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="bu">isinstance</span>(entry, Record):</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>    nodes_seq[entry.<span class="bu">id</span>] <span class="op">=</span> entry.seq</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="13c1474d" class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>contig_with_is <span class="op">=</span> defaultdict(<span class="bu">list</span>)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"eris-outputs/eris_gfa_shovill_sim.tsv"</span>) <span class="im">as</span> output:</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  head <span class="op">=</span> output.readline()</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  rows <span class="op">=</span> output.readlines()</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> r <span class="kw">in</span> rows:</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>    row <span class="op">=</span> r.split(<span class="st">"</span><span class="ch">\t</span><span class="st">"</span>)</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> row[<span class="dv">2</span>] <span class="op">==</span> <span class="st">"mobile_element"</span>:</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>      contig_with_is[row[<span class="dv">3</span>]] <span class="op">=</span> [row[<span class="dv">4</span>], row[<span class="dv">5</span>], row[<span class="dv">6</span>], row[<span class="dv">15</span>], row[<span class="dv">16</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="4c29d0a0" class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re, os</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> utilities <span class="im">import</span> write_fasta, reverse_complement</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="co"># extract whole node sequence that consist of mobile_element</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>    os.remove(<span class="st">"contigs_gfa_shovill_is.fna"</span>)</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> <span class="pp">FileNotFoundError</span>:</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">pass</span></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> cont_id, info <span class="kw">in</span> contig_with_is.items():</span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>  name <span class="op">=</span> <span class="st">"|"</span>.join([cont_id, info[<span class="dv">0</span>], info[<span class="dv">1</span>], info[<span class="dv">2</span>], info[<span class="dv">3</span>], info[<span class="dv">4</span>]])</span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>  seq <span class="op">=</span> nodes_seq[cont_id]</span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># if the feature has minus strand, we reverse complement the sequence</span></span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> info[<span class="dv">2</span>] <span class="op">==</span> <span class="st">"-1"</span>:</span>
+<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a>    seq <span class="op">=</span> reverse_complement(seq)</span>
+<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a>    <span class="co"># write whole sequence, maybe wee need to substract it later after mapping</span></span>
+<span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a>  seq <span class="op">=</span> <span class="bu">str</span>(seq)</span>
+<span id="cb26-21"><a href="#cb26-21" aria-hidden="true" tabindex="-1"></a>  fasta <span class="op">=</span> write_fasta(name, seq)</span>
+<span id="cb26-22"><a href="#cb26-22" aria-hidden="true" tabindex="-1"></a>  <span class="cf">with</span> <span class="bu">open</span>(<span class="st">"contigs_gfa_shovill_is.fna"</span>, <span class="st">"a"</span>) <span class="im">as</span> output:</span>
+<span id="cb26-23"><a href="#cb26-23" aria-hidden="true" tabindex="-1"></a>    output.write(fasta)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>check the connected nodes are indeed overlap</p>
+<div id="d4db402b" class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>suffix <span class="op">=</span> reverse_complement(<span class="bu">str</span>(nodes_seq[<span class="st">"1241248"</span>]))[<span class="op">-</span><span class="dv">111</span>:]</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>prefix <span class="op">=</span> reverse_complement(<span class="bu">str</span>(nodes_seq[<span class="st">"1216050"</span>]))[:<span class="dv">111</span>]</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>mismatches <span class="op">=</span> <span class="bu">sum</span>(<span class="dv">1</span> <span class="cf">for</span> a,b <span class="kw">in</span> <span class="bu">zip</span>(suffix,prefix) <span class="cf">if</span> a<span class="op">!=</span>b)</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(mismatches)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>0</code></pre>
+</div>
+</div>
+<p>Yes, they are overlap</p>
+<p>check hamming distance at nodes from branching point, how much they are different?</p>
+<div id="562b2c40" class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> utilities <span class="im">import</span> hamming_distance</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>node_1 <span class="op">=</span> reverse_complement(nodes_seq[<span class="st">"1234872"</span>])</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>node_2 <span class="op">=</span> reverse_complement(nodes_seq[<span class="st">"1216050"</span>])</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(hamming_distance(node_1, node_2))</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>node_3 <span class="op">=</span> nodes_seq[<span class="st">"1208964"</span>]</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>node_4 <span class="op">=</span> reverse_complement(nodes_seq[<span class="st">"1015060"</span>])</span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(hamming_distance(node_3, node_4))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>3
+1</code></pre>
+</div>
+</div>
+<p>Branching usually they different in 1-3 base, and assembler cannot decide which one is the correct path.</p>
 
 
+</section>
 </section>
 </section>
 </section>
