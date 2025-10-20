@@ -183,6 +183,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="dropdown-item" href="../weekly-logs/week12.html">
  <span class="dropdown-text">Week 12</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="../weekly-logs/week13.html">
+ <span class="dropdown-text">Week 13</span></a>
+  </li>  
     </ul>
   </li>
 </ul>
@@ -282,23 +286,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h4 class="anchored" data-anchor-id="identify-is-in-complete-chromosome">identify IS in complete chromosome</h4>
 <section id="eris" class="level5">
 <h5 class="anchored" data-anchor-id="eris">Eris</h5>
-<div id="cc978887" class="cell" data-execution_count="1">
+<div id="7b8363cd" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>eris scan ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>EC958.fasta <span class="op">&gt;</span> eris<span class="op">-</span>outputs<span class="op">/</span>chromosome_fasta.tsv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="40a14f0d" class="cell" data-execution_count="2">
+<div id="0b4542a8" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>grep <span class="st">"mobile_element"</span> eris<span class="op">-</span>outputs<span class="op">/</span>chromosome_fasta.tsv <span class="op">|</span> wc <span class="op">-</span>l</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      58</code></pre>
 </div>
 </div>
 <p><strong>Eris identified 58 IS in full genome</strong></p>
-<div id="7960c553" class="cell" data-execution_count="3">
+<div id="fe500a6d" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>pd.set_option(<span class="st">'display.max_rows'</span>, <span class="va">None</span>)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>eris_chr <span class="op">=</span> pd.read_csv(<span class="st">"eris-outputs/chromosome_fasta.tsv"</span>, sep<span class="op">=</span><span class="st">"</span><span class="ch">\t</span><span class="st">"</span>)</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>eris_chr <span class="op">=</span> eris_chr[eris_chr[<span class="st">'Type'</span>] <span class="op">==</span> <span class="st">"mobile_element"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="e1dec947" class="cell" data-execution_count="4">
+<div id="64135390" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># convert the mobile element entries into bed file</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>eris_chr[<span class="st">"Score"</span>] <span class="op">=</span> <span class="st">"0"</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>eris_chr <span class="op">=</span> eris_chr.assign(</span>
@@ -308,7 +312,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>eris_chr_bed.to_csv(<span class="st">"eris-outputs/chromosome_fasta.bed"</span>, sep<span class="op">=</span><span class="st">"</span><span class="ch">\t</span><span class="st">"</span>, index<span class="op">=</span><span class="va">False</span>, header<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>How many IS entries from chromosome EC958 overlap with Eris identified IS (from complete chromosome)?</p>
-<div id="aa4fe8c0" class="cell" data-execution_count="5">
+<div id="3de52d1a" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>bedtools intersect <span class="op">-</span>a ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>ec958_IS.bed <span class="op">-</span>b eris<span class="op">-</span>outputs<span class="op">/</span>chromosome_fasta.bed <span class="op">-</span>u <span class="op">|</span> wc <span class="op">-</span>l</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>bedtools intersect <span class="op">-</span>a ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>ec958_IS.bed <span class="op">-</span>b eris<span class="op">-</span>outputs<span class="op">/</span>chromosome_fasta.bed <span class="op">-</span>wb</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -357,7 +361,7 @@ HG941718.1  5014813 5016698 insertion sequence that encodes an ISL3-like    0   
 </div>
 <p>37 of 41 entries overlap with Eris. Some entries have overlap with more than one IS from Eris.</p>
 <p>The entries that have no overlap:</p>
-<div id="a679e06f" class="cell" data-execution_count="6">
+<div id="07bec257" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>bedtools intersect <span class="op">-</span>a ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>ec958_IS.bed <span class="op">-</span>b eris<span class="op">-</span>outputs<span class="op">/</span>chromosome_fasta.bed <span class="op">-</span>v</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>HG941718.1  2103782 2104446 truncated at both ends 95% identical to IS609 from  0   +
@@ -367,7 +371,7 @@ HG941718.1  4943650 4944441 truncated at left end by IS600 95% identical to 0   
 </div>
 </div>
 <p>There are 20 IS identified by Eris that have no overlaps with (the last column refers to percent coverage from eris):</p>
-<div id="68a440a2" class="cell" data-execution_count="7">
+<div id="7260ea8d" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>bedtools intersect <span class="op">-</span>a  eris<span class="op">-</span>outputs<span class="op">/</span>chromosome_fasta.bed <span class="op">-</span>b ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>ec958_IS.bed <span class="op">-</span>v</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>HG941718.1  814902  815025  MITEEc1 0   -   100.0
@@ -395,17 +399,17 @@ HG941718.1  4940135 4940287 ISEc9   0   +   9.178743961352657</code></pre>
 </section>
 <section id="isescan" class="level5">
 <h5 class="anchored" data-anchor-id="isescan">Isescan</h5>
-<div id="cb64c2db" class="cell" data-execution_count="8">
+<div id="682c3f04" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>isescan.py <span class="op">--</span>seqfile ec958.fasta <span class="op">--</span>output outputs<span class="op">/</span>isescan<span class="op">/</span> <span class="op">--</span>nthread <span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="87379208" class="cell" data-execution_count="9">
+<div id="c9c12882" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>tail <span class="op">+</span><span class="dv">2</span> ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>isescan<span class="op">-</span>outputs<span class="op">/</span>chromosome<span class="op">/</span>EC958.fasta.tsv <span class="op">|</span> wc <span class="op">-</span>l</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      65</code></pre>
 </div>
 </div>
 <p><strong>ISscan identified 65 IS in full genome</strong></p>
-<div id="43278f8c" class="cell" data-execution_count="10">
+<div id="0aba836f" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># convert it to bed</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>pd.set_option(<span class="st">'display.max_rows'</span>, <span class="va">None</span>)</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>isescan_chr <span class="op">=</span> pd.read_csv(<span class="st">"../../data/ecoli/isescan-outputs/chromosome/EC958.fasta.tsv"</span>, sep<span class="op">=</span><span class="st">"</span><span class="ch">\t</span><span class="st">"</span>)</span>
@@ -418,7 +422,7 @@ HG941718.1  4940135 4940287 ISEc9   0   +   9.178743961352657</code></pre>
 <span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>isescan_chr_bed.to_csv(<span class="st">"../../data/ecoli/isescan-outputs/EC958.fasta.bed"</span>, sep<span class="op">=</span><span class="st">"</span><span class="ch">\t</span><span class="st">"</span>, index<span class="op">=</span><span class="va">False</span>, header<span class="op">=</span><span class="va">False</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>How many IS entries from chromosome EC958 overlap with Isescan identified IS (from complete chromosome)?</p>
-<div id="b1995001" class="cell" data-execution_count="11">
+<div id="0f4f5cfd" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>bedtools intersect <span class="op">-</span>a ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>ec958_IS.bed <span class="op">-</span>b ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>isescan<span class="op">-</span>outputs<span class="op">/</span>chromosome<span class="op">/</span>EC958.fasta.bed <span class="op">-</span>u <span class="op">|</span> wc <span class="op">-</span>l</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>bedtools intersect <span class="op">-</span>a ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>ec958_IS.bed <span class="op">-</span>b ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>isescan<span class="op">-</span>outputs<span class="op">/</span>chromosome<span class="op">/</span>EC958.fasta.bed <span class="op">-</span>wb</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -467,7 +471,7 @@ HG941718.1  5014813 5016462 insertion sequence that encodes an ISL3-like    0   
 </div>
 <p>37 of 41 entries overlap with Isescan. Some entries have overlap with more than one IS.</p>
 <p>The entries that have no overlap:</p>
-<div id="c41af9e9" class="cell" data-execution_count="12">
+<div id="a6f6abd8" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>bedtools intersect <span class="op">-</span>a ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>ec958_IS.bed <span class="op">-</span>b ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>isescan<span class="op">-</span>outputs<span class="op">/</span>chromosome<span class="op">/</span>EC958.fasta.bed <span class="op">-</span>v</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>HG941718.1  1365600 1366443 similar to unclassified IS in gb|FP236830   0   +
@@ -506,7 +510,7 @@ gzip EC958.read2.fq
 <pre class="{bash}"><code>#| eval: false
 eris scan ../shovill-outputs/contigs.fa &gt; eris-outputs/eris_fasta_shovill_sim.tsv
 eris scan ../shovill-outputs/contigs.gfa &gt; eris-outputs /eris_gfa_shovill_sim.tsv</code></pre>
-<div id="23a28a63" class="cell" data-execution_count="13">
+<div id="b63613fc" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>grep <span class="st">"mobile_element"</span> eris<span class="op">-</span>outputs<span class="op">/</span>eris_fasta_shovill_sim.tsv <span class="op">|</span> wc <span class="op">-</span>l</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>grep <span class="st">"mobile_element"</span> eris<span class="op">-</span>outputs<span class="op">/</span>eris_gfa_shovill_sim.tsv <span class="op">|</span> wc <span class="op">-</span>l</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -515,13 +519,13 @@ eris scan ../shovill-outputs/contigs.gfa &gt; eris-outputs /eris_gfa_shovill_sim
 </div>
 </div>
 <p>by using niave counting, eris from gfa and fasta have the same number identified IS. But the number of IS from both files are detected 49 IS more.. are some IS detected more than one?</p>
-<div id="27461353" class="cell" data-execution_count="14">
+<div id="0b8401be" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>eris_sv_sim <span class="op">=</span> pd.read_csv(<span class="st">"eris-outputs/eris_gfa_shovill_sim.tsv"</span>, sep<span class="op">=</span><span class="st">"</span><span class="ch">\t</span><span class="st">"</span>)</span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>eris_sv_sim <span class="op">=</span> eris_sv_sim[eris_sv_sim[<span class="st">'Type'</span>] <span class="op">==</span> <span class="st">"mobile_element"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>What are IS name identified from complete chromosome, and how many each of them identified by Eris?</p>
-<div id="89c14aac" class="cell" data-execution_count="15">
+<div id="01ea41e1" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>eris_chr[<span class="st">"Name"</span>].value_counts()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="14">
 <pre><code>Name
@@ -572,7 +576,7 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 <p>What are IS name identified from contigs, and how many each of them identified by Eris?</p>
-<div id="da26519c" class="cell" data-execution_count="16">
+<div id="a5cbe72d" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>eris_sv_sim[<span class="st">"Name"</span>].value_counts()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="15">
 <pre><code>Name
@@ -630,7 +634,7 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 <p>IS1397 is found 6 times from contigs files, whereas it’s found only 2 in complete chromosome.</p>
-<div id="cd91892f" class="cell" data-execution_count="17">
+<div id="485faeea" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>isnames_eris_sv_sim <span class="op">=</span> eris_sv_sim[<span class="st">"Name"</span>].value_counts().index.tolist()</span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>isnames_eris_chr <span class="op">=</span> eris_chr[<span class="st">"Name"</span>].value_counts().index.tolist()</span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span><span class="bu">len</span>(isnames_eris_sv_sim)<span class="sc">}</span><span class="ss"> unique names detected from contigs"</span>)</span>
@@ -641,7 +645,7 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 <p>Eris still detected the IS names more from contigs compared from chromosome</p>
-<div id="8614497c" class="cell" data-execution_count="18">
+<div id="5287e595" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> name <span class="kw">in</span> isnames_eris_sv_sim:</span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> name <span class="kw">not</span> <span class="kw">in</span> isnames_eris_chr:</span>
 <span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -657,7 +661,7 @@ ISEc43
 IS1B</code></pre>
 </div>
 </div>
-<div id="27e3008d" class="cell" data-execution_count="19">
+<div id="4c96df79" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>eris_sv_sim[eris_sv_sim[<span class="st">"Name"</span>] <span class="op">==</span> <span class="st">"IS1397"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="18">
 <div>
@@ -842,7 +846,7 @@ IS1B</code></pre>
 </div>
 </div>
 </div>
-<div id="b815278a" class="cell" data-execution_count="20">
+<div id="2abcc62b" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>eris_chr[eris_chr[<span class="st">"Name"</span>] <span class="op">==</span> <span class="st">"IS1397"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="19">
 <div>
@@ -879,14 +883,14 @@ IS1B</code></pre>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">40</td>
 <td>EC958</td>
-<td>4e336853-50f8-4c8f-98ba-4ea6b37add6a</td>
+<td>66c3182f-0456-45e1-a1de-5a115ca2068f</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>1997567</td>
 <td>1998999</td>
 <td>-1</td>
 <td>False</td>
-<td>4e336853-50f8-4c8f-98ba-4ea6b37add6a</td>
+<td>66c3182f-0456-45e1-a1de-5a115ca2068f</td>
 <td>-</td>
 <td>...</td>
 <td>100.0</td>
@@ -903,14 +907,14 @@ IS1B</code></pre>
 <tr class="even">
 <td data-quarto-table-cell-role="th">46</td>
 <td>EC958</td>
-<td>3161fa85-cb18-474d-9eef-047cb64b8d98</td>
+<td>918d7185-96c9-4b45-8f03-e1c528c880e4</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>2135365</td>
 <td>2136797</td>
 <td>-1</td>
 <td>False</td>
-<td>3161fa85-cb18-474d-9eef-047cb64b8d98</td>
+<td>918d7185-96c9-4b45-8f03-e1c528c880e4</td>
 <td>-</td>
 <td>...</td>
 <td>100.0</td>
@@ -932,7 +936,7 @@ IS1B</code></pre>
 </div>
 </div>
 <p>Two copies IS1397 elements in the genome are fragmented into six contigs, and all of them is identified separetely by Eris: <img src="pictures/IS1397.png" class="img-fluid" alt="IS1397 elements are fragmented into contigs"></p>
-<div id="b60f0209" class="cell" data-execution_count="21">
+<div id="88e7180a" class="cell" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>eris_sv_sim[eris_sv_sim[<span class="st">"Name"</span>] <span class="op">==</span> <span class="st">"ISEc52"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="20">
 <div>
@@ -1093,7 +1097,7 @@ IS1B</code></pre>
 </div>
 </div>
 </div>
-<div id="499645e4" class="cell" data-execution_count="22">
+<div id="061f4516" class="cell" data-execution_count="22">
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>eris_sv_sim[eris_sv_sim[<span class="st">"Name"</span>] <span class="op">==</span> <span class="st">"ISEc12"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="21">
 <div>
@@ -1158,7 +1162,7 @@ IS1B</code></pre>
 </div>
 </div>
 </div>
-<div id="3ed866a9" class="cell" data-execution_count="23">
+<div id="d84d017b" class="cell" data-execution_count="23">
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>eris_chr[eris_chr[<span class="st">"Name"</span>] <span class="op">==</span> <span class="st">"ISEc52"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="22">
 <div>
@@ -1195,14 +1199,14 @@ IS1B</code></pre>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">154</td>
 <td>EC958</td>
-<td>11e6a573-8b48-4565-bc51-cbafaf2c4719</td>
+<td>fa21b8ff-b964-4c88-af83-7520ad387e2a</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>3558365</td>
 <td>3559615</td>
 <td>1</td>
 <td>False</td>
-<td>11e6a573-8b48-4565-bc51-cbafaf2c4719</td>
+<td>fa21b8ff-b964-4c88-af83-7520ad387e2a</td>
 <td>-</td>
 <td>...</td>
 <td>100.0</td>
@@ -1219,14 +1223,14 @@ IS1B</code></pre>
 <tr class="even">
 <td data-quarto-table-cell-role="th">246</td>
 <td>EC958</td>
-<td>dcf26761-1f09-47e8-a352-376449259624</td>
+<td>661a3c6c-9340-4d5a-8fd0-e62d546ba836</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>5007344</td>
 <td>5008594</td>
 <td>-1</td>
 <td>False</td>
-<td>dcf26761-1f09-47e8-a352-376449259624</td>
+<td>661a3c6c-9340-4d5a-8fd0-e62d546ba836</td>
 <td>-</td>
 <td>...</td>
 <td>100.0</td>
@@ -1248,7 +1252,7 @@ IS1B</code></pre>
 </div>
 </div>
 <p>Two copies ISEc52 elements in the genome are fragmented into five contigs, and all of them is identified separetely by Eris: <img src="pictures/ISEc52-all.png" class="img-fluid" alt="one IS1397 copy is fragmented into three contigs"></p>
-<div id="8e268292" class="cell" data-execution_count="24">
+<div id="04d02556" class="cell" data-execution_count="24">
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>eris_sv_sim[eris_sv_sim[<span class="st">"Name"</span>] <span class="op">==</span> <span class="st">"IS200C"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="23">
 <div>
@@ -1433,7 +1437,7 @@ IS1B</code></pre>
 </div>
 </div>
 </div>
-<div id="75895f1a" class="cell" data-execution_count="25">
+<div id="17cb46bc" class="cell" data-execution_count="25">
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>eris_chr[eris_chr[<span class="st">"Name"</span>] <span class="op">==</span> <span class="st">"IS200C"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="24">
 <div>
@@ -1470,14 +1474,14 @@ IS1B</code></pre>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">52</td>
 <td>EC958</td>
-<td>ee432880-793c-44f0-a908-17b6e2bdc650</td>
+<td>f47fd1ed-a67e-46bb-b890-a42ab4553c19</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>2142423</td>
 <td>2143132</td>
 <td>-1</td>
 <td>False</td>
-<td>ee432880-793c-44f0-a908-17b6e2bdc650</td>
+<td>f47fd1ed-a67e-46bb-b890-a42ab4553c19</td>
 <td>-</td>
 <td>...</td>
 <td>100.0</td>
@@ -1494,14 +1498,14 @@ IS1B</code></pre>
 <tr class="even">
 <td data-quarto-table-cell-role="th">83</td>
 <td>EC958</td>
-<td>17871146-a72d-4222-a5c3-d706160cd570</td>
+<td>7b065f6a-c90e-451b-a311-dc40900b8b2e</td>
 <td>mobile_element</td>
 <td>HG941718.1</td>
 <td>2284842</td>
 <td>2285551</td>
 <td>-1</td>
 <td>False</td>
-<td>17871146-a72d-4222-a5c3-d706160cd570</td>
+<td>7b065f6a-c90e-451b-a311-dc40900b8b2e</td>
 <td>-</td>
 <td>...</td>
 <td>100.0</td>
@@ -1522,7 +1526,7 @@ IS1B</code></pre>
 </div>
 </div>
 </div>
-<div id="7feec62d" class="cell" data-execution_count="26">
+<div id="925a8461" class="cell" data-execution_count="26">
 <div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>eris_sv_sim[eris_sv_sim[<span class="st">"Name"</span>] <span class="op">==</span> <span class="st">"IS1541D"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="25">
 <div>
@@ -1590,7 +1594,7 @@ IS1B</code></pre>
 </section>
 <section id="scan-is-using-isescan-from-contigs" class="level5">
 <h5 class="anchored" data-anchor-id="scan-is-using-isescan-from-contigs">Scan IS using isescan from contigs</h5>
-<div id="b6df3034" class="cell" data-execution_count="27">
+<div id="b1b96984" class="cell" data-execution_count="27">
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>tail <span class="op">+</span><span class="dv">2</span> ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>isescan<span class="op">-</span>outputs<span class="op">/</span>shovill<span class="op">-</span>outputs<span class="op">/</span>contigs.fa.tsv <span class="op">|</span> wc <span class="op">-</span>l</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      88</code></pre>
