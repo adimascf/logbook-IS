@@ -188,6 +188,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="dropdown-item" href="../weekly-logs/week14.html">
  <span class="dropdown-text">Week 14</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="../weekly-logs/summer.html">
+ <span class="dropdown-text">Summer</span></a>
+  </li>  
     </ul>
   </li>
 </ul>
@@ -249,7 +253,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Dimas will have practice talk in the next weekly meeting</li>
 </ul></li>
 </ul>
-<div id="e5b7fe4e" class="cell" data-execution_count="1">
+<div id="effd74df" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> eris.scan <span class="im">import</span> Scanner</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> eris.io <span class="im">import</span> SeqFile</span>
@@ -262,7 +266,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>gfa_eris <span class="op">=</span> eris_result[<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Make dictionary to map is name with fearure id and contig name to the coresponding coverage</p>
-<div id="db20b1fb" class="cell" data-execution_count="2">
+<div id="73711c90" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collections <span class="im">import</span> defaultdict</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>coverage_is <span class="op">=</span> defaultdict(<span class="bu">dict</span>)</span>
@@ -283,7 +287,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>So the record number is the same</p>
-<div id="fd3c9f8b" class="cell" data-execution_count="3">
+<div id="5b6931ae" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load the genome graph</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>graph_assembly <span class="op">=</span> SeqFile(<span class="st">"../../data/ecoli/assembly-simulated/shovill-outputs/contigs.gfa"</span>)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>graph_assembly.close()</span>
@@ -298,7 +302,7 @@ Looks like the IS contigs graph is circular</code></pre>
 </div>
 </div>
 <p>So <code>is_eris</code> stores the information of is name with the corresponding nodes in the graph and also the predicted depth or copy number</p>
-<div id="58bb58dd" class="cell" data-execution_count="4">
+<div id="f08fc109" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>is_cov_count <span class="op">=</span> {}</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> is_name, (contig_list, count) <span class="kw">in</span> is_eris.items():</span>
@@ -314,7 +318,7 @@ Looks like the IS contigs graph is circular</code></pre>
 <span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    is_cov_count[is_name] <span class="op">=</span> total_cov, count</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="69d46bcd" class="cell" data-execution_count="5">
+<div id="de6b5c12" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>threshold <span class="op">=</span> <span class="dv">50</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>final_res <span class="op">=</span> defaultdict(<span class="bu">int</span>)</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -323,7 +327,7 @@ Looks like the IS contigs graph is circular</code></pre>
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> coverage <span class="op">&gt;=</span> threshold:</span>
 <span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>        final_res[isname] <span class="op">=</span> count</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="885c3e8d" class="cell" data-execution_count="6">
+<div id="39c8f667" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>is_counts_gff <span class="op">=</span> {}</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"../../data/ecoli/ec958_IS.reannotated.sorted.bed"</span>) <span class="im">as</span> output:</span>
@@ -336,7 +340,7 @@ Looks like the IS contigs graph is circular</code></pre>
 <span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
 <span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>            is_counts_gff[is_name] <span class="op">+=</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="ef8a7e53" class="cell" data-execution_count="7">
+<div id="5ad16396" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collections <span class="im">import</span> defaultdict</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> calculate_is_metrics(truth_is_copies: <span class="bu">dict</span>[<span class="bu">str</span>, <span class="bu">int</span>],</span>
@@ -391,7 +395,7 @@ Looks like the IS contigs graph is circular</code></pre>
 <span id="cb9-52"><a href="#cb9-52" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> results, [TP_total, FP_total, FN_total]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let’s try to make ROC curve</p>
-<div id="5cec2c44" class="cell" data-execution_count="8">
+<div id="efa4349c" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> assess_threshold(truth_is_copies: <span class="bu">dict</span>[<span class="bu">str</span>, <span class="bu">int</span>],</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>                        predicted_is_copies: <span class="bu">dict</span>[<span class="bu">float</span>, <span class="bu">int</span>],</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>                        threshold: <span class="bu">float</span>):</span>
@@ -405,7 +409,7 @@ Looks like the IS contigs graph is circular</code></pre>
 <span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> calculate_is_metrics(truth_is_copies, after_filtering)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="acd0771c" class="cell" data-execution_count="9">
+<div id="83ff081c" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>threshold_values <span class="op">=</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">105</span>, <span class="dv">5</span>)</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> []</span>
@@ -438,24 +442,24 @@ Looks like the IS contigs graph is circular</code></pre>
 45        | 0.91     | 0.84   | 0.87
 50        | 0.91     | 0.84   | 0.87
 55        | 0.93     | 0.82   | 0.87
-60        | 0.95     | 0.78   | 0.85
+60        | 0.95     | 0.71   | 0.81
 65        | 0.97     | 0.69   | 0.81
 70        | 0.97     | 0.67   | 0.80
-75        | 1.00     | 0.55   | 0.71
-80        | 1.00     | 0.51   | 0.68
-85        | 1.00     | 0.51   | 0.68
-90        | 1.00     | 0.51   | 0.68
-95        | 1.00     | 0.51   | 0.68
-100       | 1.00     | 0.41   | 0.58</code></pre>
+75        | 1.00     | 0.61   | 0.76
+80        | 1.00     | 0.57   | 0.73
+85        | 1.00     | 0.57   | 0.73
+90        | 1.00     | 0.57   | 0.73
+95        | 1.00     | 0.57   | 0.73
+100       | 1.00     | 0.47   | 0.64</code></pre>
 </div>
 </div>
-<div id="599e271c" class="cell" data-execution_count="10">
+<div id="307c58b6" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Find best threshold by F1</span></span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>best <span class="op">=</span> <span class="bu">max</span>(results, key<span class="op">=</span><span class="kw">lambda</span> x: x[<span class="dv">3</span>])</span>
 <span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>best_th, best_p, best_r, best_f1 <span class="op">=</span> best</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Best threshold by F1 score: </span><span class="sc">{</span>best_th<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">Best threshold by F1 score: </span><span class="sc">{</span>best_th<span class="sc">}</span><span class="ss">%"</span>)</span>
 <span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Precision=</span><span class="sc">{</span>best_p<span class="sc">:.2f}</span><span class="ss">, Recall=</span><span class="sc">{</span>best_r<span class="sc">:.2f}</span><span class="ss">, F1=</span><span class="sc">{</span>best_f1<span class="sc">:.2f}</span><span class="ss">"</span>)</span>
 <span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract and sort for PR curve</span></span>
@@ -468,28 +472,28 @@ Looks like the IS contigs graph is circular</code></pre>
 <span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>recall_sorted, precision_sorted, thresholds_sorted <span class="op">=</span> <span class="bu">zip</span>(<span class="op">*</span>sorted_data)</span>
 <span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot Precision-Recall Curve</span></span>
-<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>plt.figure()</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="fl">4.5</span>))</span>
 <span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>plt.plot(recall_sorted, precision_sorted, marker<span class="op">=</span><span class="st">'o'</span>, label<span class="op">=</span><span class="st">"Coverage threshold"</span>)</span>
 <span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Highlight the best threshold</span></span>
 <span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>best_index <span class="op">=</span> thresholds_sorted.index(best_th)</span>
 <span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>best_r <span class="op">=</span> recall_sorted[best_index]</span>
 <span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>best_p <span class="op">=</span> precision_sorted[best_index]</span>
-<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>plt.scatter(best_r, best_p, color<span class="op">=</span><span class="st">"red"</span>, s<span class="op">=</span><span class="dv">100</span>, label<span class="op">=</span><span class="ss">f"Best Threshold = </span><span class="sc">{</span>best_th<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>plt.text(best_r, best_p, <span class="ss">f"  th=</span><span class="sc">{</span>best_th<span class="sc">}</span><span class="ss">"</span>, fontsize<span class="op">=</span><span class="dv">10</span>, verticalalignment<span class="op">=</span><span class="st">'bottom'</span>)</span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>plt.scatter(best_r, best_p, color<span class="op">=</span><span class="st">"purple"</span>, s<span class="op">=</span><span class="dv">100</span>, label<span class="op">=</span><span class="ss">f"Best Threshold = </span><span class="sc">{</span>best_th<span class="sc">}</span><span class="ss">%"</span>)</span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>plt.text(best_r, best_p, <span class="ss">f"  </span><span class="sc">{</span>best_th<span class="sc">}</span><span class="ss">%"</span>, fontsize<span class="op">=</span><span class="dv">10</span>, verticalalignment<span class="op">=</span><span class="st">'bottom'</span>)</span>
 <span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Labels and formatting</span></span>
 <span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Recall"</span>)</span>
 <span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Precision"</span>)</span>
-<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Precision–Recall Curve"</span>)</span>
+<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a><span class="co"># plt.title("\n")</span></span>
 <span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
 <span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
 <span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()  <span class="co"># ensures labels and titles fit inside the image</span></span>
-<span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">"pictures/precision_recall_curve.png"</span>, dpi<span class="op">=</span><span class="dv">600</span>, bbox_inches<span class="op">=</span><span class="st">"tight"</span>)  <span class="co"># &lt;-- high-res output</span></span>
+<span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">"pictures/precision_recall_curve.png"</span>, dpi<span class="op">=</span><span class="dv">600</span>, bbox_inches<span class="op">=</span><span class="st">"tight"</span>)</span>
 <span id="cb13-37"><a href="#cb13-37" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
-Best threshold by F1 score: 30
+Best threshold by F1 score: 30%
 Precision=0.90, Recall=0.88, F1=0.89</code></pre>
 </div>
 <div class="cell-output cell-output-display">
