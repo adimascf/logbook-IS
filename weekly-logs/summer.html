@@ -232,7 +232,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <p>Curated each of IS in EC958 their potential effect on nearest CDS.</p>
 <p>Calculate distribution of distance between IS and its downstream CDS (ecluding the overlap). We only calculate the distance when the features are on the same strand orientation.</p>
-<div id="42090209" class="cell" data-execution_count="1">
+<div id="91dd9318" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>bedtools closest <span class="op">-</span>a ..<span class="op">/</span>..<span class="op">/</span>summer<span class="op">-</span>project<span class="op">/</span>GCF_000285655<span class="fl">.3</span><span class="er">_EC958</span>.v1<span class="op">/</span>ec958_genome_IS.<span class="bu">sorted</span>.bed <span class="op">-</span>b ..<span class="op">/</span>weekly<span class="op">-</span>logs<span class="op">/</span>only_cds.<span class="bu">sorted</span>.bed <span class="op">-</span>s <span class="op">-</span>iu <span class="op">-</span>io <span class="op">-</span>k <span class="dv">1</span> <span class="op">-</span>D a <span class="op">|</span> tee distance_cds_after_IS.txt <span class="op">|</span> head</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>NZ_HG941718.1   233727  236259  ISEc23_1    0   +   NZ_HG941718.1   242556  243125  "EC958_RS01125";    0   +   6298
@@ -247,7 +247,7 @@ NZ_HG941718.1   2103782 2104446 IS609_1 0   +   NZ_HG941718.1   2107503 2109158 
 NZ_HG941718.1   2135365 2136797 IS1397_2    0   -   NZ_HG941718.1   2132351 2133019 "EC958_RS11045";    0   -   2347</code></pre>
 </div>
 </div>
-<div id="1d281062" class="cell" data-execution_count="2">
+<div id="f3113cf9" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
@@ -273,7 +273,12 @@ NZ_HG941718.1   2135365 2136797 IS1397_2    0   -   NZ_HG941718.1   2132351 2133
 </div>
 </div>
 <p>16 occurrences in where the distance between an IS element and the next CDS is less than or equal 150bp</p>
-<pre class="{bash}"><code>!awk '{if($NF &lt;= 150) print}' distance_cds_after_IS.txt | wc -l</code></pre>
+<div id="37b57ec1" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>awk <span class="st">'{if($NF &lt;= 150) print}'</span> distance_cds_after_IS.txt <span class="op">|</span> wc <span class="op">-</span>l</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      16</code></pre>
+</div>
+</div>
 
 
 
