@@ -238,7 +238,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="assesing-branching-in-the-graph-with-different-node-length-how-much-they-differ" class="level2">
 <h2 class="anchored" data-anchor-id="assesing-branching-in-the-graph-with-different-node-length-how-much-they-differ">Assesing branching in the graph with different node length, how much they differ?</h2>
-<div id="002f85ac" class="cell" data-execution_count="1">
+<div id="31a7c485" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> alignments <span class="im">import</span> global_alignment</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> utilities <span class="im">import</span> hamming_distance</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -256,7 +256,7 @@ AAGAAAACCAGTGGGCTGGGCCATGTCGTTCTCGCCGGACAGCAGGCTTACCATGAAAGCACTGGAAATGGCATGGGAAA
 AAGAAAACCAGTGGGCTGGGCCATGTCGTTCTCGCCGGACAGCAGGCTTACCATGAAAGCACTGGAAATGGCATGGGAAACCCGTGGTAAGCCCGTCGGGGTGATGTTCCACAGCGATCAAGGCAGTCATTATACGAGCAGGCAGTTCCGGCAGTTACTGTGGAGATACCGGATCAGGCAGAGTATGAGTCGGCGTGGAAACTGCTGGGATAACAGCCCAATGGAGCGCTTCTTCAGGAGTCTGAAGAACGAATGGGTGCCGGCGACGGGCTATGTAAGCTTCAGCGATGCAGCTCACGCAATAACGGACTATATCGTTGGATATTACAGCGCACTAAGACCGCACGAATATAATGGTGGGTTACCACCAAAC</code></pre>
 </div>
 </div>
-<div id="17cda572" class="cell" data-execution_count="2">
+<div id="7208ed7c" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collections <span class="im">import</span> defaultdict</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>is_elements <span class="op">=</span> defaultdict(<span class="bu">list</span>)</span>
@@ -278,7 +278,7 @@ AAGAAAACCAGTGGGCTGGGCCATGTCGTTCTCGCCGGACAGCAGGCTTACCATGAAAGCACTGGAAATGGCATGGGAAA
 <span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>      is_name <span class="op">=</span> row[<span class="dv">15</span>]</span>
 <span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>      is_elements[row[<span class="dv">1</span>]]<span class="op">=</span> [contig, start, end, seq_strand, effect, location, strand, is_name]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="5d48a018" class="cell" data-execution_count="3">
+<div id="f0a02311" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> eris.io <span class="im">import</span> SeqFile</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> eris.seq <span class="im">import</span> Record</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -289,7 +289,7 @@ AAGAAAACCAGTGGGCTGGGCCATGTCGTTCTCGCCGGACAGCAGGCTTACCATGAAAGCACTGGAAATGGCATGGGAAA
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="bu">isinstance</span>(entry, Record):</span>
 <span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    nodes_seq[entry.<span class="bu">id</span>] <span class="op">=</span> entry.seq</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="0c61ad75" class="cell" data-execution_count="4">
+<div id="f7009683" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> utilities <span class="im">import</span> write_fasta, reverse_complement</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re, os</span>
@@ -317,7 +317,7 @@ AAGAAAACCAGTGGGCTGGGCCATGTCGTTCTCGCCGGACAGCAGGCTTACCATGAAAGCACTGGAAATGGCATGGGAAA
 <span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>  <span class="cf">with</span> <span class="bu">open</span>(<span class="st">"is_gfa_shovill_is.fna"</span>, <span class="st">"a"</span>) <span class="im">as</span> output:</span>
 <span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>    output.write(fasta)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="a5f5df9f" class="cell" data-execution_count="5">
+<div id="967c892f" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># using preset short read, because cds sequences are short</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>minimap2 <span class="op">-</span>x sr ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>EC958.fasta is_gfa_shovill_is.fna <span class="op">&gt;</span> is_to_chrom.paf</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -332,17 +332,17 @@ AAGAAAACCAGTGGGCTGGGCCATGTCGTTCTCGCCGGACAGCAGGCTTACCATGAAAGCACTGGAAATGGCATGGGAAA
 [M::mm_mapopt_update::0.066*1.38] mid_occ = 1000
 [M::mm_idx_stat] kmer size: 21; skip: 11; is_hpc: 0; #seq: 1
 [M::mm_idx_stat::0.072*1.35] distinct minimizers: 834905 (98.89% are singletons); average occurrences: 1.020; average spacing: 6.000; total length: 5109767
-[M::worker_pipeline::0.073*1.38] mapped 90 sequences
+[M::worker_pipeline::0.073*1.37] mapped 90 sequences
 [M::main] Version: 2.30-r1287
 [M::main] CMD: minimap2 -x sr ../../data/ecoli/EC958.fasta is_gfa_shovill_is.fna
-[M::main] Real time: 0.077 sec; CPU: 0.104 sec; Peak RSS: 0.060 GB</code></pre>
+[M::main] Real time: 0.078 sec; CPU: 0.105 sec; Peak RSS: 0.060 GB</code></pre>
 </div>
 </div>
 <p>Dr.&nbsp;Duy asked whether we found potential upregulated CDS. Also, he gave some inputs on how we scan the promoter motifs in the CDSs (not really remember it)</p>
 <p>We found one, but..</p>
 <p><img src="pictures/ISEc9_upregulated.png" class="img-fluid"></p>
 <p>Eris found the promoter in that fragmented ISEc9 element. Does eris only search and report promoter inside IS elements? or it also scan whole IS contig sequence?</p>
-<div id="58f40eae" class="cell" data-execution_count="6">
+<div id="e269b38c" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re, os</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
@@ -367,11 +367,11 @@ AAGAAAACCAGTGGGCTGGGCCATGTCGTTCTCGCCGGACAGCAGGCTTACCATGAAAGCACTGGAAATGGCATGGGAAA
 <span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>      <span class="cf">with</span> <span class="bu">open</span>(<span class="st">"eris_prom_chrom_ec958.bed"</span>, <span class="st">"a"</span>) <span class="im">as</span> is_bed:</span>
 <span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>        is_bed.write(<span class="ss">f"</span><span class="sc">{</span>genome<span class="sc">}</span><span class="ch">\t</span><span class="sc">{</span><span class="bu">int</span>(start)<span class="op">-</span><span class="dv">1</span><span class="sc">}</span><span class="ch">\t</span><span class="sc">{</span>end<span class="sc">}</span><span class="ch">\t</span><span class="sc">{</span>name<span class="sc">}</span><span class="ch">\t</span><span class="sc">{</span><span class="dv">0</span><span class="sc">}</span><span class="ch">\t</span><span class="sc">{</span>strand<span class="sc">}</span><span class="ch">\n</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="98ac0566" class="cell" data-execution_count="7">
+<div id="18c38e36" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>bedtools intersect <span class="op">-</span>a eris_prom_chrom_ec958.bed <span class="op">-</span>b eris_is_chrom_ec958.bed <span class="op">-</span>f <span class="fl">1.0</span> <span class="op">-</span>v</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>or by check predicted locaton from eris:</p>
-<div id="99cae1c0" class="cell" data-execution_count="8">
+<div id="480e05de" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>awk  <span class="st">'{if($3=="regulatory") print $2,$11}'</span> eris<span class="op">-</span>outputs<span class="op">/</span>eris_gfa_shovill_sim.tsv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>a717f056-e606-4fa7-8734-6880c4b0d36d_promoter_1 inside
@@ -412,7 +412,7 @@ b2fadc63-939a-4615-9c33-6318c86a93e6_promoter_3 inside</code></pre>
 <p>this paper <a href="https://doi.org/10.1186/s12864-022-08678-3">Tempel et al 2022</a> found that ISs often contain internal promoters capable of initiating transcription either inward (for their transposase) or outward (toward flanking genes). Out of ~57 k regulatory motifs found in ISs,94.7% were promoters, 0.4% were terminators, and 4.9 % were transcription-factor binding sites.</p>
 <p>They also used threshold size of 80 bp and 80% sequence identity to ensure the specificity of detection.</p>
 <p>They noted that 26.5% of ISs were found to contain regulatory motifs, mostly promoters, and that within the ← IS → shapes the role of ISs as promoters becomes crucial, when the IS–Gene distance is less than 100 bp..</p>
-<div id="34d8e435" class="cell" data-execution_count="9">
+<div id="23ad701e" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>frag_isec9 <span class="op">=</span> <span class="st">"TTAAGTATCATTGCAGCAAAGATGAAATCAATGATTTATCAAAAATGATTGAAAGGTGGTTGTAAATAATGTTACAATGTGTGAGAAGCAGTCTAAATTCTTCGTGAAATAGTGATTTTTGAAGCTAATAAAAAACACACGTGGAATTTAGG"</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> eris.seq <span class="im">import</span> Seq, Feature, Location</span>
@@ -430,7 +430,7 @@ b2fadc63-939a-4615-9c33-6318c86a93e6_promoter_3 inside</code></pre>
 <pre><code>Promoter ID: isec9_2_promoter_1, Start: 48, End: 78, Strand: 1</code></pre>
 </div>
 </div>
-<div id="c0520362" class="cell" data-execution_count="10">
+<div id="df70a290" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>long_isec9 <span class="op">=</span> <span class="st">"CCTAGATTCTACGTCAGTACTTCAAAAAGCATAATCAAAGCCTTGATAAATATGCATTCCTTCGAAATTCAGCTTTCACCCATTGGGTGAAAGAAAAGTGCTCAAAAATATGTTAAATTATCAGCTTTTATGACTCGATATATGGTAAAATAATAGTAAGAAAAGTAGTAAAAAGGGGTTCTAATTATGATTAATAAAATTGATTTCAAAGCTAAGAATCTAACATCAAATGCAGGTCTTTTTCTGCTCCTTGAGAATGCAAAAAGCAATGGGATTTTTGATTTTATTGAAAATGACCTCGTATTTGATAATGACTCAACAAATAAAATCAAGATGAATCATATAAAGACCATGCTCTGCGGTCACTTCATTGGCATTGATAAGTTAGAACGTCTAAAGCTACTTCAAAATGATCCCCTCGTCAACGAGTTTGATATTTCCGTAAAAGAACCTGAAACAGTGTCACGGTTTCTAGGAAACTTCAACTTCAAGACAACCCAAATGTTTAGAGACATTAATTTTAAAGTCTTTAAAAAACTGCTCACTAAAAGTAAATTGACATCCATTACGATTGATATTGATAGTAGTGTAATTAACGTAGAAGGTCATCAAGAAGGTGCGTCAAAAGGATATAATCCTAAGAAACTGGGAAACCGATGCTACAATATCCAATTTGCATTTTGCGACGAATTAAAAGCATATGTTACCGGATTTGTAAGAAGTGGCAATACTTACACTGCAAACGGTGCTGCGGAAATGATCAAAGAAATTGTTGCTAACATCAAATCAGACGATTTAGAAATTTTATTTCGAATGGATAGTGGCTACTTTGATGAAAAAATTATCGAAACGATAGAATCTCTTGGATGCAAATATTTAATTAAAGCCAAAAGTTATTCTACACTCACCTCACAAGCAACGAATTCATCAATTGTATTCGTTAAAGGAGAAGAAGGTAGAGAAACTACAGAACTGTATACAAAATTAGTTAAATGGGAAAAAGACAGAAGATTTGTCGTATCTCGCGTACTGAAACCAGAAAAAGAAAGAGCACAATTATCACTTTTAGAAGGTTCCGAATACGACTACTTTTTCTTTGTAACAAATACTACCTTGCTTTCTGAAAAAGTAGTTATATACTATGAAAAGCGTGGTAATGCTGAAAACTATATCAAAGAAGCCAAATACGACATGGCGGTGGGTCATCTCTTGCTAAAGTCATTTTGGGCGAATGAAGCCGTGTTTCAAATGATGATGCTTTCATATAACCTATTTTTGTTGTTCAAGTTTGATTCCTTGGACTCTTCAGAATACAGACAGCAAATAAAGACCTTTCGTTTGAAGTATGTATTTCTTGCAGCAAAAATAATCAAAACCGCAAGATATGTAATCATGAAGTTGTCGGAAAACTATCCGTACAAGGGAGTGTATGAAAAATGTCTGGTATAATAAGAATATCATCAATAAAATTGAGTGTTGCTCTGTGGATAACTTGCAGAGTTTATTAAG"</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>long_isec9 <span class="op">=</span> Seq(long_isec9)</span>
@@ -451,35 +451,35 @@ Promoter ID: isec9_2_promoter_6, Start: 1118, End: 1146, Strand: 1</code></pre>
 </div>
 </div>
 <p>“for these results, which way did you use Minimap? Should be added as result here” do you mean the result from the reversed config?</p>
-<div id="8a09c6df" class="cell" data-execution_count="11">
+<div id="f8a282fc" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>minimap2 ..<span class="op">/</span>..<span class="op">/</span>eris<span class="op">/</span>src<span class="op">/</span>eris<span class="op">/</span>data<span class="op">/</span>IS.fna ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>EC958.fasta  <span class="op">|</span> awk <span class="op">-</span>v OFS<span class="op">=</span><span class="st">"</span><span class="ch">\t</span><span class="st">"</span> <span class="st">'{if($13 == "tp:A:P") print $1, $3, $4, $6, $11/$7, $5}'</span> <span class="op">|</span> bedtools sort <span class="op">-</span>i <span class="op">-</span> <span class="op">&gt;</span> reversed_minimap2_chrom.bed</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>minimap2 ..<span class="op">/</span>..<span class="op">/</span>eris<span class="op">/</span>src<span class="op">/</span>eris<span class="op">/</span>data<span class="op">/</span>IS.fna ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>assembly<span class="op">-</span>simulated<span class="op">/</span>shovill<span class="op">-</span>outputs<span class="op">/</span>contigs.fa  <span class="op">|</span> awk <span class="op">-</span>v OFS<span class="op">=</span><span class="st">"</span><span class="ch">\t</span><span class="st">"</span> <span class="st">'{if($13 == "tp:A:P") print $1, $3, $4, $6, $11/$7, $5}'</span> <span class="op">|</span> bedtools sort <span class="op">-</span>i <span class="op">-</span> <span class="op">&gt;</span>  reversed_minimap2_shovill.bed</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[M::mm_idx_gen::0.096*1.00] collected minimizers
-[M::mm_idx_gen::0.144*1.64] sorted minimizers
-[M::main::0.144*1.64] loaded/built the index for 5970 target sequence(s)
-[M::mm_mapopt_update::0.155*1.59] mid_occ = 15
+<pre><code>[M::mm_idx_gen::0.094*1.00] collected minimizers
+[M::mm_idx_gen::0.141*1.66] sorted minimizers
+[M::main::0.141*1.66] loaded/built the index for 5970 target sequence(s)
+[M::mm_mapopt_update::0.152*1.61] mid_occ = 15
 [M::mm_idx_stat] kmer size: 15; skip: 10; is_hpc: 0; #seq: 5970
-[M::mm_idx_stat::0.163*1.56] distinct minimizers: 1307133 (85.37% are singletons); average occurrences: 1.209; average spacing: 5.420; total length: 8562758
-[M::worker_pipeline::0.275*1.33] mapped 1 sequences
+[M::mm_idx_stat::0.160*1.58] distinct minimizers: 1307133 (85.37% are singletons); average occurrences: 1.209; average spacing: 5.420; total length: 8562758
+[M::worker_pipeline::0.274*1.34] mapped 1 sequences
 [M::main] Version: 2.30-r1287
 [M::main] CMD: minimap2 ../../eris/src/eris/data/IS.fna ../../data/ecoli/EC958.fasta
-[M::main] Real time: 0.280 sec; CPU: 0.372 sec; Peak RSS: 0.142 GB
+[M::main] Real time: 0.279 sec; CPU: 0.372 sec; Peak RSS: 0.143 GB
 [M::mm_idx_gen::0.092*1.02] collected minimizers
-[M::mm_idx_gen::0.139*1.69] sorted minimizers
-[M::main::0.139*1.68] loaded/built the index for 5970 target sequence(s)
-[M::mm_mapopt_update::0.150*1.63] mid_occ = 15
+[M::mm_idx_gen::0.140*1.69] sorted minimizers
+[M::main::0.140*1.69] loaded/built the index for 5970 target sequence(s)
+[M::mm_mapopt_update::0.151*1.64] mid_occ = 15
 [M::mm_idx_stat] kmer size: 15; skip: 10; is_hpc: 0; #seq: 5970
-[M::mm_idx_stat::0.157*1.60] distinct minimizers: 1307133 (85.37% are singletons); average occurrences: 1.209; average spacing: 5.420; total length: 8562758
-[M::worker_pipeline::0.201*1.82] mapped 456 sequences
+[M::mm_idx_stat::0.160*1.60] distinct minimizers: 1307133 (85.37% are singletons); average occurrences: 1.209; average spacing: 5.420; total length: 8562758
+[M::worker_pipeline::0.204*1.82] mapped 456 sequences
 [M::main] Version: 2.30-r1287
 [M::main] CMD: minimap2 ../../eris/src/eris/data/IS.fna ../../data/ecoli/assembly-simulated/shovill-outputs/contigs.fa
-[M::main] Real time: 0.205 sec; CPU: 0.370 sec; Peak RSS: 0.134 GB</code></pre>
+[M::main] Real time: 0.209 sec; CPU: 0.375 sec; Peak RSS: 0.133 GB</code></pre>
 </div>
 </div>
-<div id="40ffc136" class="cell" data-execution_count="12">
+<div id="5064bf2a" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>is_counts_gff <span class="op">=</span> {}</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"../../data/ecoli/ec958_IS.reannotated.sorted.bed"</span>) <span class="im">as</span> output:</span>
@@ -525,15 +525,15 @@ Promoter ID: isec9_2_promoter_6, Start: 1118, End: 1146, Strand: 1</code></pre>
 {'IS1S': 2, 'MITEEc1': 2, 'IS1397': 11, 'IS621': 1, 'ISKpn42': 1, 'ISEc10': 1, 'ISEc52': 11, 'ISEc23': 12, 'IS682': 3, 'ISLad1': 1, 'ISEc13': 1, 'ISEc8': 12, 'ISEc49': 3, 'ISCfr4': 1, 'ISSen3': 1, 'ISEc24': 1, 'IS4': 1, 'ISEc12': 12, 'IS609': 5, 'IS200C': 8, 'IS1R': 2, 'ISEc1': 1, 'ISEc53': 1, 'IS2': 2, 'ISEc38': 1, 'ISSen1': 1, 'IS629': 3, 'ISEc43': 1, 'ISCro1': 1, 'IS21': 3, 'ISEc83': 1, 'ISEc45': 1, 'ISEch14': 1, 'ISSfl10': 4, 'ISKox3': 1, 'ISEc20': 2, 'IS3411': 2, 'IS1F': 8, 'IS100kyp': 1, 'ISEcp1': 2, 'IS5': 1, 'IS600': 3, 'ISEc47': 1, 'IS1203': 1, 'IS1G': 2, 'IS1D': 1, 'ISKpn37': 1, 'IS30': 1, 'ISEc22': 1, 'ISSd1': 2, 'IS1B': 2, 'IS1A': 1, 'IS911': 1}</code></pre>
 </div>
 </div>
-<div id="9643cee3" class="cell" data-execution_count="13">
+<div id="18c7727e" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>bedtools intersect <span class="op">-</span>a ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>ec958_IS.reannotated.<span class="bu">sorted</span>.bed <span class="op">-</span>b reversed_minimap2_chrom.bed <span class="op">-</span>v</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>All truth IS entries intersect with identfied IS entires (minimap genome -&gt; ISfinder)</p>
 <p>set cov threshold</p>
-<div id="12db63af" class="cell" data-execution_count="14">
+<div id="9bcff162" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>awk <span class="op">-</span>v OFS<span class="op">=</span><span class="st">"</span><span class="ch">\t</span><span class="st">"</span> <span class="st">'{if($5 &gt; 0.3) print $0}'</span> reversed_minimap2_chrom.bed <span class="op">&gt;</span> reversed_minimap2_chrom_0<span class="fl">.3</span>.bed</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="4f84351f" class="cell" data-execution_count="15">
+<div id="970fa000" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> utilities <span class="im">import</span> calculate_is_metrics</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>chromosome_metrics <span class="op">=</span> calculate_is_metrics(is_counts_gff, is_count_rev_chr)</span>
@@ -564,7 +564,7 @@ Recall (Sensitivity): 0.92
 F1-Score: 0.75</code></pre>
 </div>
 </div>
-<div id="53c6e488" class="cell" data-execution_count="16">
+<div id="55b88bd3" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> k, v <span class="kw">in</span> result_all.items():</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> v[<span class="st">"FN"</span>] <span class="op">&gt;</span> <span class="dv">0</span>:</span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(k, v)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -575,7 +575,7 @@ IS600 {'Truth': 1, 'Predicted': 0, 'TP': 0, 'FP': 0, 'FN': 1, 'Difference': -1}
 ISSen10 {'Truth': 1, 'Predicted': 0, 'TP': 0, 'FP': 0, 'FN': 1, 'Difference': -1}</code></pre>
 </div>
 </div>
-<div id="6ef28d75" class="cell" data-execution_count="17">
+<div id="675424d6" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>is_count_rev_cov <span class="op">=</span> {}</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"reversed_minimap2_chrom_0.3.bed"</span>) <span class="im">as</span> output:</span>
