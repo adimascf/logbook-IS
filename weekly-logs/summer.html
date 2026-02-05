@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>IS - CD distance and updated Eris performance – IS Project Logbook</title>
+<title>IS - CD distance – IS Project Logbook</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -58,7 +58,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -102,6 +102,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
 </head>
@@ -213,7 +216,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">IS - CD distance and updated Eris performance</h1>
+<h1 class="title">IS - CD distance</h1>
 </div>
 
 
@@ -232,7 +235,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <p>Curated each of IS in EC958 their potential effect on nearest CDS.</p>
 <p>Calculate distribution of distance between IS and its downstream CDS (ecluding the overlap). We only calculate the distance when the features are on the same strand orientation.</p>
-<div id="cab6c47d" class="cell" data-execution_count="1">
+<div id="d4c7a619" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>bedtools closest <span class="op">-</span>a ..<span class="op">/</span>..<span class="op">/</span>summer<span class="op">-</span>project<span class="op">/</span>GCF_000285655<span class="fl">.3</span><span class="er">_EC958</span>.v1<span class="op">/</span>ec958_genome_IS.<span class="bu">sorted</span>.bed <span class="op">-</span>b ..<span class="op">/</span>weekly<span class="op">-</span>logs<span class="op">/</span>only_cds.<span class="bu">sorted</span>.bed <span class="op">-</span>s <span class="op">-</span>iu <span class="op">-</span>io <span class="op">-</span>k <span class="dv">1</span> <span class="op">-</span>D a <span class="op">|</span> tee distance_cds_after_IS.txt <span class="op">|</span> head <span class="op">|</span> awk <span class="st">'{print $1,$2,$3,$4,$10,$NF}'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>NZ_HG941718.1 233727 236259 ISEc23_1 "EC958_RS01125"; 6298
@@ -247,7 +250,7 @@ NZ_HG941718.1 2103782 2104446 IS609_1 "EC958_RS10895"; 3058
 NZ_HG941718.1 2135365 2136797 IS1397_2 "EC958_RS11045"; 2347</code></pre>
 </div>
 </div>
-<div id="4db311c6" class="cell" data-execution_count="2">
+<div id="eb56297c" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
@@ -273,14 +276,29 @@ NZ_HG941718.1 2135365 2136797 IS1397_2 "EC958_RS11045"; 2347</code></pre>
 </div>
 </div>
 <p>16 occurrences in where the distance between an IS element and the next CDS is less than or equal 150bp</p>
-<div id="27cd816d" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>awk <span class="st">'{if($NF &lt;= 150) print}'</span> distance_cds_after_IS.txt <span class="op">|</span> wc <span class="op">-</span>l</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="2be6dcae" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>awk <span class="st">'{if($NF &lt;= 150) print}'</span> distance_cds_after_IS.txt <span class="op">|</span> awk <span class="st">'{if($NF&gt;=-150) print $1,$2,$3,$4,$10,$NF}'</span> <span class="op">-</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>      16</code></pre>
+<pre><code>NZ_HG941718.1 1365600 1366443 ISCfr4 "EC958_RS06940"; 76
+NZ_HG941718.1 1480031 1482480 ISEc12_1 "EC958_RS07600"; 59
+NZ_HG941718.1 2142423 2143132 IS200C_1 "EC958_RS11105"; 12
+NZ_HG941718.1 2244066 2245788 ISEc38 "EC958_RS27210"; 61
+NZ_HG941718.1 2271108 2273665 ISEc12_2 "EC958_RS11780"; 24
+NZ_HG941718.1 2384714 2385482 IS1A_1 "EC958_RS12310"; 2
+NZ_HG941718.1 3111919 3114403 ISEc12_3 "EC958_RS15730"; 28
+NZ_HG941718.1 3237314 3237436 MITEEc1_2 "EC958_RS16245"; 29
+NZ_HG941718.1 3313143 3314364 IS30 "EC958_RS16655"; 1
+NZ_HG941718.1 4175107 4177238 IS21 "EC958_RS20940"; 11
+NZ_HG941718.1 4942385 4943650 IS600 "EC958_RS28175"; 111
+NZ_HG941718.1 5007344 5008594 ISEc52_4 "EC958_RS28255"; 24
+NZ_HG941719.1 43434 44254 IS26 "EC958_RS25860"; 91
+NZ_HG941719.1 66901 67669 IS1R "EC958_RS25980"; 31
+NZ_HG941719.1 98044 98864 IS26 "EC958_RS26160"; 70
+NZ_HG941719.1 105455 106275 IS26 "EC958_RS26195"; 92</code></pre>
 </div>
 </div>
 <p>in the range less or equal than 150 bp, how many CDS appear before IS in the same strand?</p>
-<div id="45469624" class="cell" data-execution_count="4">
+<div id="5a1c798c" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>bedtools closest <span class="op">-</span>a ..<span class="op">/</span>..<span class="op">/</span>summer<span class="op">-</span>project<span class="op">/</span>GCF_000285655<span class="fl">.3</span><span class="er">_EC958</span>.v1<span class="op">/</span>ec958_genome_IS.<span class="bu">sorted</span>.bed <span class="op">-</span>b ..<span class="op">/</span>weekly<span class="op">-</span>logs<span class="op">/</span>only_cds.<span class="bu">sorted</span>.bed <span class="op">-</span>s <span class="op">-</span><span class="bu">id</span> <span class="op">-</span>io <span class="op">-</span>k <span class="dv">1</span> <span class="op">-</span>D a <span class="op">|</span> awk <span class="st">'{if($NF&gt;=-150) print $1,$2,$3,$4,$10,$NF}'</span> <span class="op">-</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>NZ_HG941718.1 1372287 1373517 ISEc24 "EC958_RS06975"; -56
@@ -306,6 +324,1052 @@ NZ_HG941718.1 4971900 4974384 ISEc12_4 "EC958_RS24845"; -23
 NZ_HG941719.1 37108 38748 IS26 "EC958_RS29475"; -12
 NZ_HG941719.1 93932 94812 IS6100 "EC958_RS29565"; -60
 NZ_HG941719.1 102449 103269 IS26 "EC958_RS26180"; -8</code></pre>
+</div>
+</div>
+<div id="eebd668b" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> eris.scan <span class="im">import</span> Scanner</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> Path(<span class="st">'../../summer-project/realfqs-shovill/assembly/'</span>)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> Scanner() <span class="im">as</span> scanner:</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    results <span class="op">=</span> <span class="bu">list</span>(scanner.scan(<span class="op">*</span>p.iterdir()))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="2e59b354" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>eris scan ..<span class="op">/</span>..<span class="op">/</span>summer<span class="op">-</span>project<span class="op">/</span>realfqs<span class="op">-</span>shovill<span class="op">/</span>assembly<span class="op">/</span>contigs.fa <span class="op">&gt;</span> real_assembly_data.tsv</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>illumina_fq_assembly <span class="op">=</span> pd.read_csv(<span class="st">"real_assembly_data.tsv"</span>, sep<span class="op">=</span><span class="st">"</span><span class="ch">\t</span><span class="st">"</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># filter features by type (mobile elements) or by effect (if they have effect prediction result)</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>filtered_df <span class="op">=</span> illumina_fq_assembly[(illumina_fq_assembly[<span class="st">'Type'</span>] <span class="op">==</span> <span class="st">"mobile_element"</span>) <span class="op">|</span> (illumina_fq_assembly[<span class="st">'Element_effect'</span>] <span class="op">!=</span> <span class="st">"-"</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>check the only IS that close (less or equal than 150 bp) to the nearest CDS</p>
+<div id="30a9701f" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>is_befor_cds <span class="op">=</span> [<span class="st">'ISEc24'</span>, <span class="st">'IS4'</span>, <span class="st">'ISEc12'</span>, <span class="st">'IS1397'</span>, <span class="st">'IS609'</span>, <span class="st">'IS200C'</span>, <span class="st">'IS200C'</span>, <span class="st">'ISEc12'</span>, <span class="st">'MITEEc1'</span>, <span class="st">'IS1A'</span>, <span class="st">'IS1203'</span>, <span class="st">'ISSd1'</span>, <span class="st">'IS2'</span>, <span class="st">'IS682'</span>, <span class="st">'IS609'</span>, <span class="st">'IS1F'</span>, <span class="st">'ISSen10'</span>, <span class="st">'IS21'</span>, <span class="st">'IS1F_2'</span>, <span class="st">'ISEc12_4'</span>, <span class="st">'IS26'</span>, <span class="st">'IS6100'</span>, <span class="st">'IS26'</span>]</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>is_befor_cds <span class="op">=</span> <span class="bu">set</span>(is_befor_cds)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>element_list <span class="op">=</span> illumina_fq_assembly[illumina_fq_assembly[<span class="st">'Name'</span>].isin(is_befor_cds)][<span class="st">'Element'</span>].tolist()</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>element_close <span class="op">=</span> filtered_df[filtered_df[<span class="st">'Element'</span>].isin(element_list)]</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>element_close</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Genome</th>
+<th data-quarto-table-cell-role="th">Feature</th>
+<th data-quarto-table-cell-role="th">Type</th>
+<th data-quarto-table-cell-role="th">Contig</th>
+<th data-quarto-table-cell-role="th">Start</th>
+<th data-quarto-table-cell-role="th">End</th>
+<th data-quarto-table-cell-role="th">Strand</th>
+<th data-quarto-table-cell-role="th">Partial</th>
+<th data-quarto-table-cell-role="th">Element</th>
+<th data-quarto-table-cell-role="th">Element_distance</th>
+<th data-quarto-table-cell-role="th">...</th>
+<th data-quarto-table-cell-role="th">Element_effect</th>
+<th data-quarto-table-cell-role="th">Percent_identity</th>
+<th data-quarto-table-cell-role="th">Percent_coverage</th>
+<th data-quarto-table-cell-role="th">Name</th>
+<th data-quarto-table-cell-role="th">Family</th>
+<th data-quarto-table-cell-role="th">Group</th>
+<th data-quarto-table-cell-role="th">Synonyms</th>
+<th data-quarto-table-cell-role="th">Origin</th>
+<th data-quarto-table-cell-role="th">IR</th>
+<th data-quarto-table-cell-role="th">DR</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">13</td>
+<td>contigs</td>
+<td>contig00007_01638</td>
+<td>CDS</td>
+<td>contig00007</td>
+<td>133397</td>
+<td>135122</td>
+<td>1</td>
+<td>False</td>
+<td>bb7f375d-299e-4d02-80be-20ce3d43d1fc</td>
+<td>96bp</td>
+<td>...</td>
+<td>disrupted</td>
+<td>-</td>
+<td>-</td>
+<td>NaN</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">14</td>
+<td>contigs</td>
+<td>bb7f375d-299e-4d02-80be-20ce3d43d1fc</td>
+<td>mobile_element</td>
+<td>contig00007</td>
+<td>135218</td>
+<td>136676</td>
+<td>1</td>
+<td>True</td>
+<td>bb7f375d-299e-4d02-80be-20ce3d43d1fc</td>
+<td>-</td>
+<td>...</td>
+<td>-</td>
+<td>97.87379972565158</td>
+<td>83.4096109839817</td>
+<td>IS609</td>
+<td>IS200/IS605</td>
+<td>IS605</td>
+<td>NaN</td>
+<td>Escherichia coli</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">17</td>
+<td>contigs</td>
+<td>contig00007_01640</td>
+<td>CDS</td>
+<td>contig00007</td>
+<td>136755</td>
+<td>137634</td>
+<td>-1</td>
+<td>False</td>
+<td>bb7f375d-299e-4d02-80be-20ce3d43d1fc</td>
+<td>79bp</td>
+<td>...</td>
+<td>disrupted</td>
+<td>-</td>
+<td>-</td>
+<td>NaN</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">18</td>
+<td>contigs</td>
+<td>55e73577-2272-458d-b773-dba08fa89732</td>
+<td>mobile_element</td>
+<td>contig00009</td>
+<td>0</td>
+<td>518</td>
+<td>1</td>
+<td>True</td>
+<td>55e73577-2272-458d-b773-dba08fa89732</td>
+<td>-</td>
+<td>...</td>
+<td>-</td>
+<td>99.42084942084942</td>
+<td>67.44791666666666</td>
+<td>IS1F</td>
+<td>IS1</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>Escherichia coli</td>
+<td>20/23</td>
+<td>NaN</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">30</td>
+<td>contigs</td>
+<td>c2cc3ef7-e833-44d5-af03-cae54473a6a8</td>
+<td>mobile_element</td>
+<td>contig00010</td>
+<td>103947</td>
+<td>105177</td>
+<td>-1</td>
+<td>False</td>
+<td>c2cc3ef7-e833-44d5-af03-cae54473a6a8</td>
+<td>-</td>
+<td>...</td>
+<td>-</td>
+<td>100.0</td>
+<td>100.0</td>
+<td>ISEc24</td>
+<td>IS3</td>
+<td>IS51</td>
+<td>NaN</td>
+<td>Escherichia coli</td>
+<td>20/25</td>
+<td>NaN</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">33</td>
+<td>contigs</td>
+<td>contig00010_02134</td>
+<td>CDS</td>
+<td>contig00010</td>
+<td>105228</td>
+<td>106404</td>
+<td>-1</td>
+<td>False</td>
+<td>c2cc3ef7-e833-44d5-af03-cae54473a6a8</td>
+<td>51bp</td>
+<td>...</td>
+<td>disrupted</td>
+<td>-</td>
+<td>-</td>
+<td>NaN</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">34</td>
+<td>contigs</td>
+<td>contig00010_02176</td>
+<td>CDS</td>
+<td>contig00010</td>
+<td>148991</td>
+<td>150197</td>
+<td>-1</td>
+<td>False</td>
+<td>fd018ba7-27fb-4269-ba1e-7b53a4829a05</td>
+<td>-899bp</td>
+<td>...</td>
+<td>disrupted</td>
+<td>-</td>
+<td>-</td>
+<td>NaN</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">35</td>
+<td>contigs</td>
+<td>fd018ba7-27fb-4269-ba1e-7b53a4829a05</td>
+<td>mobile_element</td>
+<td>contig00010</td>
+<td>149298</td>
+<td>150281</td>
+<td>-1</td>
+<td>True</td>
+<td>fd018ba7-27fb-4269-ba1e-7b53a4829a05</td>
+<td>-</td>
+<td>...</td>
+<td>-</td>
+<td>98.06714140386572</td>
+<td>68.93408134642355</td>
+<td>IS4</td>
+<td>IS4</td>
+<td>IS4</td>
+<td>NaN</td>
+<td>Escherichia coli</td>
+<td>16/18</td>
+<td>11</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">36</td>
+<td>contigs</td>
+<td>contig00010_02177</td>
+<td>CDS</td>
+<td>contig00010</td>
+<td>150321</td>
+<td>152997</td>
+<td>-1</td>
+<td>False</td>
+<td>fd018ba7-27fb-4269-ba1e-7b53a4829a05</td>
+<td>40bp</td>
+<td>...</td>
+<td>disrupted</td>
+<td>-</td>
+<td>-</td>
+<td>NaN</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">37</td>
+<td>contigs</td>
+<td>contig00011_02334</td>
+<td>CDS</td>
+<td>contig00011</td>
+<td>141054</td>
+<td>143316</td>
+<td>-1</td>
+<td>False</td>
+<td>1e704677-f0a7-4a99-88a4-774cdc7d6d96</td>
+<td>56bp</td>
+<td>...</td>
+<td>disrupted</td>
+<td>-</td>
+<td>-</td>
+<td>NaN</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">38</td>
+<td>contigs</td>
+<td>1e704677-f0a7-4a99-88a4-774cdc7d6d96</td>
+<td>mobile_element</td>
+<td>contig00011</td>
+<td>143372</td>
+<td>143495</td>
+<td>1</td>
+<td>False</td>
+<td>1e704677-f0a7-4a99-88a4-774cdc7d6d96</td>
+<td>-</td>
+<td>...</td>
+<td>-</td>
+<td>96.7479674796748</td>
+<td>100.0</td>
+<td>MITEEc1</td>
+<td>IS630</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>Escherichia coli</td>
+<td>18/23</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">39</td>
+<td>contigs</td>
+<td>contig00011_02335</td>
+<td>CDS</td>
+<td>contig00011</td>
+<td>143498</td>
+<td>144932</td>
+<td>-1</td>
+<td>False</td>
+<td>1e704677-f0a7-4a99-88a4-774cdc7d6d96</td>
+<td>3bp</td>
+<td>...</td>
+<td>disrupted</td>
+<td>-</td>
+<td>-</td>
+<td>NaN</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">43</td>
+<td>contigs</td>
+<td>contig00013_02522</td>
+<td>CDS</td>
+<td>contig00013</td>
+<td>14661</td>
+<td>15825</td>
+<td>1</td>
+<td>False</td>
+<td>c9a22ee5-5838-47a9-baa0-94bf05f9671d</td>
+<td>63bp</td>
+<td>...</td>
+<td>disrupted</td>
+<td>-</td>
+<td>-</td>
+<td>NaN</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">44</td>
+<td>contigs</td>
+<td>c9a22ee5-5838-47a9-baa0-94bf05f9671d</td>
+<td>mobile_element</td>
+<td>contig00013</td>
+<td>15888</td>
+<td>16010</td>
+<td>1</td>
+<td>False</td>
+<td>c9a22ee5-5838-47a9-baa0-94bf05f9671d</td>
+<td>-</td>
+<td>...</td>
+<td>-</td>
+<td>98.3739837398374</td>
+<td>100.0</td>
+<td>MITEEc1</td>
+<td>IS630</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>Escherichia coli</td>
+<td>18/23</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">45</td>
+<td>contigs</td>
+<td>contig00013_02523</td>
+<td>CDS</td>
+<td>contig00013</td>
+<td>16038</td>
+<td>17118</td>
+<td>1</td>
+<td>False</td>
+<td>c9a22ee5-5838-47a9-baa0-94bf05f9671d</td>
+<td>28bp</td>
+<td>...</td>
+<td>disrupted</td>
+<td>-</td>
+<td>-</td>
+<td>NaN</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">52</td>
+<td>contigs</td>
+<td>contig00021_03545</td>
+<td>CDS</td>
+<td>contig00021</td>
+<td>97800</td>
+<td>99159</td>
+<td>1</td>
+<td>False</td>
+<td>118c0df1-d690-484c-ad90-ac195532ae31</td>
+<td>75bp</td>
+<td>...</td>
+<td>disrupted</td>
+<td>-</td>
+<td>-</td>
+<td>NaN</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">53</td>
+<td>contigs</td>
+<td>118c0df1-d690-484c-ad90-ac195532ae31</td>
+<td>mobile_element</td>
+<td>contig00021</td>
+<td>99234</td>
+<td>99943</td>
+<td>1</td>
+<td>False</td>
+<td>118c0df1-d690-484c-ad90-ac195532ae31</td>
+<td>-</td>
+<td>...</td>
+<td>-</td>
+<td>99.71791255289139</td>
+<td>100.0</td>
+<td>IS200C</td>
+<td>IS200/IS605</td>
+<td>IS200</td>
+<td>NaN</td>
+<td>Escherichia coli</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">55</td>
+<td>contigs</td>
+<td>contig00021_03547</td>
+<td>CDS</td>
+<td>contig00021</td>
+<td>99944</td>
+<td>101372</td>
+<td>-1</td>
+<td>False</td>
+<td>118c0df1-d690-484c-ad90-ac195532ae31</td>
+<td>1bp</td>
+<td>...</td>
+<td>disrupted</td>
+<td>-</td>
+<td>-</td>
+<td>NaN</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">87</td>
+<td>contigs</td>
+<td>contig00032_04325</td>
+<td>CDS</td>
+<td>contig00032</td>
+<td>5507</td>
+<td>6002</td>
+<td>1</td>
+<td>False</td>
+<td>bafdf555-19c6-4dcb-b3b2-bb44d11263f8</td>
+<td>-15bp</td>
+<td>...</td>
+<td>disrupted</td>
+<td>-</td>
+<td>-</td>
+<td>NaN</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">88</td>
+<td>contigs</td>
+<td>bafdf555-19c6-4dcb-b3b2-bb44d11263f8</td>
+<td>mobile_element</td>
+<td>contig00032</td>
+<td>5987</td>
+<td>8118</td>
+<td>1</td>
+<td>False</td>
+<td>bafdf555-19c6-4dcb-b3b2-bb44d11263f8</td>
+<td>-</td>
+<td>...</td>
+<td>-</td>
+<td>99.6715157203191</td>
+<td>100.0</td>
+<td>IS21</td>
+<td>IS21</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>Pseudomonas aeruginosa</td>
+<td>30/42</td>
+<td>4</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">94</td>
+<td>contigs</td>
+<td>contig00032_04328</td>
+<td>CDS</td>
+<td>contig00032</td>
+<td>8128</td>
+<td>8524</td>
+<td>1</td>
+<td>False</td>
+<td>bafdf555-19c6-4dcb-b3b2-bb44d11263f8</td>
+<td>10bp</td>
+<td>...</td>
+<td>upregulated</td>
+<td>-</td>
+<td>-</td>
+<td>NaN</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">106</td>
+<td>contigs</td>
+<td>5ef59f19-256c-4f1c-9915-89153ee5038e</td>
+<td>mobile_element</td>
+<td>contig00032</td>
+<td>22855</td>
+<td>23548</td>
+<td>-1</td>
+<td>True</td>
+<td>5ef59f19-256c-4f1c-9915-89153ee5038e</td>
+<td>-</td>
+<td>...</td>
+<td>-</td>
+<td>84.47293447293447</td>
+<td>27.714172917489144</td>
+<td>IS682</td>
+<td>IS66</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>Escherichia coli</td>
+<td>20/24</td>
+<td>8</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">113</td>
+<td>contigs</td>
+<td>a86ca529-6006-427b-bc2f-74dd8057f3f3</td>
+<td>mobile_element</td>
+<td>contig00032</td>
+<td>26632</td>
+<td>27145</td>
+<td>1</td>
+<td>True</td>
+<td>a86ca529-6006-427b-bc2f-74dd8057f3f3</td>
+<td>-</td>
+<td>...</td>
+<td>-</td>
+<td>79.26356589147287</td>
+<td>38.622754491017965</td>
+<td>ISSen10</td>
+<td>IS3</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>Salmonella enterica</td>
+<td>22/27</td>
+<td>NaN</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">115</td>
+<td>contigs</td>
+<td>contig00032_04348</td>
+<td>CDS</td>
+<td>contig00032</td>
+<td>27068</td>
+<td>27569</td>
+<td>1</td>
+<td>False</td>
+<td>a86ca529-6006-427b-bc2f-74dd8057f3f3</td>
+<td>-77bp</td>
+<td>...</td>
+<td>disrupted</td>
+<td>-</td>
+<td>-</td>
+<td>NaN</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">118</td>
+<td>contigs</td>
+<td>4220c5b5-f112-4b2c-8232-1dbd467eaf54</td>
+<td>mobile_element</td>
+<td>contig00034</td>
+<td>1330</td>
+<td>2098</td>
+<td>-1</td>
+<td>False</td>
+<td>4220c5b5-f112-4b2c-8232-1dbd467eaf54</td>
+<td>-</td>
+<td>...</td>
+<td>-</td>
+<td>99.73958333333334</td>
+<td>100.0</td>
+<td>IS1A</td>
+<td>IS1</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>Escherichia coli</td>
+<td>18/23</td>
+<td>9</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">127</td>
+<td>contigs</td>
+<td>contig00037_04521</td>
+<td>CDS</td>
+<td>contig00037</td>
+<td>3306</td>
+<td>5685</td>
+<td>-1</td>
+<td>False</td>
+<td>f34d8e2d-70d3-4beb-b54b-252d7d1a6f07</td>
+<td>11bp</td>
+<td>...</td>
+<td>disrupted</td>
+<td>-</td>
+<td>-</td>
+<td>NaN</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">128</td>
+<td>contigs</td>
+<td>f34d8e2d-70d3-4beb-b54b-252d7d1a6f07</td>
+<td>mobile_element</td>
+<td>contig00037</td>
+<td>5696</td>
+<td>6405</td>
+<td>-1</td>
+<td>False</td>
+<td>f34d8e2d-70d3-4beb-b54b-252d7d1a6f07</td>
+<td>-</td>
+<td>...</td>
+<td>-</td>
+<td>99.15373765867419</td>
+<td>100.0</td>
+<td>IS200C</td>
+<td>IS200/IS605</td>
+<td>IS200</td>
+<td>NaN</td>
+<td>Escherichia coli</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">130</td>
+<td>contigs</td>
+<td>contig00037_04523</td>
+<td>CDS</td>
+<td>contig00037</td>
+<td>6460</td>
+<td>7060</td>
+<td>-1</td>
+<td>False</td>
+<td>f34d8e2d-70d3-4beb-b54b-252d7d1a6f07</td>
+<td>55bp</td>
+<td>...</td>
+<td>disrupted</td>
+<td>-</td>
+<td>-</td>
+<td>NaN</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">132</td>
+<td>contigs</td>
+<td>8a7ee8ed-4314-4bb1-b6d3-97c89d18a874</td>
+<td>mobile_element</td>
+<td>contig00038</td>
+<td>2293</td>
+<td>3603</td>
+<td>-1</td>
+<td>False</td>
+<td>8a7ee8ed-4314-4bb1-b6d3-97c89d18a874</td>
+<td>-</td>
+<td>...</td>
+<td>-</td>
+<td>95.95419847328245</td>
+<td>100.0</td>
+<td>IS1203</td>
+<td>IS3</td>
+<td>IS51</td>
+<td>NaN</td>
+<td>Escherichia coli</td>
+<td>22/25</td>
+<td>NaN</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">147</td>
+<td>contigs</td>
+<td>contig00040_04585</td>
+<td>CDS</td>
+<td>contig00040</td>
+<td>2</td>
+<td>107</td>
+<td>-1</td>
+<td>True</td>
+<td>cbbaadff-6b45-4d6a-9f03-5e3e19bde88b</td>
+<td>-2bp</td>
+<td>...</td>
+<td>upregulated</td>
+<td>-</td>
+<td>-</td>
+<td>NaN</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">149</td>
+<td>contigs</td>
+<td>cbbaadff-6b45-4d6a-9f03-5e3e19bde88b</td>
+<td>mobile_element</td>
+<td>contig00040</td>
+<td>105</td>
+<td>2096</td>
+<td>-1</td>
+<td>True</td>
+<td>cbbaadff-6b45-4d6a-9f03-5e3e19bde88b</td>
+<td>-</td>
+<td>...</td>
+<td>-</td>
+<td>97.23756906077348</td>
+<td>78.60244769048559</td>
+<td>IS682</td>
+<td>IS66</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>Escherichia coli</td>
+<td>20/24</td>
+<td>8</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">154</td>
+<td>contigs</td>
+<td>contig00040_04597</td>
+<td>CDS</td>
+<td>contig00040</td>
+<td>10582</td>
+<td>11569</td>
+<td>1</td>
+<td>False</td>
+<td>eb2099dd-1ed1-4c72-9895-278171492bfc</td>
+<td>60bp</td>
+<td>...</td>
+<td>disrupted</td>
+<td>-</td>
+<td>-</td>
+<td>NaN</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">155</td>
+<td>contigs</td>
+<td>eb2099dd-1ed1-4c72-9895-278171492bfc</td>
+<td>mobile_element</td>
+<td>contig00040</td>
+<td>11629</td>
+<td>12960</td>
+<td>1</td>
+<td>False</td>
+<td>eb2099dd-1ed1-4c72-9895-278171492bfc</td>
+<td>-</td>
+<td>...</td>
+<td>-</td>
+<td>95.56724267468068</td>
+<td>100.0</td>
+<td>IS2</td>
+<td>IS3</td>
+<td>IS2</td>
+<td>NaN</td>
+<td>Escherichia coli</td>
+<td>32/41</td>
+<td>5</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">170</td>
+<td>contigs</td>
+<td>bdef75b5-0001-456a-9f1d-e9adc2121bc3</td>
+<td>mobile_element</td>
+<td>contig00043</td>
+<td>7039</td>
+<td>7919</td>
+<td>1</td>
+<td>False</td>
+<td>bdef75b5-0001-456a-9f1d-e9adc2121bc3</td>
+<td>-</td>
+<td>...</td>
+<td>-</td>
+<td>100.0</td>
+<td>100.0</td>
+<td>IS6100</td>
+<td>IS6</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>Mycobacterium fortuitum</td>
+<td>14</td>
+<td>NaN</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">189</td>
+<td>contigs</td>
+<td>884ce526-8c62-48ff-8a76-c37d91c523bb</td>
+<td>mobile_element</td>
+<td>contig00071</td>
+<td>2</td>
+<td>2583</td>
+<td>-1</td>
+<td>False</td>
+<td>884ce526-8c62-48ff-8a76-c37d91c523bb</td>
+<td>-</td>
+<td>...</td>
+<td>-</td>
+<td>99.96125532739248</td>
+<td>100.0</td>
+<td>ISEc12</td>
+<td>IS21</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>Escherichia coli</td>
+<td>20/24</td>
+<td>5</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">206</td>
+<td>contigs</td>
+<td>d9d222a7-4dce-4b13-9b58-77ed7d799ccb</td>
+<td>mobile_element</td>
+<td>contig00085</td>
+<td>0</td>
+<td>894</td>
+<td>1</td>
+<td>True</td>
+<td>d9d222a7-4dce-4b13-9b58-77ed7d799ccb</td>
+<td>-</td>
+<td>...</td>
+<td>-</td>
+<td>99.77678571428571</td>
+<td>70.7740916271722</td>
+<td>ISSd1</td>
+<td>IS3</td>
+<td>IS3</td>
+<td>NaN</td>
+<td>Shigella dysenteriae</td>
+<td>19/27</td>
+<td>NaN</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">208</td>
+<td>contigs</td>
+<td>469b2341-a3b3-4973-99a0-fb918063794b</td>
+<td>mobile_element</td>
+<td>contig00086</td>
+<td>0</td>
+<td>829</td>
+<td>-1</td>
+<td>True</td>
+<td>469b2341-a3b3-4973-99a0-fb918063794b</td>
+<td>-</td>
+<td>...</td>
+<td>-</td>
+<td>99.75874547647769</td>
+<td>57.891061452513966</td>
+<td>IS1397</td>
+<td>IS3</td>
+<td>IS150</td>
+<td>NaN</td>
+<td>Escherichia coli</td>
+<td>20/25</td>
+<td>4</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">212</td>
+<td>contigs</td>
+<td>60a227e3-2192-4e96-a6f4-a6dc16834cc1</td>
+<td>mobile_element</td>
+<td>contig00093</td>
+<td>0</td>
+<td>551</td>
+<td>-1</td>
+<td>True</td>
+<td>60a227e3-2192-4e96-a6f4-a6dc16834cc1</td>
+<td>-</td>
+<td>...</td>
+<td>-</td>
+<td>100.0</td>
+<td>67.19512195121952</td>
+<td>IS26</td>
+<td>IS6</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>Proteus vulgaris</td>
+<td>14</td>
+<td>8</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">221</td>
+<td>contigs</td>
+<td>3c273239-e521-42cf-8a12-d1b9c2025134</td>
+<td>mobile_element</td>
+<td>contig00105</td>
+<td>0</td>
+<td>383</td>
+<td>-1</td>
+<td>True</td>
+<td>3c273239-e521-42cf-8a12-d1b9c2025134</td>
+<td>-</td>
+<td>...</td>
+<td>-</td>
+<td>99.21671018276761</td>
+<td>26.74581005586592</td>
+<td>IS1397</td>
+<td>IS3</td>
+<td>IS150</td>
+<td>NaN</td>
+<td>Escherichia coli</td>
+<td>20/25</td>
+<td>4</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">225</td>
+<td>contigs</td>
+<td>6582b437-fee1-411b-aabd-708a9056d74e</td>
+<td>mobile_element</td>
+<td>contig00110</td>
+<td>0</td>
+<td>362</td>
+<td>1</td>
+<td>True</td>
+<td>6582b437-fee1-411b-aabd-708a9056d74e</td>
+<td>-</td>
+<td>...</td>
+<td>-</td>
+<td>99.17127071823204</td>
+<td>25.27932960893855</td>
+<td>IS1397</td>
+<td>IS3</td>
+<td>IS150</td>
+<td>NaN</td>
+<td>Escherichia coli</td>
+<td>20/25</td>
+<td>4</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">227</td>
+<td>contigs</td>
+<td>a4f27927-960f-4a37-8794-f1a6c63880cf</td>
+<td>mobile_element</td>
+<td>contig00116</td>
+<td>0</td>
+<td>321</td>
+<td>1</td>
+<td>True</td>
+<td>a4f27927-960f-4a37-8794-f1a6c63880cf</td>
+<td>-</td>
+<td>...</td>
+<td>-</td>
+<td>99.37694704049844</td>
+<td>41.796875</td>
+<td>IS1F</td>
+<td>IS1</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>Escherichia coli</td>
+<td>20/23</td>
+<td>NaN</td>
+</tr>
+</tbody>
+</table>
+
+<p>41 rows × 22 columns</p>
+</div>
 </div>
 </div>
 
