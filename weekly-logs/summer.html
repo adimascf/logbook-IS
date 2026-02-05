@@ -234,8 +234,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p>Curated each of IS in EC958 their potential effect on nearest CDS. CDS appears after an IS.</p>
-<p>Calculate distribution of distance between IS and its downstream CDS (ecluding the overlap). We only calculate the distance when the features are on the same strand orientation.</p>
-<div id="fa08d6b4" class="cell" data-execution_count="1">
+<p>Calculate distribution of distance between IS and its downstream CDS (ecluding the overlap). We only calculate the distance when the features are on the same strand orientation. I used <a href="https://bedtools.readthedocs.io/en/latest/content/tools/closest.html">bedtools closest</a></p>
+<div id="03bbd7dd" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>bedtools closest <span class="op">-</span>a ..<span class="op">/</span>..<span class="op">/</span>summer<span class="op">-</span>project<span class="op">/</span>GCF_000285655<span class="fl">.3</span><span class="er">_EC958</span>.v1<span class="op">/</span>ec958_genome_IS.<span class="bu">sorted</span>.bed <span class="op">-</span>b ..<span class="op">/</span>weekly<span class="op">-</span>logs<span class="op">/</span>only_cds.<span class="bu">sorted</span>.bed <span class="op">-</span>s <span class="op">-</span>iu <span class="op">-</span>io <span class="op">-</span>k <span class="dv">1</span> <span class="op">-</span>D a <span class="op">|</span> tee distance_cds_after_IS.txt <span class="op">|</span> head <span class="op">|</span> awk <span class="st">'{print $1,$2,$3,$4,$10,$NF}'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>NZ_HG941718.1 233727 236259 ISEc23_1 "EC958_RS01125"; 6298
@@ -250,7 +250,7 @@ NZ_HG941718.1 2103782 2104446 IS609_1 "EC958_RS10895"; 3058
 NZ_HG941718.1 2135365 2136797 IS1397_2 "EC958_RS11045"; 2347</code></pre>
 </div>
 </div>
-<div id="58d8f53e" class="cell" data-execution_count="2">
+<div id="cb5023db" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
@@ -276,7 +276,7 @@ NZ_HG941718.1 2135365 2136797 IS1397_2 "EC958_RS11045"; 2347</code></pre>
 </div>
 </div>
 <p>16 occurrences in where the distance between an IS element and the next CDS is less than or equal 150bp</p>
-<div id="23595253" class="cell" data-execution_count="3">
+<div id="3be3fb2b" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>awk <span class="st">'{if($NF &lt;= 150) print}'</span> distance_cds_after_IS.txt <span class="op">|</span> awk <span class="st">'{if($NF&gt;=-150) print $1,$2,$3,$4,$10,$NF}'</span> <span class="op">-</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>NZ_HG941718.1 1365600 1366443 ISCfr4 "EC958_RS06940"; 76
@@ -298,7 +298,7 @@ NZ_HG941719.1 105455 106275 IS26 "EC958_RS26195"; 92</code></pre>
 </div>
 </div>
 <p>in the range less or equal than 150 bp, how many CDS appear before IS in the same strand?</p>
-<div id="09b5d5f3" class="cell" data-execution_count="4">
+<div id="e83a0406" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>bedtools closest <span class="op">-</span>a ..<span class="op">/</span>..<span class="op">/</span>summer<span class="op">-</span>project<span class="op">/</span>GCF_000285655<span class="fl">.3</span><span class="er">_EC958</span>.v1<span class="op">/</span>ec958_genome_IS.<span class="bu">sorted</span>.bed <span class="op">-</span>b ..<span class="op">/</span>weekly<span class="op">-</span>logs<span class="op">/</span>only_cds.<span class="bu">sorted</span>.bed <span class="op">-</span>s <span class="op">-</span><span class="bu">id</span> <span class="op">-</span>io <span class="op">-</span>k <span class="dv">1</span> <span class="op">-</span>D a <span class="op">|</span> awk <span class="st">'{if($NF&gt;=-150) print $1,$2,$3,$4,$10,$NF}'</span> <span class="op">-</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>NZ_HG941718.1 1372287 1373517 ISEc24 "EC958_RS06975"; -56
@@ -326,16 +326,16 @@ NZ_HG941719.1 93932 94812 IS6100 "EC958_RS29565"; -60
 NZ_HG941719.1 102449 103269 IS26 "EC958_RS26180"; -8</code></pre>
 </div>
 </div>
-<div id="6c700627" class="cell" data-execution_count="5">
+<div id="9c93acdc" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>eris scan ..<span class="op">/</span>..<span class="op">/</span>summer<span class="op">-</span>project<span class="op">/</span>realfqs<span class="op">-</span>shovill<span class="op">/</span>assembly<span class="op">/</span>contigs.fa <span class="op">&gt;</span> real_assembly_data.tsv</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>illumina_fq_assembly <span class="op">=</span> pd.read_csv(<span class="st">"real_assembly_data.tsv"</span>, sep<span class="op">=</span><span class="st">"</span><span class="ch">\t</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let’s just check for ISCfr4</p>
-<div id="438525ed" class="cell" data-execution_count="6">
+<div id="b7bfe92a" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>elememnt <span class="op">=</span> illumina_fq_assembly[illumina_fq_assembly[<span class="st">'Name'</span>] <span class="op">==</span> <span class="st">"ISCfr4"</span>].get(<span class="st">"Element"</span>).to_string()</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>elememnt <span class="op">=</span> elememnt.split()[<span class="op">-</span><span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="1b01e1c5" class="cell" data-execution_count="7">
+<div id="6f1c3903" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>IS_Cfr4 <span class="op">=</span> illumina_fq_assembly[illumina_fq_assembly[<span class="st">'Element'</span>] <span class="op">==</span> elememnt]</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>IS_Cfr4.loc[:, <span class="op">~</span>IS_Cfr4.columns.isin([<span class="st">'Family'</span>, <span class="st">'Group'</span>, <span class="st">'Synonyms'</span>, <span class="st">'Origin'</span>, <span class="st">'IR'</span>, <span class="st">'DR'</span>])]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -376,7 +376,7 @@ NZ_HG941719.1 102449 103269 IS26 "EC958_RS26180"; -8</code></pre>
 <td>97181</td>
 <td>1</td>
 <td>False</td>
-<td>f4d5e87e-ef51-435b-a76a-b0af79f83024</td>
+<td>b91d2210-f851-43d7-93db-e50999b055b4</td>
 <td>109bp</td>
 <td>upstream</td>
 <td>same strand</td>
@@ -388,14 +388,14 @@ NZ_HG941719.1 102449 103269 IS26 "EC958_RS26180"; -8</code></pre>
 <tr class="even">
 <td data-quarto-table-cell-role="th">22</td>
 <td>contigs</td>
-<td>f4d5e87e-ef51-435b-a76a-b0af79f83024</td>
+<td>b91d2210-f851-43d7-93db-e50999b055b4</td>
 <td>mobile_element</td>
 <td>contig00010</td>
 <td>97290</td>
 <td>97984</td>
 <td>1</td>
 <td>True</td>
-<td>f4d5e87e-ef51-435b-a76a-b0af79f83024</td>
+<td>b91d2210-f851-43d7-93db-e50999b055b4</td>
 <td>-</td>
 <td>-</td>
 <td>-</td>
@@ -407,14 +407,14 @@ NZ_HG941719.1 102449 103269 IS26 "EC958_RS26180"; -8</code></pre>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">23</td>
 <td>contigs</td>
-<td>f4d5e87e-ef51-435b-a76a-b0af79f83024_promoter_1</td>
+<td>b91d2210-f851-43d7-93db-e50999b055b4_promoter_1</td>
 <td>regulatory</td>
 <td>contig00010</td>
 <td>97353</td>
 <td>97381</td>
 <td>1</td>
 <td>False</td>
-<td>f4d5e87e-ef51-435b-a76a-b0af79f83024</td>
+<td>b91d2210-f851-43d7-93db-e50999b055b4</td>
 <td>-</td>
 <td>inside</td>
 <td>-</td>
@@ -433,7 +433,7 @@ NZ_HG941719.1 102449 103269 IS26 "EC958_RS26180"; -8</code></pre>
 <td>98040</td>
 <td>1</td>
 <td>False</td>
-<td>f4d5e87e-ef51-435b-a76a-b0af79f83024</td>
+<td>b91d2210-f851-43d7-93db-e50999b055b4</td>
 <td>-</td>
 <td>inside</td>
 <td>same strand</td>
@@ -452,7 +452,7 @@ NZ_HG941719.1 102449 103269 IS26 "EC958_RS26180"; -8</code></pre>
 <td>100835</td>
 <td>1</td>
 <td>False</td>
-<td>f4d5e87e-ef51-435b-a76a-b0af79f83024</td>
+<td>b91d2210-f851-43d7-93db-e50999b055b4</td>
 <td>193bp</td>
 <td>downstream</td>
 <td>same strand</td>
@@ -468,11 +468,11 @@ NZ_HG941719.1 102449 103269 IS26 "EC958_RS26180"; -8</code></pre>
 </div>
 </div>
 <p>check for IS30</p>
-<div id="37b4a6bb" class="cell" data-execution_count="8">
+<div id="07625ce8" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>element <span class="op">=</span> illumina_fq_assembly[illumina_fq_assembly[<span class="st">'Name'</span>] <span class="op">==</span> <span class="st">"IS600"</span>].get(<span class="st">"Element"</span>).to_string()</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>elememnt <span class="op">=</span> elememnt.split()[<span class="op">-</span><span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="96d9af69" class="cell" data-execution_count="9">
+<div id="8b36d891" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>IS600 <span class="op">=</span> illumina_fq_assembly[illumina_fq_assembly[<span class="st">'Element'</span>] <span class="op">==</span> elememnt]</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>IS600.loc[:, <span class="op">~</span>IS600.columns.isin([<span class="st">'Family'</span>, <span class="st">'Group'</span>, <span class="st">'Synonyms'</span>, <span class="st">'Origin'</span>, <span class="st">'IR'</span>, <span class="st">'DR'</span>])]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -513,7 +513,7 @@ NZ_HG941719.1 102449 103269 IS26 "EC958_RS26180"; -8</code></pre>
 <td>97181</td>
 <td>1</td>
 <td>False</td>
-<td>f4d5e87e-ef51-435b-a76a-b0af79f83024</td>
+<td>b91d2210-f851-43d7-93db-e50999b055b4</td>
 <td>109bp</td>
 <td>upstream</td>
 <td>same strand</td>
@@ -525,14 +525,14 @@ NZ_HG941719.1 102449 103269 IS26 "EC958_RS26180"; -8</code></pre>
 <tr class="even">
 <td data-quarto-table-cell-role="th">22</td>
 <td>contigs</td>
-<td>f4d5e87e-ef51-435b-a76a-b0af79f83024</td>
+<td>b91d2210-f851-43d7-93db-e50999b055b4</td>
 <td>mobile_element</td>
 <td>contig00010</td>
 <td>97290</td>
 <td>97984</td>
 <td>1</td>
 <td>True</td>
-<td>f4d5e87e-ef51-435b-a76a-b0af79f83024</td>
+<td>b91d2210-f851-43d7-93db-e50999b055b4</td>
 <td>-</td>
 <td>-</td>
 <td>-</td>
@@ -544,14 +544,14 @@ NZ_HG941719.1 102449 103269 IS26 "EC958_RS26180"; -8</code></pre>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">23</td>
 <td>contigs</td>
-<td>f4d5e87e-ef51-435b-a76a-b0af79f83024_promoter_1</td>
+<td>b91d2210-f851-43d7-93db-e50999b055b4_promoter_1</td>
 <td>regulatory</td>
 <td>contig00010</td>
 <td>97353</td>
 <td>97381</td>
 <td>1</td>
 <td>False</td>
-<td>f4d5e87e-ef51-435b-a76a-b0af79f83024</td>
+<td>b91d2210-f851-43d7-93db-e50999b055b4</td>
 <td>-</td>
 <td>inside</td>
 <td>-</td>
@@ -570,7 +570,7 @@ NZ_HG941719.1 102449 103269 IS26 "EC958_RS26180"; -8</code></pre>
 <td>98040</td>
 <td>1</td>
 <td>False</td>
-<td>f4d5e87e-ef51-435b-a76a-b0af79f83024</td>
+<td>b91d2210-f851-43d7-93db-e50999b055b4</td>
 <td>-</td>
 <td>inside</td>
 <td>same strand</td>
@@ -589,7 +589,7 @@ NZ_HG941719.1 102449 103269 IS26 "EC958_RS26180"; -8</code></pre>
 <td>100835</td>
 <td>1</td>
 <td>False</td>
-<td>f4d5e87e-ef51-435b-a76a-b0af79f83024</td>
+<td>b91d2210-f851-43d7-93db-e50999b055b4</td>
 <td>193bp</td>
 <td>downstream</td>
 <td>same strand</td>
@@ -605,11 +605,11 @@ NZ_HG941719.1 102449 103269 IS26 "EC958_RS26180"; -8</code></pre>
 </div>
 </div>
 <p>check for ISEc12</p>
-<div id="e112b84f" class="cell" data-execution_count="10">
+<div id="a19cd981" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>element <span class="op">=</span> illumina_fq_assembly[illumina_fq_assembly[<span class="st">'Name'</span>] <span class="op">==</span> <span class="st">"ISEc12"</span>].get(<span class="st">"Element"</span>).to_string()</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>elememnt <span class="op">=</span> elememnt.split()[<span class="op">-</span><span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="9d72b52d" class="cell" data-execution_count="11">
+<div id="6e3c754b" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>ISEc12 <span class="op">=</span> illumina_fq_assembly[illumina_fq_assembly[<span class="st">'Element'</span>] <span class="op">==</span> elememnt]</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>ISEc12.loc[:, <span class="op">~</span>IS600.columns.isin([<span class="st">'Family'</span>, <span class="st">'Group'</span>, <span class="st">'Synonyms'</span>, <span class="st">'Origin'</span>, <span class="st">'IR'</span>, <span class="st">'DR'</span>])]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -650,7 +650,7 @@ NZ_HG941719.1 102449 103269 IS26 "EC958_RS26180"; -8</code></pre>
 <td>97181</td>
 <td>1</td>
 <td>False</td>
-<td>f4d5e87e-ef51-435b-a76a-b0af79f83024</td>
+<td>b91d2210-f851-43d7-93db-e50999b055b4</td>
 <td>109bp</td>
 <td>upstream</td>
 <td>same strand</td>
@@ -662,14 +662,14 @@ NZ_HG941719.1 102449 103269 IS26 "EC958_RS26180"; -8</code></pre>
 <tr class="even">
 <td data-quarto-table-cell-role="th">22</td>
 <td>contigs</td>
-<td>f4d5e87e-ef51-435b-a76a-b0af79f83024</td>
+<td>b91d2210-f851-43d7-93db-e50999b055b4</td>
 <td>mobile_element</td>
 <td>contig00010</td>
 <td>97290</td>
 <td>97984</td>
 <td>1</td>
 <td>True</td>
-<td>f4d5e87e-ef51-435b-a76a-b0af79f83024</td>
+<td>b91d2210-f851-43d7-93db-e50999b055b4</td>
 <td>-</td>
 <td>-</td>
 <td>-</td>
@@ -681,14 +681,14 @@ NZ_HG941719.1 102449 103269 IS26 "EC958_RS26180"; -8</code></pre>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">23</td>
 <td>contigs</td>
-<td>f4d5e87e-ef51-435b-a76a-b0af79f83024_promoter_1</td>
+<td>b91d2210-f851-43d7-93db-e50999b055b4_promoter_1</td>
 <td>regulatory</td>
 <td>contig00010</td>
 <td>97353</td>
 <td>97381</td>
 <td>1</td>
 <td>False</td>
-<td>f4d5e87e-ef51-435b-a76a-b0af79f83024</td>
+<td>b91d2210-f851-43d7-93db-e50999b055b4</td>
 <td>-</td>
 <td>inside</td>
 <td>-</td>
@@ -707,7 +707,7 @@ NZ_HG941719.1 102449 103269 IS26 "EC958_RS26180"; -8</code></pre>
 <td>98040</td>
 <td>1</td>
 <td>False</td>
-<td>f4d5e87e-ef51-435b-a76a-b0af79f83024</td>
+<td>b91d2210-f851-43d7-93db-e50999b055b4</td>
 <td>-</td>
 <td>inside</td>
 <td>same strand</td>
@@ -726,7 +726,7 @@ NZ_HG941719.1 102449 103269 IS26 "EC958_RS26180"; -8</code></pre>
 <td>100835</td>
 <td>1</td>
 <td>False</td>
-<td>f4d5e87e-ef51-435b-a76a-b0af79f83024</td>
+<td>b91d2210-f851-43d7-93db-e50999b055b4</td>
 <td>193bp</td>
 <td>downstream</td>
 <td>same strand</td>
@@ -742,12 +742,12 @@ NZ_HG941719.1 102449 103269 IS26 "EC958_RS26180"; -8</code></pre>
 </div>
 </div>
 <p>check for IS200C</p>
-<div id="05126953" class="cell" data-execution_count="12">
+<div id="bae0fb2a" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>elememnt <span class="op">=</span> illumina_fq_assembly[illumina_fq_assembly[<span class="st">'Name'</span>] <span class="op">==</span> <span class="st">"IS200C"</span>].get(<span class="st">"Element"</span>).to_string()</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>element1 <span class="op">=</span> elememnt.split(<span class="st">'</span><span class="ch">\n</span><span class="st">'</span>)[<span class="dv">0</span>].split()[<span class="op">-</span><span class="dv">1</span>]</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>element2 <span class="op">=</span> elememnt.split(<span class="st">'</span><span class="ch">\n</span><span class="st">'</span>)[<span class="op">-</span><span class="dv">1</span>].split()[<span class="op">-</span><span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="279455d6" class="cell" data-execution_count="13">
+<div id="5448ee08" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>IS200C <span class="op">=</span> illumina_fq_assembly[(illumina_fq_assembly[<span class="st">'Element'</span>] <span class="op">==</span> element1) <span class="op">|</span> (illumina_fq_assembly[<span class="st">'Element'</span>] <span class="op">==</span> element2)]</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>IS200C.loc[:, <span class="op">~</span>IS200C.columns.isin([<span class="st">'Family'</span>, <span class="st">'Group'</span>, <span class="st">'Synonyms'</span>, <span class="st">'Origin'</span>, <span class="st">'IR'</span>, <span class="st">'DR'</span>])]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -788,7 +788,7 @@ NZ_HG941719.1 102449 103269 IS26 "EC958_RS26180"; -8</code></pre>
 <td>99159</td>
 <td>1</td>
 <td>False</td>
-<td>12c7d4a0-104c-42b1-a2c5-66d2079049cd</td>
+<td>ac516d07-fe53-4e58-8276-9b01bd40d415</td>
 <td>75bp</td>
 <td>upstream</td>
 <td>same strand</td>
@@ -800,14 +800,14 @@ NZ_HG941719.1 102449 103269 IS26 "EC958_RS26180"; -8</code></pre>
 <tr class="even">
 <td data-quarto-table-cell-role="th">53</td>
 <td>contigs</td>
-<td>12c7d4a0-104c-42b1-a2c5-66d2079049cd</td>
+<td>ac516d07-fe53-4e58-8276-9b01bd40d415</td>
 <td>mobile_element</td>
 <td>contig00021</td>
 <td>99234</td>
 <td>99943</td>
 <td>1</td>
 <td>False</td>
-<td>12c7d4a0-104c-42b1-a2c5-66d2079049cd</td>
+<td>ac516d07-fe53-4e58-8276-9b01bd40d415</td>
 <td>-</td>
 <td>-</td>
 <td>-</td>
@@ -826,7 +826,7 @@ NZ_HG941719.1 102449 103269 IS26 "EC958_RS26180"; -8</code></pre>
 <td>99834</td>
 <td>1</td>
 <td>False</td>
-<td>12c7d4a0-104c-42b1-a2c5-66d2079049cd</td>
+<td>ac516d07-fe53-4e58-8276-9b01bd40d415</td>
 <td>-</td>
 <td>inside</td>
 <td>same strand</td>
@@ -845,7 +845,7 @@ NZ_HG941719.1 102449 103269 IS26 "EC958_RS26180"; -8</code></pre>
 <td>101372</td>
 <td>-1</td>
 <td>False</td>
-<td>12c7d4a0-104c-42b1-a2c5-66d2079049cd</td>
+<td>ac516d07-fe53-4e58-8276-9b01bd40d415</td>
 <td>1bp</td>
 <td>downstream</td>
 <td>opposite strand</td>
@@ -864,7 +864,7 @@ NZ_HG941719.1 102449 103269 IS26 "EC958_RS26180"; -8</code></pre>
 <td>5685</td>
 <td>-1</td>
 <td>False</td>
-<td>d0ab94a1-3d2f-4152-9548-14f1724955a4</td>
+<td>b6d61613-9f9a-4309-bf6e-63769d7e1f92</td>
 <td>11bp</td>
 <td>downstream</td>
 <td>same strand</td>
@@ -876,14 +876,14 @@ NZ_HG941719.1 102449 103269 IS26 "EC958_RS26180"; -8</code></pre>
 <tr class="even">
 <td data-quarto-table-cell-role="th">128</td>
 <td>contigs</td>
-<td>d0ab94a1-3d2f-4152-9548-14f1724955a4</td>
+<td>b6d61613-9f9a-4309-bf6e-63769d7e1f92</td>
 <td>mobile_element</td>
 <td>contig00037</td>
 <td>5696</td>
 <td>6405</td>
 <td>-1</td>
 <td>False</td>
-<td>d0ab94a1-3d2f-4152-9548-14f1724955a4</td>
+<td>b6d61613-9f9a-4309-bf6e-63769d7e1f92</td>
 <td>-</td>
 <td>-</td>
 <td>-</td>
@@ -902,7 +902,7 @@ NZ_HG941719.1 102449 103269 IS26 "EC958_RS26180"; -8</code></pre>
 <td>6264</td>
 <td>-1</td>
 <td>False</td>
-<td>d0ab94a1-3d2f-4152-9548-14f1724955a4</td>
+<td>b6d61613-9f9a-4309-bf6e-63769d7e1f92</td>
 <td>-</td>
 <td>inside</td>
 <td>same strand</td>
@@ -921,7 +921,7 @@ NZ_HG941719.1 102449 103269 IS26 "EC958_RS26180"; -8</code></pre>
 <td>7060</td>
 <td>-1</td>
 <td>False</td>
-<td>d0ab94a1-3d2f-4152-9548-14f1724955a4</td>
+<td>b6d61613-9f9a-4309-bf6e-63769d7e1f92</td>
 <td>55bp</td>
 <td>upstream</td>
 <td>same strand</td>
@@ -937,11 +937,11 @@ NZ_HG941719.1 102449 103269 IS26 "EC958_RS26180"; -8</code></pre>
 </div>
 </div>
 <p>again, check IS21</p>
-<div id="c03b8a4c" class="cell" data-execution_count="14">
+<div id="7ce9cece" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>illumina_fq_assembly[illumina_fq_assembly[<span class="st">'Name'</span>] <span class="op">==</span> <span class="st">"IS21"</span>].get(<span class="st">"Element"</span>).to_string()</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>elememnt <span class="op">=</span> elememnt.split()[<span class="op">-</span><span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="f11b5c5a" class="cell" data-execution_count="15">
+<div id="c9984ec8" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>IS21 <span class="op">=</span> illumina_fq_assembly[illumina_fq_assembly[<span class="st">'Element'</span>] <span class="op">==</span> elememnt]</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>IS21.loc[:, <span class="op">~</span>IS21.columns.isin([<span class="st">'Family'</span>, <span class="st">'Group'</span>, <span class="st">'Synonyms'</span>, <span class="st">'Origin'</span>, <span class="st">'IR'</span>, <span class="st">'DR'</span>])]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -982,7 +982,7 @@ NZ_HG941719.1 102449 103269 IS26 "EC958_RS26180"; -8</code></pre>
 <td>5685</td>
 <td>-1</td>
 <td>False</td>
-<td>d0ab94a1-3d2f-4152-9548-14f1724955a4</td>
+<td>b6d61613-9f9a-4309-bf6e-63769d7e1f92</td>
 <td>11bp</td>
 <td>downstream</td>
 <td>same strand</td>
@@ -994,14 +994,14 @@ NZ_HG941719.1 102449 103269 IS26 "EC958_RS26180"; -8</code></pre>
 <tr class="even">
 <td data-quarto-table-cell-role="th">128</td>
 <td>contigs</td>
-<td>d0ab94a1-3d2f-4152-9548-14f1724955a4</td>
+<td>b6d61613-9f9a-4309-bf6e-63769d7e1f92</td>
 <td>mobile_element</td>
 <td>contig00037</td>
 <td>5696</td>
 <td>6405</td>
 <td>-1</td>
 <td>False</td>
-<td>d0ab94a1-3d2f-4152-9548-14f1724955a4</td>
+<td>b6d61613-9f9a-4309-bf6e-63769d7e1f92</td>
 <td>-</td>
 <td>-</td>
 <td>-</td>
@@ -1020,7 +1020,7 @@ NZ_HG941719.1 102449 103269 IS26 "EC958_RS26180"; -8</code></pre>
 <td>6264</td>
 <td>-1</td>
 <td>False</td>
-<td>d0ab94a1-3d2f-4152-9548-14f1724955a4</td>
+<td>b6d61613-9f9a-4309-bf6e-63769d7e1f92</td>
 <td>-</td>
 <td>inside</td>
 <td>same strand</td>
@@ -1039,7 +1039,7 @@ NZ_HG941719.1 102449 103269 IS26 "EC958_RS26180"; -8</code></pre>
 <td>7060</td>
 <td>-1</td>
 <td>False</td>
-<td>d0ab94a1-3d2f-4152-9548-14f1724955a4</td>
+<td>b6d61613-9f9a-4309-bf6e-63769d7e1f92</td>
 <td>55bp</td>
 <td>upstream</td>
 <td>same strand</td>

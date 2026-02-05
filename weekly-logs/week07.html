@@ -304,7 +304,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="section-1">09-09-2025</h3>
 <section id="extract-is-that-eris-missed-and-inspect-them-manually" class="level4">
 <h4 class="anchored" data-anchor-id="extract-is-that-eris-missed-and-inspect-them-manually">Extract IS that eris missed and inspect them manually</h4>
-<div id="12282d41" class="cell" data-execution_count="1">
+<div id="eae4fe8f" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>bedtools intersect <span class="op">-</span>a ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>ec958_IS.bed <span class="op">-</span>b eris<span class="op">-</span>outputs<span class="op">/</span>chromosome_fasta.bed <span class="op">-</span>v  <span class="op">|</span> bedtools getfasta <span class="op">-</span>name <span class="op">-</span>fi ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>EC958.fasta <span class="op">-</span>bed <span class="op">-</span> <span class="op">&gt;</span> IS_eris_missed.fasta</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Warning: the index file is older than the FASTA file.</code></pre>
@@ -321,7 +321,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="extract-is-that-isescan-missed-and-inspect-them-manually" class="level4">
 <h4 class="anchored" data-anchor-id="extract-is-that-isescan-missed-and-inspect-them-manually">Extract IS that isescan missed and inspect them manually</h4>
-<div id="0b2ecdbc" class="cell" data-execution_count="2">
+<div id="4b52a5df" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>bedtools intersect <span class="op">-</span>a ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>ec958_IS.bed <span class="op">-</span>b ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>isescan<span class="op">-</span>outputs<span class="op">/</span>EC958.fasta.bed <span class="op">-</span>v  <span class="op">|</span> bedtools getfasta <span class="op">-</span>name <span class="op">-</span>fi ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>EC958.fasta <span class="op">-</span>bed <span class="op">-</span> <span class="op">&gt;</span> IS_isescan_missed.fasta</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Warning: the index file is older than the FASTA file.</code></pre>
@@ -339,7 +339,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="extract-the-eris-overcalled-is" class="level4">
 <h4 class="anchored" data-anchor-id="extract-the-eris-overcalled-is">Extract the Eris overcalled IS</h4>
-<div id="f6212a99" class="cell" data-execution_count="3">
+<div id="8bc7e242" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>bedtools intersect <span class="op">-</span>a  eris<span class="op">-</span>outputs<span class="op">/</span>chromosome_fasta.bed <span class="op">-</span>b ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>ec958_IS.bed <span class="op">-</span>v <span class="op">|</span> bedtools getfasta <span class="op">-</span>name <span class="op">-</span>fi ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>EC958.fasta <span class="op">-</span>bed <span class="op">-</span> <span class="op">&gt;</span> eris_overcall_IS.fasta</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Warning: the index file is older than the FASTA file.</code></pre>
@@ -363,11 +363,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="section-2">11-09-2025</h3>
 <section id="tried-other-read-simulator-mason" class="level4">
 <h4 class="anchored" data-anchor-id="tried-other-read-simulator-mason">Tried other read simulator (mason)</h4>
-<div id="99993ab8" class="cell" data-execution_count="4">
+<div id="ad16180c" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>mason_simulator <span class="op">-</span>ir ..<span class="op">/</span>fastas<span class="op">/</span>EC958.fasta <span class="op">-</span>n <span class="dv">8000000</span> <span class="op">-</span>o reads_1.fq <span class="op">-</span><span class="kw">or</span> reads_2.fq <span class="op">\</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="op">--</span>illumina<span class="op">-</span>read<span class="op">-</span>length <span class="dv">150</span> <span class="op">--</span>fragment<span class="op">-</span>mean<span class="op">-</span>size <span class="dv">400</span> <span class="op">--</span>fragment<span class="op">-</span>size<span class="op">-</span>std<span class="op">-</span>dev <span class="dv">50</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="af526381" class="cell" data-execution_count="5">
+<div id="465c7d28" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>eris scan ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>assembly<span class="op">-</span>simulated<span class="op">/</span>shovills<span class="op">-</span>mason<span class="op">/</span>contigs.gfa <span class="op">&gt;</span> eris<span class="op">-</span>outputs<span class="op">/</span>mason_shovill_gfa.tsv</span>
@@ -410,14 +410,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">17</td>
 <td>contigs</td>
-<td>3d361d2b-d921-4d2c-b6e1-6cd93dc8f51b</td>
+<td>1cf1db69-36b3-4231-83f0-a94da50d67e5</td>
 <td>mobile_element</td>
 <td>357289</td>
 <td>0</td>
 <td>223</td>
 <td>-1</td>
 <td>True</td>
-<td>3d361d2b-d921-4d2c-b6e1-6cd93dc8f51b</td>
+<td>1cf1db69-36b3-4231-83f0-a94da50d67e5</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -434,14 +434,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td data-quarto-table-cell-role="th">34</td>
 <td>contigs</td>
-<td>2ef3c148-dd73-4c10-8b2d-e326b5704f6a</td>
+<td>3873a522-012e-4445-9ae1-53942714e55e</td>
 <td>mobile_element</td>
 <td>395013</td>
 <td>0</td>
 <td>440</td>
 <td>1</td>
 <td>True</td>
-<td>2ef3c148-dd73-4c10-8b2d-e326b5704f6a</td>
+<td>3873a522-012e-4445-9ae1-53942714e55e</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -458,14 +458,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">36</td>
 <td>contigs</td>
-<td>16021414-8fdd-4539-8eee-c5cd2db76e50</td>
+<td>37160194-cc04-4789-9b5c-ef672a457adf</td>
 <td>mobile_element</td>
 <td>395695</td>
 <td>1</td>
 <td>182</td>
 <td>-1</td>
 <td>True</td>
-<td>16021414-8fdd-4539-8eee-c5cd2db76e50</td>
+<td>37160194-cc04-4789-9b5c-ef672a457adf</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -482,14 +482,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td data-quarto-table-cell-role="th">64</td>
 <td>contigs</td>
-<td>91755f03-5841-4dce-b81d-92d4349ed34f</td>
+<td>e31a449a-0074-4892-955d-82b741cba463</td>
 <td>mobile_element</td>
 <td>411359</td>
 <td>0</td>
 <td>223</td>
 <td>1</td>
 <td>True</td>
-<td>91755f03-5841-4dce-b81d-92d4349ed34f</td>
+<td>e31a449a-0074-4892-955d-82b741cba463</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -506,14 +506,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">73</td>
 <td>contigs</td>
-<td>d7dd98f9-85d6-41d6-932e-dcc3d11e5b4a</td>
+<td>153b2875-f8eb-42be-b26d-377db8b6111f</td>
 <td>mobile_element</td>
 <td>412011</td>
 <td>0</td>
 <td>223</td>
 <td>1</td>
 <td>True</td>
-<td>d7dd98f9-85d6-41d6-932e-dcc3d11e5b4a</td>
+<td>153b2875-f8eb-42be-b26d-377db8b6111f</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -530,14 +530,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td data-quarto-table-cell-role="th">81</td>
 <td>contigs</td>
-<td>b2d73766-78e6-450b-a5fd-ed3a7827b105</td>
+<td>3fea30bf-758a-4365-a3d7-c5a93e319a84</td>
 <td>mobile_element</td>
 <td>413263</td>
 <td>0</td>
 <td>1326</td>
 <td>1</td>
 <td>True</td>
-<td>b2d73766-78e6-450b-a5fd-ed3a7827b105</td>
+<td>3fea30bf-758a-4365-a3d7-c5a93e319a84</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -554,14 +554,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">181</td>
 <td>contigs</td>
-<td>28654e10-d7e5-45fe-b1a5-857060a80497</td>
+<td>6ff41d2b-c9a6-4ec4-ae55-5b2cc29649bf</td>
 <td>mobile_element</td>
 <td>421120</td>
 <td>0</td>
 <td>694</td>
 <td>1</td>
 <td>True</td>
-<td>28654e10-d7e5-45fe-b1a5-857060a80497</td>
+<td>6ff41d2b-c9a6-4ec4-ae55-5b2cc29649bf</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -578,14 +578,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td data-quarto-table-cell-role="th">303</td>
 <td>contigs</td>
-<td>2bd72fd1-df3f-4ae0-b6ea-6b682f463de8</td>
+<td>1d435d69-8dcb-4c80-b184-4014c4328372</td>
 <td>mobile_element</td>
 <td>716183</td>
 <td>0</td>
 <td>223</td>
 <td>1</td>
 <td>True</td>
-<td>2bd72fd1-df3f-4ae0-b6ea-6b682f463de8</td>
+<td>1d435d69-8dcb-4c80-b184-4014c4328372</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -606,7 +606,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="ccf3b563" class="cell" data-execution_count="6">
+<div id="1877ce16" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>eris_mason_gfa[eris_mason_gfa[<span class="st">"Name"</span>] <span class="op">==</span> <span class="st">"ISEc12"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
 <div>
@@ -643,14 +643,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">96</td>
 <td>contigs</td>
-<td>dc2f8c48-0e1d-4606-b646-bf25d5d94643</td>
+<td>5daa1ce1-d963-4c45-b9ab-db7124df216b</td>
 <td>mobile_element</td>
 <td>414211</td>
 <td>2</td>
 <td>2583</td>
 <td>-1</td>
 <td>False</td>
-<td>dc2f8c48-0e1d-4606-b646-bf25d5d94643</td>
+<td>5daa1ce1-d963-4c45-b9ab-db7124df216b</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -671,7 +671,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="f85740f0" class="cell" data-execution_count="7">
+<div id="d6d91799" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>eris_mason_gfa[eris_mason_gfa[<span class="st">"Name"</span>] <span class="op">==</span> <span class="st">"IS1397"</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
 <div>
@@ -708,14 +708,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">10</td>
 <td>contigs</td>
-<td>64ebff7f-375d-4e01-9473-6459f086d672</td>
+<td>89c2d67b-3a83-4d7c-bb79-6dc584055623</td>
 <td>mobile_element</td>
 <td>323485</td>
 <td>0</td>
 <td>223</td>
 <td>-1</td>
 <td>True</td>
-<td>64ebff7f-375d-4e01-9473-6459f086d672</td>
+<td>89c2d67b-3a83-4d7c-bb79-6dc584055623</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -732,14 +732,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td data-quarto-table-cell-role="th">15</td>
 <td>contigs</td>
-<td>974ca507-495a-4882-833e-4809d38ec23d</td>
+<td>45535d0f-4a71-48ee-b496-63cccc108c53</td>
 <td>mobile_element</td>
 <td>350841</td>
 <td>0</td>
 <td>300</td>
 <td>-1</td>
 <td>True</td>
-<td>974ca507-495a-4882-833e-4809d38ec23d</td>
+<td>45535d0f-4a71-48ee-b496-63cccc108c53</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -756,14 +756,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">25</td>
 <td>contigs</td>
-<td>f1dee776-f55d-4424-9387-0e6a3c2a9945</td>
+<td>5c3363cb-f3b6-4f5b-9370-e72352ab2785</td>
 <td>mobile_element</td>
 <td>384239</td>
 <td>0</td>
 <td>362</td>
 <td>-1</td>
 <td>True</td>
-<td>f1dee776-f55d-4424-9387-0e6a3c2a9945</td>
+<td>5c3363cb-f3b6-4f5b-9370-e72352ab2785</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -780,14 +780,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td data-quarto-table-cell-role="th">29</td>
 <td>contigs</td>
-<td>1fead65e-a6c4-4575-ad9e-11fde23a0d55</td>
+<td>e40368bf-ad83-44d5-b8d6-498b3c0f1f10</td>
 <td>mobile_element</td>
 <td>390831</td>
 <td>0</td>
 <td>223</td>
 <td>-1</td>
 <td>True</td>
-<td>1fead65e-a6c4-4575-ad9e-11fde23a0d55</td>
+<td>e40368bf-ad83-44d5-b8d6-498b3c0f1f10</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -804,14 +804,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td data-quarto-table-cell-role="th">77</td>
 <td>contigs</td>
-<td>fb2db20c-00b1-4798-8dc9-0e775792d73f</td>
+<td>d807a2f0-601a-4a2e-b850-2a7f3994723c</td>
 <td>mobile_element</td>
 <td>413147</td>
 <td>0</td>
 <td>300</td>
 <td>1</td>
 <td>True</td>
-<td>fb2db20c-00b1-4798-8dc9-0e775792d73f</td>
+<td>d807a2f0-601a-4a2e-b850-2a7f3994723c</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -828,14 +828,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="even">
 <td data-quarto-table-cell-role="th">101</td>
 <td>contigs</td>
-<td>4447f4c2-aec0-4d59-8a39-a06359acfe41</td>
+<td>3530f87a-2eb0-4389-a535-3d3825b5b7db</td>
 <td>mobile_element</td>
 <td>415522</td>
 <td>1</td>
 <td>830</td>
 <td>1</td>
 <td>True</td>
-<td>4447f4c2-aec0-4d59-8a39-a06359acfe41</td>
+<td>3530f87a-2eb0-4389-a535-3d3825b5b7db</td>
 <td>-</td>
 <td>...</td>
 <td>-</td>
@@ -869,7 +869,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="section-3">12-09-2025</h3>
 <section id="explore-the-is-fragmented-sequence-and-look-in-the-genome-graph" class="level4">
 <h4 class="anchored" data-anchor-id="explore-the-is-fragmented-sequence-and-look-in-the-genome-graph">Explore the IS fragmented sequence and look in the genome graph</h4>
-<div id="93ea1755" class="cell" data-execution_count="8">
+<div id="0a9db3df" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> eris.scan <span class="im">import</span> Scanner</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -877,11 +877,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> Scanner() <span class="im">as</span> scanner:</span>
 <span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    results <span class="op">=</span> <span class="bu">list</span>(scanner.scan(p))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="b97febe1" class="cell" data-execution_count="9">
+<div id="ae79f3ca" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> eris.io <span class="im">import</span> Genome</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>genome_graph <span class="op">=</span> Genome.as_assembly_graph(results[<span class="dv">0</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="6cc62536" class="cell" data-execution_count="10">
+<div id="721d4b84" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> eris.io <span class="im">import</span> SeqFile</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> eris.graph <span class="im">import</span> Edge</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -891,7 +891,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="bu">isinstance</span>(ed, Edge):</span>
 <span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    myedges.append(ed)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="80948de7" class="cell" data-execution_count="11">
+<div id="2106a5d7" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> eris.graph <span class="im">import</span> Graph</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>mygraph <span class="op">=</span> Graph(<span class="op">*</span>myedges, directed<span class="op">=</span><span class="va">True</span>)</span>
@@ -904,7 +904,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>612</code></pre>
 </div>
 </div>
-<div id="f02b5c26" class="cell" data-execution_count="12">
+<div id="ecd7830c" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"IS1397 graph looks like"</span>)</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(mygraph.adj[<span class="st">"1208211"</span>]) <span class="co"># in the middle, not identified as IS</span></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(mygraph.adj[<span class="st">"1015060"</span>])</span>
@@ -921,10 +921,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 {Edge(1216050 -&gt; 1208211 (w=111))}
 {Edge(1234872 -&gt; 1208211 (w=111))}
 {Edge(1241248 -&gt; 1216050 (w=111)), Edge(1241248 -&gt; 1244664 (w=111)), Edge(1241248 -&gt; 1234872 (w=111)), Edge(1241248 -&gt; 1244964 (w=111))}
-{Edge(1244160 -&gt; 1244458 (w=111)), Edge(1244160 -&gt; 1245026 (w=111))}</code></pre>
+{Edge(1244160 -&gt; 1245026 (w=111)), Edge(1244160 -&gt; 1244458 (w=111))}</code></pre>
 </div>
 </div>
-<div id="9d1f03ec" class="cell" data-execution_count="13">
+<div id="e302c8e2" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"ISEc52 graph looks like"</span>)</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(mygraph.adj[<span class="st">"1236636"</span>])</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(mygraph.adj[<span class="st">"1243586"</span>])</span>
@@ -934,7 +934,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(mygraph.adj[<span class="st">"238677"</span>]) <span class="co"># in the middle, not identified as IS</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>ISEc52 graph looks like
-{Edge(1236636 -&gt; 1245024 (w=111)), Edge(1236636 -&gt; 1245052 (w=111)), Edge(1236636 -&gt; 238677 (w=111))}
+{Edge(1236636 -&gt; 1245024 (w=111)), Edge(1236636 -&gt; 238677 (w=111)), Edge(1236636 -&gt; 1245052 (w=111))}
 {Edge(1243586 -&gt; 1245082 (w=111)), Edge(1243586 -&gt; 1245080 (w=111)), Edge(1243586 -&gt; 1206755 (w=111)), Edge(1243586 -&gt; 1244434 (w=111))}
 set()
 {Edge(1245080 -&gt; 238677 (w=111))}
@@ -985,7 +985,7 @@ set()</code></pre>
 <h3 class="anchored" data-anchor-id="section-4">13-09-2025</h3>
 <section id="test-on-art_modern-assembly-result" class="level5">
 <h5 class="anchored" data-anchor-id="test-on-art_modern-assembly-result">test on art_modern assembly result</h5>
-<div id="7f474fde" class="cell" data-execution_count="14">
+<div id="7cffc0e0" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> eris.scan <span class="im">import</span> Scanner</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> eris.io <span class="im">import</span> SeqFile</span>
@@ -1001,7 +1001,7 @@ set()</code></pre>
 <span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>graph_assembly <span class="op">=</span> SeqFile(<span class="st">"../../data/ecoli/assembly-simulated/shovill-outputs/contigs.gfa"</span>)</span>
 <span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>graph_assembly.close()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="db82c9ea" class="cell" data-execution_count="15">
+<div id="a53b640b" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collapse <span class="im">import</span> collapseis</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>is_eris <span class="op">=</span> collapseis(gfa_eris, graph_assembly)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1012,7 +1012,7 @@ Looks like the IS contigs graph is circular
 Looks like the IS contigs graph is circular</code></pre>
 </div>
 </div>
-<div id="c25e3729" class="cell" data-execution_count="16">
+<div id="cb2491aa" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>total_is <span class="op">=</span> <span class="dv">0</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> is_name, path_copies <span class="kw">in</span> is_eris.items():</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>is_name<span class="sc">}</span><span class="ss"> has </span><span class="sc">{</span>path_copies[<span class="dv">1</span>]<span class="sc">}</span><span class="ss"> copies with collapsed path: </span><span class="sc">{</span><span class="st">" -&gt; "</span><span class="sc">.</span>join(path_copies[<span class="dv">0</span>])<span class="sc">}</span><span class="ss">"</span>)</span>
@@ -1022,10 +1022,10 @@ Looks like the IS contigs graph is circular</code></pre>
 <div class="cell-output cell-output-stdout">
 <pre><code>IS1397 has 2 copies with collapsed path: 1241248 -&gt; 1234872 -&gt; 1208211 -&gt; 1208964 -&gt; 1244160
 ISEc23 has 3 copies with collapsed path: 1116087 -&gt; 1244700
-ISEc8 has 2 copies with collapsed path: 1236644 -&gt; 1235120 -&gt; 1125059
-IS1F has 2 copies with collapsed path: 1158833 -&gt; 1202947 -&gt; 1244706
-IS200C has 2 copies with collapsed path: 1169319 -&gt; 1244018
-IS1A has 3 copies with collapsed path: 1171599 -&gt; 1245138 -&gt; 1208153
+ISEc8 has 2 copies with collapsed path: 1236644 -&gt; 1235120 -&gt; 1234604
+IS1F has 2 copies with collapsed path: 1158833 -&gt; 1236482
+IS200C has 2 copies with collapsed path: 1169319 -&gt; 1221552
+IS1A has 3 copies with collapsed path: 1171599 -&gt; 1245136 -&gt; 1208153
 IS1X2 has 2 copies with collapsed path: 1202947
 IS600 has 2 copies with collapsed path: 1206755 -&gt; 1228204
 IS1541D has 2 copies with collapsed path: 1227142
@@ -1073,15 +1073,15 @@ IS1B has 1 copies with collapsed path: 1245136
 68</code></pre>
 </div>
 </div>
-<div id="0d9dd0ca" class="cell" data-execution_count="17">
+<div id="a004ede0" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="bu">dict</span>(is_eris)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="16">
 <pre><code>{'IS1397': (['1241248', '1234872', '1208211', '1208964', '1244160'], 2),
  'ISEc23': (['1116087', '1244700'], 3),
- 'ISEc8': (['1236644', '1235120', '1125059'], 2),
- 'IS1F': (['1158833', '1202947', '1244706'], 2),
- 'IS200C': (['1169319', '1244018'], 2),
- 'IS1A': (['1171599', '1245138', '1208153'], 3),
+ 'ISEc8': (['1236644', '1235120', '1234604'], 2),
+ 'IS1F': (['1158833', '1236482'], 2),
+ 'IS200C': (['1169319', '1221552'], 2),
+ 'IS1A': (['1171599', '1245136', '1208153'], 3),
  'IS1X2': (['1202947'], 2),
  'IS600': (['1206755', '1228204'], 2),
  'IS1541D': (['1227142'], 2),
@@ -1132,7 +1132,7 @@ IS1B has 1 copies with collapsed path: 1245136
 </section>
 <section id="test-on-mason-assembly-result" class="level5">
 <h5 class="anchored" data-anchor-id="test-on-mason-assembly-result">test on mason assembly result</h5>
-<div id="834b1ff7" class="cell" data-execution_count="18">
+<div id="261d73c4" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> eris.scan <span class="im">import</span> Scanner</span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> eris.io <span class="im">import</span> SeqFile</span>
@@ -1147,7 +1147,7 @@ IS1B has 1 copies with collapsed path: 1245136
 <span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>graph_assembly_mason <span class="op">=</span> SeqFile(<span class="st">"../../data/ecoli/assembly-simulated/shovills-mason/contigs.gfa"</span>)</span>
 <span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>graph_assembly_mason.close()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="0df9a2cd" class="cell" data-execution_count="19">
+<div id="59d67b40" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collapse <span class="im">import</span> collapseis</span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>is_mason_eris <span class="op">=</span> collapseis(gfa_mason_eris, graph_assembly_mason)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -1158,7 +1158,7 @@ Looks like the IS contigs graph is circular
 Looks like the IS contigs graph is circular</code></pre>
 </div>
 </div>
-<div id="d44be4c1" class="cell" data-execution_count="20">
+<div id="359e2366" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>total_is <span class="op">=</span> <span class="dv">0</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> is_name, path_copies <span class="kw">in</span> is_mason_eris.items():</span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>is_name<span class="sc">}</span><span class="ss"> has </span><span class="sc">{</span>path_copies[<span class="dv">1</span>]<span class="sc">}</span><span class="ss"> copies with collapsed path: </span><span class="sc">{</span><span class="st">" -&gt; "</span><span class="sc">.</span>join(path_copies[<span class="dv">0</span>])<span class="sc">}</span><span class="ss">"</span>)</span>
@@ -1169,13 +1169,13 @@ Looks like the IS contigs graph is circular</code></pre>
 <pre><code>ISEc8 has 1 copies with collapsed path: 413343
 IS1X2 has 2 copies with collapsed path: 232201
 IS1F has 2 copies with collapsed path: 269407 -&gt; 413377
-IS200C has 2 copies with collapsed path: 396963 -&gt; 306725
-IS1397 has 2 copies with collapsed path: 415522 -&gt; 350841 -&gt; 373033 -&gt; 390831 -&gt; 384239
+IS200C has 2 copies with collapsed path: 396963 -&gt; 394149
+IS1397 has 2 copies with collapsed path: 415522 -&gt; 413147 -&gt; 373033 -&gt; 390831 -&gt; 384239
 IS1541D has 2 copies with collapsed path: 344599
 ISEc23 has 3 copies with collapsed path: 357289 -&gt; 421120 -&gt; 411359
 IS600 has 2 copies with collapsed path: 411663 -&gt; 374961
 ISEc52 has 2 copies with collapsed path: 382003
-IS1A has 3 copies with collapsed path: 403013 -&gt; 414067 -&gt; 386075
+IS1A has 3 copies with collapsed path: 403013 -&gt; 407441 -&gt; 386075
 IS30 has 1 copies with collapsed path: 402155
 ISEc22 has 2 copies with collapsed path: 402753 -&gt; 413235
 IS1B has 1 copies with collapsed path: 407441
@@ -1224,11 +1224,11 @@ ISEc1 has 1 copies with collapsed path: 423301
 <h3 class="anchored" data-anchor-id="section-5">14-09-2025</h3>
 <section id="intersect-fraggenescanrs-result-with-gtf-ec958" class="level4">
 <h4 class="anchored" data-anchor-id="intersect-fraggenescanrs-result-with-gtf-ec958">Intersect FragGeneScanRs result with GTF EC958</h4>
-<div id="d413c69d" class="cell" data-execution_count="21">
+<div id="e484e6f0" class="cell" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Download GFF file for EC958</span></span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>wget https:<span class="op">//</span>ftp.ncbi.nlm.nih.gov<span class="op">/</span>genomes<span class="op">/</span><span class="bu">all</span><span class="op">/</span>GCF<span class="op">/</span><span class="dv">000</span><span class="op">/</span><span class="dv">285</span><span class="op">/</span><span class="dv">655</span><span class="op">/</span>GCF_000285655<span class="fl">.3</span><span class="er">_EC958</span>.v1<span class="op">/</span>GCF_000285655<span class="fl">.3</span><span class="er">_EC958</span>.v1_genomic.gff.gz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="e014577b" class="cell" data-execution_count="22">
+<div id="cb7ecaeb" class="cell" data-execution_count="22">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>bedtools sort <span class="op">-</span>i ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>EC958_FragGeneScanRs.gff <span class="op">&gt;</span> ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>EC958_FragGeneScanRs.<span class="bu">sorted</span>.gff</span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>bedtools sort <span class="op">-</span>i ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>EC958_Pyrodigal.gff <span class="op">&gt;</span> ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>EC958_pyrodigal_sorted.gff</span>
 <span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>bedtools sort <span class="op">-</span>i ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>GCF_000285655<span class="fl">.3</span><span class="er">_EC958</span>.v1_genomic.gff.gz <span class="op">&gt;</span> ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>EC958_genomic_sorted.gff</span>
@@ -1238,7 +1238,7 @@ ISEc1 has 1 copies with collapsed path: 423301
 <section id="true-positive" class="level4">
 <h4 class="anchored" data-anchor-id="true-positive">True Positive</h4>
 <p>Predicted CDS overalap with annotated CDS in EC958 GFF</p>
-<div id="018a75ef" class="cell" data-execution_count="23">
+<div id="55c2eba1" class="cell" data-execution_count="23">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># fraggenescan</span></span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>bedtools intersect <span class="op">-</span>a ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>EC958_FragGeneScanRs.<span class="bu">sorted</span>.gff <span class="op">-</span>b ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>EC958_genomic_sorted.cds.gff <span class="op">-</span>u <span class="op">|</span> wc <span class="op">-</span>l </span>
 <span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1253,7 +1253,7 @@ ISEc1 has 1 copies with collapsed path: 423301
 <section id="false-positive" class="level4">
 <h4 class="anchored" data-anchor-id="false-positive">False Positive</h4>
 <p>Predicted CDS do not overlap with any CDS in EC958 GFF</p>
-<div id="13ca7fa8" class="cell" data-execution_count="24">
+<div id="a019aace" class="cell" data-execution_count="24">
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># fraggenescan</span></span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>bedtools intersect <span class="op">-</span>a ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>EC958_FragGeneScanRs.<span class="bu">sorted</span>.gff <span class="op">-</span>b ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>EC958_genomic_sorted.cds.gff <span class="op">-</span>v <span class="op">|</span> wc <span class="op">-</span>l </span>
 <span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1268,7 +1268,7 @@ ISEc1 has 1 copies with collapsed path: 423301
 <section id="false-negative" class="level4">
 <h4 class="anchored" data-anchor-id="false-negative">False Negative</h4>
 <p>CDS entries in GFF do not overlap with predicted CDSs</p>
-<div id="991e97e3" class="cell" data-execution_count="25">
+<div id="7f085580" class="cell" data-execution_count="25">
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># fraggenescan</span></span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>bedtools intersect <span class="op">-</span>a ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>EC958_genomic_sorted.cds.gff <span class="op">-</span>b ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>EC958_FragGeneScanRs.<span class="bu">sorted</span>.gff <span class="op">-</span>v <span class="op">|</span> wc <span class="op">-</span>l</span>
 <span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1279,7 +1279,7 @@ ISEc1 has 1 copies with collapsed path: 423301
      198</code></pre>
 </div>
 </div>
-<div id="cda2d85a" class="cell" data-execution_count="26">
+<div id="a334e59f" class="cell" data-execution_count="26">
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>fgsan_tp <span class="op">=</span> <span class="dv">5089</span></span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>pyro_tp <span class="op">=</span> <span class="dv">4886</span></span>
 <span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a></span>
