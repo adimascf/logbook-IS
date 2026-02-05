@@ -233,9 +233,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>Curated each of IS in EC958 their potential effect on nearest CDS.</p>
+<p>Curated each of IS in EC958 their potential effect on nearest CDS. CDS appears after an IS.</p>
 <p>Calculate distribution of distance between IS and its downstream CDS (ecluding the overlap). We only calculate the distance when the features are on the same strand orientation.</p>
-<div id="d4c7a619" class="cell" data-execution_count="1">
+<div id="fa08d6b4" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>bedtools closest <span class="op">-</span>a ..<span class="op">/</span>..<span class="op">/</span>summer<span class="op">-</span>project<span class="op">/</span>GCF_000285655<span class="fl">.3</span><span class="er">_EC958</span>.v1<span class="op">/</span>ec958_genome_IS.<span class="bu">sorted</span>.bed <span class="op">-</span>b ..<span class="op">/</span>weekly<span class="op">-</span>logs<span class="op">/</span>only_cds.<span class="bu">sorted</span>.bed <span class="op">-</span>s <span class="op">-</span>iu <span class="op">-</span>io <span class="op">-</span>k <span class="dv">1</span> <span class="op">-</span>D a <span class="op">|</span> tee distance_cds_after_IS.txt <span class="op">|</span> head <span class="op">|</span> awk <span class="st">'{print $1,$2,$3,$4,$10,$NF}'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>NZ_HG941718.1 233727 236259 ISEc23_1 "EC958_RS01125"; 6298
@@ -250,7 +250,7 @@ NZ_HG941718.1 2103782 2104446 IS609_1 "EC958_RS10895"; 3058
 NZ_HG941718.1 2135365 2136797 IS1397_2 "EC958_RS11045"; 2347</code></pre>
 </div>
 </div>
-<div id="eb56297c" class="cell" data-execution_count="2">
+<div id="58d8f53e" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
@@ -276,7 +276,7 @@ NZ_HG941718.1 2135365 2136797 IS1397_2 "EC958_RS11045"; 2347</code></pre>
 </div>
 </div>
 <p>16 occurrences in where the distance between an IS element and the next CDS is less than or equal 150bp</p>
-<div id="2be6dcae" class="cell" data-execution_count="3">
+<div id="23595253" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>awk <span class="st">'{if($NF &lt;= 150) print}'</span> distance_cds_after_IS.txt <span class="op">|</span> awk <span class="st">'{if($NF&gt;=-150) print $1,$2,$3,$4,$10,$NF}'</span> <span class="op">-</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>NZ_HG941718.1 1365600 1366443 ISCfr4 "EC958_RS06940"; 76
@@ -298,7 +298,7 @@ NZ_HG941719.1 105455 106275 IS26 "EC958_RS26195"; 92</code></pre>
 </div>
 </div>
 <p>in the range less or equal than 150 bp, how many CDS appear before IS in the same strand?</p>
-<div id="5a1c798c" class="cell" data-execution_count="4">
+<div id="09b5d5f3" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>bedtools closest <span class="op">-</span>a ..<span class="op">/</span>..<span class="op">/</span>summer<span class="op">-</span>project<span class="op">/</span>GCF_000285655<span class="fl">.3</span><span class="er">_EC958</span>.v1<span class="op">/</span>ec958_genome_IS.<span class="bu">sorted</span>.bed <span class="op">-</span>b ..<span class="op">/</span>weekly<span class="op">-</span>logs<span class="op">/</span>only_cds.<span class="bu">sorted</span>.bed <span class="op">-</span>s <span class="op">-</span><span class="bu">id</span> <span class="op">-</span>io <span class="op">-</span>k <span class="dv">1</span> <span class="op">-</span>D a <span class="op">|</span> awk <span class="st">'{if($NF&gt;=-150) print $1,$2,$3,$4,$10,$NF}'</span> <span class="op">-</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>NZ_HG941718.1 1372287 1373517 ISEc24 "EC958_RS06975"; -56
@@ -326,29 +326,19 @@ NZ_HG941719.1 93932 94812 IS6100 "EC958_RS29565"; -60
 NZ_HG941719.1 102449 103269 IS26 "EC958_RS26180"; -8</code></pre>
 </div>
 </div>
-<div id="eebd668b" class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> eris.scan <span class="im">import</span> Scanner</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> Path(<span class="st">'../../summer-project/realfqs-shovill/assembly/'</span>)</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> Scanner() <span class="im">as</span> scanner:</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    results <span class="op">=</span> <span class="bu">list</span>(scanner.scan(<span class="op">*</span>p.iterdir()))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="6c700627" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>eris scan ..<span class="op">/</span>..<span class="op">/</span>summer<span class="op">-</span>project<span class="op">/</span>realfqs<span class="op">-</span>shovill<span class="op">/</span>assembly<span class="op">/</span>contigs.fa <span class="op">&gt;</span> real_assembly_data.tsv</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>illumina_fq_assembly <span class="op">=</span> pd.read_csv(<span class="st">"real_assembly_data.tsv"</span>, sep<span class="op">=</span><span class="st">"</span><span class="ch">\t</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="2e59b354" class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>eris scan ..<span class="op">/</span>..<span class="op">/</span>summer<span class="op">-</span>project<span class="op">/</span>realfqs<span class="op">-</span>shovill<span class="op">/</span>assembly<span class="op">/</span>contigs.fa <span class="op">&gt;</span> real_assembly_data.tsv</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>illumina_fq_assembly <span class="op">=</span> pd.read_csv(<span class="st">"real_assembly_data.tsv"</span>, sep<span class="op">=</span><span class="st">"</span><span class="ch">\t</span><span class="st">"</span>)</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># filter features by type (mobile elements) or by effect (if they have effect prediction result)</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>filtered_df <span class="op">=</span> illumina_fq_assembly[(illumina_fq_assembly[<span class="st">'Type'</span>] <span class="op">==</span> <span class="st">"mobile_element"</span>) <span class="op">|</span> (illumina_fq_assembly[<span class="st">'Element_effect'</span>] <span class="op">!=</span> <span class="st">"-"</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Let’s just check for ISCfr4</p>
+<div id="438525ed" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>elememnt <span class="op">=</span> illumina_fq_assembly[illumina_fq_assembly[<span class="st">'Name'</span>] <span class="op">==</span> <span class="st">"ISCfr4"</span>].get(<span class="st">"Element"</span>).to_string()</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>elememnt <span class="op">=</span> elememnt.split()[<span class="op">-</span><span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>check the only IS that close (less or equal than 150 bp) to the nearest CDS</p>
-<div id="30a9701f" class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>is_befor_cds <span class="op">=</span> [<span class="st">'ISEc24'</span>, <span class="st">'IS4'</span>, <span class="st">'ISEc12'</span>, <span class="st">'IS1397'</span>, <span class="st">'IS609'</span>, <span class="st">'IS200C'</span>, <span class="st">'IS200C'</span>, <span class="st">'ISEc12'</span>, <span class="st">'MITEEc1'</span>, <span class="st">'IS1A'</span>, <span class="st">'IS1203'</span>, <span class="st">'ISSd1'</span>, <span class="st">'IS2'</span>, <span class="st">'IS682'</span>, <span class="st">'IS609'</span>, <span class="st">'IS1F'</span>, <span class="st">'ISSen10'</span>, <span class="st">'IS21'</span>, <span class="st">'IS1F_2'</span>, <span class="st">'ISEc12_4'</span>, <span class="st">'IS26'</span>, <span class="st">'IS6100'</span>, <span class="st">'IS26'</span>]</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>is_befor_cds <span class="op">=</span> <span class="bu">set</span>(is_befor_cds)</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>element_list <span class="op">=</span> illumina_fq_assembly[illumina_fq_assembly[<span class="st">'Name'</span>].isin(is_befor_cds)][<span class="st">'Element'</span>].tolist()</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>element_close <span class="op">=</span> filtered_df[filtered_df[<span class="st">'Element'</span>].isin(element_list)]</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>element_close</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="1b01e1c5" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>IS_Cfr4 <span class="op">=</span> illumina_fq_assembly[illumina_fq_assembly[<span class="st">'Element'</span>] <span class="op">==</span> elememnt]</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>IS_Cfr4.loc[:, <span class="op">~</span>IS_Cfr4.columns.isin([<span class="st">'Family'</span>, <span class="st">'Group'</span>, <span class="st">'Synonyms'</span>, <span class="st">'Origin'</span>, <span class="st">'IR'</span>, <span class="st">'DR'</span>])]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="7">
 <div>
 
@@ -367,86 +357,66 @@ NZ_HG941719.1 102449 103269 IS26 "EC958_RS26180"; -8</code></pre>
 <th data-quarto-table-cell-role="th">Partial</th>
 <th data-quarto-table-cell-role="th">Element</th>
 <th data-quarto-table-cell-role="th">Element_distance</th>
-<th data-quarto-table-cell-role="th">...</th>
+<th data-quarto-table-cell-role="th">Element_location</th>
+<th data-quarto-table-cell-role="th">Element_strand</th>
 <th data-quarto-table-cell-role="th">Element_effect</th>
 <th data-quarto-table-cell-role="th">Percent_identity</th>
 <th data-quarto-table-cell-role="th">Percent_coverage</th>
 <th data-quarto-table-cell-role="th">Name</th>
-<th data-quarto-table-cell-role="th">Family</th>
-<th data-quarto-table-cell-role="th">Group</th>
-<th data-quarto-table-cell-role="th">Synonyms</th>
-<th data-quarto-table-cell-role="th">Origin</th>
-<th data-quarto-table-cell-role="th">IR</th>
-<th data-quarto-table-cell-role="th">DR</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">13</td>
+<td data-quarto-table-cell-role="th">21</td>
 <td>contigs</td>
-<td>contig00007_01638</td>
+<td>contig00010_02123</td>
 <td>CDS</td>
-<td>contig00007</td>
-<td>133397</td>
-<td>135122</td>
+<td>contig00010</td>
+<td>96812</td>
+<td>97181</td>
 <td>1</td>
 <td>False</td>
-<td>bb7f375d-299e-4d02-80be-20ce3d43d1fc</td>
-<td>96bp</td>
-<td>...</td>
+<td>f4d5e87e-ef51-435b-a76a-b0af79f83024</td>
+<td>109bp</td>
+<td>upstream</td>
+<td>same strand</td>
 <td>disrupted</td>
 <td>-</td>
 <td>-</td>
 <td>NaN</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">14</td>
+<td data-quarto-table-cell-role="th">22</td>
 <td>contigs</td>
-<td>bb7f375d-299e-4d02-80be-20ce3d43d1fc</td>
+<td>f4d5e87e-ef51-435b-a76a-b0af79f83024</td>
 <td>mobile_element</td>
-<td>contig00007</td>
-<td>135218</td>
-<td>136676</td>
+<td>contig00010</td>
+<td>97290</td>
+<td>97984</td>
 <td>1</td>
 <td>True</td>
-<td>bb7f375d-299e-4d02-80be-20ce3d43d1fc</td>
+<td>f4d5e87e-ef51-435b-a76a-b0af79f83024</td>
 <td>-</td>
-<td>...</td>
 <td>-</td>
-<td>97.87379972565158</td>
-<td>83.4096109839817</td>
-<td>IS609</td>
-<td>IS200/IS605</td>
-<td>IS605</td>
-<td>NaN</td>
-<td>Escherichia coli</td>
-<td>NaN</td>
-<td>NaN</td>
+<td>-</td>
+<td>-</td>
+<td>91.35446685878964</td>
+<td>55.38707102952913</td>
+<td>ISCfr4</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">17</td>
+<td data-quarto-table-cell-role="th">23</td>
 <td>contigs</td>
-<td>contig00007_01640</td>
-<td>CDS</td>
-<td>contig00007</td>
-<td>136755</td>
-<td>137634</td>
-<td>-1</td>
+<td>f4d5e87e-ef51-435b-a76a-b0af79f83024_promoter_1</td>
+<td>regulatory</td>
+<td>contig00010</td>
+<td>97353</td>
+<td>97381</td>
+<td>1</td>
 <td>False</td>
-<td>bb7f375d-299e-4d02-80be-20ce3d43d1fc</td>
-<td>79bp</td>
-<td>...</td>
-<td>disrupted</td>
+<td>f4d5e87e-ef51-435b-a76a-b0af79f83024</td>
 <td>-</td>
-<td>-</td>
-<td>NaN</td>
-<td>-</td>
+<td>inside</td>
 <td>-</td>
 <td>-</td>
 <td>-</td>
@@ -454,95 +424,136 @@ NZ_HG941719.1 102449 103269 IS26 "EC958_RS26180"; -8</code></pre>
 <td>-</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">18</td>
+<td data-quarto-table-cell-role="th">24</td>
 <td>contigs</td>
-<td>55e73577-2272-458d-b773-dba08fa89732</td>
+<td>contig00010_02124</td>
+<td>CDS</td>
+<td>contig00010</td>
+<td>97440</td>
+<td>98040</td>
+<td>1</td>
+<td>False</td>
+<td>f4d5e87e-ef51-435b-a76a-b0af79f83024</td>
+<td>-</td>
+<td>inside</td>
+<td>same strand</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>NaN</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">25</td>
+<td>contigs</td>
+<td>contig00010_02125</td>
+<td>CDS</td>
+<td>contig00010</td>
+<td>98177</td>
+<td>100835</td>
+<td>1</td>
+<td>False</td>
+<td>f4d5e87e-ef51-435b-a76a-b0af79f83024</td>
+<td>193bp</td>
+<td>downstream</td>
+<td>same strand</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>NaN</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>check for IS30</p>
+<div id="37b4a6bb" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>element <span class="op">=</span> illumina_fq_assembly[illumina_fq_assembly[<span class="st">'Name'</span>] <span class="op">==</span> <span class="st">"IS600"</span>].get(<span class="st">"Element"</span>).to_string()</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>elememnt <span class="op">=</span> elememnt.split()[<span class="op">-</span><span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="96d9af69" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>IS600 <span class="op">=</span> illumina_fq_assembly[illumina_fq_assembly[<span class="st">'Element'</span>] <span class="op">==</span> elememnt]</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>IS600.loc[:, <span class="op">~</span>IS600.columns.isin([<span class="st">'Family'</span>, <span class="st">'Group'</span>, <span class="st">'Synonyms'</span>, <span class="st">'Origin'</span>, <span class="st">'IR'</span>, <span class="st">'DR'</span>])]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="9">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Genome</th>
+<th data-quarto-table-cell-role="th">Feature</th>
+<th data-quarto-table-cell-role="th">Type</th>
+<th data-quarto-table-cell-role="th">Contig</th>
+<th data-quarto-table-cell-role="th">Start</th>
+<th data-quarto-table-cell-role="th">End</th>
+<th data-quarto-table-cell-role="th">Strand</th>
+<th data-quarto-table-cell-role="th">Partial</th>
+<th data-quarto-table-cell-role="th">Element</th>
+<th data-quarto-table-cell-role="th">Element_distance</th>
+<th data-quarto-table-cell-role="th">Element_location</th>
+<th data-quarto-table-cell-role="th">Element_strand</th>
+<th data-quarto-table-cell-role="th">Element_effect</th>
+<th data-quarto-table-cell-role="th">Percent_identity</th>
+<th data-quarto-table-cell-role="th">Percent_coverage</th>
+<th data-quarto-table-cell-role="th">Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">21</td>
+<td>contigs</td>
+<td>contig00010_02123</td>
+<td>CDS</td>
+<td>contig00010</td>
+<td>96812</td>
+<td>97181</td>
+<td>1</td>
+<td>False</td>
+<td>f4d5e87e-ef51-435b-a76a-b0af79f83024</td>
+<td>109bp</td>
+<td>upstream</td>
+<td>same strand</td>
+<td>disrupted</td>
+<td>-</td>
+<td>-</td>
+<td>NaN</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">22</td>
+<td>contigs</td>
+<td>f4d5e87e-ef51-435b-a76a-b0af79f83024</td>
 <td>mobile_element</td>
-<td>contig00009</td>
-<td>0</td>
-<td>518</td>
+<td>contig00010</td>
+<td>97290</td>
+<td>97984</td>
 <td>1</td>
 <td>True</td>
-<td>55e73577-2272-458d-b773-dba08fa89732</td>
+<td>f4d5e87e-ef51-435b-a76a-b0af79f83024</td>
 <td>-</td>
-<td>...</td>
 <td>-</td>
-<td>99.42084942084942</td>
-<td>67.44791666666666</td>
-<td>IS1F</td>
-<td>IS1</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>Escherichia coli</td>
-<td>20/23</td>
-<td>NaN</td>
+<td>-</td>
+<td>-</td>
+<td>91.35446685878964</td>
+<td>55.38707102952913</td>
+<td>ISCfr4</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">30</td>
+<td data-quarto-table-cell-role="th">23</td>
 <td>contigs</td>
-<td>c2cc3ef7-e833-44d5-af03-cae54473a6a8</td>
-<td>mobile_element</td>
+<td>f4d5e87e-ef51-435b-a76a-b0af79f83024_promoter_1</td>
+<td>regulatory</td>
 <td>contig00010</td>
-<td>103947</td>
-<td>105177</td>
-<td>-1</td>
+<td>97353</td>
+<td>97381</td>
+<td>1</td>
 <td>False</td>
-<td>c2cc3ef7-e833-44d5-af03-cae54473a6a8</td>
+<td>f4d5e87e-ef51-435b-a76a-b0af79f83024</td>
 <td>-</td>
-<td>...</td>
-<td>-</td>
-<td>100.0</td>
-<td>100.0</td>
-<td>ISEc24</td>
-<td>IS3</td>
-<td>IS51</td>
-<td>NaN</td>
-<td>Escherichia coli</td>
-<td>20/25</td>
-<td>NaN</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">33</td>
-<td>contigs</td>
-<td>contig00010_02134</td>
-<td>CDS</td>
-<td>contig00010</td>
-<td>105228</td>
-<td>106404</td>
-<td>-1</td>
-<td>False</td>
-<td>c2cc3ef7-e833-44d5-af03-cae54473a6a8</td>
-<td>51bp</td>
-<td>...</td>
-<td>disrupted</td>
-<td>-</td>
-<td>-</td>
-<td>NaN</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">34</td>
-<td>contigs</td>
-<td>contig00010_02176</td>
-<td>CDS</td>
-<td>contig00010</td>
-<td>148991</td>
-<td>150197</td>
-<td>-1</td>
-<td>False</td>
-<td>fd018ba7-27fb-4269-ba1e-7b53a4829a05</td>
-<td>-899bp</td>
-<td>...</td>
-<td>disrupted</td>
-<td>-</td>
-<td>-</td>
-<td>NaN</td>
-<td>-</td>
+<td>inside</td>
 <td>-</td>
 <td>-</td>
 <td>-</td>
@@ -550,198 +561,224 @@ NZ_HG941719.1 102449 103269 IS26 "EC958_RS26180"; -8</code></pre>
 <td>-</td>
 </tr>
 <tr class="even">
-<td data-quarto-table-cell-role="th">35</td>
+<td data-quarto-table-cell-role="th">24</td>
 <td>contigs</td>
-<td>fd018ba7-27fb-4269-ba1e-7b53a4829a05</td>
+<td>contig00010_02124</td>
+<td>CDS</td>
+<td>contig00010</td>
+<td>97440</td>
+<td>98040</td>
+<td>1</td>
+<td>False</td>
+<td>f4d5e87e-ef51-435b-a76a-b0af79f83024</td>
+<td>-</td>
+<td>inside</td>
+<td>same strand</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>NaN</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">25</td>
+<td>contigs</td>
+<td>contig00010_02125</td>
+<td>CDS</td>
+<td>contig00010</td>
+<td>98177</td>
+<td>100835</td>
+<td>1</td>
+<td>False</td>
+<td>f4d5e87e-ef51-435b-a76a-b0af79f83024</td>
+<td>193bp</td>
+<td>downstream</td>
+<td>same strand</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>NaN</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>check for ISEc12</p>
+<div id="e112b84f" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>element <span class="op">=</span> illumina_fq_assembly[illumina_fq_assembly[<span class="st">'Name'</span>] <span class="op">==</span> <span class="st">"ISEc12"</span>].get(<span class="st">"Element"</span>).to_string()</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>elememnt <span class="op">=</span> elememnt.split()[<span class="op">-</span><span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="9d72b52d" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>ISEc12 <span class="op">=</span> illumina_fq_assembly[illumina_fq_assembly[<span class="st">'Element'</span>] <span class="op">==</span> elememnt]</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>ISEc12.loc[:, <span class="op">~</span>IS600.columns.isin([<span class="st">'Family'</span>, <span class="st">'Group'</span>, <span class="st">'Synonyms'</span>, <span class="st">'Origin'</span>, <span class="st">'IR'</span>, <span class="st">'DR'</span>])]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="11">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Genome</th>
+<th data-quarto-table-cell-role="th">Feature</th>
+<th data-quarto-table-cell-role="th">Type</th>
+<th data-quarto-table-cell-role="th">Contig</th>
+<th data-quarto-table-cell-role="th">Start</th>
+<th data-quarto-table-cell-role="th">End</th>
+<th data-quarto-table-cell-role="th">Strand</th>
+<th data-quarto-table-cell-role="th">Partial</th>
+<th data-quarto-table-cell-role="th">Element</th>
+<th data-quarto-table-cell-role="th">Element_distance</th>
+<th data-quarto-table-cell-role="th">Element_location</th>
+<th data-quarto-table-cell-role="th">Element_strand</th>
+<th data-quarto-table-cell-role="th">Element_effect</th>
+<th data-quarto-table-cell-role="th">Percent_identity</th>
+<th data-quarto-table-cell-role="th">Percent_coverage</th>
+<th data-quarto-table-cell-role="th">Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">21</td>
+<td>contigs</td>
+<td>contig00010_02123</td>
+<td>CDS</td>
+<td>contig00010</td>
+<td>96812</td>
+<td>97181</td>
+<td>1</td>
+<td>False</td>
+<td>f4d5e87e-ef51-435b-a76a-b0af79f83024</td>
+<td>109bp</td>
+<td>upstream</td>
+<td>same strand</td>
+<td>disrupted</td>
+<td>-</td>
+<td>-</td>
+<td>NaN</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">22</td>
+<td>contigs</td>
+<td>f4d5e87e-ef51-435b-a76a-b0af79f83024</td>
 <td>mobile_element</td>
 <td>contig00010</td>
-<td>149298</td>
-<td>150281</td>
-<td>-1</td>
+<td>97290</td>
+<td>97984</td>
+<td>1</td>
 <td>True</td>
-<td>fd018ba7-27fb-4269-ba1e-7b53a4829a05</td>
+<td>f4d5e87e-ef51-435b-a76a-b0af79f83024</td>
 <td>-</td>
-<td>...</td>
 <td>-</td>
-<td>98.06714140386572</td>
-<td>68.93408134642355</td>
-<td>IS4</td>
-<td>IS4</td>
-<td>IS4</td>
-<td>NaN</td>
-<td>Escherichia coli</td>
-<td>16/18</td>
-<td>11</td>
+<td>-</td>
+<td>-</td>
+<td>91.35446685878964</td>
+<td>55.38707102952913</td>
+<td>ISCfr4</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">36</td>
+<td data-quarto-table-cell-role="th">23</td>
 <td>contigs</td>
-<td>contig00010_02177</td>
+<td>f4d5e87e-ef51-435b-a76a-b0af79f83024_promoter_1</td>
+<td>regulatory</td>
+<td>contig00010</td>
+<td>97353</td>
+<td>97381</td>
+<td>1</td>
+<td>False</td>
+<td>f4d5e87e-ef51-435b-a76a-b0af79f83024</td>
+<td>-</td>
+<td>inside</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">24</td>
+<td>contigs</td>
+<td>contig00010_02124</td>
 <td>CDS</td>
 <td>contig00010</td>
-<td>150321</td>
-<td>152997</td>
-<td>-1</td>
+<td>97440</td>
+<td>98040</td>
+<td>1</td>
 <td>False</td>
-<td>fd018ba7-27fb-4269-ba1e-7b53a4829a05</td>
-<td>40bp</td>
-<td>...</td>
-<td>disrupted</td>
+<td>f4d5e87e-ef51-435b-a76a-b0af79f83024</td>
+<td>-</td>
+<td>inside</td>
+<td>same strand</td>
+<td>-</td>
 <td>-</td>
 <td>-</td>
 <td>NaN</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">37</td>
-<td>contigs</td>
-<td>contig00011_02334</td>
-<td>CDS</td>
-<td>contig00011</td>
-<td>141054</td>
-<td>143316</td>
-<td>-1</td>
-<td>False</td>
-<td>1e704677-f0a7-4a99-88a4-774cdc7d6d96</td>
-<td>56bp</td>
-<td>...</td>
-<td>disrupted</td>
-<td>-</td>
-<td>-</td>
-<td>NaN</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">38</td>
+<td data-quarto-table-cell-role="th">25</td>
 <td>contigs</td>
-<td>1e704677-f0a7-4a99-88a4-774cdc7d6d96</td>
-<td>mobile_element</td>
-<td>contig00011</td>
-<td>143372</td>
-<td>143495</td>
+<td>contig00010_02125</td>
+<td>CDS</td>
+<td>contig00010</td>
+<td>98177</td>
+<td>100835</td>
 <td>1</td>
 <td>False</td>
-<td>1e704677-f0a7-4a99-88a4-774cdc7d6d96</td>
+<td>f4d5e87e-ef51-435b-a76a-b0af79f83024</td>
+<td>193bp</td>
+<td>downstream</td>
+<td>same strand</td>
 <td>-</td>
-<td>...</td>
 <td>-</td>
-<td>96.7479674796748</td>
-<td>100.0</td>
-<td>MITEEc1</td>
-<td>IS630</td>
+<td>-</td>
 <td>NaN</td>
-<td>NaN</td>
-<td>Escherichia coli</td>
-<td>18/23</td>
-<td>2</td>
 </tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">39</td>
-<td>contigs</td>
-<td>contig00011_02335</td>
-<td>CDS</td>
-<td>contig00011</td>
-<td>143498</td>
-<td>144932</td>
-<td>-1</td>
-<td>False</td>
-<td>1e704677-f0a7-4a99-88a4-774cdc7d6d96</td>
-<td>3bp</td>
-<td>...</td>
-<td>disrupted</td>
-<td>-</td>
-<td>-</td>
-<td>NaN</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>check for IS200C</p>
+<div id="05126953" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>elememnt <span class="op">=</span> illumina_fq_assembly[illumina_fq_assembly[<span class="st">'Name'</span>] <span class="op">==</span> <span class="st">"IS200C"</span>].get(<span class="st">"Element"</span>).to_string()</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>element1 <span class="op">=</span> elememnt.split(<span class="st">'</span><span class="ch">\n</span><span class="st">'</span>)[<span class="dv">0</span>].split()[<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>element2 <span class="op">=</span> elememnt.split(<span class="st">'</span><span class="ch">\n</span><span class="st">'</span>)[<span class="op">-</span><span class="dv">1</span>].split()[<span class="op">-</span><span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="279455d6" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>IS200C <span class="op">=</span> illumina_fq_assembly[(illumina_fq_assembly[<span class="st">'Element'</span>] <span class="op">==</span> element1) <span class="op">|</span> (illumina_fq_assembly[<span class="st">'Element'</span>] <span class="op">==</span> element2)]</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>IS200C.loc[:, <span class="op">~</span>IS200C.columns.isin([<span class="st">'Family'</span>, <span class="st">'Group'</span>, <span class="st">'Synonyms'</span>, <span class="st">'Origin'</span>, <span class="st">'IR'</span>, <span class="st">'DR'</span>])]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="13">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Genome</th>
+<th data-quarto-table-cell-role="th">Feature</th>
+<th data-quarto-table-cell-role="th">Type</th>
+<th data-quarto-table-cell-role="th">Contig</th>
+<th data-quarto-table-cell-role="th">Start</th>
+<th data-quarto-table-cell-role="th">End</th>
+<th data-quarto-table-cell-role="th">Strand</th>
+<th data-quarto-table-cell-role="th">Partial</th>
+<th data-quarto-table-cell-role="th">Element</th>
+<th data-quarto-table-cell-role="th">Element_distance</th>
+<th data-quarto-table-cell-role="th">Element_location</th>
+<th data-quarto-table-cell-role="th">Element_strand</th>
+<th data-quarto-table-cell-role="th">Element_effect</th>
+<th data-quarto-table-cell-role="th">Percent_identity</th>
+<th data-quarto-table-cell-role="th">Percent_coverage</th>
+<th data-quarto-table-cell-role="th">Name</th>
 </tr>
+</thead>
+<tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">43</td>
-<td>contigs</td>
-<td>contig00013_02522</td>
-<td>CDS</td>
-<td>contig00013</td>
-<td>14661</td>
-<td>15825</td>
-<td>1</td>
-<td>False</td>
-<td>c9a22ee5-5838-47a9-baa0-94bf05f9671d</td>
-<td>63bp</td>
-<td>...</td>
-<td>disrupted</td>
-<td>-</td>
-<td>-</td>
-<td>NaN</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">44</td>
-<td>contigs</td>
-<td>c9a22ee5-5838-47a9-baa0-94bf05f9671d</td>
-<td>mobile_element</td>
-<td>contig00013</td>
-<td>15888</td>
-<td>16010</td>
-<td>1</td>
-<td>False</td>
-<td>c9a22ee5-5838-47a9-baa0-94bf05f9671d</td>
-<td>-</td>
-<td>...</td>
-<td>-</td>
-<td>98.3739837398374</td>
-<td>100.0</td>
-<td>MITEEc1</td>
-<td>IS630</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>Escherichia coli</td>
-<td>18/23</td>
-<td>2</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">45</td>
-<td>contigs</td>
-<td>contig00013_02523</td>
-<td>CDS</td>
-<td>contig00013</td>
-<td>16038</td>
-<td>17118</td>
-<td>1</td>
-<td>False</td>
-<td>c9a22ee5-5838-47a9-baa0-94bf05f9671d</td>
-<td>28bp</td>
-<td>...</td>
-<td>disrupted</td>
-<td>-</td>
-<td>-</td>
-<td>NaN</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-</tr>
-<tr class="even">
 <td data-quarto-table-cell-role="th">52</td>
 <td>contigs</td>
 <td>contig00021_03545</td>
@@ -751,42 +788,51 @@ NZ_HG941719.1 102449 103269 IS26 "EC958_RS26180"; -8</code></pre>
 <td>99159</td>
 <td>1</td>
 <td>False</td>
-<td>118c0df1-d690-484c-ad90-ac195532ae31</td>
+<td>12c7d4a0-104c-42b1-a2c5-66d2079049cd</td>
 <td>75bp</td>
-<td>...</td>
+<td>upstream</td>
+<td>same strand</td>
 <td>disrupted</td>
 <td>-</td>
 <td>-</td>
 <td>NaN</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td data-quarto-table-cell-role="th">53</td>
 <td>contigs</td>
-<td>118c0df1-d690-484c-ad90-ac195532ae31</td>
+<td>12c7d4a0-104c-42b1-a2c5-66d2079049cd</td>
 <td>mobile_element</td>
 <td>contig00021</td>
 <td>99234</td>
 <td>99943</td>
 <td>1</td>
 <td>False</td>
-<td>118c0df1-d690-484c-ad90-ac195532ae31</td>
+<td>12c7d4a0-104c-42b1-a2c5-66d2079049cd</td>
 <td>-</td>
-<td>...</td>
+<td>-</td>
+<td>-</td>
 <td>-</td>
 <td>99.71791255289139</td>
 <td>100.0</td>
 <td>IS200C</td>
-<td>IS200/IS605</td>
-<td>IS200</td>
-<td>NaN</td>
-<td>Escherichia coli</td>
-<td>NaN</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">54</td>
+<td>contigs</td>
+<td>contig00021_03546</td>
+<td>CDS</td>
+<td>contig00021</td>
+<td>99375</td>
+<td>99834</td>
+<td>1</td>
+<td>False</td>
+<td>12c7d4a0-104c-42b1-a2c5-66d2079049cd</td>
+<td>-</td>
+<td>inside</td>
+<td>same strand</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
 <td>NaN</td>
 </tr>
 <tr class="even">
@@ -799,189 +845,16 @@ NZ_HG941719.1 102449 103269 IS26 "EC958_RS26180"; -8</code></pre>
 <td>101372</td>
 <td>-1</td>
 <td>False</td>
-<td>118c0df1-d690-484c-ad90-ac195532ae31</td>
+<td>12c7d4a0-104c-42b1-a2c5-66d2079049cd</td>
 <td>1bp</td>
-<td>...</td>
+<td>downstream</td>
+<td>opposite strand</td>
 <td>disrupted</td>
 <td>-</td>
 <td>-</td>
 <td>NaN</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
 </tr>
 <tr class="odd">
-<td data-quarto-table-cell-role="th">87</td>
-<td>contigs</td>
-<td>contig00032_04325</td>
-<td>CDS</td>
-<td>contig00032</td>
-<td>5507</td>
-<td>6002</td>
-<td>1</td>
-<td>False</td>
-<td>bafdf555-19c6-4dcb-b3b2-bb44d11263f8</td>
-<td>-15bp</td>
-<td>...</td>
-<td>disrupted</td>
-<td>-</td>
-<td>-</td>
-<td>NaN</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">88</td>
-<td>contigs</td>
-<td>bafdf555-19c6-4dcb-b3b2-bb44d11263f8</td>
-<td>mobile_element</td>
-<td>contig00032</td>
-<td>5987</td>
-<td>8118</td>
-<td>1</td>
-<td>False</td>
-<td>bafdf555-19c6-4dcb-b3b2-bb44d11263f8</td>
-<td>-</td>
-<td>...</td>
-<td>-</td>
-<td>99.6715157203191</td>
-<td>100.0</td>
-<td>IS21</td>
-<td>IS21</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>Pseudomonas aeruginosa</td>
-<td>30/42</td>
-<td>4</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">94</td>
-<td>contigs</td>
-<td>contig00032_04328</td>
-<td>CDS</td>
-<td>contig00032</td>
-<td>8128</td>
-<td>8524</td>
-<td>1</td>
-<td>False</td>
-<td>bafdf555-19c6-4dcb-b3b2-bb44d11263f8</td>
-<td>10bp</td>
-<td>...</td>
-<td>upregulated</td>
-<td>-</td>
-<td>-</td>
-<td>NaN</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">106</td>
-<td>contigs</td>
-<td>5ef59f19-256c-4f1c-9915-89153ee5038e</td>
-<td>mobile_element</td>
-<td>contig00032</td>
-<td>22855</td>
-<td>23548</td>
-<td>-1</td>
-<td>True</td>
-<td>5ef59f19-256c-4f1c-9915-89153ee5038e</td>
-<td>-</td>
-<td>...</td>
-<td>-</td>
-<td>84.47293447293447</td>
-<td>27.714172917489144</td>
-<td>IS682</td>
-<td>IS66</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>Escherichia coli</td>
-<td>20/24</td>
-<td>8</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">113</td>
-<td>contigs</td>
-<td>a86ca529-6006-427b-bc2f-74dd8057f3f3</td>
-<td>mobile_element</td>
-<td>contig00032</td>
-<td>26632</td>
-<td>27145</td>
-<td>1</td>
-<td>True</td>
-<td>a86ca529-6006-427b-bc2f-74dd8057f3f3</td>
-<td>-</td>
-<td>...</td>
-<td>-</td>
-<td>79.26356589147287</td>
-<td>38.622754491017965</td>
-<td>ISSen10</td>
-<td>IS3</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>Salmonella enterica</td>
-<td>22/27</td>
-<td>NaN</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">115</td>
-<td>contigs</td>
-<td>contig00032_04348</td>
-<td>CDS</td>
-<td>contig00032</td>
-<td>27068</td>
-<td>27569</td>
-<td>1</td>
-<td>False</td>
-<td>a86ca529-6006-427b-bc2f-74dd8057f3f3</td>
-<td>-77bp</td>
-<td>...</td>
-<td>disrupted</td>
-<td>-</td>
-<td>-</td>
-<td>NaN</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">118</td>
-<td>contigs</td>
-<td>4220c5b5-f112-4b2c-8232-1dbd467eaf54</td>
-<td>mobile_element</td>
-<td>contig00034</td>
-<td>1330</td>
-<td>2098</td>
-<td>-1</td>
-<td>False</td>
-<td>4220c5b5-f112-4b2c-8232-1dbd467eaf54</td>
-<td>-</td>
-<td>...</td>
-<td>-</td>
-<td>99.73958333333334</td>
-<td>100.0</td>
-<td>IS1A</td>
-<td>IS1</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>Escherichia coli</td>
-<td>18/23</td>
-<td>9</td>
-</tr>
-<tr class="even">
 <td data-quarto-table-cell-role="th">127</td>
 <td>contigs</td>
 <td>contig00037_04521</td>
@@ -991,42 +864,51 @@ NZ_HG941719.1 102449 103269 IS26 "EC958_RS26180"; -8</code></pre>
 <td>5685</td>
 <td>-1</td>
 <td>False</td>
-<td>f34d8e2d-70d3-4beb-b54b-252d7d1a6f07</td>
+<td>d0ab94a1-3d2f-4152-9548-14f1724955a4</td>
 <td>11bp</td>
-<td>...</td>
+<td>downstream</td>
+<td>same strand</td>
 <td>disrupted</td>
 <td>-</td>
 <td>-</td>
 <td>NaN</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td data-quarto-table-cell-role="th">128</td>
 <td>contigs</td>
-<td>f34d8e2d-70d3-4beb-b54b-252d7d1a6f07</td>
+<td>d0ab94a1-3d2f-4152-9548-14f1724955a4</td>
 <td>mobile_element</td>
 <td>contig00037</td>
 <td>5696</td>
 <td>6405</td>
 <td>-1</td>
 <td>False</td>
-<td>f34d8e2d-70d3-4beb-b54b-252d7d1a6f07</td>
+<td>d0ab94a1-3d2f-4152-9548-14f1724955a4</td>
 <td>-</td>
-<td>...</td>
+<td>-</td>
+<td>-</td>
 <td>-</td>
 <td>99.15373765867419</td>
 <td>100.0</td>
 <td>IS200C</td>
-<td>IS200/IS605</td>
-<td>IS200</td>
-<td>NaN</td>
-<td>Escherichia coli</td>
-<td>NaN</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">129</td>
+<td>contigs</td>
+<td>contig00037_04522</td>
+<td>CDS</td>
+<td>contig00037</td>
+<td>5805</td>
+<td>6264</td>
+<td>-1</td>
+<td>False</td>
+<td>d0ab94a1-3d2f-4152-9548-14f1724955a4</td>
+<td>-</td>
+<td>inside</td>
+<td>same strand</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
 <td>NaN</td>
 </tr>
 <tr class="even">
@@ -1039,336 +921,136 @@ NZ_HG941719.1 102449 103269 IS26 "EC958_RS26180"; -8</code></pre>
 <td>7060</td>
 <td>-1</td>
 <td>False</td>
-<td>f34d8e2d-70d3-4beb-b54b-252d7d1a6f07</td>
+<td>d0ab94a1-3d2f-4152-9548-14f1724955a4</td>
 <td>55bp</td>
-<td>...</td>
+<td>upstream</td>
+<td>same strand</td>
 <td>disrupted</td>
 <td>-</td>
 <td>-</td>
-<td>NaN</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">132</td>
-<td>contigs</td>
-<td>8a7ee8ed-4314-4bb1-b6d3-97c89d18a874</td>
-<td>mobile_element</td>
-<td>contig00038</td>
-<td>2293</td>
-<td>3603</td>
-<td>-1</td>
-<td>False</td>
-<td>8a7ee8ed-4314-4bb1-b6d3-97c89d18a874</td>
-<td>-</td>
-<td>...</td>
-<td>-</td>
-<td>95.95419847328245</td>
-<td>100.0</td>
-<td>IS1203</td>
-<td>IS3</td>
-<td>IS51</td>
-<td>NaN</td>
-<td>Escherichia coli</td>
-<td>22/25</td>
-<td>NaN</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">147</td>
-<td>contigs</td>
-<td>contig00040_04585</td>
-<td>CDS</td>
-<td>contig00040</td>
-<td>2</td>
-<td>107</td>
-<td>-1</td>
-<td>True</td>
-<td>cbbaadff-6b45-4d6a-9f03-5e3e19bde88b</td>
-<td>-2bp</td>
-<td>...</td>
-<td>upregulated</td>
-<td>-</td>
-<td>-</td>
-<td>NaN</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">149</td>
-<td>contigs</td>
-<td>cbbaadff-6b45-4d6a-9f03-5e3e19bde88b</td>
-<td>mobile_element</td>
-<td>contig00040</td>
-<td>105</td>
-<td>2096</td>
-<td>-1</td>
-<td>True</td>
-<td>cbbaadff-6b45-4d6a-9f03-5e3e19bde88b</td>
-<td>-</td>
-<td>...</td>
-<td>-</td>
-<td>97.23756906077348</td>
-<td>78.60244769048559</td>
-<td>IS682</td>
-<td>IS66</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>Escherichia coli</td>
-<td>20/24</td>
-<td>8</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">154</td>
-<td>contigs</td>
-<td>contig00040_04597</td>
-<td>CDS</td>
-<td>contig00040</td>
-<td>10582</td>
-<td>11569</td>
-<td>1</td>
-<td>False</td>
-<td>eb2099dd-1ed1-4c72-9895-278171492bfc</td>
-<td>60bp</td>
-<td>...</td>
-<td>disrupted</td>
-<td>-</td>
-<td>-</td>
-<td>NaN</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">155</td>
-<td>contigs</td>
-<td>eb2099dd-1ed1-4c72-9895-278171492bfc</td>
-<td>mobile_element</td>
-<td>contig00040</td>
-<td>11629</td>
-<td>12960</td>
-<td>1</td>
-<td>False</td>
-<td>eb2099dd-1ed1-4c72-9895-278171492bfc</td>
-<td>-</td>
-<td>...</td>
-<td>-</td>
-<td>95.56724267468068</td>
-<td>100.0</td>
-<td>IS2</td>
-<td>IS3</td>
-<td>IS2</td>
-<td>NaN</td>
-<td>Escherichia coli</td>
-<td>32/41</td>
-<td>5</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">170</td>
-<td>contigs</td>
-<td>bdef75b5-0001-456a-9f1d-e9adc2121bc3</td>
-<td>mobile_element</td>
-<td>contig00043</td>
-<td>7039</td>
-<td>7919</td>
-<td>1</td>
-<td>False</td>
-<td>bdef75b5-0001-456a-9f1d-e9adc2121bc3</td>
-<td>-</td>
-<td>...</td>
-<td>-</td>
-<td>100.0</td>
-<td>100.0</td>
-<td>IS6100</td>
-<td>IS6</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>Mycobacterium fortuitum</td>
-<td>14</td>
-<td>NaN</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">189</td>
-<td>contigs</td>
-<td>884ce526-8c62-48ff-8a76-c37d91c523bb</td>
-<td>mobile_element</td>
-<td>contig00071</td>
-<td>2</td>
-<td>2583</td>
-<td>-1</td>
-<td>False</td>
-<td>884ce526-8c62-48ff-8a76-c37d91c523bb</td>
-<td>-</td>
-<td>...</td>
-<td>-</td>
-<td>99.96125532739248</td>
-<td>100.0</td>
-<td>ISEc12</td>
-<td>IS21</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>Escherichia coli</td>
-<td>20/24</td>
-<td>5</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">206</td>
-<td>contigs</td>
-<td>d9d222a7-4dce-4b13-9b58-77ed7d799ccb</td>
-<td>mobile_element</td>
-<td>contig00085</td>
-<td>0</td>
-<td>894</td>
-<td>1</td>
-<td>True</td>
-<td>d9d222a7-4dce-4b13-9b58-77ed7d799ccb</td>
-<td>-</td>
-<td>...</td>
-<td>-</td>
-<td>99.77678571428571</td>
-<td>70.7740916271722</td>
-<td>ISSd1</td>
-<td>IS3</td>
-<td>IS3</td>
-<td>NaN</td>
-<td>Shigella dysenteriae</td>
-<td>19/27</td>
-<td>NaN</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">208</td>
-<td>contigs</td>
-<td>469b2341-a3b3-4973-99a0-fb918063794b</td>
-<td>mobile_element</td>
-<td>contig00086</td>
-<td>0</td>
-<td>829</td>
-<td>-1</td>
-<td>True</td>
-<td>469b2341-a3b3-4973-99a0-fb918063794b</td>
-<td>-</td>
-<td>...</td>
-<td>-</td>
-<td>99.75874547647769</td>
-<td>57.891061452513966</td>
-<td>IS1397</td>
-<td>IS3</td>
-<td>IS150</td>
-<td>NaN</td>
-<td>Escherichia coli</td>
-<td>20/25</td>
-<td>4</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">212</td>
-<td>contigs</td>
-<td>60a227e3-2192-4e96-a6f4-a6dc16834cc1</td>
-<td>mobile_element</td>
-<td>contig00093</td>
-<td>0</td>
-<td>551</td>
-<td>-1</td>
-<td>True</td>
-<td>60a227e3-2192-4e96-a6f4-a6dc16834cc1</td>
-<td>-</td>
-<td>...</td>
-<td>-</td>
-<td>100.0</td>
-<td>67.19512195121952</td>
-<td>IS26</td>
-<td>IS6</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>Proteus vulgaris</td>
-<td>14</td>
-<td>8</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">221</td>
-<td>contigs</td>
-<td>3c273239-e521-42cf-8a12-d1b9c2025134</td>
-<td>mobile_element</td>
-<td>contig00105</td>
-<td>0</td>
-<td>383</td>
-<td>-1</td>
-<td>True</td>
-<td>3c273239-e521-42cf-8a12-d1b9c2025134</td>
-<td>-</td>
-<td>...</td>
-<td>-</td>
-<td>99.21671018276761</td>
-<td>26.74581005586592</td>
-<td>IS1397</td>
-<td>IS3</td>
-<td>IS150</td>
-<td>NaN</td>
-<td>Escherichia coli</td>
-<td>20/25</td>
-<td>4</td>
-</tr>
-<tr class="even">
-<td data-quarto-table-cell-role="th">225</td>
-<td>contigs</td>
-<td>6582b437-fee1-411b-aabd-708a9056d74e</td>
-<td>mobile_element</td>
-<td>contig00110</td>
-<td>0</td>
-<td>362</td>
-<td>1</td>
-<td>True</td>
-<td>6582b437-fee1-411b-aabd-708a9056d74e</td>
-<td>-</td>
-<td>...</td>
-<td>-</td>
-<td>99.17127071823204</td>
-<td>25.27932960893855</td>
-<td>IS1397</td>
-<td>IS3</td>
-<td>IS150</td>
-<td>NaN</td>
-<td>Escherichia coli</td>
-<td>20/25</td>
-<td>4</td>
-</tr>
-<tr class="odd">
-<td data-quarto-table-cell-role="th">227</td>
-<td>contigs</td>
-<td>a4f27927-960f-4a37-8794-f1a6c63880cf</td>
-<td>mobile_element</td>
-<td>contig00116</td>
-<td>0</td>
-<td>321</td>
-<td>1</td>
-<td>True</td>
-<td>a4f27927-960f-4a37-8794-f1a6c63880cf</td>
-<td>-</td>
-<td>...</td>
-<td>-</td>
-<td>99.37694704049844</td>
-<td>41.796875</td>
-<td>IS1F</td>
-<td>IS1</td>
-<td>NaN</td>
-<td>NaN</td>
-<td>Escherichia coli</td>
-<td>20/23</td>
 <td>NaN</td>
 </tr>
 </tbody>
 </table>
 
-<p>41 rows × 22 columns</p>
+</div>
+</div>
+</div>
+<p>again, check IS21</p>
+<div id="c03b8a4c" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>illumina_fq_assembly[illumina_fq_assembly[<span class="st">'Name'</span>] <span class="op">==</span> <span class="st">"IS21"</span>].get(<span class="st">"Element"</span>).to_string()</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>elememnt <span class="op">=</span> elememnt.split()[<span class="op">-</span><span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="f11b5c5a" class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>IS21 <span class="op">=</span> illumina_fq_assembly[illumina_fq_assembly[<span class="st">'Element'</span>] <span class="op">==</span> elememnt]</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>IS21.loc[:, <span class="op">~</span>IS21.columns.isin([<span class="st">'Family'</span>, <span class="st">'Group'</span>, <span class="st">'Synonyms'</span>, <span class="st">'Origin'</span>, <span class="st">'IR'</span>, <span class="st">'DR'</span>])]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="15">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Genome</th>
+<th data-quarto-table-cell-role="th">Feature</th>
+<th data-quarto-table-cell-role="th">Type</th>
+<th data-quarto-table-cell-role="th">Contig</th>
+<th data-quarto-table-cell-role="th">Start</th>
+<th data-quarto-table-cell-role="th">End</th>
+<th data-quarto-table-cell-role="th">Strand</th>
+<th data-quarto-table-cell-role="th">Partial</th>
+<th data-quarto-table-cell-role="th">Element</th>
+<th data-quarto-table-cell-role="th">Element_distance</th>
+<th data-quarto-table-cell-role="th">Element_location</th>
+<th data-quarto-table-cell-role="th">Element_strand</th>
+<th data-quarto-table-cell-role="th">Element_effect</th>
+<th data-quarto-table-cell-role="th">Percent_identity</th>
+<th data-quarto-table-cell-role="th">Percent_coverage</th>
+<th data-quarto-table-cell-role="th">Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">127</td>
+<td>contigs</td>
+<td>contig00037_04521</td>
+<td>CDS</td>
+<td>contig00037</td>
+<td>3306</td>
+<td>5685</td>
+<td>-1</td>
+<td>False</td>
+<td>d0ab94a1-3d2f-4152-9548-14f1724955a4</td>
+<td>11bp</td>
+<td>downstream</td>
+<td>same strand</td>
+<td>disrupted</td>
+<td>-</td>
+<td>-</td>
+<td>NaN</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">128</td>
+<td>contigs</td>
+<td>d0ab94a1-3d2f-4152-9548-14f1724955a4</td>
+<td>mobile_element</td>
+<td>contig00037</td>
+<td>5696</td>
+<td>6405</td>
+<td>-1</td>
+<td>False</td>
+<td>d0ab94a1-3d2f-4152-9548-14f1724955a4</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>99.15373765867419</td>
+<td>100.0</td>
+<td>IS200C</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">129</td>
+<td>contigs</td>
+<td>contig00037_04522</td>
+<td>CDS</td>
+<td>contig00037</td>
+<td>5805</td>
+<td>6264</td>
+<td>-1</td>
+<td>False</td>
+<td>d0ab94a1-3d2f-4152-9548-14f1724955a4</td>
+<td>-</td>
+<td>inside</td>
+<td>same strand</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>NaN</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">130</td>
+<td>contigs</td>
+<td>contig00037_04523</td>
+<td>CDS</td>
+<td>contig00037</td>
+<td>6460</td>
+<td>7060</td>
+<td>-1</td>
+<td>False</td>
+<td>d0ab94a1-3d2f-4152-9548-14f1724955a4</td>
+<td>55bp</td>
+<td>upstream</td>
+<td>same strand</td>
+<td>disrupted</td>
+<td>-</td>
+<td>-</td>
+<td>NaN</td>
+</tr>
+</tbody>
+</table>
+
 </div>
 </div>
 </div>
