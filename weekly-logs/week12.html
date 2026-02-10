@@ -455,7 +455,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="made-comparison-isfinder-against-isosdb-week-11" class="level3">
 <h3 class="anchored" data-anchor-id="made-comparison-isfinder-against-isosdb-week-11">Made comparison ISfinder against ISOSDB (week 11)</h3>
-<div id="eb5d1c64" class="cell" data-execution_count="1">
+<div id="031f69f8" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -488,7 +488,7 @@ Clusters only ISfinder: 2483</code></pre>
 <li>Most misassignments of element_location are caused by overcalling of IS elements by Eris, rather than incorrect interpretation of true insertions.</li>
 </ul>
 <p><strong>using clustering approach</strong></p>
-<div id="3fc4c802" class="cell" data-execution_count="2">
+<div id="7a66b3fe" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -515,7 +515,7 @@ Clusters only predicted: 118</code></pre>
 <section id="check-the-is-names-and-is-their-copies---the-simple-one" class="level4">
 <h4 class="anchored" data-anchor-id="check-the-is-names-and-is-their-copies---the-simple-one">Check The IS names and is their copies - the simple one</h4>
 <p><strong>This is how I calculate the TP, FN, FP:</strong></p>
-<div id="98bfc7b8" class="cell" data-execution_count="3">
+<div id="f3065a6a" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collections <span class="im">import</span> defaultdict</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> calculate_is_metrics(truth_is_copies: <span class="bu">dict</span>[<span class="bu">str</span>, <span class="bu">int</span>],</span>
@@ -571,7 +571,7 @@ Clusters only predicted: 118</code></pre>
 </div>
 <section id="ground-truth-is-annotation" class="level5">
 <h5 class="anchored" data-anchor-id="ground-truth-is-annotation">Ground truth IS annotation</h5>
-<div id="1a55f8e8" class="cell" data-execution_count="4">
+<div id="cac9fef8" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>is_counts_gff <span class="op">=</span> {}</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"../../data/ecoli/ec958_IS.reannotated.sorted.bed"</span>) <span class="im">as</span> output:</span>
@@ -587,7 +587,7 @@ Clusters only predicted: 118</code></pre>
 </section>
 <section id="complete-chromosome" class="level5">
 <h5 class="anchored" data-anchor-id="complete-chromosome">Complete chromosome</h5>
-<div id="cc1244c4" class="cell" data-execution_count="5">
+<div id="0766c948" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>is_counts_chr <span class="op">=</span> {}</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"eris-outputs/chromosome_fasta.tsv"</span>) <span class="im">as</span> output:</span>
@@ -601,7 +601,7 @@ Clusters only predicted: 118</code></pre>
 <span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span>:</span>
 <span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>                is_counts_chr[row[<span class="dv">15</span>]] <span class="op">+=</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="fe364b43" class="cell" data-execution_count="6">
+<div id="94a834a5" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>chromosome_metrics <span class="op">=</span> calculate_is_metrics(is_counts_gff, is_counts_chr)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>result_all, chrom_metrics <span class="op">=</span> chromosome_metrics</span>
@@ -633,7 +633,7 @@ F1-Score: 0.84</code></pre>
 </section>
 <section id="draft-assembly" class="level5">
 <h5 class="anchored" data-anchor-id="draft-assembly">Draft assembly</h5>
-<div id="60ddfcb3" class="cell" data-execution_count="7">
+<div id="ff41dc9f" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>is_counts_gfa <span class="op">=</span> {}</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"eris-outputs/eris_gfa_shovill_sim.tsv"</span>) <span class="im">as</span> output:</span>
@@ -647,7 +647,7 @@ F1-Score: 0.84</code></pre>
 <span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span>:</span>
 <span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>                is_counts_gfa[row[<span class="dv">15</span>]] <span class="op">+=</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="99eb74b3" class="cell" data-execution_count="8">
+<div id="56c6bd2f" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>draft_assembly_metrics <span class="op">=</span> calculate_is_metrics(is_counts_gff, is_counts_gfa)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>result_all, draft_metrics <span class="op">=</span> draft_assembly_metrics</span>
@@ -679,7 +679,7 @@ F1-Score: 0.65</code></pre>
 </section>
 <section id="draft-assembly-with-graph-collapsing" class="level5">
 <h5 class="anchored" data-anchor-id="draft-assembly-with-graph-collapsing">Draft assembly with graph collapsing</h5>
-<div id="471a48ca" class="cell" data-execution_count="9">
+<div id="808278de" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> eris.scan <span class="im">import</span> Scanner</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> eris.io <span class="im">import</span> SeqFile</span>
@@ -709,7 +709,7 @@ Looks like the IS contigs graph is circular
 Looks like the IS contigs graph is circular</code></pre>
 </div>
 </div>
-<div id="77d62b62" class="cell" data-execution_count="10">
+<div id="a24949a1" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>draft_assembly_collapsed_metrics <span class="op">=</span> calculate_is_metrics(is_counts_gff, is_counts_gfa_collapsed)</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>result_all, collapse_metrics <span class="op">=</span> draft_assembly_collapsed_metrics</span>
@@ -742,7 +742,7 @@ F1-Score: 0.79</code></pre>
 <section id="isescan-in-chromosome" class="level5">
 <h5 class="anchored" data-anchor-id="isescan-in-chromosome">Isescan in chromosome</h5>
 <p>Because we don’t get IS name from <code>isescan</code>, I extracted the sequence and blast them into ISfinder database to get IS name. Note: I don’t include novel IS element detected by <code>isescan</code> in the calculation.</p>
-<div id="6e79c5bc" class="cell" data-execution_count="11">
+<div id="354fb7e2" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get the fasta generated by isescan to have sequence identifiers by their IS cluster</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>awk <span class="st">'/^&gt;/{print "&gt;" $2; next} </span><span class="sc">{print}</span><span class="st">'</span> ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>isescan<span class="op">-</span>outputs<span class="op">/</span>chromosome<span class="op">/</span>EC958.fasta.<span class="kw">is</span>.fna <span class="op">&gt;</span> ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>isescan<span class="op">-</span>outputs<span class="op">/</span>chromosome<span class="op">/</span>EC958.fasta.<span class="kw">is</span>.cluster.fna</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -752,7 +752,7 @@ F1-Score: 0.79</code></pre>
 <pre><code>Warning: [blastn] Examining 5 or more matches is recommended</code></pre>
 </div>
 </div>
-<div id="5c59c29e" class="cell" data-execution_count="12">
+<div id="9c230229" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>isescan_blast_chrom <span class="op">=</span> {}</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"EC958_blast_isescan_ISfinder.txt"</span>) <span class="im">as</span> blast:</span>
@@ -770,7 +770,7 @@ F1-Score: 0.79</code></pre>
 <pre><code>{'ISEc23': 4, 'ISSen3': 1, 'ISEc24': 1, 'IS4': 2, 'ISEc12': 4, 'ISEc1': 1, 'IS1397': 2, 'IS609': 3, 'IS200C': 2, 'ISEc38': 1, 'ISEc20': 1, 'IS100kyp': 2, 'IS1R': 1, 'IS1A': 2, 'IS1203': 1, 'ISKox3': 1, 'ISSd1': 2, 'ISEch14': 1, 'ISEc45': 1, 'IS2': 1, 'ISEc22': 1, 'ISKpn42': 1, 'ISEc10': 1, 'ISEc52': 3, 'IS1F': 2, 'IS629': 3, 'ISEc43': 1, 'ISEc49': 3, 'ISCro1': 1, 'IS21': 1, 'ISEc13': 1, 'ISLad1': 1, 'ISEcp1': 1, 'IS5': 1, 'ISEc8': 3, 'ISEc53': 1}</code></pre>
 </div>
 </div>
-<div id="3142734e" class="cell" data-execution_count="13">
+<div id="26d66d49" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>isescan_chrom <span class="op">=</span> calculate_is_metrics(is_counts_gff, isescan_blast_chrom)</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>result_all, isescan_chrom_metrics <span class="op">=</span> isescan_chrom</span>
@@ -802,7 +802,7 @@ F1-Score: 0.72</code></pre>
 </section>
 <section id="isescan-in-draft-assembly" class="level5">
 <h5 class="anchored" data-anchor-id="isescan-in-draft-assembly">Isescan in draft assembly</h5>
-<div id="1948146b" class="cell" data-execution_count="14">
+<div id="e81307b0" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>awk <span class="st">'/^&gt;/{print "&gt;" $2; next} </span><span class="sc">{print}</span><span class="st">'</span> ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>isescan<span class="op">-</span>outputs<span class="op">/</span>shovill<span class="op">-</span>outputs<span class="op">/</span>contigs.fa.<span class="kw">is</span>.fna <span class="op">&gt;</span> ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>isescan<span class="op">-</span>outputs<span class="op">/</span>shovill<span class="op">-</span>outputs<span class="op">/</span>contigs.fa.<span class="kw">is</span>.cluster.fna</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>blastn <span class="op">-</span>query ..<span class="op">/</span>..<span class="op">/</span>data<span class="op">/</span>ecoli<span class="op">/</span>isescan<span class="op">-</span>outputs<span class="op">/</span>shovill<span class="op">-</span>outputs<span class="op">/</span>contigs.fa.<span class="kw">is</span>.cluster.fna <span class="op">-</span>db ..<span class="op">/</span>..<span class="op">/</span>eris<span class="op">/</span>src<span class="op">/</span>eris<span class="op">/</span>data<span class="op">/</span>IS.fna <span class="op">-</span>outfmt <span class="dv">6</span> <span class="op">-</span>evalue <span class="fl">1e-3</span> <span class="op">-</span>max_target_seqs <span class="dv">1</span> <span class="op">-</span>out shovill_blast_isescan_ISfinder.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -810,7 +810,7 @@ F1-Score: 0.72</code></pre>
 <pre><code>Warning: [blastn] Examining 5 or more matches is recommended</code></pre>
 </div>
 </div>
-<div id="26b279dc" class="cell" data-execution_count="15">
+<div id="b5193595" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>isescan_blast_shovill <span class="op">=</span> {}</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"shovill_blast_isescan_ISfinder.txt"</span>) <span class="im">as</span> blast:</span>
@@ -823,7 +823,7 @@ F1-Score: 0.72</code></pre>
 <span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
 <span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>            isescan_blast_shovill[isfinder_name] <span class="op">+=</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="daab4d4b" class="cell" data-execution_count="16">
+<div id="05dda825" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>isescan_shovill <span class="op">=</span> calculate_is_metrics(is_counts_gff, isescan_blast_shovill)</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>result_all, isescan_shovill_metrics <span class="op">=</span> isescan_shovill</span>
@@ -855,7 +855,7 @@ F1-Score: 0.50</code></pre>
 </section>
 <section id="lets-make-pretty-graph" class="level5">
 <h5 class="anchored" data-anchor-id="lets-make-pretty-graph">Let’s make pretty graph</h5>
-<div id="c31046e7" class="cell" data-execution_count="17">
+<div id="edc4ac66" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>library(tidyverse)</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>library(ggplot2)</span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>library(patchwork)</span>
@@ -938,7 +938,7 @@ F1-Score: 0.50</code></pre>
 <p>Extract the whole contigs that consist of IS element inside, and map them in to reference genome. Then we can extract the coordinate.. then we can intersect tehm with the annotation!</p>
 <p>But when we map them, we will find multiple mapping for the same extracted seqeunce, right?</p>
 <p>For coriousity, just wanted to check the connected nodes are indeed overlap</p>
-<div id="3a729850" class="cell" data-execution_count="18">
+<div id="fe32a99f" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> eris.io <span class="im">import</span> SeqFile</span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> eris.seq <span class="im">import</span> Record</span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -949,7 +949,7 @@ F1-Score: 0.50</code></pre>
 <span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> <span class="bu">isinstance</span>(entry, Record):</span>
 <span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>    nodes_seq[entry.<span class="bu">id</span>] <span class="op">=</span> entry.seq</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="ae201d68" class="cell" data-execution_count="19">
+<div id="ebe4d414" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> utilities <span class="im">import</span> hamming_distance, reverse_complement</span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>suffix <span class="op">=</span> reverse_complement(<span class="bu">str</span>(nodes_seq[<span class="st">"1241248"</span>]))[<span class="op">-</span><span class="dv">111</span>:]</span>
@@ -963,7 +963,7 @@ F1-Score: 0.50</code></pre>
 </div>
 <p>Yes, they are overlap</p>
 <p>check hamming distance at nodes from branching point, how much they are different?</p>
-<div id="1897efe4" class="cell" data-execution_count="20">
+<div id="fd7024ea" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>node_1 <span class="op">=</span> reverse_complement(nodes_seq[<span class="st">"1234872"</span>])</span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>node_2 <span class="op">=</span> reverse_complement(nodes_seq[<span class="st">"1216050"</span>])</span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a></span>
